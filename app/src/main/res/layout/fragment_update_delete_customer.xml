@@ -51,15 +51,6 @@
                 android:textColor="@color/black"/>
 
             <!-- Customer Name -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:text="@string/name_of_contractor"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:textColor="@color/black" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,11 +80,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_contractor_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Cell Number -->
@@ -138,6 +124,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Contractor Details -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:text="@string/name_of_contractor"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textColor="@color/black"/>
 
             <!-- Contractor Name -->
             <com.google.android.material.textfield.TextInputLayout
@@ -148,6 +142,10 @@
                 app:boxStrokeWidth="1dp"
                 app:hintTextColor="@color/black">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_contractor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Contractor Cell Number -->
