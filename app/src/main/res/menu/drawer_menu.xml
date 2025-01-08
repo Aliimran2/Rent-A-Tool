@@ -6,7 +6,6 @@
 
     <group>
 
-
         <item
             android:id="@+id/stockFragment"
             android:icon="@drawable/tools_icon"
@@ -14,7 +13,7 @@
 
         <item
             android:icon="@drawable/customer_icon"
-            android:id="@+id/showCustomerFragment"
+            android:id="@+id/customersListFragment"
             android:title="@string/customers" />
     </group>
 
@@ -22,8 +21,9 @@
     <item
         android:id="@+id/nav_divider"
         android:enabled="true"
+        android:title=""
 
-        android:title="____________________" />
+        />
 
 
     <group>
@@ -41,8 +41,7 @@
 
     <item
         android:enabled="true"
-
-        android:title="@string/divider_line" />
+        android:title="" />
 
 
     <group>

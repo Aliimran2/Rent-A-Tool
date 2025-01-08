@@ -4,9 +4,11 @@
     tools:showIn="navigation_view">
 
     <item
+        android:id="@+id/stockFragment"
         android:icon="@drawable/tools_icon"
         android:title="@string/stock" />
     <item
+        android:id="@+id/customersListFragment"
         android:icon="@drawable/customer_icon"
         android:title="@string/customers" />
 </menu>
