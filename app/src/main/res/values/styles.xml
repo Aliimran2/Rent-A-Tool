@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="search_bar_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:queryHint">Search by name or CNIC</item>
+        <item name="android:iconifiedByDefault">false</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="handle_style">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@drawable/handle_bar_background</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="search_title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/colorPrimary
+        </item>
+    </style>
+
+
+    <style name="material_card_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:radius">24dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="titleTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/dmsansbold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+
+</resources>

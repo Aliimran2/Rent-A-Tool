@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    android:padding="@dimen/spacing_medium"
+    android:layout_gravity="bottom"
+    android:elevation="@dimen/cardview_default_elevation">
+
+    <!-- Handle bar for dragging -->
+    <View style="@style/handle_style" />
+
+    <!-- Title or Header -->
+    <TextView
+        android:id="@+id/bottom_sheet_title"
+        android:text="Search Customer"
+        android:gravity="center"
+        style="@style/search_title_style" />
+
+    <!-- Rounded SearchView with shadow -->
+    <com.google.android.material.card.MaterialCardView
+        app:cardBackgroundColor="@color/on_primary"
+        style="@style/material_card_style">
+
+        <SearchView
+            android:id="@+id/search_view"
+            style="@style/search_bar_style" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- RecyclerView with custom dividers -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</LinearLayout>

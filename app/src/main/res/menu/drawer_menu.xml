@@ -1,0 +1,66 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <!-- Top Level Menu Items -->
+
+
+    <group>
+
+
+        <item
+            android:id="@+id/stockFragment"
+            android:icon="@drawable/tools_icon"
+            android:title="@string/stock" />
+
+        <item
+            android:icon="@drawable/customer_icon"
+            android:id="@+id/showCustomerFragment"
+            android:title="@string/customers" />
+    </group>
+
+    <!-- Divider -->
+    <item
+        android:id="@+id/nav_divider"
+        android:enabled="true"
+
+        android:title="____________________" />
+
+
+    <group>
+        <item
+            android:id="@+id/addCustomerFragment"
+            android:title="@string/add_new_customer" />
+
+
+        <item
+            android:id="@+id/addToolFragment"
+            android:title="@string/add_new_tool" />
+
+
+    </group>
+
+    <item
+        android:enabled="true"
+
+        android:title="@string/divider_line" />
+
+
+    <group>
+
+        <item
+            android:icon="@drawable/about_icon"
+            android:id="@+id/aboutApp"
+            android:title="@string/about" />
+
+    </group>
+
+
+
+
+
+
+
+
+
+
+</menu>
