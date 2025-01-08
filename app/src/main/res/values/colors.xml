@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<!--    <color name="colorPrimary">#FFFFFF</color>-->
+<!--    <color name="colorPrimaryDark">#FFFFFF</color>-->
+<!--    <color name="colorAccent">#613EEA</color>-->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_dark">#333131</color>
+
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#EDE7F6</color>
+    <color name="on_primary_container">#1A00AA</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#03DAC5</color>
+    <color name="on_secondary">#000000</color>
+    <color name="secondary_container">#C6F7F1</color>
+    <color name="on_secondary_container">#002F2A</color>
+
+<!--    temp-->
+    <color name="accentColor">#936BA9</color>
+
+
+
+    <!-- Background and Surface Colors -->
+    <color name="background">#F6F6F6</color>
+    <color name="on_background">#121212</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#121212</color>
+
+    <color name="transparent">#00000000</color>
+
+
+    <!-- Error Colors -->
+    <color name="error">#B00020</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#FCD8DF</color>
+    <color name="on_error_container">#370617</color>
 </resources>

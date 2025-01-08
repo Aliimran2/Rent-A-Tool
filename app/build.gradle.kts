@@ -77,15 +77,17 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0") // Assumed latest stable version
     ksp("com.github.bumptech.glide:compiler:4.16.0")
 
-//    // WorkManager
+    // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.10.0") // Assumed latest stable version
 
-//    // Coroutines
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3") // Assumed latest stable version
 
 
     //hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    implementation ("de.hdodenhof:circleimageview:3.1.0") // CircleImageView library
 
 }
