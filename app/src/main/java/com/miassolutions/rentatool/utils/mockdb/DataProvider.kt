@@ -7,6 +7,7 @@ import com.miassolutions.rentatool.data.model.Tool
 
 object DataProvider {
 
+
     // Sample tools
     val tools = listOf(
         Tool(
@@ -59,6 +60,7 @@ object DataProvider {
 
     // Sample rental details
     val rentalDetails = mutableListOf<RentalDetail>()
+
 
     /**
      * Simulates renting tools by a customer.
