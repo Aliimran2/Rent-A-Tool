@@ -19,7 +19,7 @@
 
         <!-- Tool Name TextView -->
         <TextView
-            android:id="@+id/toolNameTv"
+            android:id="@+id/tv_tool_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,12 +28,12 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/toolsCB"
+            app:layout_constraintStart_toEndOf="@+id/cb_tool"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Available Quantity TextInputLayout -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/available"
+            android:id="@+id/inputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/availableEt"
+                android:id="@+id/et_quantity_selected"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:hint="@string/quantity"
@@ -56,7 +56,7 @@
 
         <!-- CheckBox -->
         <CheckBox
-            android:id="@+id/toolsCB"
+            android:id="@+id/cb_tool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
