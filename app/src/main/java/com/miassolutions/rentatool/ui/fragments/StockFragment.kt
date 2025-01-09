@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.viewmodels
+package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
 import android.view.View
