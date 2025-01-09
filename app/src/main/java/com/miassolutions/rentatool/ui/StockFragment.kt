@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentStockBinding
-import com.miassolutions.rentatool.helper.NavigationAnimation
-import com.miassolutions.rentatool.helper.getNavOptions
+import com.miassolutions.rentatool.utils.helper.NavigationAnimation
+import com.miassolutions.rentatool.utils.helper.getNavOptions
 
 class StockFragment: Fragment(R.layout.fragment_stock) {
 

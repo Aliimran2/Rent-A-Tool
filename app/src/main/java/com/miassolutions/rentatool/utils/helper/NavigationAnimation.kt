@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.helper
+package com.miassolutions.rentatool.utils.helper
 
 import androidx.navigation.NavOptions
 import com.miassolutions.rentatool.R
