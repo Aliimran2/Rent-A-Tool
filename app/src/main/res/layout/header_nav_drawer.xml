@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:orientation="vertical"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@drawable/header_bg"
-    >
+    android:background="@drawable/header_bg">
 
 
 
@@ -32,17 +30,18 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/farhan_sarfraz"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:fontFamily="@font/calibri"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <!-- User Email -->
     <TextView
-        android:id="@+id/navHeaderEmail"
+        android:id="@+id/nav_header_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ahamd_rent_a_tool"
-        android:textColor="#ffffff"
+        android:text="@string/ahmad_rent_a_tool"
+        android:textColor="@color/white"
         android:textSize="14sp"
         />
 

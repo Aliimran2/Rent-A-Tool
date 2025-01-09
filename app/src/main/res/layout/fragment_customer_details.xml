@@ -35,7 +35,7 @@
         android:id="@+id/tvCustomerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="John Doe"
+        tools:text="@string/muhammad_imran"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -68,16 +68,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CNIC"
+                android:text="@string/cnic_no"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvCnicNo"
+                android:id="@+id/tv_cnic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12345-6789012-3"
+                tools:text="12345-6789012-3"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
 
@@ -85,16 +85,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cell No"
+                android:text="@string/customer_phone"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvCellNo"
+                android:id="@+id/tv_customer_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+123456789"
+                tools:text="+123456789"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
 
@@ -102,79 +102,79 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Place of Construction"
-                android:textStyle="bold"
+                android:text="@string/construction_place"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvPlace"
+                android:id="@+id/tv_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="123 Main Street"
+                tools:text="123 Main Street"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contractor"
+                android:text="@string/contractor_name"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvContractorName"
+                android:id="@+id/tv_contractor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jane Smith, +987654321"
+                tools:text="@string/ali_hussain"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contractor Phone"
+                android:text="@string/contractor_phone"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvContractorCell"
+                android:id="@+id/tv_contractor_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jane Smith, +987654321"
+                tools:text="123456789"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Owner Name"
+                android:text="@string/owner_name"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvOwnerName"
+                android:id="@+id/tv_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jane Smith, +987654321"
+                tools:text="@string/afnan_mumtaz"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Owner Phone"
+                android:text="@string/owner_phone"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvOwnerCellNo"
+                android:id="@+id/tv_owner_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jane Smith, +987654321"
+                tools:text="987654321"
                 android:textColor="@color/gray_dark"
                 android:layout_marginBottom="12dp" />
         </LinearLayout>

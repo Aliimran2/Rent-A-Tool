@@ -14,10 +14,9 @@
 
         <!-- Profile Image -->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/navHeaderImage"
+            android:id="@+id/iv_customer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
             android:src="@drawable/place_holder_image"
             app:civ_border_color="@android:color/white"
@@ -25,7 +24,7 @@
             />
 
         <TextView
-            android:id="@+id/customerName"
+            android:id="@+id/tv_customerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -36,7 +35,7 @@
             tools:text="Muhammad Imran" />
 
         <TextView
-            android:id="@+id/cnicNumber"
+            android:id="@+id/tv_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
