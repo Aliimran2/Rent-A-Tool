@@ -13,6 +13,6 @@ data class Tool(
     val name: String,
     val rentPerDay: Double,
     val totalStock: Int,
-    val availableStock: Int,
-    val rentedQuantity: Int
+    var availableStock: Int,
+    var rentedQuantity: Int
 )
