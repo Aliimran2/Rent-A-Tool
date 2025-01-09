@@ -30,8 +30,20 @@
     <string name="customers">Customers</string>
     <string name="about">About</string>
     <string name="saved_in_db">Data saved in database successfully</string>
-    <string name="divider_line">____________________</string>
     <string name="select_tools_and_enter_quantity">Select Tools and Enter Quantity</string>
     <string name="confirm_selection">Confirm Selection</string>
     <string name="customer_details">Customer Details</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="view_receipt">View Receipt</string>
+    <string name="share_receipt">Share Receipt</string>
+    <string name="receipt_generated">Receipt generated successfully</string>
+    <string name="tools">Tools</string>
+    <string name="rentals">Rentals</string>
+    <string name="add_tool">Add Tool</string>
+    <string name="tool_name">Tool Name</string>
+    <string name="description">Description</string>
+    <string name="total_quantity">Total Quantity</string>
+    <string name="rent_per_day">Rent per Day</string>
+    <string name="save">Save</string>
+    <string name="available">Available:</string>
 </resources>

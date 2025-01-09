@@ -25,7 +25,7 @@ class StockFragment: Fragment(R.layout.fragment_stock) {
 //            .setPopExitAnim(R.anim.slide_out_right) // Pop Exit animation
 //            .build()
 
-        val options = getNavOptions(NavigationAnimation.ANIMATION1)
+        val options = getNavOptions(NavigationAnimation.ZOOM_IN)
 
         binding.rentButton.setOnClickListener {
 
