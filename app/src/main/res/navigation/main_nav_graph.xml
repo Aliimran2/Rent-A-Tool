@@ -61,5 +61,5 @@
         android:id="@+id/updateDeleteCustomerFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
-        tools:layout="@layout/fragment_update_delete_customer" />
+        tools:layout="@layout/fragment_update_customer" />
 </navigation>

@@ -123,7 +123,7 @@
         android:id="@+id/submitBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Save Tool"
+        android:text="@string/save_tool"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/rent_price_input_layout"
