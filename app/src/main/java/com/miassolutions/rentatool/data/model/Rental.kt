@@ -17,7 +17,6 @@ data class Rental(
     @PrimaryKey(autoGenerate = true)
     val rentalId : Long,
     val customerId: Long,
-    val toolId : Long,
     val rentalDate : Long,
     val returnDate : Long?
 )
