@@ -3,6 +3,7 @@ package com.miassolutions.rentatool.data.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "rental_details",
@@ -14,10 +15,12 @@ import androidx.room.Index
 )
 
 data class RentalDetail(
+    @PrimaryKey(autoGenerate = true)
     val rentalDetailId: Long,
     val rentalId: Long,
-    val quantity: Int,
+    val toolId : Long,
+    var quantity: Int,
     val rentPerDay: Double,
     val rentalDate: Long,
-    val returnDate: Long?
+    var returnDate: Long?
 )
