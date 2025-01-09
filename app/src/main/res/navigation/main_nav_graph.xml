@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.StockFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.StockFragment"
         android:label="Stock"
         tools:layout="@layout/fragment_stock">
         <action
@@ -29,12 +29,12 @@
         tools:layout="@layout/fragment_add_tool" />
     <fragment
         android:id="@+id/customerDetailsFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.CustomerDetailsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.CustomerDetailsFragment"
         android:label="@string/customer_details"
         tools:layout="@layout/fragment_customer_details" />
     <fragment
         android:id="@+id/customersListFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.CustomersListFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.CustomersListFragment"
         android:label="@string/customers"
         tools:layout="@layout/fragment_customers_list">
         <action
@@ -49,17 +49,17 @@
     </fragment>
     <fragment
         android:id="@+id/rentToolFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.RentToolFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.RentToolFragment"
         android:label="Rent Tools"
         tools:layout="@layout/fragment_rent_tool" />
     <fragment
         android:id="@+id/returnToolFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.ReturnToolFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.ReturnToolFragment"
         android:label="Return Tools"
         tools:layout="@layout/fragment_return_tool" />
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
-        android:name="com.miassolutions.rentatool.ui.viewmodels.UpdateDeleteCustomerFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
         tools:layout="@layout/fragment_update_delete_customer" />
 </navigation>
