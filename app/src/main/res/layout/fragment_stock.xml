@@ -46,9 +46,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <include
-            android:id="@+id/mTitle"
-            layout="@layout/title_stock" />
 
 
         <com.google.android.material.divider.MaterialDivider
