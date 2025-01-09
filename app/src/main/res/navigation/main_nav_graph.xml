@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.miassolutions.rentatool.ui.StockFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.StockFragment"
         android:label="Stock"
         tools:layout="@layout/fragment_stock">
         <action
@@ -19,22 +19,22 @@
     </fragment>
     <fragment
         android:id="@+id/addCustomerFragment"
-        android:name="com.miassolutions.rentatool.ui.AddCustomerFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.AddCustomerFragment"
         android:label="Add A New Customer"
         tools:layout="@layout/fragment_add_customer" />
     <fragment
         android:id="@+id/addToolFragment"
-        android:name="com.miassolutions.rentatool.ui.AddToolFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.AddToolFragment"
         android:label="Add A New Tool"
         tools:layout="@layout/fragment_add_tool" />
     <fragment
         android:id="@+id/customerDetailsFragment"
-        android:name="com.miassolutions.rentatool.ui.CustomerDetailsFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.CustomerDetailsFragment"
         android:label="@string/customer_details"
         tools:layout="@layout/fragment_customer_details" />
     <fragment
         android:id="@+id/customersListFragment"
-        android:name="com.miassolutions.rentatool.ui.CustomersListFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.CustomersListFragment"
         android:label="@string/customers"
         tools:layout="@layout/fragment_customers_list">
         <action
@@ -49,17 +49,17 @@
     </fragment>
     <fragment
         android:id="@+id/rentToolFragment"
-        android:name="com.miassolutions.rentatool.ui.RentToolFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.RentToolFragment"
         android:label="Rent Tools"
         tools:layout="@layout/fragment_rent_tool" />
     <fragment
         android:id="@+id/returnToolFragment"
-        android:name="com.miassolutions.rentatool.ui.ReturnToolFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.ReturnToolFragment"
         android:label="Return Tools"
         tools:layout="@layout/fragment_return_tool" />
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
-        android:name="com.miassolutions.rentatool.ui.UpdateDeleteCustomerFragment"
+        android:name="com.miassolutions.rentatool.ui.viewmodels.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
         tools:layout="@layout/fragment_update_delete_customer" />
 </navigation>
