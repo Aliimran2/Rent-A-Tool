@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,16 +29,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="8dp"
                 android:background="@drawable/toolbar_gradient"
                 android:orientation="vertical">
 
                 <TextView
                     style="@style/titleTextStyle"
-                    android:text="Welcome" />
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/welcome" />
 
                 <TextView
                     style="@style/titleTextStyle"
-                    android:text="Rent A Tool"
+                    android:text="@string/ahmad_rent_a_tool"
                     />
 
             </LinearLayout>
@@ -57,7 +58,7 @@
             app:dividerColor="@color/colorPrimary" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/stockRv"
+            android:id="@+id/rv_stock_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -76,20 +77,20 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/rentButton"
+            android:id="@+id/btn_rent_tool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="Rent" />
+            android:text="@string/rent_tool" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/returnButton"
+            android:id="@+id/btn_return_tool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="Return" />
+            android:text="@string/return_tool" />
 
     </LinearLayout>
 

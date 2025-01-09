@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomNavigationView.setupWithNavController(navController)
-        binding.navView.setupWithNavController(navController)
+        binding.navigationView.setupWithNavController(navController)
 
-val aboutApp = binding.navView.menu.findItem(R.id.aboutApp)
+val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
         aboutApp.setOnMenuItemClickListener {
             Toast.makeText(this@MainActivity, "MIAS Solutions", Toast.LENGTH_SHORT).show()
             binding.drawerLayout.closeDrawers()

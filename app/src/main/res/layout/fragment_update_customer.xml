@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="16dp"
-            android:text="@string/add_new_customer"
+            android:text="@string/update_customer"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/black" />
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                 />
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Cell Number -->
@@ -123,7 +123,7 @@
                 android:imeOptions="actionNext"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                 />
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Contractor Details -->
@@ -218,11 +218,11 @@
 
         <!-- Submit Button -->
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/btn_update_customer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/submit"
+            android:text="@string/update_customer"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@android:color/white"
             app:cornerRadius="50dp"

@@ -18,16 +18,10 @@ class StockFragment: Fragment(R.layout.fragment_stock) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentStockBinding.bind(view)
 
-//        val options = NavOptions.Builder()
-//            .setEnterAnim(R.anim.slide_in_right)   // Enter animation
-//            .setExitAnim(R.anim.slide_out_left)    // Exit animation
-//            .setPopEnterAnim(R.anim.slide_in_left) // Pop Enter animation
-//            .setPopExitAnim(R.anim.slide_out_right) // Pop Exit animation
-//            .build()
 
         val options = getNavOptions(NavigationAnimation.ZOOM_IN)
 
-        binding.rentButton.setOnClickListener {
+        binding.btnRentTool.setOnClickListener {
 
         findNavController().navigate(R.id.action_stockFragment_to_returnToolFragment, null, options)
         }
