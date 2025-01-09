@@ -11,7 +11,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/toolName"
+            android:id="@+id/tv_tool_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceHeadline6"
@@ -23,10 +23,12 @@
             android:id="@+id/toolCondition"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@string/rent"
             android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tool_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolName"
-            tools:text="New" />
+            app:layout_constraintStart_toStartOf="@+id/tv_rent_per_day"
+            app:layout_constraintTop_toTopOf="@+id/tv_tool_name" />
 
         <TextView
             android:id="@+id/availabilityLabel"
@@ -39,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolCondition" />
 
         <TextView
-            android:id="@+id/availabilityCount"
+            android:id="@+id/tv_availabl_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -50,7 +52,7 @@
             tools:text="5/10" />
 
         <TextView
-            android:id="@+id/rentPerDay"
+            android:id="@+id/tv_rent_per_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceBody1"

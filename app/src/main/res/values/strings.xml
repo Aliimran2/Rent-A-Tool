@@ -61,4 +61,5 @@
     <string name="update_customer">Update Customer</string>
     <string name="call">Call</string>
     <string name="available">Available</string>
+    <string name="rent">Rent</string>
 </resources>
