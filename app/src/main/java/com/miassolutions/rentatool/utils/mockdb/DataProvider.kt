@@ -7,9 +7,7 @@ import com.miassolutions.rentatool.data.model.Tool
 
 object DataProvider {
 
-
-    // Sample tools
-    val tools = listOf(
+    private val _tools = mutableListOf(
         Tool(
             toolId = 1,
             name = "Hammer",
@@ -35,9 +33,9 @@ object DataProvider {
             rentedQuantity = 0
         )
     )
+    val tools: List<Tool> get() = _tools
 
-    // Sample customers
-    val customers = listOf(
+    private val _customers = mutableListOf(
         Customer(
             customerId = 1,
             name = "John Doe",
@@ -54,19 +52,30 @@ object DataProvider {
             contact = "5678901234"
         )
     )
+    val customers: List<Customer> get() = _customers
 
-    // Sample rentals
-    val rentals = mutableListOf<Rental>()
+    fun addTool(tool: Tool) {
+        _tools.add(tool)
+    }
 
-    // Sample rental details
-    val rentalDetails = mutableListOf<RentalDetail>()
+    fun updateTool(updatedTool: Tool) {
 
+    }
 
-    /**
-     * Simulates renting tools by a customer.
-     */
+    fun addCustomer(customer: Customer) {
+        _customers.add(customer)
+    }
+
+    fun updateCustomer(updatedCustomer: Customer) {
+
+    }
+
+    private val rentals = mutableListOf<Rental>()
+    private val rentalDetails = mutableListOf<RentalDetail>()
+
     fun rentTools(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long): Rental {
-        val rentalId = (rentals.size + 1).toLong()
+        val rentalId = (rentals.size + 1).toLong() //for mock id
+
         val rental = Rental(
             rentalId = rentalId,
             customerId = customerId,
@@ -77,16 +86,14 @@ object DataProvider {
 
         toolRentals.forEach { (toolId, quantity) ->
             val tool = tools.find { it.toolId == toolId }
-                ?: throw IllegalArgumentException("Tool not found with ID: $toolId")
+                ?: throw IllegalArgumentException("Tool not found with ID : $toolId")
             if (tool.availableStock < quantity) {
-                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
+                throw IllegalArgumentException("Insufficient stock for tool : ${tool.name}")
             }
 
-            // Update tool stock
             tool.availableStock -= quantity
             tool.rentedQuantity += quantity
 
-            // Add rental detail
             rentalDetails.add(
                 RentalDetail(
                     rentalDetailId = (rentalDetails.size + 1).toLong(),
@@ -102,25 +109,20 @@ object DataProvider {
         return rental
     }
 
-    /**
-     * Simulates returning tools.
-     */
     fun returnTools(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double {
         val rentalDetail = rentalDetails.find { it.rentalDetailId == rentalDetailId }
-            ?: throw IllegalArgumentException("Rental detail not found with ID: $rentalDetailId")
+            ?: throw IllegalArgumentException("Not Found with ID : $rentalDetailId")
 
         if (returnQuantity > rentalDetail.quantity) {
-            throw IllegalArgumentException("Return quantity exceeds rented quantity")
+            throw IllegalArgumentException("Return exceeds than rented")
         }
 
         val tool = tools.find { it.toolId == rentalDetail.toolId }
-            ?: throw IllegalArgumentException("Tool not found with ID: ${rentalDetail.toolId}")
+            ?: throw IllegalArgumentException("Tool not found")
 
-        // Update tool stock
         tool.availableStock += returnQuantity
         tool.rentedQuantity -= returnQuantity
 
-        // Calculate rent
         val rent = calculateRent(
             rentalDetail.rentalDate,
             returnDate,
@@ -129,16 +131,14 @@ object DataProvider {
         )
 
         if (returnQuantity == rentalDetail.quantity) {
-            // Mark rental detail as returned
             rentalDetail.returnDate = returnDate
         } else {
-            // Split rental detail for partial return
             rentalDetail.quantity -= returnQuantity
             rentalDetails.add(
                 RentalDetail(
                     rentalDetailId = (rentalDetails.size + 1).toLong(),
                     rentalId = rentalDetail.rentalId,
-                    toolId = rentalDetail.toolId,
+                    toolId = tool.toolId,
                     quantity = returnQuantity,
                     rentPerDay = rentalDetail.rentPerDay,
                     rentalDate = rentalDetail.rentalDate,
@@ -148,13 +148,18 @@ object DataProvider {
         }
 
         return rent
+
     }
 
-    /**
-     * Calculates rent based on rental duration and quantity.
-     */
-    private fun calculateRent(rentalDate: Long, returnDate: Long, rentPerDay: Double, quantity: Int): Double {
-        val days = ((returnDate - rentalDate) / (1000 * 60 * 60 * 24)).coerceAtLeast(1)
-        return days * rentPerDay * quantity
+    private fun calculateRent(
+        rentalDate: Long,
+        returnDate: Long,
+        rentPerDay: Double,
+        returnQuantity: Int
+    ): Double {
+        val day = ((returnDate - rentalDate) / 86_400_000).coerceAtLeast(1)
+        return day * rentPerDay * returnQuantity
+
     }
 }
+
