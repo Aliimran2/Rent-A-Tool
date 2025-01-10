@@ -9,7 +9,8 @@ import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 
 class CustomerListAdapter(
-    val itemClickListener: (Customer) -> Unit
+    val dialerClickListener: (Customer) -> Unit,
+    val navigationClickListener: (Customer) -> Unit
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -22,10 +23,11 @@ class CustomerListAdapter(
                 tvConstructionPlace.text = "Mock City"
                 tvCustomerPhone.text = customer.customerPhone
                 ivPhone.setOnClickListener {
-                    Toast.makeText(root.context, "Calling function handle later", Toast.LENGTH_SHORT).show()
+                    dialerClickListener(customer)
                 }
-                ivCustomer.setOnClickListener {
-                    itemClickListener(customer)
+                ivCustomer.setOnLongClickListener {
+                    navigationClickListener(customer)
+                    true
                 }
 
             }

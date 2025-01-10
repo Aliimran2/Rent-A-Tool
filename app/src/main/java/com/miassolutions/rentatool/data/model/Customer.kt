@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey
 )
 data class Customer(
     @PrimaryKey(autoGenerate = true) val customerId: Long,
+    var customerPic : String = "",
     var customerName: String,
     var cnicNumber: String = "12345", //TODO()
     var customerPhone: String,

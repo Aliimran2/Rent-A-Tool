@@ -80,5 +80,6 @@
     <string name="please_enter_contractor_phone_no">Please enter contractor phone no.</string>
     <string name="please_enter_owner_name">Please enter owner name</string>
     <string name="please_enter_owner_phone">Please enter owner phone</string>
+    <string name="no_dialer_app_found">No dialer app found.</string>
 
 </resources>
