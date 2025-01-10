@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
-import com.miassolutions.rentatool.databinding.ItemDropDownCustomerBinding
 
 class CustomerListAdapter(
     val itemClickListener: (Customer) -> Unit
@@ -19,9 +18,9 @@ class CustomerListAdapter(
 
         fun bind(customer: Customer) {
             binding.apply {
-                tvCustomerName.text = customer.name
+                tvCustomerName.text = customer.customerName
                 tvConstructionPlace.text = "Mock City"
-                tvCustomerPhone.text = customer.contact
+                tvCustomerPhone.text = customer.customerPhone
                 ivPhone.setOnClickListener {
                     Toast.makeText(root.context, "Calling function handle later", Toast.LENGTH_SHORT).show()
                 }

@@ -38,18 +38,18 @@ object DataProvider {
     private val _customers = mutableListOf(
         Customer(
             customerId = 1,
-            name = "John Doe",
-            contact = "1234567890"
+            customerName = "John Doe",
+            customerPhone = "1234567890"
         ),
         Customer(
             customerId = 2,
-            name = "Jane Smith",
-            contact = "9876543210"
+            customerName = "Jane Smith",
+            customerPhone = "9876543210"
         ),
         Customer(
             customerId = 3,
-            name = "Alice Johnson",
-            contact = "5678901234"
+            customerName = "Alice Johnson",
+            customerPhone = "5678901234"
         )
     )
     val customers: List<Customer> get() = _customers

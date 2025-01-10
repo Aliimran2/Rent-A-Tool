@@ -164,7 +164,7 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_contractor_cell"
+                android:id="@+id/et_contractor_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -209,7 +209,7 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_owner_cell"
+                android:id="@+id/et_owner_phone"
                 android:layout_width="match_parent"
                 android:imeOptions="actionDone"
                 android:inputType="phone"

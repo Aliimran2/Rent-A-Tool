@@ -29,18 +29,14 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
     private fun setupSubmitBtn() {
         binding.btnSubmit.setOnClickListener {
             val tool = collectToolInput()
-            if (tool != null){
-                addToolToDatabase(tool)
+            if (tool != null) {
+                rentalViewModel.addTool(tool)
+                showToast(requireContext(), getString(R.string.is_saved_successfully, tool.name))
                 clearInputsFields()
             }
         }
     }
 
-    private fun addToolToDatabase(tool: Tool) {
-        rentalViewModel.addTool(tool)
-        showToast(requireContext(), getString(R.string.is_saved_successfully, tool.name))
-
-    }
 
     private fun collectToolInput(): Tool? {
         //access all views and store into variables

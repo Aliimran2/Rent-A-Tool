@@ -72,5 +72,13 @@
     <string name="please_enter_the_rent_price">Please enter the rent price</string>
     <string name="is_saved_successfully">%1$s is saved successfully</string>
     <string name="please_enter_in_all_fields">Please enter in all fields</string>
+    <string name="please_enter_customer_name">Please enter customer name</string>
+    <string name="please_enter_customer_cnic">Please enter customer CNIC</string>
+    <string name="please_enter_customer_phone_no">Please enter customer phone no.</string>
+    <string name="please_enter_contractor_name">Please enter contractor name</string>
+    <string name="please_enter_construction_place">Please enter construction place</string>
+    <string name="please_enter_contractor_phone_no">Please enter contractor phone no.</string>
+    <string name="please_enter_owner_name">Please enter owner name</string>
+    <string name="please_enter_owner_phone">Please enter owner phone</string>
 
 </resources>
