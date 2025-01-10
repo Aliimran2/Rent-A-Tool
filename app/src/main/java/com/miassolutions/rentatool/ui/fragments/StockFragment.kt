@@ -27,11 +27,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
 
         adapter = ToolListAdapter()
 
-        rentalViewModel.tools.observe(viewLifecycleOwner){tools ->
 
-            adapter.submitList(tools)
-            binding.rvStockList.adapter = adapter
-        }
 
         val options = getNavOptions(NavigationAnimation.ZOOM_IN)
 
