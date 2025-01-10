@@ -14,5 +14,6 @@ data class Tool(
     val rentPerDay: Double,
     val totalStock: Int,
     var availableStock: Int,
-    var rentedQuantity: Int
+    var rentedQuantity: Int,
+    var toolCondition : String = "New"
 )

@@ -62,4 +62,15 @@
     <string name="call">Call</string>
     <string name="available">Available</string>
     <string name="rent">Rent</string>
+    <string name="condition">Condition</string>
+    <string name="new_condition">New</string>
+    <string name="old">Old</string>
+    <string name="old_condition">Old</string>
+<!--    add tools strings -->
+    <string name="please_enter_tool_name">Please enter the tool name</string>
+    <string name="please_enter_quantity_of_tool">Please enter the quantity of tool</string>
+    <string name="please_enter_the_rent_price">Please enter the rent price</string>
+    <string name="is_saved_successfully">%1$s is saved successfully</string>
+    <string name="please_enter_in_all_fields">Please enter in all fields</string>
+
 </resources>
