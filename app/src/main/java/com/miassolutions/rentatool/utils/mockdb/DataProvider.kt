@@ -70,8 +70,8 @@ object DataProvider {
 
     }
 
-    private val rentals = mutableListOf<Rental>()
-    private val rentalDetails = mutableListOf<RentalDetail>()
+    val rentals = mutableListOf<Rental>()
+    val rentalDetails = mutableListOf<RentalDetail>()
 
     fun rentTools(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long): Rental {
         val rentalId = (rentals.size + 1).toLong() //for mock id
