@@ -14,14 +14,15 @@ class ToolSelectionListAdapter(
 ) : RecyclerView.Adapter<ToolSelectionListAdapter.ToolVH>() {
 
     private val selectedTools = mutableMapOf<Long, Int>()
-    private var filteredTools = toolsList
+    private var filteredTools = toolsList.toMutableList()
 
     fun filter(query: String) {
         filteredTools = if (query.isEmpty()) {
-            toolsList
+            toolsList.toMutableList()
         } else {
-            toolsList.filter { it.name.contains(query, ignoreCase = true) }
+            toolsList.filter { it.name.contains(query, ignoreCase = true) }.toMutableList()
         }
+        notifyDataSetChanged()
     }
 
 
@@ -74,12 +75,12 @@ class ToolSelectionListAdapter(
         ToolVH(ItemDropDownToolBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int {
-        return toolsList.size
+        return filteredTools.size
     }
 
     override fun onBindViewHolder(holder: ToolVH, position: Int) {
 
-        val currentTool = toolsList[position]
+        val currentTool = filteredTools[position]
         holder.bind(currentTool)
     }
 }
