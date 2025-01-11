@@ -106,7 +106,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         //adapter setup
         val tempSelectedTools = mutableMapOf<Long, Int>()
         adapter = ToolSelectionListAdapter(tools) { selected ->
-            onSelectedTools(selected.map { it.key to it.value })
+            tempSelectedTools.clear()
+            tempSelectedTools.putAll(selected)
 
         }
 
@@ -126,9 +127,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
             onSelectedTools(tempSelectedTools.map { it.key to it.value })
             tempSelectedTools.forEach { (tool, quantity) ->
-                val toolId = tool
-                val selectedQuantity = quantity
-                Log.d(TAG, "$toolId - $selectedQuantity")
+
+                Log.d(TAG, "$tool - $quantity")
             }
             dialog.dismiss()
         }
