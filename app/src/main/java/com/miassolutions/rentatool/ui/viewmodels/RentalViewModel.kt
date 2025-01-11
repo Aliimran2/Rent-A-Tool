@@ -20,6 +20,25 @@ class RentalViewModel : ViewModel() {
     private val _customers = MutableLiveData<List<Customer>>(DataProvider.customers)
     val customers: LiveData<List<Customer>> get() = _customers
 
+    // LiveData to store single customer or tool data
+    private val _customer = MutableLiveData<Customer?>()
+    val customer: LiveData<Customer?> get() = _customer
+
+    private val _tool = MutableLiveData<Tool?>()
+    val tool: LiveData<Tool?> get() = _tool
+
+    // Function to get customer by ID
+    fun getCustomerById(customerId: Long) {
+        _customer.value = DataProvider.getCustomerById(customerId)
+    }
+
+    // Function to get tool by ID
+    fun getToolById(toolId: Long) {
+        _tool.value = DataProvider.getToolById(toolId)
+    }
+
+
+
     private val _rentals = MutableLiveData<List<Rental>>(DataProvider.rentals)
     val rentals: LiveData<List<Rental>> get() = _rentals
 

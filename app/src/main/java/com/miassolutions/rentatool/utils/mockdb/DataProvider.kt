@@ -7,6 +7,15 @@ import com.miassolutions.rentatool.data.model.Tool
 
 object DataProvider {
 
+
+    fun getToolById(toolId : Long) : Tool? {
+        return _tools.find { it.toolId == toolId }
+    }
+
+    fun getCustomerById(customerId: Long) : Customer? {
+        return _customers.find { it.customerId == customerId }
+    }
+
     private val _tools = mutableListOf(
         Tool(
             toolId = 1,

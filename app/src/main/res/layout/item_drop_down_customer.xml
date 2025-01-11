@@ -13,6 +13,18 @@
         android:orientation="horizontal">
 
         <!-- Profile Image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_customer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/place_holder_image"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_customerName"
@@ -26,7 +38,7 @@
             tools:text="Muhammad Imran" />
 
         <TextView
-            android:id="@+id/tv_mobile"
+            android:id="@+id/tv_construction_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -34,7 +46,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="16sp"
-            tools:text="03127430906" />
+            tools:text="Chiniot" />
 
     </LinearLayout>
 
