@@ -81,5 +81,6 @@
     <string name="please_enter_owner_name">Please enter owner name</string>
     <string name="please_enter_owner_phone">Please enter owner phone</string>
     <string name="no_dialer_app_found">No dialer app found.</string>
+    <string name="add_to_customers">Add to customers</string>
 
 </resources>
