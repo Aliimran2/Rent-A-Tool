@@ -9,20 +9,20 @@ import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemDropDownToolBinding
 
 class ToolSelectionListAdapter(
-//    private val toolsList :List<Tool>,
-//    private val onSelectionChanged: (Map<Tool, Int>) -> Unit
-) : ListAdapter<Tool, ToolSelectionListAdapter.ToolVH>(ToolSelectionDiffUtil()) {
+    private val toolsList: List<Tool>,
+    private val onSelectionChanged: (Map<Long, Int>) -> Unit
+) : RecyclerView.Adapter<ToolSelectionListAdapter.ToolVH>() {
 
-    private val selectedTools = mutableMapOf<Tool, Int>()
-//    private var filteredTools = toolsList
-//
-//    fun filter(query : String){
-//        filteredTools = if (query.isEmpty()){
-//            toolsList
-//        } else {
-//            toolsList.filter { it.name.contains(query, ignoreCase = true) }
-//        }
-//    }
+    private val selectedTools = mutableMapOf<Long, Int>()
+    private var filteredTools = toolsList
+
+    fun filter(query: String) {
+        filteredTools = if (query.isEmpty()) {
+            toolsList
+        } else {
+            toolsList.filter { it.name.contains(query, ignoreCase = true) }
+        }
+    }
 
 
     inner class ToolVH(private val binding: ItemDropDownToolBinding) :
@@ -33,7 +33,7 @@ class ToolSelectionListAdapter(
                 tvToolName.text = tool.name
                 inputLayout.helperText = "In Stock : ${tool.availableStock}"
                 //check box handling
-                cbTool.isChecked = selectedTools.containsKey(tool)
+                cbTool.isChecked = selectedTools.containsKey(tool.toolId)
                 etQuantitySelected.isEnabled = false
 
                 etQuantitySelected.doOnTextChanged { text, _, _, _ ->
@@ -47,21 +47,21 @@ class ToolSelectionListAdapter(
                         inputLayout.helperText = "${remainingStock} remaining"
                     }
                     if (cbTool.isChecked) {
-                        selectedTools[tool] = enteredValue
+                        selectedTools[tool.toolId] = enteredValue
                     }
                 }
 
                 cbTool.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         val quantity = etQuantitySelected.text.toString().toIntOrNull() ?: 1
-                        selectedTools[tool] = quantity
-                        etQuantitySelected.isEnabled =true
+                        selectedTools[tool.toolId] = quantity
+                        etQuantitySelected.isEnabled = true
                     } else {
                         etQuantitySelected.isEnabled = false
-                        selectedTools.remove(tool)
+                        selectedTools.remove(tool.toolId)
                         etQuantitySelected.text?.clear()
                     }
-//                    onSelectionChanged(selectedTools)
+                    onSelectionChanged(selectedTools)
                 }
 
             }
@@ -72,5 +72,13 @@ class ToolSelectionListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolVH =
         ToolVH(ItemDropDownToolBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ToolVH, position: Int) = holder.bind(getItem(position))
+    override fun getItemCount(): Int {
+        return toolsList.size
+    }
+
+    override fun onBindViewHolder(holder: ToolVH, position: Int) {
+
+        val currentTool = toolsList[position]
+        holder.bind(currentTool)
+    }
 }

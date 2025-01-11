@@ -56,15 +56,37 @@
         android:id="@+id/rentToolFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.RentToolFragment"
         android:label="Rent Tools"
-        tools:layout="@layout/fragment_rent_tool" />
+        tools:layout="@layout/fragment_rent_tool" >
+        <action
+            android:id="@+id/action_rentToolFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/returnToolFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.ReturnToolFragment"
         android:label="Return Tools"
-        tools:layout="@layout/fragment_return_tool" />
+        tools:layout="@layout/fragment_return_tool" >
+        <action
+            android:id="@+id/action_returnToolFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
         tools:layout="@layout/fragment_update_customer" />
+    <fragment
+        android:id="@+id/confirmDialogFragment"
+        tools:layout="@layout/fragment_confirm_dialog"
+        android:name="com.miassolutions.rentatool.ui.fragments.ConfirmDialogFragment"
+        android:label="ConfirmDialogFragment" >
+        <argument android:name="customerId"
+            app:argType="long" />
+        <argument
+            android:name="toolId"
+            app:argType="long" />
+        <argument
+            android:name="toolQuantity"
+            app:argType="integer" />
+    </fragment>
 </navigation>

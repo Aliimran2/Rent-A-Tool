@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
@@ -20,14 +21,16 @@ import com.miassolutions.rentatool.utils.mockdb.DataProvider
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+const val TAG = "RENT_TOOL_FRAGMENT"
+
 class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
     private var _binding: FragmentRentToolBinding? = null
     private val binding get() = _binding!!
 
     private val rentalViewModel: RentalViewModel by activityViewModels()
-//    private val selectedTools = mutableListOf<Pair<Tool, Int>>()
-    private val selectedTools = mutableListOf<Tool>() // will be deleted later
+    private val selectedTools =
+        mutableListOf<Pair<Long, Int>>() //access selected tools by id and with selected quantities
     private lateinit var adapter: ToolSelectionListAdapter
     private var estimatedDate = 0L
 
@@ -45,11 +48,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
     private fun setupUI() {
 
-        adapter = ToolSelectionListAdapter()
-        // tools selected with with required quantities
-        binding.btnToolSelection.setOnClickListener {
-                showToolSelectionBottomSheet()
-        }
+
         // set estimated date
         binding.etEstimatedDate.setOnClickListener {
             showDatePickerDialog { date, dateInMillis ->
@@ -61,8 +60,14 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
     private fun observeViewModel() {
 
-        rentalViewModel.tools.observe(viewLifecycleOwner) { selectedTools ->
-            adapter.submitList(selectedTools)
+        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+            binding.btnToolSelection.setOnClickListener {
+                showToolSelectionBottomSheet(tools){ selected ->
+                    selectedTools.clear()
+                    selectedTools.addAll(selected)
+                    updatedToolsDetailsList()
+                }
+            }
 
         }
 
@@ -70,6 +75,9 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
         }
 
+    }
+
+    private fun updatedToolsDetailsList() {
     }
 
 
@@ -87,8 +95,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     }
 
     private fun showToolSelectionBottomSheet(
-//        tools: List<Tool>,
-//        onSelectedTools: (List<Pair<Tool, Int>>) -> Unit
+        tools: List<Tool>,
+        onSelectedTools: (List<Pair<Long, Int>>) -> Unit
     ) {
         //inflate the btm sheet
         val dialog = BottomSheetDialog(requireContext())
@@ -96,30 +104,34 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         dialog.setContentView(bottomSheetToolsBinding.root)
 
         //adapter setup
-//        val tempSelectedTools = mutableMapOf<Tool, Int>()
+        val tempSelectedTools = mutableMapOf<Long, Int>()
+        adapter = ToolSelectionListAdapter(tools) { selected ->
+            onSelectedTools(selected.map { it.key to it.value })
+
+        }
 
         bottomSheetToolsBinding.rvBottomSheet.adapter = adapter
 
         //search view setup
-//        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
-//            SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean = false
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                newText?.let { adapter.filter(it) }
-//                return true
-//            }
-//        })
+        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { adapter.filter(it) }
+                return true
+            }
+        })
 
         // button setup
-//        bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
-//            onSelectedTools(tempSelectedTools.map { it.key to it.value })
-//            Toast.makeText(
-//                requireContext(),
-//                "${tempSelectedTools.map { it.key to it.value }}",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            dialog.dismiss()
-//        }
+        bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
+            onSelectedTools(tempSelectedTools.map { it.key to it.value })
+            tempSelectedTools.forEach { (tool, quantity) ->
+                val toolId = tool
+                val selectedQuantity = quantity
+                Log.d(TAG, "$toolId - $selectedQuantity")
+            }
+            dialog.dismiss()
+        }
         dialog.show()
 
     }
