@@ -48,12 +48,13 @@ class ToolSelectionListAdapter(
                     }
                     if (cbTool.isChecked) {
                         selectedTools[tool.toolId] = enteredValue
+                        onSelectionChanged(selectedTools)
                     }
                 }
 
                 cbTool.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
-                        val quantity = etQuantitySelected.text.toString().toIntOrNull() ?: 1
+                        val quantity = etQuantitySelected.text?.toString()?.toIntOrNull() ?: 1
                         selectedTools[tool.toolId] = quantity
                         etQuantitySelected.isEnabled = true
                     } else {
