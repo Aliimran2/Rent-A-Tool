@@ -9,20 +9,20 @@ import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemDropDownToolBinding
 
 class ToolSelectionListAdapter(
-    private val toolsList :List<Tool>,
-    private val onSelectionChanged: (Map<Tool, Int>) -> Unit
+//    private val toolsList :List<Tool>,
+//    private val onSelectionChanged: (Map<Tool, Int>) -> Unit
 ) : ListAdapter<Tool, ToolSelectionListAdapter.ToolVH>(ToolSelectionDiffUtil()) {
 
     private val selectedTools = mutableMapOf<Tool, Int>()
-    private var filteredTools = toolsList
-
-    fun filter(query : String){
-        filteredTools = if (query.isEmpty()){
-            toolsList
-        } else {
-            toolsList.filter { it.name.contains(query, ignoreCase = true) }
-        }
-    }
+//    private var filteredTools = toolsList
+//
+//    fun filter(query : String){
+//        filteredTools = if (query.isEmpty()){
+//            toolsList
+//        } else {
+//            toolsList.filter { it.name.contains(query, ignoreCase = true) }
+//        }
+//    }
 
 
     inner class ToolVH(private val binding: ItemDropDownToolBinding) :
@@ -61,7 +61,7 @@ class ToolSelectionListAdapter(
                         selectedTools.remove(tool)
                         etQuantitySelected.text?.clear()
                     }
-                    onSelectionChanged(selectedTools)
+//                    onSelectionChanged(selectedTools)
                 }
 
             }

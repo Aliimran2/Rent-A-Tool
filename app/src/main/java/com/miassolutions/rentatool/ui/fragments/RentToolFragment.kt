@@ -12,8 +12,10 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
+import com.miassolutions.rentatool.ui.adapters.BottomToolAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
+import com.miassolutions.rentatool.utils.helper.showToast
 import com.miassolutions.rentatool.utils.mockdb.DataProvider
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -24,7 +26,9 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private val binding get() = _binding!!
 
     private val rentalViewModel: RentalViewModel by activityViewModels()
-    private val selectedTools = mutableListOf<Pair<Tool, Int>>()
+//    private val selectedTools = mutableListOf<Pair<Tool, Int>>()
+    private val selectedTools = mutableListOf<Tool>() // will be deleted later
+    private lateinit var adapter: ToolSelectionListAdapter
     private var estimatedDate = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,30 +36,21 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         _binding = FragmentRentToolBinding.bind(view)
 
 
-//        rentalViewModel.customers
 
         setupUI()
+        observeViewModel()
 
 
     }
 
     private fun setupUI() {
 
+        adapter = ToolSelectionListAdapter()
+        // tools selected with with required quantities
         binding.btnToolSelection.setOnClickListener {
-            showToolSelectionBottomSheet(DataProvider.tools){selectedTools ->
-                Toast.makeText(requireContext(), "$selectedTools", Toast.LENGTH_SHORT).show()
-            }
-//            rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
-//                showToolSelectionBottomSheet(tools) { selected ->
-//                    selectedTools.clear()
-//                    selectedTools.addAll(selected)
-//                    //later will be implemented
-////                    updateToolDetailList()
-//                }
-//
-//            }
+                showToolSelectionBottomSheet()
         }
-
+        // set estimated date
         binding.etEstimatedDate.setOnClickListener {
             showDatePickerDialog { date, dateInMillis ->
                 binding.etEstimatedDate.setText(date)
@@ -63,6 +58,20 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             }
         }
     }
+
+    private fun observeViewModel() {
+
+        rentalViewModel.tools.observe(viewLifecycleOwner) { selectedTools ->
+            adapter.submitList(selectedTools)
+
+        }
+
+        rentalViewModel.customers.observe(viewLifecycleOwner) { customers ->
+
+        }
+
+    }
+
 
     private fun showDatePickerDialog(onDateSelected: (String, Long) -> Unit) {
         val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -78,8 +87,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     }
 
     private fun showToolSelectionBottomSheet(
-        tools: List<Tool>,
-        onSelectedTools: (List<Pair<Tool, Int>>) -> Unit
+//        tools: List<Tool>,
+//        onSelectedTools: (List<Pair<Tool, Int>>) -> Unit
     ) {
         //inflate the btm sheet
         val dialog = BottomSheetDialog(requireContext())
@@ -87,34 +96,30 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         dialog.setContentView(bottomSheetToolsBinding.root)
 
         //adapter setup
-        val tempSelectedTools = mutableMapOf<Tool, Int>()
-        val adapter = ToolSelectionListAdapter(tools) { selected ->
-            tempSelectedTools.clear()
-            tempSelectedTools.putAll(selected)
-        }
+//        val tempSelectedTools = mutableMapOf<Tool, Int>()
 
         bottomSheetToolsBinding.rvBottomSheet.adapter = adapter
 
         //search view setup
-        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { adapter.filter(it) }
-                return true
-            }
-        })
+//        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean = false
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                newText?.let { adapter.filter(it) }
+//                return true
+//            }
+//        })
 
         // button setup
-        bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
-            onSelectedTools(tempSelectedTools.map { it.key to it.value })
-            Toast.makeText(
-                requireContext(),
-                "${tempSelectedTools.map { it.key to it.value }}",
-                Toast.LENGTH_SHORT
-            ).show()
-            dialog.dismiss()
-        }
+//        bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
+//            onSelectedTools(tempSelectedTools.map { it.key to it.value })
+//            Toast.makeText(
+//                requireContext(),
+//                "${tempSelectedTools.map { it.key to it.value }}",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            dialog.dismiss()
+//        }
         dialog.show()
 
     }
