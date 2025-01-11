@@ -62,7 +62,7 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
 
     private fun collectCustomer(): Customer? {
         binding.apply {
-            val customerPic = ""
+
             val customerName = etCustomerName.text.toString()
             val customerCnic = etCnic.text.toString()
             val customerPhone = etCustomerPhone.text.toString()
@@ -74,6 +74,7 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
 
             if (validateInputs()) {
                 return Customer(
+                    customerPic = customerPicUri?.toString() ?: "",
                     customerId = System.currentTimeMillis(),
                     customerName = customerName,
                     cnicNumber = customerCnic,

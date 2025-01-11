@@ -1,10 +1,12 @@
 package com.miassolutions.rentatool.ui.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 
@@ -22,6 +24,13 @@ class CustomerListAdapter(
                 tvCustomerName.text = customer.customerName
                 tvConstructionPlace.text = "Mock City"
                 tvCustomerPhone.text = customer.customerPhone
+                if (customer.customerPic.isNotEmpty()){
+                    val customerPicUri = Uri.parse(customer.customerPic)
+                    ivCustomer.setImageURI(customerPicUri)
+                } else {
+                    ivCustomer.setImageResource(R.drawable.place_holder_image)
+                }
+
                 ivPhone.setOnClickListener {
                     dialerClickListener(customer)
                 }
