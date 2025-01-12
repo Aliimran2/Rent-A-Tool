@@ -14,11 +14,13 @@ import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetCustomersBinding
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
-import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
+import com.miassolutions.rentatool.utils.extenstions.showCustomerSelectionBottomSheet
+import com.miassolutions.rentatool.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.utils.helper.showToast
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -33,7 +35,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private val selectedTools =
         mutableListOf<Pair<Long, Int>>() //access selected tools by id and with selected quantities
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
-    private lateinit var selectedToolListAdapter : SelectedToolListAdapter
+    private lateinit var selectedToolListAdapter: SelectedToolListAdapter
     private var estimatedDate = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,25 +52,18 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
     private fun setupUI() {
 
+        binding.etCustomerName.setOnClickListener { showCustomerSelection() }
+        binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
+    }
 
-        binding.etCustomerName.setOnClickListener {
-            rentalViewModel.customers.observe(viewLifecycleOwner){customers ->
-                showCustomerSelectionBottomSheet(customers) { customer ->
-                    binding.etCustomerName.text?.clear()
-                    binding.etCustomerName.setText(customer.customerName)
-                }
-            }
-
-        }
-
-        // set estimated date
-        binding.etEstimatedDate.setOnClickListener {
-            showDatePickerDialog { date, dateInMillis ->
-                binding.etEstimatedDate.setText(date)
-                estimatedDate = dateInMillis
-            }
+    private fun showDatePickerDialog() {
+        showDatePicker("Estimated Date") { date, dateInMillis ->
+            binding.etEstimatedDate.setText(date)
+            estimatedDate = dateInMillis
         }
     }
+
+
 
     private fun observeViewModel() {
 
@@ -83,28 +78,6 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             }
 
         }
-
-
-    }
-
-    private fun updatedToolsDetailsList() {
-
-            selectedToolListAdapter.submitList(selectedTools)
-            binding.rvSelectedToolsList.adapter = selectedToolListAdapter
-    }
-
-
-    private fun showDatePickerDialog(onDateSelected: (String, Long) -> Unit) {
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select Estimated Return Date")
-            .build()
-        datePicker.addOnPositiveButtonClickListener { selectedDate ->
-            val dateInString =
-                SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(selectedDate)
-            onDateSelected(dateInString, selectedDate)
-        }
-        datePicker.show(parentFragmentManager, "DatePicker")
-
     }
 
     private fun showToolSelectionBottomSheet(
@@ -140,34 +113,30 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
             onSelectedTools(tempSelectedTools.map { it.key to it.value })
 
-//            tempSelectedTools.forEach { (tool, quantity) ->
-//
-//                Log.d(TAG, "$tool - $quantity")
-////                selectedTools.clear()
-//                selectedTools.add(tool to quantity)
-//
-//            Log.d(TAG, "$selectedTools")
-//
-//            }
             dialog.dismiss()
         }
         dialog.show()
 
     }
 
-    private fun showCustomerSelectionBottomSheet(customer: List<Customer>,onSelectedCustomer: (Customer) -> Unit) {
-        val dialog = BottomSheetDialog(requireContext())
-        val customerBtmSheetBinding = BottomSheetCustomersBinding.inflate(layoutInflater)
-        dialog.setContentView(customerBtmSheetBinding.root)
+    private fun updatedToolsDetailsList() {
 
-      val customerSelectionListAdapter = CustomerSelectionListAdapter {
-            onSelectedCustomer(it)
-            dialog.dismiss()
+        selectedToolListAdapter.submitList(selectedTools)
+        binding.rvSelectedToolsList.adapter = selectedToolListAdapter
+    }
+
+    private fun showCustomerSelection() {
+        rentalViewModel.customers.observe(viewLifecycleOwner) { customers ->
+            Log.d(TAG, "$customers")
+            if (!customers.isNullOrEmpty()) {
+                showCustomerSelectionBottomSheet(customers) { customer ->
+                    binding.etCustomerName.text?.clear()
+                    binding.etCustomerName.setText(customer.customerName)
+                }
+            } else {
+                Log.d(TAG, "no customer found")
+            }
         }
-        customerSelectionListAdapter.submitList(customer)
-        customerBtmSheetBinding.rvBottomSheet.adapter = customerSelectionListAdapter
-        dialog.show()
-
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,5 @@
 package com.miassolutions.rentatool.utils.extenstions
 
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import com.miassolutions.rentatool.databinding.BottomSheetCustomersBinding
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
-import kotlinx.coroutines.currentCoroutineContext
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -26,7 +24,7 @@ fun Fragment.showDatePicker(
 
     datePicker.addOnPositiveButtonClickListener { selectedDate ->
 
-        val formattedDate = SimpleDateFormat("dd/mm/yyyy", Locale.getDefault()).format(selectedDate)
+        val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate)
         onDateSelected(formattedDate, selectedDate)
 
     }
@@ -35,8 +33,7 @@ fun Fragment.showDatePicker(
 }
 
 //Bottom Sheet Utility
-fun Fragment.showBottomSheetDialog(
-    layoutInflater: LayoutInflater,
+fun Fragment.showBottomSheetDialogWithAction(
     contentBinding: View,
     onBind: (BottomSheetDialog) -> Unit
 ){
@@ -44,6 +41,15 @@ fun Fragment.showBottomSheetDialog(
     dialog.setContentView(contentBinding)
     onBind(dialog)
     dialog.show()
+}
+
+fun Fragment.showBottomSheetDialog(
+    rootView: View
+): BottomSheetDialog {
+    val dialog = BottomSheetDialog(requireContext())
+    dialog.setContentView(rootView)
+    dialog.show()
+    return dialog
 }
 
 //Customer selection utility
@@ -55,17 +61,19 @@ fun Fragment.showCustomerSelectionBottomSheet (
 
     val binding = BottomSheetCustomersBinding.inflate(layoutInflater)
 
+    val dialog = showBottomSheetDialog(binding.root)
+
     val adapter = CustomerSelectionListAdapter {customer ->
         onSelectedCustomer(customer)
+
+        (dialog as? BottomSheetDialog)?.dismiss()
+
     }
 
     adapter.submitList(customers)
     binding.rvBottomSheet.adapter = adapter
 
-    showBottomSheetDialog(layoutInflater, binding.root){ dialog ->
-        dialog.dismiss() //to review
 
-    }
 
 }
 
@@ -91,7 +99,7 @@ fun Fragment.showToolSelectionBottomSheet(
         }
     })
 
-    showBottomSheetDialog(layoutInflater, binding.root) { dialog ->
+    showBottomSheetDialogWithAction(binding.root) { dialog ->
         binding.btnConfirmation.setOnClickListener {
             onSelectedTools(tempSelectedTools.map { it.key to it.value })
             dialog.dismiss()
