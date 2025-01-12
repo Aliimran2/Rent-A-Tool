@@ -8,37 +8,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
-import com.miassolutions.rentatool.databinding.BottomSheetCustomersBinding
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
-import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
 import com.miassolutions.rentatool.utils.extenstions.showCustomerSelectionBottomSheet
 import com.miassolutions.rentatool.utils.extenstions.showDatePicker
-import com.miassolutions.rentatool.utils.helper.showToast
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 
 class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
-    private val TAG = "RENT_TOOL_FRAGMENT"
+    companion object {
+        private const val TAG = "RentToolFragment" // review
+    }
+
     private var _binding: FragmentRentToolBinding? = null
     private val binding get() = _binding!!
 
     private val rentalViewModel: RentalViewModel by activityViewModels()
-    private val selectedTools =
-        mutableListOf<Pair<Long, Int>>() //access selected tools by id and with selected quantities
+    private val selectedTools = mutableListOf<Pair<Long, Int>>()
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
     private var estimatedDate = 0L
-    private lateinit var selectedCustomer : Customer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +63,6 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     }
 
 
-
     private fun observeViewModel() {
 
         rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
@@ -84,12 +77,10 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
         }
         rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
-            // Update the tools list in the adapter
             selectedToolListAdapter.updateToolsList(tools)
         }
 
         rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
-            // Submit the selected tools list to the adapter
             selectedToolListAdapter.submitList(selectedTools)
         }
 

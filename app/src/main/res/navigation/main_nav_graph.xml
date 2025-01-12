@@ -59,7 +59,9 @@
         tools:layout="@layout/fragment_rent_tool" >
         <action
             android:id="@+id/action_rentToolFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment" />
+            app:destination="@id/confirmDialogFragment"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/returnToolFragment"
