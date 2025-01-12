@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 fun clearInputs(vararg inputFields : TextInputEditText){
@@ -17,6 +20,10 @@ fun clearInputs(vararg inputFields : TextInputEditText){
 
 fun showToast(context: Context, message : String){
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+fun formattedDate(date: Date) : String {
+    return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
 }
 
 // Helper function to check if a permission is granted

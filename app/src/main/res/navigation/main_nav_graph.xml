@@ -83,10 +83,8 @@
         <argument android:name="customerId"
             app:argType="long" />
         <argument
-            android:name="toolId"
+            android:name="estimated_date"
             app:argType="long" />
-        <argument
-            android:name="toolQuantity"
-            app:argType="integer" />
+
     </fragment>
 </navigation>

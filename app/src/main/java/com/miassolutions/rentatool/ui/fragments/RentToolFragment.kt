@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.miassolutions.rentatool.R
@@ -37,11 +38,13 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
     private var estimatedDate = 0L
+    private var selectedCustomerId = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentToolBinding.bind(view)
 
+        selectedToolListAdapter = SelectedToolListAdapter()
 
 
         setupUI()
@@ -54,6 +57,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
         binding.etCustomerName.setOnClickListener { showCustomerSelection() }
         binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
+        binding.btnSubmit.setOnClickListener { navigateToNextFragment() }
     }
 
     private fun showDatePickerDialog() {
@@ -68,7 +72,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private fun observeViewModel() {
 
         rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
-            selectedToolListAdapter = SelectedToolListAdapter(tools)
+
             binding.btnToolSelection.setOnClickListener {
                 showToolSelectionBottomSheet(tools) { selected ->
                     selectedTools.clear()
@@ -78,6 +82,23 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             }
 
         }
+        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+            // Update the tools list in the adapter
+            selectedToolListAdapter.updateToolsList(tools)
+        }
+
+        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
+            // Submit the selected tools list to the adapter
+            selectedToolListAdapter.submitList(selectedTools)
+        }
+
+        rentalViewModel.setSelectedTools(selectedTools)
+
+    }
+
+    private fun navigateToNextFragment() {
+        val action =RentToolFragmentDirections.actionRentToolFragmentToConfirmDialogFragment(selectedCustomerId, estimatedDate)
+        findNavController().navigate(action)
     }
 
     private fun showToolSelectionBottomSheet(
@@ -131,6 +152,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             if (!customers.isNullOrEmpty()) {
                 showCustomerSelectionBottomSheet(customers) { customer ->
                     binding.etCustomerName.text?.clear()
+                    selectedCustomerId = customer.customerId
                     binding.etCustomerName.setText(customer.customerName)
                 }
             } else {

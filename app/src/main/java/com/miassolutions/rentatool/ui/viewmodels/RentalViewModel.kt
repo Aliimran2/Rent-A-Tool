@@ -12,6 +12,18 @@ import com.miassolutions.rentatool.utils.mockdb.DataProvider
 
 
 class RentalViewModel : ViewModel() {
+    //for passing data
+
+    private val _selectedTools = MutableLiveData<List<Pair<Long, Int>>>()
+    val selectedTools: LiveData<List<Pair<Long, Int>>> get() = _selectedTools
+
+    // Methods to update the LiveData
+    fun setSelectedTools(tools: List<Pair<Long, Int>>) {
+        _selectedTools.value = tools
+    }
+
+
+
 
     // MutableLiveData for tools, customers, rentals, and rental details
     private val _tools = MutableLiveData<List<Tool>>(DataProvider.tools)
@@ -31,6 +43,8 @@ class RentalViewModel : ViewModel() {
     fun getCustomerById(customerId: Long) {
         _customer.value = DataProvider.getCustomerById(customerId)
     }
+
+
 
     // Function to get tool by ID
     fun getToolById(toolId: Long) {

@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -9,12 +10,20 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.FragmentConfirmDialogBinding
+import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
+import com.miassolutions.rentatool.utils.helper.formattedDate
+import com.miassolutions.rentatool.utils.mockdb.DataProvider.customers
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
+
+
+    companion object {
+        private const val TAG = "ConfirmDialogFragment"
+    }
 
     private var _binding: FragmentConfirmDialogBinding? = null
     private val binding get() = _binding!!
@@ -22,71 +31,79 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
     private val rentalViewModel: RentalViewModel by activityViewModels()
 
     private val args: ConfirmDialogFragmentArgs by navArgs()
-    private lateinit var selectedCustomer: String
-    private lateinit var selectedTools: Array<String>
-    private lateinit var selectedToolsQuantities: IntArray
+    private var selectedCustomerId: Long = 0L
     private var estimatedReturnDate = 0L
+
+    private lateinit var selectedToolListAdapter: SelectedToolListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentConfirmDialogBinding.bind(view)
 
-//        selectedCustomer = args.customer
-//        estimatedReturnDate = args.estimatedDate
-//        selectedTools = args.selectedToolIds
-//        selectedToolsQuantities = args.selectedToolQuantities
 
-//        rentalViewModel.loadCustomerById(selectedCustomer)
-        loadToolsFromDatabase()
+        setupUI()
+
+        selectedCustomerId = args.customerId
+        estimatedReturnDate = args.estimatedDate
+
+        rentalViewModel.getCustomerById(selectedCustomerId)
+
+
         observeViewModel()
 
         binding.printReceipt.setOnClickListener {
 //            captureScreenshotExcludingButton(binding.root)
 //            val action = ManagerFragmentDirections.actionManagerFragmentToStockFragment2()
 //            findNavController().navigate(action)
+
+
+        }
+    }
+
+    private fun setupUI() {
+
+        selectedToolListAdapter = SelectedToolListAdapter()
+        binding.rVRentedToolsList.adapter = selectedToolListAdapter
+
+        val dateToDisplay = if (estimatedReturnDate > 0) {
+            Date(estimatedReturnDate)
+        } else {
+            Date() // Default to current date if invalid
+        }
+
+        binding.apply {
+
+
+            transStartDate.text = formattedDate(Date()) // Current date
+            transExpectDate.text = formattedDate(dateToDisplay) // Estimated return date
         }
     }
 
     private fun observeViewModel() {
-//        rentalViewModel.customers.observe(viewLifecycleOwner) { customer ->
-//            customer?.let {
-//                setupUI(it)
-//            }
-//        }
-//
-//        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
-//            tools?.let {
-//                updateToolDetailsList(it)
-//            }
-//        }
+        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+            customer?.let {
+                updateCustomerUI(customer)
+            }
+        }
+
+        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+            selectedToolListAdapter.updateToolsList(tools)
+        }
+
+        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
+            selectedToolListAdapter.submitList(selectedTools)
+        }
     }
 
-    private fun loadToolsFromDatabase() {
-//        rentalViewModel.loadToolsByIds(selectedTools.toList())
-    }
 
-    private fun updateToolDetailsList(tools: List<Tool>) {
-//        val toolsWithQuantities = tools.mapIndexed { index, tool ->
-//            tool.apply {
-//                if (index < selectedToolsQuantities.size) {
-//                    onRent = selectedToolsQuantities[index]
-//                }
-//            }
-//        }
-//        val adapter = ToolListAdapter()
-//        binding.rVRentedToolsList.adapter = adapter
-//        adapter.submitList(toolsWithQuantities)
-    }
+    private fun updateCustomerUI(selectedCustomer: Customer) {
 
-    private fun setupUI(selectedCustomer: Customer) {
+
         binding.apply {
             customerName.text = selectedCustomer.customerName
             customerPhone.text = selectedCustomer.customerPhone
-            val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-            val currentDate = sdf.format(Date())
-            val returnExpectedDate = sdf.format(estimatedReturnDate)
-            binding.transStartDate.text = currentDate
-            transExpectDate.text = returnExpectedDate
+
+
         }
     }
 
