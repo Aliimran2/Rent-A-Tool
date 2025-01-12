@@ -31,10 +31,6 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
     private val rentalViewModel: RentalViewModel by activityViewModels()
 
-    private val args: ConfirmDialogFragmentArgs by navArgs()
-    private var selectedCustomerId: Long = 0L
-    private var estimatedReturnDate = 0L
-
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,10 +40,9 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
         setupUI()
 
-        selectedCustomerId = args.customerId
-        estimatedReturnDate = args.estimatedDate
 
-        rentalViewModel.getCustomerById(selectedCustomerId)
+
+//        rentalViewModel.getCustomerById(selectedCustomerId)
 
 
         observeViewModel()
@@ -66,18 +61,6 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
         selectedToolListAdapter = SelectedToolListAdapter()
         binding.rVRentedToolsList.adapter = selectedToolListAdapter
 
-        val dateToDisplay = if (estimatedReturnDate > 0) {
-            Date(estimatedReturnDate)
-        } else {
-            Date() // Default to current date if invalid
-        }
-
-        binding.apply {
-
-            transStartDate.text = formattedDate(Date()) // Current date
-            transExpectDate.text = formattedDate(dateToDisplay) // Estimated return date
-
-        }
     }
 
     private fun observeViewModel() {
@@ -93,6 +76,12 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
         rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
             selectedToolListAdapter.submitList(selectedTools)
+        }
+
+        rentalViewModel.estimatedReturnDate.observe(viewLifecycleOwner){ estimatedReturnDate ->
+            val dateToDisplay = if(estimatedReturnDate > 0) Date(estimatedReturnDate) else Date()
+            binding.transExpectDate.text = formattedDate(dateToDisplay)
+
         }
     }
 

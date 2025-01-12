@@ -38,7 +38,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
     private var estimatedDate = 0L
-    private var selectedCustomerId = 0L
+    private lateinit var selectedCustomer : Customer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,6 +63,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private fun showDatePickerDialog() {
         showDatePicker("Estimated Date") { date, dateInMillis ->
             binding.etEstimatedDate.setText(date)
+            rentalViewModel.setEstimatedReturnDate(dateInMillis)
             estimatedDate = dateInMillis
         }
     }
@@ -97,8 +98,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     }
 
     private fun navigateToNextFragment() {
-        val action =RentToolFragmentDirections.actionRentToolFragmentToConfirmDialogFragment(selectedCustomerId, estimatedDate)
-        findNavController().navigate(action)
+
+        findNavController().navigate(R.id.action_rentToolFragment_to_confirmDialogFragment)
     }
 
     private fun showToolSelectionBottomSheet(
@@ -152,7 +153,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             if (!customers.isNullOrEmpty()) {
                 showCustomerSelectionBottomSheet(customers) { customer ->
                     binding.etCustomerName.text?.clear()
-                    selectedCustomerId = customer.customerId
+                    rentalViewModel.setCustomer(customer)
                     binding.etCustomerName.setText(customer.customerName)
                 }
             } else {

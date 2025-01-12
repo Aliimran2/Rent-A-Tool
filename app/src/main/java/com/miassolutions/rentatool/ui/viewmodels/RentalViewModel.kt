@@ -12,7 +12,29 @@ import com.miassolutions.rentatool.utils.mockdb.DataProvider
 
 
 class RentalViewModel : ViewModel() {
-    //for passing data
+
+
+    // LiveData to store single customer or tool data
+    private val _customer = MutableLiveData<Customer?>()
+    val customer: LiveData<Customer?> get() = _customer
+
+    private val _tool = MutableLiveData<Tool?>()
+    val tool: LiveData<Tool?> get() = _tool
+
+
+    private val _estimatedReturnDate = MutableLiveData<Long>()
+    val estimatedReturnDate: LiveData<Long> = _estimatedReturnDate
+
+    fun setEstimatedReturnDate(date: Long) {
+        _estimatedReturnDate.value = date
+    }
+
+    // Method to set customer
+    fun setCustomer(customer: Customer) {
+        _customer.value = customer
+    }
+
+
 
     private val _selectedTools = MutableLiveData<List<Pair<Long, Int>>>()
     val selectedTools: LiveData<List<Pair<Long, Int>>> get() = _selectedTools
@@ -32,12 +54,7 @@ class RentalViewModel : ViewModel() {
     private val _customers = MutableLiveData<List<Customer>>(DataProvider.customers)
     val customers: LiveData<List<Customer>> get() = _customers
 
-    // LiveData to store single customer or tool data
-    private val _customer = MutableLiveData<Customer?>()
-    val customer: LiveData<Customer?> get() = _customer
 
-    private val _tool = MutableLiveData<Tool?>()
-    val tool: LiveData<Tool?> get() = _tool
 
     // Function to get customer by ID
     fun getCustomerById(customerId: Long) {
