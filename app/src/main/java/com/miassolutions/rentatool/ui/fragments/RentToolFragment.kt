@@ -16,6 +16,7 @@ import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
+import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
 import java.text.SimpleDateFormat
@@ -32,6 +33,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private val selectedTools =
         mutableListOf<Pair<Long, Int>>() //access selected tools by id and with selected quantities
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
+    private lateinit var selectedToolListAdapter : SelectedToolListAdapter
     private var estimatedDate = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,6 +73,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private fun observeViewModel() {
 
         rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+            selectedToolListAdapter = SelectedToolListAdapter(tools)
             binding.btnToolSelection.setOnClickListener {
                 showToolSelectionBottomSheet(tools) { selected ->
                     selectedTools.clear()
@@ -85,6 +88,9 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     }
 
     private fun updatedToolsDetailsList() {
+
+            selectedToolListAdapter.submitList(selectedTools)
+            binding.rvSelectedToolsList.adapter = selectedToolListAdapter
     }
 
 
@@ -133,10 +139,16 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         // button setup
         bottomSheetToolsBinding.btnConfirmation.setOnClickListener {
             onSelectedTools(tempSelectedTools.map { it.key to it.value })
-            tempSelectedTools.forEach { (tool, quantity) ->
 
-                Log.d(TAG, "$tool - $quantity")
-            }
+//            tempSelectedTools.forEach { (tool, quantity) ->
+//
+//                Log.d(TAG, "$tool - $quantity")
+////                selectedTools.clear()
+//                selectedTools.add(tool to quantity)
+//
+//            Log.d(TAG, "$selectedTools")
+//
+//            }
             dialog.dismiss()
         }
         dialog.show()
@@ -148,8 +160,8 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         val customerBtmSheetBinding = BottomSheetCustomersBinding.inflate(layoutInflater)
         dialog.setContentView(customerBtmSheetBinding.root)
 
-      val customerSelectionListAdapter = CustomerSelectionListAdapter { cust ->
-            onSelectedCustomer(cust)
+      val customerSelectionListAdapter = CustomerSelectionListAdapter {
+            onSelectedCustomer(it)
             dialog.dismiss()
         }
         customerSelectionListAdapter.submitList(customer)
