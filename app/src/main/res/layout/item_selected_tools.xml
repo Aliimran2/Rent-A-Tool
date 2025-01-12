@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:elevation="4dp"
+
+    app:cardBackgroundColor="@color/transparent"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Tool Name Text -->
+        <TextView
+            android:id="@+id/toolName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tool Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <!-- Divider -->
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            app:dividerColor="@android:color/darker_gray"/>
+
+        <!-- Tool Quantity Text -->
+        <TextView
+            android:id="@+id/toolQuantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Quantity"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
