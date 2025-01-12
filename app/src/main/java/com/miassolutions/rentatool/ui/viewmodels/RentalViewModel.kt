@@ -45,6 +45,14 @@ class RentalViewModel : ViewModel() {
     }
 
 
+    // Call this method to reset data
+    fun resetData() {
+        _customer.value = null
+        _selectedTools.value = emptyList()
+
+    }
+
+
 
     // Function to get tool by ID
     fun getToolById(toolId: Long) {

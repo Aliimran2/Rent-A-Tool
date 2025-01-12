@@ -85,6 +85,11 @@
         <argument
             android:name="estimated_date"
             app:argType="long" />
+        <action
+            android:id="@+id/action_confirmDialogFragment_to_stockFragment"
+            app:destination="@id/stockFragment"
+            app:popUpTo="@id/stockFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 </navigation>

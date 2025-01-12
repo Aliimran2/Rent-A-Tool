@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
@@ -53,8 +54,8 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
         binding.printReceipt.setOnClickListener {
 //            captureScreenshotExcludingButton(binding.root)
-//            val action = ManagerFragmentDirections.actionManagerFragmentToStockFragment2()
-//            findNavController().navigate(action)
+            val action = ConfirmDialogFragmentDirections.actionConfirmDialogFragmentToStockFragment()
+            findNavController().navigate(action)
 
 
         }
@@ -73,9 +74,9 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
         binding.apply {
 
-
             transStartDate.text = formattedDate(Date()) // Current date
             transExpectDate.text = formattedDate(dateToDisplay) // Estimated return date
+
         }
     }
 
@@ -106,6 +107,7 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
