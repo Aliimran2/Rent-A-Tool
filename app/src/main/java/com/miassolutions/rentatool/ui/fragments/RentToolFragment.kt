@@ -9,14 +9,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
+import com.miassolutions.rentatool.utils.extenstions.showConfirmDialog
 import com.miassolutions.rentatool.utils.extenstions.showCustomerSelectionBottomSheet
 import com.miassolutions.rentatool.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.helper.showToast
 
 
 class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
@@ -51,7 +55,15 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
         binding.etCustomerName.setOnClickListener { showCustomerSelection() }
         binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
-        binding.btnSubmit.setOnClickListener { navigateToNextFragment() }
+        binding.btnSubmit.setOnClickListener {
+
+            showConfirmDialog(
+                "Save Transaction", "Are you sure?",
+                onConfirm = {navigateToNextFragment()},
+                onCancel = { showToast("Action Cancelled") }
+            )
+//            navigateToNextFragment()
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -60,6 +72,14 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
             rentalViewModel.setEstimatedReturnDate(dateInMillis)
             estimatedDate = dateInMillis
         }
+    }
+
+    private fun updateDatabase(customer: Customer) {
+        rentalViewModel.addRental(
+            customerId = TODO(),
+            toolRentals = TODO(),
+            rentalDate = TODO()
+        )
     }
 
 

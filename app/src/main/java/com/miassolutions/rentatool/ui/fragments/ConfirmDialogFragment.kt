@@ -37,14 +37,7 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentConfirmDialogBinding.bind(view)
 
-
         setupUI()
-
-
-
-//        rentalViewModel.getCustomerById(selectedCustomerId)
-
-
         observeViewModel()
 
         binding.printReceipt.setOnClickListener {

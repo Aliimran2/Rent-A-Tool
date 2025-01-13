@@ -2,9 +2,11 @@ package com.miassolutions.rentatool.utils.extenstions
 
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetCustomersBinding
@@ -13,6 +15,34 @@ import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import java.text.SimpleDateFormat
 import java.util.Locale
+
+fun Fragment.showConfirmDialog(
+    title: String,
+    message: String,
+    positiveText: String = "Yes",
+    negativeText: String = "Cancel",
+    onConfirm: () -> Unit = {},
+    onCancel: () -> Unit = {}
+) {
+
+    MaterialAlertDialogBuilder(requireContext())
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(positiveText) { dialog, _ ->
+            onConfirm()
+            dialog.dismiss()
+        }
+        .setNegativeButton(negativeText) { dialog, _ ->
+            onCancel()
+            dialog.dismiss()
+        }.show()
+}
+
+fun Fragment.showToast(
+    message: String
+){
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
 
 fun Fragment.showDatePicker(
     title: String,
@@ -36,7 +66,7 @@ fun Fragment.showDatePicker(
 fun Fragment.showBottomSheetDialogWithAction(
     contentBinding: View,
     onBind: (BottomSheetDialog) -> Unit
-){
+) {
     val dialog = BottomSheetDialog(requireContext())
     dialog.setContentView(contentBinding)
     onBind(dialog)
@@ -54,16 +84,16 @@ fun Fragment.showBottomSheetDialog(
 
 //Customer selection utility
 
-fun Fragment.showCustomerSelectionBottomSheet (
+fun Fragment.showCustomerSelectionBottomSheet(
     customers: List<Customer>,
-    onSelectedCustomer : (Customer) -> Unit
-){
+    onSelectedCustomer: (Customer) -> Unit
+) {
 
     val binding = BottomSheetCustomersBinding.inflate(layoutInflater)
 
     val dialog = showBottomSheetDialog(binding.root)
 
-    val adapter = CustomerSelectionListAdapter {customer ->
+    val adapter = CustomerSelectionListAdapter { customer ->
         onSelectedCustomer(customer)
 
         (dialog as? BottomSheetDialog)?.dismiss()
@@ -74,14 +104,13 @@ fun Fragment.showCustomerSelectionBottomSheet (
     binding.rvBottomSheet.adapter = adapter
 
 
-
 }
 
 
 fun Fragment.showToolSelectionBottomSheet(
-    tools : List<Tool>,
+    tools: List<Tool>,
     onSelectedTools: (List<Pair<Long, Int>>) -> Unit
-){
+) {
     val binding = BottomSheetToolsBinding.inflate(layoutInflater)
     val tempSelectedTools = mutableMapOf<Long, Int>()
     val adapter = ToolSelectionListAdapter(tools) { selected ->
