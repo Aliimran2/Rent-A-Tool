@@ -57,18 +57,40 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         binding.etCustomerName.setOnClickListener { showCustomerSelection() }
         binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
         binding.btnSubmit.setOnClickListener {
+            if (validateInputs()){
+                showConfirmDialog(
+                    "Save Transaction", "Are you sure?",
+                    onConfirm = {
+                        navigateToNextFragment()
+                        updateDatabase()
 
-            showConfirmDialog(
-                "Save Transaction", "Are you sure?",
-                onConfirm = {
-                    navigateToNextFragment()
-                    updateDatabase()
+                    },
+                    onCancel = { showToast("Action Cancelled") }
+                )
+            }
 
-                },
-                onCancel = { showToast("Action Cancelled") }
-            )
-//            navigateToNextFragment()
+
         }
+    }
+
+    private fun validateInputs(): Boolean {
+
+        return when {
+            binding.etCustomerName.text.isNullOrEmpty() -> {
+                showToast(getString(R.string.please_select_a_customer))
+               false
+            }
+            binding.etEstimatedDate.text.isNullOrEmpty() -> {
+                showToast(getString(R.string.please_select_estimated_return_date))
+                false
+            }
+            selectedTools.isEmpty() -> {
+                showToast(getString(R.string.please_select_some_tools))
+                false
+            }
+            else -> true
+        }
+
     }
 
     private fun showDatePickerDialog() {

@@ -82,5 +82,8 @@
     <string name="please_enter_owner_phone">Please enter owner phone</string>
     <string name="no_dialer_app_found">No dialer app found.</string>
     <string name="add_to_customers">Add to customers</string>
+    <string name="please_select_a_customer">Please select a customer</string>
+    <string name="please_select_estimated_return_date">Please select estimated return date</string>
+    <string name="please_select_some_tools">Please select some tools</string>
 
 </resources>
