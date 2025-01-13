@@ -30,39 +30,13 @@ class CustomerListAdapter(
                 tvConstructionPlace.text = "Mock City"
                 tvCustomerPhone.text = customer.customerPhone
 
-                // Check for permissions before accessing the URI
-                if (PermissionUtils.hasPermissions(
-                        binding.root.context,
-                        arrayOf(
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_MEDIA_IMAGES // For Android 13+
-                        )
-                    )
-                ) {
-                    // Permissions granted, proceed to set the image
-                    if (customer.customerPic.isNotEmpty()) {
-                        val customerPicUri = Uri.parse(customer.customerPic)
-                        Glide.with(binding.root.context)
-                            .load(customerPicUri) // Load the image URI
-                            .placeholder(R.drawable.place_holder_image) // Placeholder while loading
-                            .error(R.drawable.place_holder_image) // Fallback for errors
-                            .into(ivCustomer) // Set the image into the ImageView
-                    } else {
-                        ivCustomer.setImageResource(R.drawable.place_holder_image)
-                    }
+                if (customer.customerPic.isNotEmpty()) {
+                    val customerPicUri = Uri.parse(customer.customerPic)
+                    ivCustomer.setImageURI(customerPicUri)
                 } else {
-                    // Permissions not granted, show placeholder image
                     ivCustomer.setImageResource(R.drawable.place_holder_image)
-
-                    // Optionally, request permissions
-                    PermissionUtils.requestPermissions(
-                        (binding.root.context as Activity),
-                        arrayOf(
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_MEDIA_IMAGES // For Android 13+
-                        )
-                    )
                 }
+
 
                 ivPhone.setOnClickListener {
                     dialerClickListener(customer)

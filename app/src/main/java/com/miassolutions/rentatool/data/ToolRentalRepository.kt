@@ -67,8 +67,8 @@ class ToolRentalRepository(
     suspend fun addTool(tool: Tool): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                val toolId = toolDao.updateTool(tool) // Insert tool into the database
-                Result.success(toolId) // Return the ID of the inserted tool
+                toolDao.addTool(tool) // Use insert for adding a new tool
+                Result.success(Unit) // Return success with no additional data
             } catch (e: Exception) {
                 Result.failure(e) // Return failure in case of an exception
             }
@@ -86,9 +86,8 @@ class ToolRentalRepository(
     suspend fun addCustomer(customer: Customer): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                val customerId =
-                    customerDao.addCustomer(customer) // Insert customer into the database
-                Result.success(customerId) // Return the ID of the inserted customer
+                customerDao.addCustomer(customer) // Insert customer into the database
+                Result.success(Unit) // Return success with no additional data
             } catch (e: Exception) {
                 Result.failure(e) // Return failure in case of an exception
             }
