@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.utils.mockdb
+package com.miassolutions.rentatool.core.utils.mockdb
 
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental

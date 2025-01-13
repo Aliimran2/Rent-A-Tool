@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.utils.extenstions
+package com.miassolutions.rentatool.core.utils.extenstions
 
 import android.view.View
 import android.widget.SearchView

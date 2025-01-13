@@ -16,11 +16,11 @@ import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.utils.extenstions.showConfirmDialog
-import com.miassolutions.rentatool.utils.extenstions.showCustomerSelectionBottomSheet
-import com.miassolutions.rentatool.utils.extenstions.showDatePicker
-import com.miassolutions.rentatool.utils.extenstions.showToast
-import com.miassolutions.rentatool.utils.helper.showToast
+import com.miassolutions.rentatool.core.utils.extenstions.showConfirmDialog
+import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
+import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.core.utils.helper.showToast
 
 
 class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {

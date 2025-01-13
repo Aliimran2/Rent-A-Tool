@@ -8,7 +8,7 @@ import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.data.model.RentalDetail
 import com.miassolutions.rentatool.data.model.Tool
-import com.miassolutions.rentatool.utils.mockdb.DataProvider
+import com.miassolutions.rentatool.core.utils.mockdb.DataProvider
 
 
 class RentalViewModel : ViewModel() {

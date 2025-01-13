@@ -13,8 +13,8 @@ import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.FragmentConfirmDialogBinding
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.utils.helper.formattedDate
-import com.miassolutions.rentatool.utils.mockdb.DataProvider.customers
+import com.miassolutions.rentatool.core.utils.helper.formattedDate
+import com.miassolutions.rentatool.core.utils.mockdb.DataProvider.customers
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

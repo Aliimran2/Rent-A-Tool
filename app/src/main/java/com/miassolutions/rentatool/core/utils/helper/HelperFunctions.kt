@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.utils.helper
+package com.miassolutions.rentatool.core.utils.helper
 
 import android.content.Context
 import android.content.pm.PackageManager

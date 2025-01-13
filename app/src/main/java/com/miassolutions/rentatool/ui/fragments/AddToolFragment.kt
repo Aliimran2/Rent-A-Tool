@@ -8,8 +8,8 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.FragmentAddToolBinding
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.utils.helper.clearInputs
-import com.miassolutions.rentatool.utils.helper.showToast
+import com.miassolutions.rentatool.core.utils.helper.clearInputs
+import com.miassolutions.rentatool.core.utils.helper.showToast
 
 class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
 

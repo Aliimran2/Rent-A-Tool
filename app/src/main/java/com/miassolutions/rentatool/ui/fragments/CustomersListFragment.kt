@@ -11,7 +11,7 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.utils.helper.showToast
+import com.miassolutions.rentatool.core.utils.helper.showToast
 
 class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 

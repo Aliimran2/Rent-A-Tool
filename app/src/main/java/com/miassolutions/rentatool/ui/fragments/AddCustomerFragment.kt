@@ -18,10 +18,10 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentAddCustomerBinding
 import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.utils.helper.clearInputs
-import com.miassolutions.rentatool.utils.helper.isPermissionGranted
-import com.miassolutions.rentatool.utils.helper.requestPermission
-import com.miassolutions.rentatool.utils.helper.showToast
+import com.miassolutions.rentatool.core.utils.helper.clearInputs
+import com.miassolutions.rentatool.core.utils.helper.isPermissionGranted
+import com.miassolutions.rentatool.core.utils.helper.requestPermission
+import com.miassolutions.rentatool.core.utils.helper.showToast
 import java.io.File
 
 class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
