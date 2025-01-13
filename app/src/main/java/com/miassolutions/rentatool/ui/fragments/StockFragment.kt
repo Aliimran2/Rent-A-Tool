@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentStockBinding
 import com.miassolutions.rentatool.ui.adapters.ToolListAdapter
-import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
 class StockFragment : Fragment(R.layout.fragment_stock) {
 
     private var _binding: FragmentStockBinding? = null
     private val binding get() = _binding!!
 
-    private val rentalViewModel: RentalViewModel by activityViewModels()
+    private val rentalViewModel: SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+    }
     private lateinit var adapter: ToolListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

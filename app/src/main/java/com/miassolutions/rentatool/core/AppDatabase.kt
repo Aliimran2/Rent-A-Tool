@@ -18,6 +18,7 @@ import com.miassolutions.rentatool.data.model.Tool
     version = 1,
     exportSchema = false
 )
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun toolDao(): ToolDao
     abstract fun customerDao(): CustomerDao
@@ -39,5 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
                 instance
             }
         }
+
     }
 }
+

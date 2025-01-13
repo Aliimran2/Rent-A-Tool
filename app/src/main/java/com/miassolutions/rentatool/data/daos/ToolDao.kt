@@ -14,6 +14,9 @@ interface ToolDao {
     @Insert(onConflict = OnConflictStrategy.ABORT) // prevents duplicate entries
     suspend fun addTool(tool: Tool)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(tools: List<Tool>)
+
     @Update
     suspend fun updateTool(tool: Tool)
 

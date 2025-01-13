@@ -4,19 +4,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Tool
-import com.miassolutions.rentatool.databinding.FragmentAddToolBinding
-import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
 import com.miassolutions.rentatool.core.utils.helper.showToast
+import com.miassolutions.rentatool.data.model.Tool
+import com.miassolutions.rentatool.databinding.FragmentAddToolBinding
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
 class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
 
     private var _binding: FragmentAddToolBinding? = null
     private val binding get() = _binding!!
 
-    private val rentalViewModel: RentalViewModel by activityViewModels()
+    private val rentalViewModel: SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

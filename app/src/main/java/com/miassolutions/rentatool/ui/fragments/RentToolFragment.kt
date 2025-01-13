@@ -8,19 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Customer
+import com.miassolutions.rentatool.core.utils.extenstions.showConfirmDialog
+import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
+import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
-import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.core.utils.extenstions.showConfirmDialog
-import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
-import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
-import com.miassolutions.rentatool.core.utils.helper.showToast
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
 
 class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
@@ -32,7 +32,10 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private var _binding: FragmentRentToolBinding? = null
     private val binding get() = _binding!!
 
-    private val rentalViewModel: RentalViewModel by activityViewModels()
+//    private val rentalViewModel: RentalViewModel by activityViewModels()
+private val rentalViewModel: SharedViewModel by activityViewModels {
+    SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+}
     private val selectedTools = mutableListOf<Pair<Long, Int>>()
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter

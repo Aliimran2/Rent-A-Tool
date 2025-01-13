@@ -3,25 +3,24 @@ package com.miassolutions.rentatool.ui.fragments
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Customer
-import com.miassolutions.rentatool.databinding.FragmentAddCustomerBinding
-import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
 import com.miassolutions.rentatool.core.utils.helper.isPermissionGranted
 import com.miassolutions.rentatool.core.utils.helper.requestPermission
 import com.miassolutions.rentatool.core.utils.helper.showToast
+import com.miassolutions.rentatool.data.model.Customer
+import com.miassolutions.rentatool.databinding.FragmentAddCustomerBinding
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 import java.io.File
 
 class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
@@ -29,7 +28,9 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
     private var _binding: FragmentAddCustomerBinding? = null
     private val binding get() = _binding!!
 
-    private val rentalViewModel: RentalViewModel by activityViewModels()
+    private val rentalViewModel: SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+    }
 
     private var customerPicUri: Uri? = null // Holds the URI of the selected image
 

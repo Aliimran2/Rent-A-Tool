@@ -9,7 +9,9 @@ import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.data.model.RentalDetail
 import com.miassolutions.rentatool.data.model.Tool
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
@@ -42,71 +44,111 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     private val _selectedTools = MutableLiveData<List<Pair<Long, Int>>>()
     val selectedTools: LiveData<List<Pair<Long, Int>>> get() = _selectedTools
 
-    fun setSelectedTools(tools : List<Pair<Long, Int>>) {
+    fun setSelectedTools(tools: List<Pair<Long, Int>>) {
         _selectedTools.value = tools
     }
 
     fun fetchAllTools() {
-        viewModelScope.launch {
-            _tools.value = repository.getAllTools()
+        viewModelScope.launch(Dispatchers.IO) {
+            val toolsList = repository.getAllTools()
+            withContext(Dispatchers.Main) {
+                _tools.value = toolsList
+            }
         }
     }
 
+    init {
+        fetchAllCustomers()
+        fetchAllTools()
+        fetchAllRentals()
+        fetchAllRentalDetails()
+    }
+
     fun fetchAllCustomers() {
-        viewModelScope.launch {
-            _customers.value = repository.getAllCustomers()
+        viewModelScope.launch(Dispatchers.IO) {
+            val customersList = repository.getAllCustomers()
+            withContext(Dispatchers.Main) {
+                _customers.value = customersList
+            }
         }
     }
 
     // Fetch all rentals
     fun fetchAllRentals() {
-        viewModelScope.launch {
-            _rentals.value = repository.searchRentalsByCustomer(0) // Replace 0 with a valid customerId if needed
+        viewModelScope.launch(Dispatchers.IO) {
+            val rentalsList = repository.searchRentalsByCustomer(0) // Replace 0 with a valid customerId if needed
+            withContext(Dispatchers.Main) {
+                _rentals.value = rentalsList
+            }
         }
     }
 
     // Fetch all rental details
     fun fetchAllRentalDetails() {
-        viewModelScope.launch {
-            _rentalDetails.value = repository.searchRentalDetailsByRental(0) // Replace 0 with a valid rentalId if needed
+        viewModelScope.launch(Dispatchers.IO) {
+            val rentalDetailsList = repository.searchRentalDetailsByRental(0) // Replace 0 with a valid rentalId if needed
+            withContext(Dispatchers.Main) {
+                _rentalDetails.value = rentalDetailsList
+            }
         }
     }
 
     // search
-    fun searchToolByName(name:String){
-        viewModelScope.launch {
-            _tools.value = repository.searchToolsByName(name)
+    fun searchToolByName(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toolsList = repository.searchToolsByName(name)
+            withContext(Dispatchers.Main) {
+                _tools.value = toolsList
+            }
         }
     }
 
-    fun searchCustomerByName(name: String){
-        viewModelScope.launch {
-            _customers.value = repository.searchCustomerByName(name)
+    fun searchCustomerByName(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val customersList = repository.searchCustomerByName(name)
+            withContext(Dispatchers.Main) {
+                _customers.value = customersList
+            }
         }
     }
 
-    fun searchRentalsByCustomer(customerId : Long){
-        viewModelScope.launch {
-            _rentals.value = repository.searchRentalsByCustomer(customerId)
+    fun searchRentalsByCustomer(customerId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val rentalsList = repository.searchRentalsByCustomer(customerId)
+            withContext(Dispatchers.Main) {
+                _rentals.value = rentalsList
+            }
         }
     }
 
-    fun searchRentalDetailsByRental(rentalId : Long){
-        viewModelScope.launch {
-            _rentalDetails.value = repository.searchRentalDetailsByRental(rentalId)
+    fun searchRentalDetailsByRental(rentalId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val rentalDetailsList = repository.searchRentalDetailsByRental(rentalId)
+            withContext(Dispatchers.Main) {
+                _rentalDetails.value = rentalDetailsList
+            }
         }
     }
 
+    fun setCustomer(customer: Customer) {
+        _customer.value = customer
+    }
 
-    fun getCustomerById(customerId: Long){
-        viewModelScope.launch {
-            _customer.value = repository.getCustomerById(customerId)
+    fun getCustomerById(customerId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val customerResult = repository.getCustomerById(customerId)
+            withContext(Dispatchers.Main) {
+                _customer.value = customerResult
+            }
         }
     }
 
-    fun getToolById(toolId : Long){
-        viewModelScope.launch {
-            _tool.value = repository.getToolById(toolId)
+    fun getToolById(toolId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toolResult = repository.getToolById(toolId)
+            withContext(Dispatchers.Main) {
+                _tool.value = toolResult
+            }
         }
     }
 
@@ -114,43 +156,49 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     val toastMessage: LiveData<String?> get() = _toastMessage
 
     fun addTool(tool: Tool) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.addTool(tool)
 
-            result.onSuccess {
-                _toastMessage.postValue("Tool added successfully!")
-            }
+            withContext(Dispatchers.Main) {
+                result.onSuccess {
+                    _toastMessage.value = "Tool added successfully!"
+                }
 
-            result.onFailure { exception ->
-                _toastMessage.postValue("Error adding tool: ${exception.message}")
-            }
+                result.onFailure { exception ->
+                    _toastMessage.value = "Error adding tool: ${exception.message}"
+                }
 
-            // Refresh tool list
-            fetchAllTools()
+                // Refresh tool list
+                fetchAllTools()
+            }
         }
     }
 
-    fun updateTool(tool: Tool){
-        viewModelScope.launch {
+    fun updateTool(tool: Tool) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateTool(tool)
             fetchAllTools()
         }
     }
 
-    fun addCustomer(customer: Customer){
-        viewModelScope.launch {
+    fun addCustomer(customer: Customer) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = repository.addCustomer(customer)
-            result.onSuccess {
-                _toastMessage.postValue("Customer Added Successfully")
+
+            withContext(Dispatchers.Main) {
+                result.onSuccess {
+                    _toastMessage.value = "Customer Added Successfully"
+                }
+                result.onFailure {
+                    _toastMessage.value = "Error adding customer : ${it.message}"
+                }
             }
-            result.onFailure {
-                _toastMessage.postValue("Error adding customer : ${it.message}")
-            }
+            fetchAllCustomers()
         }
     }
 
-    fun updateCustomer(updatedCustomer:Customer){
-        viewModelScope.launch {
+    fun updateCustomer(updatedCustomer: Customer) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateCustomer(updatedCustomer)
             fetchAllCustomers() // Refresh customers
         }
@@ -158,7 +206,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
 
     // Add a rental
     fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Add rental and get the generated Rental object
                 val rental = repository.addRental(
@@ -201,25 +249,25 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
 
     // Return tools
     fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {
-        return try {
-            val rentalDetail = repository.getRentalDetailById(rentalDetailId)
-            if (rentalDetail != null) {
-                val tool = repository.getToolById(rentalDetail.toolId)
-                if (tool != null) {
-                    val rent = (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
-                    rentalDetail.quantity -= returnQuantity
-                    tool.availableStock += returnQuantity
-                    fetchAllRentalDetails() // Refresh rental details
-                    fetchAllTools() // Refresh tools
-                    rent
-                } else null
-            } else null
-        } catch (e: Exception) {
-            null
+        var rent: Double? = null
+        viewModelScope.launch {
+            try {
+                val rentalDetail = repository.getRentalDetailById(rentalDetailId)
+                if (rentalDetail != null) {
+                    val tool = repository.getToolById(rentalDetail.toolId)
+                    if (tool != null) {
+                        rent = (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
+                        rentalDetail.quantity -= returnQuantity
+                        tool.availableStock += returnQuantity
+                        fetchAllRentalDetails() // Refresh rental details
+                        fetchAllTools() // Refresh tools
+                    }
+                }
+            } catch (e: Exception) {
+                // Handle error if needed
+            }
         }
+        return rent
     }
-
-
-
 
 }

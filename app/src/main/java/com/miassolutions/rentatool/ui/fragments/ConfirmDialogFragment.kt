@@ -1,23 +1,19 @@
 package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.helper.formattedDate
 import com.miassolutions.rentatool.data.model.Customer
-import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.FragmentConfirmDialogBinding
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
-import com.miassolutions.rentatool.ui.viewmodels.RentalViewModel
-import com.miassolutions.rentatool.core.utils.helper.formattedDate
-import com.miassolutions.rentatool.core.utils.mockdb.DataProvider.customers
-import java.text.SimpleDateFormat
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 import java.util.Date
-import java.util.Locale
 
 class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
 
@@ -29,7 +25,9 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
     private var _binding: FragmentConfirmDialogBinding? = null
     private val binding get() = _binding!!
 
-    private val rentalViewModel: RentalViewModel by activityViewModels()
+    private val rentalViewModel: SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+    }
 
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
 
