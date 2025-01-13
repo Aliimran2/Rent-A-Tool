@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["name"], unique = true)] // Prevent duplicate tool names
 )
 data class Tool(
-    @PrimaryKey(autoGenerate = true) val toolId: Long,
+    @PrimaryKey(autoGenerate = true) val toolId: Long =0L,
     val name: String,
     val rentPerDay: Double,
     val totalStock: Int,

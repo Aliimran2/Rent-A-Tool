@@ -20,6 +20,10 @@ interface ToolDao {
     @Update
     suspend fun updateTool(tool: Tool)
 
+    // New method to update only the stock and rented quantity
+    @Query("UPDATE tools SET availableStock = :availableStock, rentedQuantity = :rentedQuantity WHERE toolId = :toolId")
+    suspend fun updateStock(toolId: Long, availableStock: Int, rentedQuantity: Int)
+
     @Query("SELECT * FROM tools")
     fun getAllTools() : List<Tool>
 

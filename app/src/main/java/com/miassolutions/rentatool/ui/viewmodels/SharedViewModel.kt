@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -208,24 +209,42 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // Add rental and get the generated Rental object
-                val rental = repository.addRental(
+                // Start a transaction
+                val rentalId = repository.addRental(
                     Rental(
-                        rentalId = 0L, // Auto-generate ID
                         customerId = customerId,
                         rentalDate = rentalDate,
                         returnDate = null
                     )
                 )
 
-                rental?.let {
+                // Check if the rental was successfully added
+                rentalId?.let { rentalId ->
                     toolRentals.forEach { (toolId, quantity) ->
                         val tool = repository.getToolById(toolId)
                         if (tool != null) {
+                            if (tool.availableStock < quantity) {
+                                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
+                            }
+
+                            // Update stock values
+                            val newAvailableStock = tool.availableStock - quantity
+                            val newRentedQuantity = tool.rentedQuantity + quantity
+
+                            // Log values before updating
+                            Log.d("MyViewModel","Updating tool ID: $toolId, New Available Stock: $newAvailableStock, New Rented Quantity: $newRentedQuantity")
+
+                            // Update stock in the database
+                            repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
+
+                            // Verify changes by re-querying the tool (optional for debugging)
+                            val updatedTool = repository.getToolById(toolId)
+                            println("Updated Tool: $updatedTool")
+
+                            // Add rental details
                             repository.addRentalDetail(
                                 RentalDetail(
-                                    rentalDetailId = 0, // Auto-generate ID
-                                    rentalId = it,
+                                    rentalId = rentalId,
                                     toolId = toolId,
                                     quantity = quantity,
                                     rentPerDay = tool.rentPerDay,
@@ -233,19 +252,26 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                                     returnDate = null
                                 )
                             )
+                        } else {
+                            throw IllegalArgumentException("Tool not found with ID: $toolId")
                         }
                     }
-                }
 
-                // Refresh data
-                fetchAllRentals()
-                fetchAllRentalDetails()
+                    // Refresh data
+                    fetchAllTools()
+                    fetchAllRentals()
+                    fetchAllRentalDetails()
+                } ?: throw IllegalArgumentException("Failed to create rental")
+
             } catch (e: Exception) {
-                // Handle the exception (e.g., log it or show an error message)
                 e.printStackTrace()
             }
         }
     }
+
+
+
+
 
     // Return tools
     fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {

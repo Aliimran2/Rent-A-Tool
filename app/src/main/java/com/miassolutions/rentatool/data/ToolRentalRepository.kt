@@ -94,6 +94,10 @@ class ToolRentalRepository(
         }
     }
 
+    suspend fun updateToolStock(toolId: Long, availableStock: Int, rentedQuantity: Int) {
+        toolDao.updateStock(toolId, availableStock, rentedQuantity)
+    }
+
     // Update an existing customer
     suspend fun updateCustomer(customer: Customer) {
         withContext(Dispatchers.IO) {

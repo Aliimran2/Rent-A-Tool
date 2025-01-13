@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 )
 data class Rental(
     @PrimaryKey(autoGenerate = true)
-    val rentalId : Long,
+    val rentalId : Long=0L,
     val customerId: Long,
     val rentalDate : Long,
     val returnDate : Long?

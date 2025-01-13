@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["customerPhone"], unique = true)] // Prevent duplicate customers
 )
 data class Customer(
-    @PrimaryKey(autoGenerate = true) val customerId: Long,
+    @PrimaryKey(autoGenerate = true) val customerId: Long = 0L,
     var customerPic : String ,
     var customerName: String,
     var cnicNumber: String , //TODO()

@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 
 data class RentalDetail(
     @PrimaryKey(autoGenerate = true)
-    val rentalDetailId: Long,
+    val rentalDetailId: Long=0L,
     val rentalId: Long,
     val toolId : Long,
     var quantity: Int,
