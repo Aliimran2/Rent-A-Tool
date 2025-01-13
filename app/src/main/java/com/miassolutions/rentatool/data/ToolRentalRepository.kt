@@ -10,7 +10,7 @@ class ToolRentalRepository(private  val db : AppDatabase) {
 
     //tool functions
     fun getToolById(toolId:Long) = db.toolDao().getToolById(toolId)
-    fun searchTools(query: String) = db.toolDao().searchTools(query)
+    fun searchToolsByName(query: String) = db.toolDao().searchTools(query)
     suspend fun addTool(tool: Tool) : Result<Unit> {
         return try {
             db.toolDao().addTool(tool)
@@ -25,7 +25,7 @@ class ToolRentalRepository(private  val db : AppDatabase) {
 
     // Customer functions
     fun getCustomerById(customerId: Long) = db.customerDao().getCustomerById(customerId)
-    fun searchCustomers(query: String) = db.customerDao().searchCustomers(query)
+    fun searchCustomerByName(query: String) = db.customerDao().searchCustomers(query)
     suspend fun addCustomer(customer: Customer): Result<Unit> {
         return try {
             db.customerDao().addCustomer(customer)
