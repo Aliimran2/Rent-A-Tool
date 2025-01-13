@@ -36,6 +36,7 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
     private val selectedTools = mutableListOf<Pair<Long, Int>>()
     private lateinit var toolSelectionAdapter: ToolSelectionListAdapter
     private lateinit var selectedToolListAdapter: SelectedToolListAdapter
+    private  var selectedCustomer : Long = 0L
     private var estimatedDate = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +60,11 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
 
             showConfirmDialog(
                 "Save Transaction", "Are you sure?",
-                onConfirm = {navigateToNextFragment()},
+                onConfirm = {
+                    navigateToNextFragment()
+                    updateDatabase()
+
+                },
                 onCancel = { showToast("Action Cancelled") }
             )
 //            navigateToNextFragment()
@@ -74,16 +79,40 @@ class RentToolFragment : Fragment(R.layout.fragment_rent_tool) {
         }
     }
 
-    private fun updateDatabase(customer: Customer) {
+    private fun updateDatabase() {
         rentalViewModel.addRental(
-            customerId = TODO(),
-            toolRentals = TODO(),
-            rentalDate = TODO()
+            customerId = selectedCustomer,
+            toolRentals = selectedTools,
+            rentalDate = System.currentTimeMillis()
         )
     }
 
 
     private fun observeViewModel() {
+
+        rentalViewModel.rentalDetails.observe(viewLifecycleOwner){
+            it?.let {
+                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
+                    "Rental ID: ${d.rentalDetailId}\nTool ID: ${d.toolId}\nTool Quantity: ${d.quantity}\nRental date: ${d.rentalDate}\nrentPerDay: ${d.rentPerDay}\n"  }}")
+            }?: run {
+                Log.d(TAG, "No details")
+            }
+        }
+
+        rentalViewModel.rentals.observe(viewLifecycleOwner){
+            it?.let {
+                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
+                    "Rental ID: ${d.rentalId}\nRentDate: ${d.rentalDate}\nReturn Date: ${d.returnDate}\nCustomer ID: ${d.customerId}\n\n"  }}")
+            }?: run {
+                Log.d(TAG, "No details")
+            }
+        }
+
+        rentalViewModel.customer.observe(viewLifecycleOwner) {
+            it?.let {
+                selectedCustomer = it.customerId
+            }
+        }
 
         rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
 
