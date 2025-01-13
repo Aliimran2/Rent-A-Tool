@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,6 +36,8 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
             val tool = collectToolInput()
             if (tool != null) {
                 rentalViewModel.addTool(tool)
+                Log.d("AddToolFragment", "Tool: $tool")
+
                 showToast(requireContext(), getString(R.string.is_saved_successfully, tool.name))
                 clearInputsFields()
             }
