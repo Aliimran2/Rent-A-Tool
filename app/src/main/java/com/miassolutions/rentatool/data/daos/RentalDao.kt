@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,7 +12,7 @@ interface RentalDao {
     fun getRentalById(rentalId: Long): Rental?
 
     @Query("SELECT * FROM rentals WHERE customerId = :customerId")
-    fun searchRentalsByCustomer(customerId: Long): List<Rental>
+    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>>
 
     @Insert
     suspend fun addRental(rental: Rental): Long

@@ -47,7 +47,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     }
 
     private fun observeViewModel() {
-        rentalViewModel.customers.observe(viewLifecycleOwner) {
+        rentalViewModel.allCustomers.observe(viewLifecycleOwner) {
             Log.d("CustomersListFragment", "Observed customers: $it")
              adapter.submitList(it)
         }

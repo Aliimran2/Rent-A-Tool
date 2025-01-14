@@ -99,7 +99,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
 
     private fun validateStock() : Boolean {
        //if selected tools are out of stock return false
-        val toolsInStock = rentalViewModel.tools.value?: return false
+        val toolsInStock = rentalViewModel.allTools.value?: return false
         for ((toolId, quantityRequested) in selectedTools){
             val tool = toolsInStock.find { it.toolId == toolId }
             if (tool == null || tool.availableStock < quantityRequested ){
@@ -129,23 +129,23 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
 
     private fun observeViewModel() {
 
-        rentalViewModel.rentalDetails.observe(viewLifecycleOwner){
-            it?.let {
-                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
-                    "Rental ID: ${d.rentalDetailId}\nTool ID: ${d.toolId}\nTool Quantity: ${d.quantity}\nRental date: ${d.rentalDate}\nrentPerDay: ${d.rentPerDay}\n"  }}")
-            }?: run {
-                Log.d(TAG, "No details")
-            }
-        }
-
-        rentalViewModel.rentals.observe(viewLifecycleOwner){
-            it?.let {
-                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
-                    "Rental ID: ${d.rentalId}\nRentDate: ${d.rentalDate}\nReturn Date: ${d.returnDate}\nCustomer ID: ${d.customerId}\n\n"  }}")
-            }?: run {
-                Log.d(TAG, "No details")
-            }
-        }
+//        rentalViewModel.rentalDetails.observe(viewLifecycleOwner){
+//            it?.let {
+//                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
+//                    "Rental ID: ${d.rentalDetailId}\nTool ID: ${d.toolId}\nTool Quantity: ${d.quantity}\nRental date: ${d.rentalDate}\nrentPerDay: ${d.rentPerDay}\n"  }}")
+//            }?: run {
+//                Log.d(TAG, "No details")
+//            }
+//        }
+//
+//        rentalViewModel.rentals.observe(viewLifecycleOwner){
+//            it?.let {
+//                Log.d(TAG, "Rental Details: ${it.joinToString("\n") { d ->
+//                    "Rental ID: ${d.rentalId}\nRentDate: ${d.rentalDate}\nReturn Date: ${d.returnDate}\nCustomer ID: ${d.customerId}\n\n"  }}")
+//            }?: run {
+//                Log.d(TAG, "No details")
+//            }
+//        }
 
         rentalViewModel.customer.observe(viewLifecycleOwner) {
             it?.let {
@@ -153,7 +153,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
             }
         }
 
-        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
 
             binding.btnToolSelection.setOnClickListener {
                 showToolSelectionBottomSheet(tools) { selected ->
@@ -164,7 +164,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
             }
 
         }
-        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
             selectedToolListAdapter.updateToolsList(tools)
         }
 
@@ -227,7 +227,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
     }
 
     private fun showCustomerSelection() {
-        rentalViewModel.customers.observe(viewLifecycleOwner) { customers ->
+        rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
             Log.d(TAG, "$customers")
             if (!customers.isNullOrEmpty()) {
                 showCustomerSelectionBottomSheet(customers) { customer ->

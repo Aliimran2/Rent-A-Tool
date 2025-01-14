@@ -61,7 +61,7 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
             }
         }
 
-        rentalViewModel.tools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
             selectedToolListAdapter.updateToolsList(tools)
         }
 

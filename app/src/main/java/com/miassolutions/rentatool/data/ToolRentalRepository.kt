@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.data
 
+import androidx.lifecycle.LiveData
 import com.miassolutions.rentatool.core.AppDatabase
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
@@ -18,33 +19,28 @@ class ToolRentalRepository(
     private val rentalDetailDao = db.rentalDetailDao()
 
     // Fetch all tools
-    suspend fun getAllTools(): List<Tool> {
-        return withContext(Dispatchers.IO) {
-            toolDao.getAllTools() // Execute the DAO method on the IO thread
-        }
-    }
+     fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
 
     // Fetch all customers
-    suspend fun getAllCustomers(): List<Customer> {
-        return withContext(Dispatchers.IO) {
-            customerDao.getAllCustomers() // Execute the DAO method on the IO thread
-        }
-    }
+    fun getAllCustomers(): LiveData<List<Customer>> = customerDao.getAllCustomers()
 
     // Fetch all rentals by customerId
-    suspend fun searchRentalsByCustomer(customerId: Long): List<Rental> {
-        return withContext(Dispatchers.IO) {
-            rentalDao.searchRentalsByCustomer(customerId) // Execute the DAO method on the IO thread
-        }
-    }
+    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> = rentalDao.searchRentalsByCustomer(customerId)
 
     // Fetch all rental details by rentalId
-    suspend fun searchRentalDetailsByRental(rentalId: Long): List<RentalDetail> {
-        return withContext(Dispatchers.IO) {
-            rentalDetailDao.searchRentalDetailsByRental(rentalId) // Execute the DAO method on the IO thread
+    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> = rentalDetailDao.searchRentalDetailsByRental(rentalId)
+
+    suspend fun addToolIfNotExists(tool: Tool): Boolean {
+        val existingTool = toolDao.getToolByName(tool.name)
+        return if (existingTool == null) {
+            // Tool does not exist, proceed with insertion
+            toolDao.insertTool(tool)
+            true
+        } else {
+            // Tool already exists, return false
+            false
         }
     }
-
     // Search tools by name
     suspend fun searchToolsByName(name: String): List<Tool> {
         return withContext(Dispatchers.IO) {
@@ -60,10 +56,10 @@ class ToolRentalRepository(
     }
 
     // Add a new tool
-    suspend fun addTool(tool: Tool): Result<Unit> {
+    suspend fun insertTool(tool: Tool): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                toolDao.addTool(tool) // Use insert for adding a new tool
+                toolDao.insertTool(tool) // Use insert for adding a new tool
                 Result.success(Unit) // Return success with no additional data
             } catch (e: Exception) {
                 Result.failure(e) // Return failure in case of an exception
@@ -79,10 +75,10 @@ class ToolRentalRepository(
     }
 
     // Add a new customer
-    suspend fun addCustomer(customer: Customer): Result<Unit> {
+    suspend fun insertCustomer(customer: Customer): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                customerDao.addCustomer(customer) // Insert customer into the database
+                customerDao.insertCustomer(customer) // Insert customer into the database
                 Result.success(Unit) // Return success with no additional data
             } catch (e: Exception) {
                 Result.failure(e) // Return failure in case of an exception
@@ -102,14 +98,14 @@ class ToolRentalRepository(
     }
 
     // Add a new rental
-    suspend fun addRental(rental: Rental): Long {
+    suspend fun insertRental(rental: Rental): Long {
         return withContext(Dispatchers.IO) {
             rentalDao.addRental(rental) // Insert rental into the database
         }
     }
 
     // Add a rental detail
-    suspend fun addRentalDetail(rentalDetail: RentalDetail) {
+    suspend fun insertRentalDetails(rentalDetail: RentalDetail) {
         withContext(Dispatchers.IO) {
             rentalDetailDao.addRentalDetail(rentalDetail) // Insert rental detail into the database
         }

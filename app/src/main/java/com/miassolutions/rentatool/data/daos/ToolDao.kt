@@ -13,7 +13,7 @@ interface ToolDao {
 
 
     @Insert(onConflict = OnConflictStrategy.ABORT) // prevents duplicate entries
-    suspend fun addTool(tool: Tool)
+    suspend fun insertTool(tool: Tool)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(tools: List<Tool>)
@@ -26,10 +26,13 @@ interface ToolDao {
     suspend fun updateStock(toolId: Long, availableStock: Int, rentedQuantity: Int)
 
     @Query("SELECT * FROM tools")
-    fun getAllTools() : List<Tool>
+    fun getAllTools() : LiveData<List<Tool>>
 
     @Query("SELECT * FROM tools WHERE toolId =:toolId")
     fun getToolById(toolId : Long) : Tool?
+
+    @Query("SELECT * FROM tools WHERE name = :toolName LIMIT 1")
+    suspend fun getToolByName(toolName: String): Tool?
 
     @Query("SELECT * FROM tools WHERE name LIKE '%' || :query || '%'")
     fun searchTools(query: String) : List<Tool>

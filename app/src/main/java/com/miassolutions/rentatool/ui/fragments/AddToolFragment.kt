@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
 import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.Tool
@@ -27,6 +28,18 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddToolBinding.bind(view)
 
+
+        rentalViewModel.toolAddStatus.observe(viewLifecycleOwner){success ->
+            success?.let {
+                if (it ){
+                    showToast("Tool added successfully")
+                } else {
+                    showToast("This tool already exits")
+                }
+            }
+
+        }
+
         setupSubmitBtn()
 
     }
@@ -35,14 +48,15 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
         binding.btnSubmit.setOnClickListener {
             val tool = collectToolInput()
             if (tool != null) {
-                rentalViewModel.addTool(tool)
+                rentalViewModel.addToolIfNotExists(tool)
                 Log.d("AddToolFragment", "Tool: $tool")
 
-                showToast(requireContext(), getString(R.string.is_saved_successfully, tool.name))
                 clearInputsFields()
             }
         }
     }
+
+
 
 
     private fun collectToolInput(): Tool? {

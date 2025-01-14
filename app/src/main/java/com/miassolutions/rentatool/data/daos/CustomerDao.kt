@@ -20,11 +20,11 @@ interface CustomerDao {
     fun searchCustomers(query: String): List<Customer>
 
     @Insert(onConflict = OnConflictStrategy.ABORT) // Prevent duplicate entries
-    suspend fun addCustomer(customer: Customer)
+    suspend fun insertCustomer(customer: Customer)
 
     @Update
     suspend fun updateCustomer(customer: Customer)
 
     @Query("SELECT * FROM customers")
-    fun getAllCustomers(): List<Customer>
+    fun getAllCustomers(): LiveData<List<Customer>>
 }

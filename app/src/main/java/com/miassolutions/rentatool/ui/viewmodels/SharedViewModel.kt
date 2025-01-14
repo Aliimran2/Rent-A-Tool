@@ -1,6 +1,5 @@
 package com.miassolutions.rentatool.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +15,34 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
+
+    private val _toolAddStatus = MutableLiveData<Boolean?>(null)
+    val toolAddStatus: LiveData<Boolean?> get() = _toolAddStatus
+
+    fun addToolIfNotExists(tool: Tool) {
+        _toolAddStatus.value = null
+        viewModelScope.launch {
+            val success = repository.addToolIfNotExists(tool)
+            _toolAddStatus.postValue(success)
+        }
+    }
+
+    // Expose LiveData to the UI (Fragment/Activity)
+    val allTools: LiveData<List<Tool>> = repository.getAllTools()
+    val allCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
+
+    // Function to observe rentals by customerId
+    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
+        repository.searchRentalsByCustomer(customerId)
+
+    // Function to observe rental details by rentalId
+    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
+        repository.searchRentalDetailsByRental(rentalId)
+
+    // Toast message for success or error
+    private val _toastMessage = MutableLiveData<String?>()
+    val toastMessage: LiveData<String?> get() = _toastMessage
+
     private val _customer = MutableLiveData<Customer?>()
     val customer: LiveData<Customer?> get() = _customer
 
@@ -29,19 +56,11 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         _estimatedReturnDate.value = date
     }
 
-    //lists
-    private val _tools = MutableLiveData<List<Tool>>()
-    val tools: LiveData<List<Tool>> = _tools
+    fun setCustomer(customer: Customer) {
+        _customer.value = customer
+    }
 
-    private val _customers = MutableLiveData<List<Customer>>()
-    val customers: LiveData<List<Customer>> get() = _customers
-
-    private val _rentals = MutableLiveData<List<Rental>>()
-    val rentals: LiveData<List<Rental>> get() = _rentals
-
-    private val _rentalDetails = MutableLiveData<List<RentalDetail>>()
-    val rentalDetails: LiveData<List<RentalDetail>> get() = _rentalDetails
-
+    // MutableLiveData for selected tools
     private val _selectedTools = MutableLiveData<List<Pair<Long, Int>>>()
     val selectedTools: LiveData<List<Pair<Long, Int>>> get() = _selectedTools
 
@@ -49,116 +68,10 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         _selectedTools.value = tools
     }
 
-    fun fetchAllTools() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val toolsList = repository.getAllTools()
-            withContext(Dispatchers.Main) {
-                _tools.value = toolsList
-            }
-        }
-    }
-
-    init {
-        fetchAllCustomers()
-        fetchAllTools()
-        fetchAllRentals()
-        fetchAllRentalDetails()
-    }
-
-    fun fetchAllCustomers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val customersList = repository.getAllCustomers()
-            withContext(Dispatchers.Main) {
-                _customers.value = customersList
-            }
-        }
-    }
-
-    // Fetch all rentals
-    fun fetchAllRentals() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val rentalsList = repository.searchRentalsByCustomer(0) // Replace 0 with a valid customerId if needed
-            withContext(Dispatchers.Main) {
-                _rentals.value = rentalsList
-            }
-        }
-    }
-
-    // Fetch all rental details
-    fun fetchAllRentalDetails() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val rentalDetailsList = repository.searchRentalDetailsByRental(0) // Replace 0 with a valid rentalId if needed
-            withContext(Dispatchers.Main) {
-                _rentalDetails.value = rentalDetailsList
-            }
-        }
-    }
-
-    // search
-    fun searchToolByName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val toolsList = repository.searchToolsByName(name)
-            withContext(Dispatchers.Main) {
-                _tools.value = toolsList
-            }
-        }
-    }
-
-    fun searchCustomerByName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val customersList = repository.searchCustomerByName(name)
-            withContext(Dispatchers.Main) {
-                _customers.value = customersList
-            }
-        }
-    }
-
-    fun searchRentalsByCustomer(customerId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val rentalsList = repository.searchRentalsByCustomer(customerId)
-            withContext(Dispatchers.Main) {
-                _rentals.value = rentalsList
-            }
-        }
-    }
-
-    fun searchRentalDetailsByRental(rentalId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val rentalDetailsList = repository.searchRentalDetailsByRental(rentalId)
-            withContext(Dispatchers.Main) {
-                _rentalDetails.value = rentalDetailsList
-            }
-        }
-    }
-
-    fun setCustomer(customer: Customer) {
-        _customer.value = customer
-    }
-
-    fun getCustomerById(customerId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val customerResult = repository.getCustomerById(customerId)
-            withContext(Dispatchers.Main) {
-                _customer.value = customerResult
-            }
-        }
-    }
-
-    fun getToolById(toolId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val toolResult = repository.getToolById(toolId)
-            withContext(Dispatchers.Main) {
-                _tool.value = toolResult
-            }
-        }
-    }
-
-    private val _toastMessage = MutableLiveData<String?>()
-    val toastMessage: LiveData<String?> get() = _toastMessage
-
+    // Add tool
     fun addTool(tool: Tool) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.addTool(tool)
+            val result = repository.insertTool(tool)
 
             withContext(Dispatchers.Main) {
                 result.onSuccess {
@@ -168,23 +81,21 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                 result.onFailure { exception ->
                     _toastMessage.value = "Error adding tool: ${exception.message}"
                 }
-
-                // Refresh tool list
-                fetchAllTools()
             }
         }
     }
 
+    // Update tool
     fun updateTool(tool: Tool) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateTool(tool)
-            fetchAllTools()
         }
     }
 
+    // Add customer
     fun addCustomer(customer: Customer) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.addCustomer(customer)
+            val result = repository.insertCustomer(customer)
 
             withContext(Dispatchers.Main) {
                 result.onSuccess {
@@ -194,23 +105,22 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                     _toastMessage.value = "Error adding customer : ${it.message}"
                 }
             }
-            fetchAllCustomers()
         }
     }
 
+    // Update customer
     fun updateCustomer(updatedCustomer: Customer) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateCustomer(updatedCustomer)
-            fetchAllCustomers() // Refresh customers
         }
     }
 
-    // Add a rental
+    // Add rental
     fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Start a transaction
-                val rentalId = repository.addRental(
+                val rentalId = repository.insertRental(
                     Rental(
                         customerId = customerId,
                         rentalDate = rentalDate,
@@ -218,7 +128,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                     )
                 )
 
-                // Check if the rental was successfully added
+                // Process each tool rental
                 rentalId?.let { rentalId ->
                     toolRentals.forEach { (toolId, quantity) ->
                         val tool = repository.getToolById(toolId)
@@ -231,18 +141,11 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                             val newAvailableStock = tool.availableStock - quantity
                             val newRentedQuantity = tool.rentedQuantity + quantity
 
-                            // Log values before updating
-                            Log.d("MyViewModel","Updating tool ID: $toolId, New Available Stock: $newAvailableStock, New Rented Quantity: $newRentedQuantity")
-
                             // Update stock in the database
                             repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
 
-                            // Verify changes by re-querying the tool (optional for debugging)
-                            val updatedTool = repository.getToolById(toolId)
-                            println("Updated Tool: $updatedTool")
-
                             // Add rental details
-                            repository.addRentalDetail(
+                            repository.insertRentalDetails(
                                 RentalDetail(
                                     rentalId = rentalId,
                                     toolId = toolId,
@@ -256,22 +159,13 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                             throw IllegalArgumentException("Tool not found with ID: $toolId")
                         }
                     }
-
-                    // Refresh data
-                    fetchAllTools()
-                    fetchAllRentals()
-                    fetchAllRentalDetails()
-                } ?: throw IllegalArgumentException("Failed to create rental")
+                }
 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-
-
-
-
 
     // Return tools
     fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {
@@ -285,8 +179,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                         rent = (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
                         rentalDetail.quantity -= returnQuantity
                         tool.availableStock += returnQuantity
-                        fetchAllRentalDetails() // Refresh rental details
-                        fetchAllTools() // Refresh tools
                     }
                 }
             } catch (e: Exception) {
@@ -295,5 +187,4 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
         return rent
     }
-
 }
