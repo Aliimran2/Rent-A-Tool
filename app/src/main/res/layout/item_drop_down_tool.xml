@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/background"
     android:padding="12dp"
-    >
+    app:cardBackgroundColor="@color/background"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,22 +22,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            tools:text="Hammer"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cb_tool"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Hammer" />
 
         <!-- Available Quantity TextInputLayout -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
             app:helperText="In Stock: 50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,11 +48,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/quantity"
+                android:imeOptions="actionDone"
                 android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="12sp"
                 android:padding="8dp"
-                />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- CheckBox -->

@@ -11,6 +11,9 @@ import com.miassolutions.rentatool.data.model.Tool
 @Dao
 interface ToolDao {
 
+    @Insert
+    suspend fun addTools(tools: List<Tool>)
+
     @Insert(onConflict = OnConflictStrategy.ABORT) // prevents duplicate entries
     suspend fun addTool(tool: Tool)
 

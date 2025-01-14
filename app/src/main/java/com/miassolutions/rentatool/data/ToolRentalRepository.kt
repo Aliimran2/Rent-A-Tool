@@ -1,10 +1,6 @@
 package com.miassolutions.rentatool.data
 
 import com.miassolutions.rentatool.core.AppDatabase
-import com.miassolutions.rentatool.data.daos.CustomerDao
-import com.miassolutions.rentatool.data.daos.RentalDao
-import com.miassolutions.rentatool.data.daos.RentalDetailDao
-import com.miassolutions.rentatool.data.daos.ToolDao
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.data.model.RentalDetail

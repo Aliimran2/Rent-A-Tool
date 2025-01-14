@@ -9,6 +9,9 @@ import com.miassolutions.rentatool.data.model.Customer
 
 @Dao
 interface CustomerDao {
+    @Insert
+    suspend fun addCustomers(customers: List<Customer>)
+
     @Query("SELECT * FROM customers WHERE customerId = :customerId")
     fun getCustomerById(customerId: Long): Customer?
 

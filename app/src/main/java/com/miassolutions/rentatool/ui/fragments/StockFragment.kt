@@ -29,6 +29,8 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         setupUI()
         observeViewModel()
 
+
+
     }
 
     private fun setupUI() {

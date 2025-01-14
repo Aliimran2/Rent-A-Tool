@@ -60,7 +60,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
         binding.etCustomerName.setOnClickListener { showCustomerSelection() }
         binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
         binding.btnSubmit.setOnClickListener {
-            if (validateInputs()){
+            if (validateInputs() && validateStock()){
                 showConfirmDialog(
                     "Save Transaction", "Are you sure?",
                     onConfirm = {
@@ -91,9 +91,23 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
                 showToast(getString(R.string.please_select_some_tools))
                 false
             }
+
             else -> true
         }
 
+    }
+
+    private fun validateStock() : Boolean {
+       //if selected tools are out of stock return false
+        val toolsInStock = rentalViewModel.tools.value?: return false
+        for ((toolId, quantityRequested) in selectedTools){
+            val tool = toolsInStock.find { it.toolId == toolId }
+            if (tool == null || tool.availableStock < quantityRequested ){
+                showToast("Tool '${tool?.name ?: "Unknown"} is out of stock or insufficient quantity")
+                return false
+            }
+        }
+        return true
     }
 
     private fun showDatePickerDialog() {

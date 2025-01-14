@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,9 +12,14 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.AppDatabase
 import com.miassolutions.rentatool.core.utils.helper.PermissionUtils
 import com.miassolutions.rentatool.core.utils.helper.showToast
+import com.miassolutions.rentatool.core.utils.mockdb.MockDB
+import com.miassolutions.rentatool.core.utils.mockdb.MockDB.customers
+import com.miassolutions.rentatool.core.utils.mockdb.MockDB.tools
 import com.miassolutions.rentatool.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if (!PermissionUtils.hasPermissions(this, requiredPermissions)){
+        if (!PermissionUtils.hasPermissions(this, requiredPermissions)) {
             PermissionUtils.requestPermissions(this, requiredPermissions)
         }
 
@@ -58,20 +64,41 @@ class MainActivity : AppCompatActivity() {
             ), binding.drawerLayout
         )
 
+
+
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomNavigationView.setupWithNavController(navController)
         binding.navigationView.setupWithNavController(navController)
 
-val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
+        val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
         aboutApp.setOnMenuItemClickListener {
             Toast.makeText(this@MainActivity, "MIAS Solutions", Toast.LENGTH_SHORT).show()
             binding.drawerLayout.closeDrawers()
             true
         }
 
-    }
+        val mockdb = binding.navigationView.menu.findItem(R.id.mockData)
+        mockdb.setOnMenuItemClickListener {
 
+
+
+
+            binding.drawerLayout.closeDrawers()
+            true
+        }
+
+        val reset = binding.navigationView.menu.findItem(R.id.resetItem)
+
+        reset.setOnMenuItemClickListener {
+
+            binding.drawerLayout.closeDrawers()
+            true
+
+        }
+
+
+    }
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -85,12 +112,12 @@ val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
         deviceId: Int
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
-        if (requestCode == PermissionUtils.REQUEST_CODE){
+        if (requestCode == PermissionUtils.REQUEST_CODE) {
             val deniedPermissions = permissions.zip(grantResults.toList())
                 .filter { it.second != PackageManager.PERMISSION_GRANTED }
                 .map { it.first }
 
-            if (deniedPermissions.isEmpty()){
+            if (deniedPermissions.isEmpty()) {
                 showToast(this, "All permissions granted")
             } else showToast(this, "Permission denied : ${deniedPermissions.joinToString()}")
         }

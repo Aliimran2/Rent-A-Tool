@@ -47,6 +47,12 @@
     <group>
 
         <item
+            android:id="@+id/mockData"
+            android:title="Mock Data" />
+        <item
+            android:id="@+id/resetItem"
+            android:title="Reset" />
+        <item
             android:icon="@drawable/about_icon"
             android:id="@+id/aboutApp"
             android:title="@string/about" />
