@@ -73,11 +73,11 @@ abstract class AppDatabase : RoomDatabase() {
 
             // List of customers to be inserted
             val customers = listOf(
-                Customer(customerPic = "pic1.jpg", customerName = "John Doe", cnicNumber = "123456789", customerPhone = "555-1234", constructionPlace = "Site A", contractorName = "Alice", contractorPhone = "555-9876", ownerName = "Bob", ownerPhone = "555-1122"),
-                Customer(customerPic = "pic2.jpg", customerName = "Jane Smith", cnicNumber = "234567890", customerPhone = "555-2345", constructionPlace = "Site B", contractorName = "Charlie", contractorPhone = "555-8765", ownerName = "Dave", ownerPhone = "555-2233"),
-                Customer(customerPic = "pic3.jpg", customerName = "Mike Johnson", cnicNumber = "345678901", customerPhone = "555-3456", constructionPlace = "Site C", contractorName = "Eve", contractorPhone = "555-7654", ownerName = "Frank", ownerPhone = "555-3344"),
-                Customer(customerPic = "pic4.jpg", customerName = "Sarah Brown", cnicNumber = "456789012", customerPhone = "555-4567", constructionPlace = "Site D", contractorName = "George", contractorPhone = "555-6543", ownerName = "Hannah", ownerPhone = "555-4455"),
-                Customer(customerPic = "pic5.jpg", customerName = "David Lee", cnicNumber = "567890123", customerPhone = "555-5678", constructionPlace = "Site E", contractorName = "Ivy", contractorPhone = "555-5432", ownerName = "Jack", ownerPhone = "555-5566")
+                Customer(customerPic = "pic1.jpg", customerName = "M Akram", cnicNumber = "123456789", customerPhone = "555-1234", constructionPlace = "Site A", contractorName = "Alice", contractorPhone = "555-9876", ownerName = "Bob", ownerPhone = "555-1122"),
+                Customer(customerPic = "pic2.jpg", customerName = "Amjid Khan", cnicNumber = "234567890", customerPhone = "555-2345", constructionPlace = "Site B", contractorName = "Charlie", contractorPhone = "555-8765", ownerName = "Dave", ownerPhone = "555-2233"),
+                Customer(customerPic = "pic3.jpg", customerName = "Hafiz Kareem", cnicNumber = "345678901", customerPhone = "555-3456", constructionPlace = "Site C", contractorName = "Eve", contractorPhone = "555-7654", ownerName = "Frank", ownerPhone = "555-3344"),
+                Customer(customerPic = "pic4.jpg", customerName = "Boota", cnicNumber = "456789012", customerPhone = "555-4567", constructionPlace = "Site D", contractorName = "George", contractorPhone = "555-6543", ownerName = "Hannah", ownerPhone = "555-4455"),
+                Customer(customerPic = "pic5.jpg", customerName = "Latif", cnicNumber = "567890123", customerPhone = "555-5678", constructionPlace = "Site E", contractorName = "Ivy", contractorPhone = "555-5432", ownerName = "Jack", ownerPhone = "555-5566")
             )
 
             CoroutineScope(Dispatchers.IO).launch {
