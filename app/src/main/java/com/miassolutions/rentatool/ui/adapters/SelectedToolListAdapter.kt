@@ -2,13 +2,23 @@ package com.miassolutions.rentatool.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemSelectedToolsBinding
 import com.miassolutions.rentatool.databinding.ItemStockToolsBinding
 
-class SelectedToolListAdapter : ListAdapter<Pair<Long, Int>, SelectedToolListAdapter.ToolVH>(SelectedToolDiffUtil()) {
+class SelectedToolListAdapter : ListAdapter<Pair<Long, Int>, SelectedToolListAdapter.ToolVH>(
+    DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Pair<Long, Int>>() {
+            override fun areItemsTheSame(oldItem: Pair<Long, Int>, newItem: Pair<Long, Int>): Boolean = oldItem.first == newItem.first
+
+            override fun areContentsTheSame(oldItem: Pair<Long, Int>, newItem: Pair<Long, Int>): Boolean = oldItem == newItem
+        }
+    }
 
     // Instead of passing the tools list through the constructor, we will use the submitList() method to update the list.
     private var toolsList: List<Tool> = emptyList()

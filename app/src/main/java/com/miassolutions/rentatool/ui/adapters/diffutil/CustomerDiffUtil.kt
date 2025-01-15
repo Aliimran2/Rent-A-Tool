@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.adapters
+package com.miassolutions.rentatool.ui.adapters.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.miassolutions.rentatool.data.model.Customer

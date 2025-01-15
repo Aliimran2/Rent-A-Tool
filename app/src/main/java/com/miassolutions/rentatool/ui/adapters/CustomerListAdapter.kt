@@ -1,18 +1,15 @@
 package com.miassolutions.rentatool.ui.adapters
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.helper.PermissionUtils
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
+import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerListAdapter(
     val dialerClickListener: (Customer) -> Unit,

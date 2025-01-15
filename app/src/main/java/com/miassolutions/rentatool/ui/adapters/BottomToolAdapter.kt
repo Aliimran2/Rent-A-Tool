@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemDropDownToolBinding
+import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
 
-class BottomToolAdapter : ListAdapter<Tool, BottomToolAdapter.BottomToolVH>(BottomToolDiffUtil()) {
+class BottomToolAdapter : ListAdapter<Tool, BottomToolAdapter.BottomToolVH>(ToolDiffUtil()) {
 
 
     inner class BottomToolVH(private val binding: ItemDropDownToolBinding) :

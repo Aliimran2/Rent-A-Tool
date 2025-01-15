@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemDropDownCustomerBinding
+import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerSelectionListAdapter(
     val onClickListener: (Customer) -> Unit,
