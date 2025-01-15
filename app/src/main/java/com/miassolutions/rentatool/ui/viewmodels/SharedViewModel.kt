@@ -15,17 +15,14 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
-
-    private val _toolAddStatus = MutableLiveData<Boolean?>(null)
-    val toolAddStatus: LiveData<Boolean?> get() = _toolAddStatus
-
-    fun addToolIfNotExists(tool: Tool) {
-        _toolAddStatus.value = null
-        viewModelScope.launch {
-            val success = repository.addToolIfNotExists(tool)
-            _toolAddStatus.postValue(success)
-        }
+fun checkToExists(toolName :String) : LiveData<Boolean> {
+    val result = MutableLiveData<Boolean>()
+    viewModelScope.launch {
+        val exists = repository.isToolExists(toolName)
+        result.postValue(exists)
     }
+    return result
+}
 
     // Expose LiveData to the UI (Fragment/Activity)
     val allTools: LiveData<List<Tool>> = repository.getAllTools()

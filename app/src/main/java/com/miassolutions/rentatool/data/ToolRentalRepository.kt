@@ -30,17 +30,9 @@ class ToolRentalRepository(
     // Fetch all rental details by rentalId
     fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> = rentalDetailDao.searchRentalDetailsByRental(rentalId)
 
-    suspend fun addToolIfNotExists(tool: Tool): Boolean {
-        val existingTool = toolDao.getToolByName(tool.name)
-        return if (existingTool == null) {
-            // Tool does not exist, proceed with insertion
-            toolDao.insertTool(tool)
-            true
-        } else {
-            // Tool already exists, return false
-            false
-        }
-    }
+   suspend fun isToolExists(toolName : String) : Boolean {
+       return toolDao.getToolByName(toolName) != null
+   }
     // Search tools by name
     suspend fun searchToolsByName(name: String): List<Tool> {
         return withContext(Dispatchers.IO) {

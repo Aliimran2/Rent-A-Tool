@@ -29,30 +29,36 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
         _binding = FragmentAddToolBinding.bind(view)
 
 
-        rentalViewModel.toolAddStatus.observe(viewLifecycleOwner){success ->
-            success?.let {
-                if (it ){
-                    showToast("Tool added successfully")
-                } else {
-                    showToast("This tool already exits")
-                }
-            }
 
-        }
 
         setupSubmitBtn()
 
     }
 
+
+
     private fun setupSubmitBtn() {
         binding.btnSubmit.setOnClickListener {
             val tool = collectToolInput()
             if (tool != null) {
-                rentalViewModel.addToolIfNotExists(tool)
-                Log.d("AddToolFragment", "Tool: $tool")
-
-                clearInputsFields()
+                checkAndAddTool(tool)
             }
+        }
+    }
+
+    private fun checkAndAddTool(tool: Tool) {
+        val toolName = tool.name.lowercase().trim()
+        rentalViewModel.checkToExists(toolName).observe(viewLifecycleOwner){exists ->
+            exists?.let {
+                if (it ){
+                    showToast("This tool already exists")
+                } else {
+                    rentalViewModel.addTool(tool)
+                    showToast("Tool added successfully")
+                    clearInputsFields()
+                }
+            }
+
         }
     }
 
