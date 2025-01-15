@@ -44,6 +44,12 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
             findNavController().navigate(R.id.action_stockFragment_to_rentToolFragment, null)
 
         }
+
+        binding.btnReturnTool.setOnClickListener {
+
+            findNavController().navigate(R.id.action_stockFragment_to_returnToolFragment, null)
+
+        }
     }
 
     private fun observeViewModel() {
