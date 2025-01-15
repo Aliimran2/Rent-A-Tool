@@ -9,16 +9,10 @@
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:layout_marginEnd="2dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:hint="@string/customer_name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -28,36 +22,6 @@
                 android:focusable="false"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="@string/return_date">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_return_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="Date"
-                android:focusable="false"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-
-    <!-- Tool Selection Section -->
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_tool_selection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/select_tools"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-         />
 
     <include
 
@@ -77,11 +41,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_selected_tools_list"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_gravity="center_horizontal"
         tools:listitem="@layout/item_rent_tools_list"
-        android:layout_margin="16dp">
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 

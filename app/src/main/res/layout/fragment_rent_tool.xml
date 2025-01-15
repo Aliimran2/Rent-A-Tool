@@ -83,7 +83,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_gravity="center_horizontal"
         tools:listitem="@layout/item_rent_tools_list"
-        android:layout_margin="16dp">
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 

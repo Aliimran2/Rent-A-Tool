@@ -9,24 +9,44 @@
     android:layout_gravity="bottom"
     android:elevation="8dp">
 
-    <!-- Handle bar for dragging -->
-    <View
-        android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:background="@drawable/handle_bar_background"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Title or Header -->
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_tools_and_enter_quantity"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:textColor="@color/colorPrimary" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/select_tools_and_enter_quantity"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:layout_weight="8"
+            android:paddingBottom="8dp"
+            android:textColor="@color/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirmation"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Confirm" />
+    </LinearLayout>
+
+<!--    &lt;!&ndash; Handle bar for dragging &ndash;&gt;-->
+<!--    <View-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="4dp"-->
+<!--        android:background="@drawable/handle_bar_background"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginBottom="16dp" />-->
+
+    <!-- Title or Header -->
+
 
     <!-- Rounded SearchView with shadow -->
     <com.google.android.material.card.MaterialCardView
@@ -59,11 +79,6 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_confirmation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/confirm_selection" />
+
 
 </LinearLayout>
