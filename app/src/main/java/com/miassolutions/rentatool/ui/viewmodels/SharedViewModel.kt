@@ -28,6 +28,8 @@ fun checkToExists(toolName :String) : LiveData<Boolean> {
     val allTools: LiveData<List<Tool>> = repository.getAllTools()
     val allCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
 
+
+
     // Function to observe rentals by customerId
     fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
         repository.searchRentalsByCustomer(customerId)

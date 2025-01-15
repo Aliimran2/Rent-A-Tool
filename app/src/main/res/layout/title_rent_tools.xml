@@ -8,7 +8,7 @@
     android:layout_margin="4dp"
     android:elevation="4dp"
 
-    app:cardBackgroundColor="@color/transparent"
+    app:cardBackgroundColor="@color/cardview_dark_background"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:text="Tool Name"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@color/on_primary"
             android:ellipsize="end"
             android:maxLines="1"/>
 
@@ -36,7 +36,7 @@
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
-            app:dividerColor="@android:color/darker_gray"/>
+            app:dividerColor="@color/on_primary"/>
 
         <!-- Tool Quantity Text -->
         <TextView
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:text="Quantity"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/on_primary"
             android:ellipsize="end"
             android:maxLines="1"/>
     </LinearLayout>
