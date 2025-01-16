@@ -3,6 +3,7 @@ package com.miassolutions.rentatool.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.MyApplication
@@ -12,6 +13,7 @@ import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.data.model.RentalDetail
 import com.miassolutions.rentatool.databinding.FragmentReturnToolBinding
 import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
+import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
@@ -25,100 +27,66 @@ class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
     private val rentalViewModel: SharedViewModel by activityViewModels {
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
-    private var selectedCustomer: Long = 0L
-    private lateinit var rentalDetailAdapter: RentalDetailAdapter
+
+    private lateinit var rentalListAdapter: RentalListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentReturnToolBinding.bind(view)
 
-
-
-
-
-
-
-        setupRecyclerView()
         setupUI()
+        setupInitialState()
         observeViewModel()
-
-
-    }
-
-    private fun setupRecyclerView() {
-
-        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
-
-            rentalDetailAdapter = RentalDetailAdapter(tools)
-            binding.rvReturnedToolsList.apply {
-                adapter = rentalDetailAdapter
-            }
-        }
     }
 
     private fun setupUI() {
-        binding.apply {
-            etCustomerName.setOnClickListener {
-                showCustomerSelection()
-            }
-        }
+        rentalListAdapter = RentalListAdapter()
+        binding.rvReturnedToolsList.adapter = rentalListAdapter
 
+        // Initially hide the list
+        binding.rvReturnedToolsList.isVisible = false
+
+        binding.etCustomerName.setOnClickListener {
+            showCustomerSelection()
+        }
+    }
+
+    private fun setupInitialState() {
+        // Clear rentals list and hide it to avoid showing old data on initialization
+        rentalViewModel.setCustomer(null) // Reset selected customer
+        rentalListAdapter.submitList(emptyList())
+        binding.rvReturnedToolsList.isVisible = false
     }
 
     private fun observeViewModel() {
-
         rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
-            customer?.let {
-
-                val customerId = it.customerId
-                Log.d(TAG, "Selected Customer : $customerId")
-
-                rentalViewModel.searchRentalsByCustomer(customerId)
-                    .observe(viewLifecycleOwner) { rentals ->
-                        Log.d(TAG, "Rentals : $rentals")
-
-                        rentals.forEach { rental ->
-                            rentalViewModel.searchRentalDetailsByRental(rental.rentalId)
-                                .observe(viewLifecycleOwner) { rentalDetails ->
-                                    rentalDetailAdapter.submitList(rentalDetails)
-                                    Log.d(
-                                        TAG,
-                                        "Rental ID : ${rental.rentalId}: Details : ${rentalDetails}"
-                                    )
-                                    updateRentalDetails(rental.rentalId, rentalDetails)
-                                }
-                        }
-                    }
+            if (customer == null) {
+                // No customer selected, clear rentals and hide list
+                rentalListAdapter.submitList(emptyList())
+                binding.rvReturnedToolsList.isVisible = false
+            } else {
+                // Customer selected, load rentals
+                loadRentalsForCustomer(customer.customerId)
             }
         }
-
-        rentalViewModel.searchRentalsByCustomer(selectedCustomer)
-            .observe(viewLifecycleOwner) { rentals ->
-                updateRentalList(rentals)
-
-            }
     }
 
-    private fun updateRentalDetails(rentalId: Long, rentalDetails: List<RentalDetail>) {
-        Log.d(TAG, "Updated Rental Details for Rental ID $rentalId: $rentalDetails")
-        // Update your UI with rental details for the given rentalId
-    }
-
-    private fun updateRentalList(rental: List<Rental>) {
-        Log.d(TAG, "$rental")
+    private fun loadRentalsForCustomer(customerId: Long) {
+        rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
+            rentalListAdapter.submitList(rentals)
+            binding.rvReturnedToolsList.isVisible = rentals.isNotEmpty()
+        }
     }
 
     private fun showCustomerSelection() {
         rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
-
             if (!customers.isNullOrEmpty()) {
-                showCustomerSelectionBottomSheet(customers) { customer ->
-                    binding.etCustomerName.text?.clear()
-                    rentalViewModel.setCustomer(customer)
-                    binding.etCustomerName.setText(customer.customerName)
+                showCustomerSelectionBottomSheet(customers) { selectedCustomer ->
+                    rentalViewModel.setCustomer(selectedCustomer)
+                    binding.etCustomerName.setText(selectedCustomer.customerName)
                 }
             } else {
-                Log.d(TAG, "no customer found")
+                Log.d(TAG, "No customers found")
             }
         }
     }
@@ -126,5 +94,9 @@ class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "ReturnToolFragment"
     }
 }

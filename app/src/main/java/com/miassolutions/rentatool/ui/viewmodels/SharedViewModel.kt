@@ -64,7 +64,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         _estimatedReturnDate.value = date
     }
 
-    fun setCustomer(customer: Customer) {
+    fun setCustomer(customer: Customer?) {
         _customer.value = customer
     }
 
