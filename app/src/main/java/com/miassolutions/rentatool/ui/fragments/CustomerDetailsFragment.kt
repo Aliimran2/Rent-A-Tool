@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.ui.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
     private val args : CustomerDetailsFragmentArgs by navArgs()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomerDetailsBinding.bind(view)
@@ -36,7 +38,14 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
     private fun setupUI(customer: Customer) {
         binding.apply {
+            if (customer.customerPic.isNotEmpty()) {
+                val customerPicUri = Uri.parse(customer.customerPic)
+                ivCustomer.setImageURI(customerPicUri)
+            } else {
+                ivCustomer.setImageResource(R.drawable.place_holder_image)
+            }
             tvCustomerName.text = customer.customerName
+            tvCustomerPhone.text = customer.customerPhone
             tvCnic.text = customer.cnicNumber
             tvPlace.text = customer.constructionPlace
             tvContractorName.text = customer.contractorName
