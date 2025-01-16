@@ -13,7 +13,8 @@ import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerListAdapter(
     val dialerClickListener: (Customer) -> Unit,
-    val navigationClickListener: (Customer) -> Unit
+    val navigationClickListener: (Customer) -> Unit,
+    val navToDetailsClickListener: (Customer) -> Unit,
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -24,7 +25,7 @@ class CustomerListAdapter(
         fun bind(customer: Customer) {
             binding.apply {
                 tvCustomerName.text = customer.customerName
-                tvConstructionPlace.text = "Mock City"
+                tvConstructionPlace.text = customer.constructionPlace
                 tvCustomerPhone.text = customer.customerPhone
 
                 if (customer.customerPic.isNotEmpty()) {
@@ -37,6 +38,10 @@ class CustomerListAdapter(
 
                 ivPhone.setOnClickListener {
                     dialerClickListener(customer)
+                }
+
+                root.setOnClickListener {
+                    navToDetailsClickListener(customer)
                 }
 
                 ivCustomer.setOnLongClickListener {

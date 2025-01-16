@@ -46,9 +46,13 @@ class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
     }
 
     private fun setupRecyclerView() {
-        rentalDetailAdapter = RentalDetailAdapter()
-        binding.rvReturnedToolsList.apply {
-            adapter = rentalDetailAdapter
+
+        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+
+            rentalDetailAdapter = RentalDetailAdapter(tools)
+            binding.rvReturnedToolsList.apply {
+                adapter = rentalDetailAdapter
+            }
         }
     }
 

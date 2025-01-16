@@ -111,11 +111,7 @@ class ToolRentalRepository(
     }
 
     // Fetch a customer by ID
-    suspend fun getCustomerById(customerId: Long): Customer? {
-        return withContext(Dispatchers.IO) {
-            customerDao.getCustomerById(customerId) // Fetch customer by ID from the database
-        }
-    }
+    suspend fun getCustomerById(customerId: Long): Customer? = customerDao.getCustomerById(customerId)
 
     // Fetch a rental detail by ID
     suspend fun getRentalDetailById(rentalDetailId: Long): RentalDetail? {

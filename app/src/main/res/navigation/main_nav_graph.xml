@@ -40,7 +40,11 @@
         android:id="@+id/customerDetailsFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.CustomerDetailsFragment"
         android:label="@string/customer_details"
-        tools:layout="@layout/fragment_customer_details" />
+        tools:layout="@layout/fragment_customer_details" >
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/customersListFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.CustomersListFragment"

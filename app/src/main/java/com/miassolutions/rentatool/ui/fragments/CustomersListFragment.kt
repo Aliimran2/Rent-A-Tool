@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.helper.showToast
+import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
@@ -37,8 +38,11 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
     private fun setupUI() {
         adapter = CustomerListAdapter(
-            dialerClickListener = {initializePhoneCall(it.customerPhone)},
-            navigationClickListener = { showToast(requireContext(), "Edit the customer") }
+            dialerClickListener = { initializePhoneCall(it.customerPhone) },
+            navigationClickListener = { showToast(requireContext(), "Edit the customer") },
+            navToDetailsClickListener = {customer -> navigateToDetailsFragment(customer)
+
+            }
         )
         binding.rvCustomerList.adapter = adapter
         binding.btnAddCustomer.setOnClickListener {
@@ -49,11 +53,17 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     private fun observeViewModel() {
         rentalViewModel.allCustomers.observe(viewLifecycleOwner) {
             Log.d("CustomersListFragment", "Observed customers: $it")
-             adapter.submitList(it)
+            adapter.submitList(it)
         }
     }
 
-    private fun initializePhoneCall(phoneNumber : String){
+    private fun navigateToDetailsFragment(customer: Customer) {
+        val customerId = customer.customerId
+        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(customerId)
+        findNavController().navigate(action)
+    }
+
+    private fun initializePhoneCall(phoneNumber: String) {
         try {
             val intent = Intent(Intent.ACTION_DIAL).apply {
                 data = Uri.parse("tel:$phoneNumber")  // This opens the dialer with the number

@@ -22,13 +22,6 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/rentPerDayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rent/Day: 0.0"
-        android:textSize="14sp" />
-
-    <TextView
         android:id="@+id/rentalDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
