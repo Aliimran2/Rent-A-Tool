@@ -19,8 +19,8 @@
             app:popExitAnim="@anim/slide_out_right"
             />
         <action
-            android:id="@+id/action_stockFragment_to_returnToolFragment"
-            app:destination="@id/returnToolFragment"
+            android:id="@+id/action_stockFragment_to_rentalFragment"
+            app:destination="@id/rentalFragment"
             app:enterAnim="@anim/bottom_to_original"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/zoom_in"
@@ -72,13 +72,13 @@
             />
     </fragment>
     <fragment
-        android:id="@+id/returnToolFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.ReturnToolFragment"
-        android:label="Return Tools"
-        tools:layout="@layout/fragment_return_tool" >
+        android:id="@+id/rentalFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.RentalFragment"
+        android:label="Rentals"
+        tools:layout="@layout/fragment_rental">
         <action
-            android:id="@+id/action_returnToolFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment" />
+            android:id="@+id/action_returnToolFragment_to_rentalDetailsFragment"
+            app:destination="@id/rentalDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
@@ -96,5 +96,14 @@
             app:popUpTo="@id/stockFragment"
             app:popUpToInclusive="true" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/rentalDetailsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.RentalDetailsFragment"
+        android:label="fragment_rental_details"
+        tools:layout="@layout/fragment_rental_details" >
+        <action
+            android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
     </fragment>
 </navigation>

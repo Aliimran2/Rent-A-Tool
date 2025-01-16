@@ -9,19 +9,15 @@ import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
-import com.miassolutions.rentatool.data.model.Rental
-import com.miassolutions.rentatool.data.model.RentalDetail
-import com.miassolutions.rentatool.databinding.FragmentReturnToolBinding
-import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
+import com.miassolutions.rentatool.databinding.FragmentRentalBinding
 import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
-const val TAG = "ReturnToolFragment"
 
-class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
+class RentalFragment : Fragment(R.layout.fragment_rental) {
 
-    private var _binding: FragmentReturnToolBinding? = null
+    private var _binding: FragmentRentalBinding? = null
     private val binding get() = _binding!!
 
     private val rentalViewModel: SharedViewModel by activityViewModels {
@@ -32,7 +28,7 @@ class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentReturnToolBinding.bind(view)
+        _binding = FragmentRentalBinding.bind(view)
 
         setupUI()
         setupInitialState()
@@ -91,12 +87,16 @@ class ReturnToolFragment : Fragment(R.layout.fragment_return_tool) {
         }
     }
 
+    private fun navigateToRentalDetails() {
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object {
-        private const val TAG = "ReturnToolFragment"
+        private const val TAG = "RentalFragment"
     }
 }

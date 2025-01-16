@@ -47,7 +47,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
 
         binding.btnReturnTool.setOnClickListener {
 
-            findNavController().navigate(R.id.action_stockFragment_to_returnToolFragment, null)
+            findNavController().navigate(R.id.action_stockFragment_to_rentalFragment, null)
 
         }
     }
