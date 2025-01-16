@@ -6,9 +6,11 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentRentalBinding
 import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
@@ -36,7 +38,12 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
     }
 
     private fun setupUI() {
-        rentalListAdapter = RentalListAdapter()
+        rentalListAdapter = RentalListAdapter(
+            onClickListener = { rental ->
+               showToast(rental.rentalId.toString())
+
+            }
+        )
         binding.rvReturnedToolsList.adapter = rentalListAdapter
 
         // Initially hide the list
@@ -45,6 +52,12 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
         binding.etCustomerName.setOnClickListener {
             showCustomerSelection()
         }
+    }
+
+    private fun navigateToRentalDetails(rentalId: Long) {
+        val action = RentalFragmentDirections.actionRentalFragmentToRentalDetailsFragment(rentalId)
+        findNavController().navigate(action)
+
     }
 
     private fun setupInitialState() {
@@ -87,9 +100,7 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
         }
     }
 
-    private fun navigateToRentalDetails() {
 
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

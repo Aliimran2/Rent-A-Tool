@@ -77,7 +77,7 @@
         android:label="Rentals"
         tools:layout="@layout/fragment_rental">
         <action
-            android:id="@+id/action_returnToolFragment_to_rentalDetailsFragment"
+            android:id="@+id/action_rentalFragment_to_rentalDetailsFragment"
             app:destination="@id/rentalDetailsFragment" />
     </fragment>
     <fragment
@@ -105,5 +105,8 @@
         <action
             android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
             app:destination="@id/confirmDialogFragment" />
+        <argument
+            android:name="rentalId"
+            app:argType="long" />
     </fragment>
 </navigation>

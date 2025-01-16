@@ -10,7 +10,9 @@ import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.databinding.ItemRentalBinding
 import java.util.Date
 
-class RentalListAdapter: ListAdapter<Rental, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
+class RentalListAdapter(
+    val onClickListener: (Rental) -> Unit
+) : ListAdapter<Rental, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Rental>() {
             override fun areItemsTheSame(oldItem: Rental, newItem: Rental): Boolean {
@@ -24,17 +26,25 @@ class RentalListAdapter: ListAdapter<Rental, RentalListAdapter.RentalVH>(DIFF_CA
         }
     }
 
-    class RentalVH(private val binding : ItemRentalBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(rental : Rental){
+    inner class RentalVH(private val binding: ItemRentalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(rental: Rental) {
             binding.apply {
                 tvRentalId.text = "${rental.rentalId}"
                 tvRentalDate.text = formattedDate(Date(rental.rentalDate))
+                root.setOnClickListener { onClickListener(rental) }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RentalVH {
-        return RentalVH(ItemRentalBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return RentalVH(
+            ItemRentalBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RentalVH, position: Int) {
