@@ -12,40 +12,57 @@ import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentCustomerDetailsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentalDetailsBinding
+import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
 
 class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
 
-    private var _binding : FragmentRentalDetailsBinding? = null
-    private val binding get() =  _binding!!
+    private var _binding: FragmentRentalDetailsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: RentalDetailAdapter
 
-    private val rentalViewModel : SharedViewModel by activityViewModels {
+    private val rentalViewModel: SharedViewModel by activityViewModels {
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
 
 
-    private val args : RentalDetailsFragmentArgs by navArgs()
-    private var rentalId : Long = 0L
+    private val args: RentalDetailsFragmentArgs by navArgs()
+    private var customerId: Long = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentalDetailsBinding.bind(view)
 
 
-        rentalId =args.rentalId
-        Log.d(TAG, "$rentalId")
+        customerId = args.customerId
+        Log.d(TAG, "$customerId")
+
+        setupRecyclerView()
+        observeViewModel()
 
     }
 
     private fun observeViewModel() {
-        rentalViewModel.searchRentalsByCustomer(rentalId).observe(viewLifecycleOwner){rentals ->
+        rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
+            Log.d(TAG, "${rentals}")
+            rentals.forEach { rental ->
+                binding.tvCustomerName.text = "Customer Id : ${rental.customerId}\nRental Id : ${rental.rentalId}"
+                rentalViewModel.searchRentalDetailsByRental(rental.rentalId)
+                    .observe(viewLifecycleOwner) {
+                        adapter.submitList(it)
+                    }
+            }
         }
     }
 
-
-
+    private fun setupRecyclerView() {
+        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+            adapter = RentalDetailAdapter(tools)
+            binding.rvReturnedToolsList.adapter = adapter
+        }
+    }
 
 
     override fun onDestroyView() {

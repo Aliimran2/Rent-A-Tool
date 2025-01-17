@@ -107,7 +107,7 @@
         android:label="fragment_rental_details"
         tools:layout="@layout/fragment_rental_details" >
         <argument
-            android:name="rentalId"
+            android:name="customerId"
             app:argType="long" />
         <action
             android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"

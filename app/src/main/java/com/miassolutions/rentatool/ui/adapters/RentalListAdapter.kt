@@ -11,7 +11,7 @@ import com.miassolutions.rentatool.databinding.ItemRentalBinding
 import java.util.Date
 
 class RentalListAdapter(
-    val onClickListener: (Rental) -> Unit
+    val onClickListener: (Long) -> Unit
 ) : ListAdapter<Rental, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Rental>() {
@@ -30,9 +30,9 @@ class RentalListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(rental: Rental) {
             binding.apply {
-                tvRentalId.text = "${rental.rentalId}"
+                tvRentalId.text = "Rental Id : ${rental.rentalId} Customer Id : ${rental.customerId}"
                 tvRentalDate.text = formattedDate(Date(rental.rentalDate))
-                root.setOnClickListener { onClickListener(rental) }
+                root.setOnClickListener { onClickListener(rental.customerId) }
             }
         }
     }
