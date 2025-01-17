@@ -30,7 +30,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
         _binding = FragmentCustomerDetailsBinding.bind(view)
 
         val customerId = args.customerId
-        rentalViewModel.getCustomerById(customerId)
+//        rentalViewModel.getCustomerById(customerId)
 
         observeViewModel()
 

@@ -45,10 +45,20 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
     }
 
     private fun observeViewModel() {
+
+
+
         rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
             Log.d(TAG, "${rentals}")
             rentals.forEach { rental ->
-                binding.tvCustomerName.text = "Customer Id : ${rental.customerId}\nRental Id : ${rental.rentalId}"
+
+                rentalViewModel.getCustomerById(rental.customerId).observe(viewLifecycleOwner) { customer ->
+                    customer?.let {
+                        binding.tvCustomerName.text = "${customer.customerName}"
+                    }
+                }
+
+//                binding.tvCustomerName.text = "Customer Id : ${rental.customerId}\nRental Id : ${rental.rentalId}"
                 rentalViewModel.searchRentalDetailsByRental(rental.rentalId)
                     .observe(viewLifecycleOwner) {
                         adapter.submitList(it)

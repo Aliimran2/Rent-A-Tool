@@ -111,7 +111,7 @@ class ToolRentalRepository(
     }
 
     // Fetch a customer by ID
-    suspend fun getCustomerById(customerId: Long): Customer? = customerDao.getCustomerById(customerId)
+    fun getCustomerById(customerId: Long): LiveData<Customer?> = customerDao.getCustomerById(customerId)
 
     // Fetch a rental detail by ID
     suspend fun getRentalDetailById(rentalDetailId: Long): RentalDetail? {

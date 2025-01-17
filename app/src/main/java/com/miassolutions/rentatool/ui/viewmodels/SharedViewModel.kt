@@ -44,14 +44,8 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     private val _customer = MutableLiveData<Customer?>()
     val customer: LiveData<Customer?> get() = _customer
 
-    fun getCustomerById(customerId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val customerData = repository.getCustomerById(customerId)
-            withContext(Dispatchers.Main) {
-
-                _customer.value = customerData
-            }
-        }
+    fun getCustomerById(customerId: Long) : LiveData<Customer?>{
+        return repository.getCustomerById(customerId)
     }
 
     private val _tool = MutableLiveData<Tool?>()

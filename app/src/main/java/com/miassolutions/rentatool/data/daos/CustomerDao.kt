@@ -13,8 +13,8 @@ interface CustomerDao {
     @Insert
     suspend fun addCustomers(customers: List<Customer>)
 
-    @Query("SELECT * FROM customers WHERE customerId = :customerId")
-    fun getCustomerById(customerId: Long): Customer?
+    @Query("SELECT * FROM customers WHERE customerId = :customerId LIMIT 1")
+    fun getCustomerById(customerId: Long): LiveData<Customer?>
 
     @Query("SELECT * FROM customers WHERE customerName LIKE '%' || :query || '%' OR customerPhone LIKE '%' || :query || '%'")
     fun searchCustomers(query: String): List<Customer>
