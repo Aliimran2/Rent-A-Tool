@@ -78,7 +78,11 @@
         tools:layout="@layout/fragment_rental">
         <action
             android:id="@+id/action_rentalFragment_to_rentalDetailsFragment"
-            app:destination="@id/rentalDetailsFragment" />
+            app:destination="@id/rentalDetailsFragment"
+            app:enterAnim="@anim/zoom_fade_in"
+            app:exitAnim="@anim/zoom_out"
+            app:popEnterAnim="@anim/zoom_fade_in"
+            app:popExitAnim="@anim/zoom_out" />
     </fragment>
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
@@ -102,11 +106,11 @@
         android:name="com.miassolutions.rentatool.ui.fragments.RentalDetailsFragment"
         android:label="fragment_rental_details"
         tools:layout="@layout/fragment_rental_details" >
-        <action
-            android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment" />
         <argument
             android:name="rentalId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
     </fragment>
 </navigation>

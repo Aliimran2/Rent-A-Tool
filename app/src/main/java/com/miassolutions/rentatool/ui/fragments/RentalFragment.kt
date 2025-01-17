@@ -40,8 +40,8 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
     private fun setupUI() {
         rentalListAdapter = RentalListAdapter(
             onClickListener = { rental ->
-               showToast(rental.rentalId.toString())
-
+                showToast(rental.rentalId.toString())
+                navigateToRentalDetails(rental.rentalId)
             }
         )
         binding.rvReturnedToolsList.adapter = rentalListAdapter
@@ -99,7 +99,6 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
             }
         }
     }
-
 
 
     override fun onDestroyView() {

@@ -19,23 +19,29 @@ import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
 
     private var _binding : FragmentRentalDetailsBinding? = null
-    private val binding = _binding!!
+    private val binding get() =  _binding!!
 
-//    private val rentalViewModel : SharedViewModel by activityViewModels {
-//        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
-//    }
+    private val rentalViewModel : SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
+    }
 
 
     private val args : RentalDetailsFragmentArgs by navArgs()
+    private var rentalId : Long = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentalDetailsBinding.bind(view)
 
 
-        val rentalId =args.rentalId
+        rentalId =args.rentalId
         Log.d(TAG, "$rentalId")
-        binding.tvCustomerName.text = rentalId.toString()
+
+    }
+
+    private fun observeViewModel() {
+        rentalViewModel.searchRentalsByCustomer(rentalId).observe(viewLifecycleOwner){rentals ->
+        }
     }
 
 
