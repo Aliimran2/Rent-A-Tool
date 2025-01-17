@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomerDetailsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentalDetailsBinding
 import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
@@ -69,7 +70,9 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
 
     private fun setupRecyclerView() {
         rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
-            adapter = RentalDetailAdapter(tools)
+            adapter = RentalDetailAdapter(tools){rentalDetail ->
+                showToast("${rentalDetail.quantity}")
+            }
             binding.rvReturnedToolsList.adapter = adapter
         }
     }

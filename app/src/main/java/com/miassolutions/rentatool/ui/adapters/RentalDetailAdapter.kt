@@ -11,11 +11,15 @@ import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemRentalDetailsBinding
 import java.util.Date
 
-class RentalDetailAdapter(private val tools: List<Tool>) :
+class RentalDetailAdapter(
+    private val tools: List<Tool>,
+    private val onItemClick: (RentalDetail) -> Unit
+) :
     ListAdapter<RentalDetail, RentalDetailAdapter.RentalDetailViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RentalDetailViewHolder {
-        val binding = ItemRentalDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemRentalDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RentalDetailViewHolder(binding)
     }
 
@@ -31,7 +35,9 @@ class RentalDetailAdapter(private val tools: List<Tool>) :
             val tool = tools.find { it.toolId == detail.toolId }
             binding.toolNameTextView.text = tool?.name ?: "Tool Not Found"
             binding.quantityTextView.text = "Quantity: ${detail.quantity}"
-            binding.rentalDateTextView.text = "Rental Date: ${formattedDate(Date(detail.rentalDate))}"
+            binding.rentalDateTextView.text =
+                "Rental Date: ${formattedDate(Date(detail.rentalDate))}"
+            binding.root.setOnClickListener { onItemClick(detail) }
         }
     }
 
