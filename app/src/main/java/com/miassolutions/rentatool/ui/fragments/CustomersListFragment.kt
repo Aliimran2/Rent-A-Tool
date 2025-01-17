@@ -40,7 +40,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         adapter = CustomerListAdapter(
             dialerClickListener = { initializePhoneCall(it.customerPhone) },
             navigationClickListener = { showToast(requireContext(), "Edit the customer") },
-            navToDetailsClickListener = {customer -> navigateToDetailsFragment(customer)
+            navToDetailsClickListener = {customer -> navigateToCustomerManagerFragment(customer)
 
             }
         )
@@ -57,9 +57,9 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         }
     }
 
-    private fun navigateToDetailsFragment(customer: Customer) {
+    private fun navigateToCustomerManagerFragment(customer: Customer) {
         val customerId = customer.customerId
-        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(customerId)
+        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerManagerFragment(customerId)
         findNavController().navigate(action)
     }
 

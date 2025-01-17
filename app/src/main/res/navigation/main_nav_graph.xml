@@ -3,29 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/stockFragment">
+    app:startDestination="@id/customersListFragment">
 
     <fragment
         android:id="@+id/stockFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.StockFragment"
         android:label="Stock"
-        tools:layout="@layout/fragment_stock">
-        <action
-            android:id="@+id/action_stockFragment_to_rentToolFragment"
-            app:destination="@id/rentToolFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
-        <action
-            android:id="@+id/action_stockFragment_to_rentalFragment"
-            app:destination="@id/rentalFragment"
-            app:enterAnim="@anim/bottom_to_original"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/zoom_in"
-            app:popExitAnim="@anim/fade_out" />
-    </fragment>
+        tools:layout="@layout/fragment_stock"/>
     <fragment
         android:id="@+id/addCustomerFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.AddCustomerFragment"
@@ -59,6 +43,9 @@
         <action
             android:id="@+id/action_customersListFragment_to_customerDetailsFragment"
             app:destination="@id/customerDetailsFragment" />
+        <action
+            android:id="@+id/action_customersListFragment_to_customerManagerFragment"
+            app:destination="@id/customerManagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/rentToolFragment"
@@ -67,9 +54,7 @@
         tools:layout="@layout/fragment_rent_tool" >
         <action
             android:id="@+id/action_rentToolFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment"
-
-            />
+            app:destination="@id/confirmDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/rentalFragment"
@@ -78,11 +63,7 @@
         tools:layout="@layout/fragment_rental">
         <action
             android:id="@+id/action_rentalFragment_to_rentalDetailsFragment"
-            app:destination="@id/rentalDetailsFragment"
-            app:enterAnim="@anim/zoom_fade_in"
-            app:exitAnim="@anim/zoom_out"
-            app:popEnterAnim="@anim/zoom_fade_in"
-            app:popExitAnim="@anim/zoom_out" />
+            app:destination="@id/rentalDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
@@ -93,14 +74,7 @@
         android:id="@+id/confirmDialogFragment"
         tools:layout="@layout/fragment_confirm_dialog"
         android:name="com.miassolutions.rentatool.ui.fragments.ConfirmDialogFragment"
-        android:label="ConfirmDialogFragment" >
-        <action
-            android:id="@+id/action_confirmDialogFragment_to_stockFragment"
-            app:destination="@id/stockFragment"
-            app:popUpTo="@id/stockFragment"
-            app:popUpToInclusive="true" />
-
-    </fragment>
+        android:label="ConfirmDialogFragment" />
     <fragment
         android:id="@+id/rentalDetailsFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.RentalDetailsFragment"
@@ -109,8 +83,34 @@
         <argument
             android:name="customerId"
             app:argType="long" />
-        <action
-            android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/customerManagerFragment"
+        android:name="com.miassolutions.rentatool.CustomerManagerFragment"
+        android:label="fragment_customer_manager"
+        tools:layout="@layout/fragment_customer_manager" >
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/rentedFragment"
+        android:name="com.miassolutions.rentatool.RentedFragment"
+        android:label="fragment_rented"
+        tools:layout="@layout/fragment_rented" />
+    <fragment
+        android:id="@+id/returnedFragment"
+        android:name="com.miassolutions.rentatool.ReturnedFragment"
+        android:label="fragment_returned"
+        tools:layout="@layout/fragment_returned" />
+    <fragment
+        android:id="@+id/retainedFragment"
+        android:name="com.miassolutions.rentatool.RetainedFragment"
+        android:label="fragment_retained"
+        tools:layout="@layout/fragment_retained" />
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.miassolutions.rentatool.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
 </navigation>

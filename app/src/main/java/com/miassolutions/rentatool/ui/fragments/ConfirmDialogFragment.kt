@@ -38,13 +38,13 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
         setupUI()
         observeViewModel()
 
-        binding.printReceipt.setOnClickListener {
-//            captureScreenshotExcludingButton(binding.root)
-            val action = ConfirmDialogFragmentDirections.actionConfirmDialogFragmentToStockFragment()
-            findNavController().navigate(action)
-
-
-        }
+//        binding.printReceipt.setOnClickListener {
+////            captureScreenshotExcludingButton(binding.root)
+//            val action = ConfirmDialogFragmentDirections.actionConfirmDialogFragmentToStockFragment()
+//            findNavController().navigate(action)
+//
+//
+//        }
     }
 
     private fun setupUI() {
