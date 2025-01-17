@@ -87,11 +87,14 @@
     <fragment
         android:id="@+id/customerManagerFragment"
         android:name="com.miassolutions.rentatool.CustomerManagerFragment"
-        android:label="fragment_customer_manager"
+        android:label="{customerName}"
         tools:layout="@layout/fragment_customer_manager" >
         <argument
             android:name="customerId"
             app:argType="long" />
+        <argument
+            android:name="customerName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/rentedFragment"

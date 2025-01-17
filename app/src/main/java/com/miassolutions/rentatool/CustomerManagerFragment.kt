@@ -26,6 +26,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         _binding = FragmentCustomerManagerBinding.bind(view)
 
         val customerId = args.customerId
+
         Log.d(TAG, "$customerId")
 
         val adapter = TabPagerAdapter(this)

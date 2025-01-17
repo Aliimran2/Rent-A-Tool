@@ -13,6 +13,7 @@ import com.miassolutions.rentatool.databinding.BottomSheetCustomersBinding
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerSelectionListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
+import com.miassolutions.rentatool.ui.newadapters.RentedToolsAdapter
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -128,10 +129,23 @@ fun Fragment.showToolSelectionBottomSheet(
         }
     })
 
+
     showBottomSheetDialogWithAction(binding.root) { dialog ->
         binding.btnConfirmation.setOnClickListener {
             onSelectedTools(tempSelectedTools.map { it.key to it.value })
             dialog.dismiss()
         }
+    }
+}
+
+fun Fragment.showToolSelection(
+    tool : Tool,
+    onSelectedTool : (String, Int) -> Unit
+){
+    val binding = BottomSheetToolsBinding.inflate(layoutInflater)
+    val adapter = RentedToolsAdapter()
+    binding.rvBottomSheet.adapter = adapter
+    showBottomSheetDialogWithAction(binding.root){dialog ->
+
     }
 }

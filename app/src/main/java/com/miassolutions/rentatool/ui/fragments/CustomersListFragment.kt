@@ -59,7 +59,8 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
     private fun navigateToCustomerManagerFragment(customer: Customer) {
         val customerId = customer.customerId
-        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerManagerFragment(customerId)
+        val customerName = customer.customerName
+        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerManagerFragment(customerId, customerName)
         findNavController().navigate(action)
     }
 
