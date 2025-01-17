@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
+    fun getAllRentals() : LiveData<List<Rental>> = repository.getAllRentals()
+
     fun checkToExists(toolName: String): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
         viewModelScope.launch {

@@ -119,4 +119,6 @@ class ToolRentalRepository(
             rentalDetailDao.getRentalDetailById(rentalDetailId) // Fetch rental detail by ID from the database
         }
     }
+
+    fun getAllRentals() : LiveData<List<Rental>> = rentalDao.getAllRentals()
 }

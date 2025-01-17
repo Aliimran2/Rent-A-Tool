@@ -76,7 +76,7 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
             if (validateInputs()) {
                 return Customer(
                     customerPic = customerPicUri?.toString() ?: "",
-                    customerId = System.currentTimeMillis(),
+
                     customerName = customerName,
                     cnicNumber = customerCnic,
                     customerPhone = customerPhone,

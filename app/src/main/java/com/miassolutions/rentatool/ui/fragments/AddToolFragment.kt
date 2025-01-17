@@ -79,7 +79,6 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
 
             if (validateInputs()) {
                 return Tool(
-                    toolId = System.currentTimeMillis(),
                     name = toolName,
                     rentPerDay = rentPrice,
                     totalStock = quantityOfTool,

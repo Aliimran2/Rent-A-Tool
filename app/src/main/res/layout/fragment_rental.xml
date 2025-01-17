@@ -7,27 +7,11 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:hint="@string/customer_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_customer_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <include
-
-        layout="@layout/title_rent_tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+<SearchView
+    android:id="@+id/sv_rentals"
+    android:queryHint="Enter Rental ID or Customer Id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
@@ -40,7 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_returned_tools_list"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_return_tools_list">
@@ -48,11 +32,5 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/submit" />
 
 </LinearLayout>

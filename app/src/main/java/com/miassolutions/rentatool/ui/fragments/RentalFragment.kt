@@ -33,7 +33,7 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
         _binding = FragmentRentalBinding.bind(view)
 
         setupUI()
-        setupInitialState()
+//        setupInitialState()
         observeViewModel()
     }
 
@@ -46,12 +46,12 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
         )
         binding.rvReturnedToolsList.adapter = rentalListAdapter
 
-        // Initially hide the list
-        binding.rvReturnedToolsList.isVisible = false
-
-        binding.etCustomerName.setOnClickListener {
-            showCustomerSelection()
-        }
+//        // Initially hide the list
+//        binding.rvReturnedToolsList.isVisible = false
+//
+//        binding.etCustomerName.setOnClickListener {
+//            showCustomerSelection()
+//        }
     }
 
     private fun navigateToRentalDetails(customerId: Long) {
@@ -60,45 +60,38 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
 
     }
 
-    private fun setupInitialState() {
-        // Clear rentals list and hide it to avoid showing old data on initialization
-        rentalViewModel.setCustomer(null) // Reset selected customer
-        rentalListAdapter.submitList(emptyList())
-        binding.rvReturnedToolsList.isVisible = false
-    }
+//    private fun setupInitialState() {
+//        // Clear rentals list and hide it to avoid showing old data on initialization
+//        rentalViewModel.setCustomer(null) // Reset selected customer
+//        rentalListAdapter.submitList(emptyList())
+//        binding.rvReturnedToolsList.isVisible = false
+//    }
 
     private fun observeViewModel() {
-        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
-            if (customer == null) {
-                // No customer selected, clear rentals and hide list
-                rentalListAdapter.submitList(emptyList())
-                binding.rvReturnedToolsList.isVisible = false
-            } else {
-                // Customer selected, load rentals
-                loadRentalsForCustomer(customer.customerId)
-            }
-        }
+       rentalViewModel.getAllRentals().observe(viewLifecycleOwner){
+           rentalListAdapter.submitList(it)
+       }
     }
 
-    private fun loadRentalsForCustomer(customerId: Long) {
-        rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
-            rentalListAdapter.submitList(rentals)
-            binding.rvReturnedToolsList.isVisible = rentals.isNotEmpty()
-        }
-    }
+//    private fun loadRentalsForCustomer(customerId: Long) {
+//        rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
+//            rentalListAdapter.submitList(rentals)
+//            binding.rvReturnedToolsList.isVisible = rentals.isNotEmpty()
+//        }
+//    }
 
-    private fun showCustomerSelection() {
-        rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
-            if (!customers.isNullOrEmpty()) {
-                showCustomerSelectionBottomSheet(customers) { selectedCustomer ->
-                    rentalViewModel.setCustomer(selectedCustomer)
-                    binding.etCustomerName.setText(selectedCustomer.customerName)
-                }
-            } else {
-                Log.d(TAG, "No customers found")
-            }
-        }
-    }
+//    private fun showCustomerSelection() {
+//        rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
+//            if (!customers.isNullOrEmpty()) {
+//                showCustomerSelectionBottomSheet(customers) { selectedCustomer ->
+//                    rentalViewModel.setCustomer(selectedCustomer)
+//                    binding.etCustomerName.setText(selectedCustomer.customerName)
+//                }
+//            } else {
+//                Log.d(TAG, "No customers found")
+//            }
+//        }
+//    }
 
 
     override fun onDestroyView() {
