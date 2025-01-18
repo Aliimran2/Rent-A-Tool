@@ -110,7 +110,12 @@
             android:name="customerId"
             app:argType="long" />
         <action
-            android:id="@+id/action_rentalDetailsFragment_to_confirmDialogFragment"
-            app:destination="@id/confirmDialogFragment" />
+            android:id="@+id/action_rentalDetailsFragment_to_rentedToolsFragment"
+            app:destination="@id/rentedToolsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/rentedToolsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.RentedToolsFragment"
+        android:label="fragment_rented_tools"
+        tools:layout="@layout/fragment_rented_tools" />
 </navigation>

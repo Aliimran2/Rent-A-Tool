@@ -71,10 +71,13 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
     private fun setupRecyclerView() {
         rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
             adapter = RentalDetailAdapter(tools){rentalDetail ->
-                showToast("${rentalDetail.quantity}")
+                showToast("${rentalDetail.rentalId}")
             }
             binding.rvReturnedToolsList.adapter = adapter
         }
+    }
+    private fun moveToReturnFragment(){
+
     }
 
 
