@@ -100,7 +100,11 @@
         android:id="@+id/rentedFragment"
         android:name="com.miassolutions.rentatool.RentedFragment"
         android:label="fragment_rented"
-        tools:layout="@layout/fragment_rented" />
+        tools:layout="@layout/fragment_rented" >
+        <action
+            android:id="@+id/action_rentedFragment_to_toolSelectionFragment"
+            app:destination="@id/toolSelectionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/returnedFragment"
         android:name="com.miassolutions.rentatool.ReturnedFragment"
@@ -116,4 +120,13 @@
         android:name="com.miassolutions.rentatool.BillFragment"
         android:label="fragment_bill"
         tools:layout="@layout/fragment_bill" />
+    <fragment
+        android:id="@+id/toolSelectionFragment"
+        android:name="com.miassolutions.rentatool.ToolSelectionFragment"
+        android:label="fragment_tool_selection"
+        tools:layout="@layout/fragment_tool_selection" >
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+    </fragment>
 </navigation>

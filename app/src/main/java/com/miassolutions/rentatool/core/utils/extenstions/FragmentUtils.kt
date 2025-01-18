@@ -121,13 +121,13 @@ fun Fragment.showToolSelectionBottomSheet(
 
     binding.rvBottomSheet.adapter = adapter
 
-    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean = false
-        override fun onQueryTextChange(newText: String?): Boolean {
-            newText?.let { adapter.filter(it) }
-            return true
-        }
-    })
+//    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//        override fun onQueryTextSubmit(query: String?): Boolean = false
+//        override fun onQueryTextChange(newText: String?): Boolean {
+//            newText?.let { adapter.filter(it) }
+//            return true
+//        }
+//    })
 
 
     showBottomSheetDialogWithAction(binding.root) { dialog ->

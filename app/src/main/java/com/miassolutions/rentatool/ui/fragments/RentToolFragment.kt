@@ -181,16 +181,16 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
         }
 
         bottomSheetToolsBinding.rvBottomSheet.adapter = toolSelectionAdapter
-
-        //search view setup
-        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { toolSelectionAdapter.filter(it) }
-                return true
-            }
-        })
+//
+//        //search view setup
+//        bottomSheetToolsBinding.searchView.setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean = false
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                newText?.let { toolSelectionAdapter.filter(it) }
+//                return true
+//            }
+//        })
 
         // button setup
         bottomSheetToolsBinding.btnConfirmation.setOnClickListener {

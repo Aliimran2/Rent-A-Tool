@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bottom_sheet_background"
     android:padding="16dp"
@@ -38,34 +38,26 @@
             android:text="Confirm" />
     </LinearLayout>
 
-<!--    &lt;!&ndash; Handle bar for dragging &ndash;&gt;-->
-<!--    <View-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="4dp"-->
-<!--        android:background="@drawable/handle_bar_background"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginBottom="16dp" />-->
-
-    <!-- Title or Header -->
 
 
 
 
-        <com.google.android.material.textfield.TextInputLayout
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:hint="@string/estimated_date">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_estimated_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:autofillHints="Date"
             android:focusable="false"
-            android:hint="@string/estimated_date">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_estimated_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:autofillHints="Date"
-                android:focusable="false"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:inputType="date" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- RecyclerView with custom dividers -->
     <androidx.recyclerview.widget.RecyclerView
@@ -77,7 +69,4 @@
         android:clipToPadding="false"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-
-
 </LinearLayout>
