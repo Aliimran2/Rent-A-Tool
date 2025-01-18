@@ -65,9 +65,9 @@ class ConfirmDialogFragment : Fragment(R.layout.fragment_confirm_dialog) {
             selectedToolListAdapter.updateToolsList(tools)
         }
 
-        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
-            selectedToolListAdapter.submitList(selectedTools)
-        }
+//        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
+//            selectedToolListAdapter.submitList(selectedTools)
+//        }
 
         rentalViewModel.estimatedReturnDate.observe(viewLifecycleOwner){ estimatedReturnDate ->
             val dateToDisplay = if(estimatedReturnDate > 0) Date(estimatedReturnDate) else Date()

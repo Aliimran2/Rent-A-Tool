@@ -29,7 +29,7 @@ interface ToolDao {
     fun getAllTools() : LiveData<List<Tool>>
 
     @Query("SELECT * FROM tools WHERE toolId =:toolId")
-    fun getToolById(toolId : Long) : Tool?
+    fun getToolById(toolId : Long) : LiveData<Tool?>
 
     @Query("SELECT * FROM tools WHERE LOWER(name) = LOWER(:toolName) LIMIT 1")
     suspend fun getToolByName(toolName: String): Tool?

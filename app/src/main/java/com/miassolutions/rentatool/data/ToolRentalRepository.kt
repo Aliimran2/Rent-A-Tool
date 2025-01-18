@@ -104,11 +104,8 @@ class ToolRentalRepository(
     }
 
     // Fetch a tool by ID
-    suspend fun getToolById(toolId: Long): Tool? {
-        return withContext(Dispatchers.IO) {
-            toolDao.getToolById(toolId) // Fetch tool by ID from the database
-        }
-    }
+     fun getToolById(toolId: Long): LiveData<Tool?> = toolDao.getToolById(toolId)
+
 
     // Fetch a customer by ID
     fun getCustomerById(customerId: Long): LiveData<Customer?> = customerDao.getCustomerById(customerId)

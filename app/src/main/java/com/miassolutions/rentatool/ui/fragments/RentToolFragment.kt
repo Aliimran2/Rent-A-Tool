@@ -59,21 +59,21 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
 
         binding.etCustomerName.setOnClickListener { showCustomerSelection() }
         binding.etEstimatedDate.setOnClickListener { showDatePickerDialog() }
-        binding.btnSubmit.setOnClickListener {
-            if (validateInputs() && validateStock()){
-                showConfirmDialog(
-                    "Save Transaction", "Are you sure?",
-                    onConfirm = {
-                        navigateToNextFragment()
-                        updateDatabase()
-
-                    },
-                    onCancel = { showToast("Action Cancelled") }
-                )
-            }
-
-
-        }
+//        binding.btnSubmit.setOnClickListener {
+//            if (validateInputs() && validateStock()){
+//                showConfirmDialog(
+//                    "Save Transaction", "Are you sure?",
+//                    onConfirm = {
+//                        navigateToNextFragment()
+//                        updateDatabase()
+//
+//                    },
+//                    onCancel = { showToast("Action Cancelled") }
+//                )
+//            }
+//
+//
+//        }
     }
 
     private fun validateInputs(): Boolean {
@@ -118,13 +118,13 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
         }
     }
 
-    private fun updateDatabase() {
-        rentalViewModel.addRental(
-            customerId = selectedCustomer,
-            toolRentals = selectedTools,
-            rentalDate = System.currentTimeMillis()
-        )
-    }
+//    private fun updateDatabase() {
+//        rentalViewModel.addRental(
+//            customerId = selectedCustomer,
+//            toolRentals = selectedTools,
+//            rentalDate = System.currentTimeMillis()
+//        )
+//    }
 
 
     private fun observeViewModel() {
@@ -150,11 +150,11 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
             selectedToolListAdapter.updateToolsList(tools)
         }
 
-        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
-            selectedToolListAdapter.submitList(selectedTools)
-        }
+//        rentalViewModel.selectedTools.observe(viewLifecycleOwner) { selectedTools ->
+//            selectedToolListAdapter.submitList(selectedTools)
+//        }
 
-        rentalViewModel.setSelectedTools(selectedTools)
+//        rentalViewModel.setSelectedTools(selectedTools)
 
     }
 
