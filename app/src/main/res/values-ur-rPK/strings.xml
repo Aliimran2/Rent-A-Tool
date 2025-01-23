@@ -91,4 +91,7 @@
     <string name="contact_customer">گاہک سے رابطہ کریں</string>
     <string name="customer_detail">گاہک کی تفصیلات</string>
     <string name="owner_details">مالک کی تفصیلات</string>
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="urdu">اردو</string>
 </resources>

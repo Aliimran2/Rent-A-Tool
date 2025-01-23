@@ -2,7 +2,7 @@
     <!-- Base application theme with Material 3 guidelines -->
     <style name="Base.Theme.RentATool" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary color scheme -->
-        <item name="android:fontFamily">@font/alvi_nastaleeq</item>
+<!--        <item name="android:fontFamily">@font/roboto</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/primary_container</item>

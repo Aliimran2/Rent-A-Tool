@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Add a new tool"
+    <item android:title="@string/add_new_customer"
+        android:id="@+id/add_customer_menu"
+        android:icon="@drawable/add_person"
+        app:showAsAction="always"
+        />
+    <item android:title="@string/add_new_tool"
         android:id="@+id/add_tool_menu"/>
 
-    <item android:title="Select Language">
+    <item android:title="@string/select_language">
         <menu>
-            <item android:title="English"
+            <item android:title="@string/english"
                 android:id="@+id/english_menu"/>
-            <item android:title="اردو"
+            <item android:title="@string/urdu"
                 android:id="@+id/urdu_menu"/>
         </menu>
     </item>

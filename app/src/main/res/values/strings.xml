@@ -91,5 +91,8 @@
     <string name="contact_customer">Contact Customer</string>
     <string name="customer_detail">Customer Details</string>
     <string name="owner_details">Owner Details</string>
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="urdu">اردو</string>
 
 </resources>

@@ -47,6 +47,11 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId){
+                    R.id.add_customer_menu -> {
+                        findNavController().navigate(R.id.addCustomerFragment)
+                        true
+                    }
+
                     R.id.add_tool_menu -> {
                         findNavController().navigate(R.id.addToolFragment)
                         true
@@ -85,9 +90,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             }
         )
         binding.rvCustomerList.adapter = adapter
-        binding.btnAddCustomer.setOnClickListener {
-            findNavController().navigate(R.id.addCustomerFragment)
-        }
+
     }
 
     private fun observeViewModel() {
