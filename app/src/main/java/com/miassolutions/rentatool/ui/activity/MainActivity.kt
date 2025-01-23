@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -59,7 +60,6 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.stockFragment,
                 R.id.customersListFragment,
-                R.id.addCustomerFragment,
                 R.id.addToolFragment
             ), binding.drawerLayout
         )
@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.bottomNavigationView.setupWithNavController(navController)
         binding.navigationView.setupWithNavController(navController)
 
         val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
