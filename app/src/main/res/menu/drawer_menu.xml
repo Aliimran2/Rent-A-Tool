@@ -1,71 +1,43 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <!-- Top Level Menu Items -->
 
 
-    <group>
+
+        <item
+            android:id="@+id/customersListFragment"
+            android:icon="@drawable/customer_icon"
+            android:title="@string/customers" />
 
         <item
             android:id="@+id/stockFragment"
             android:icon="@drawable/tools_icon"
             android:title="@string/stock" />
 
-        <item
-            android:icon="@drawable/customer_icon"
-            android:id="@+id/customersListFragment"
-            android:title="@string/customers" />
-    </group>
-
-    <!-- Divider -->
-    <item
-        android:id="@+id/nav_divider"
-        android:enabled="true"
-        android:title=""
-
-        />
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/addCustomerFragment"
+                android:icon="@drawable/add_person"
+                android:title="@string/add_new_customer" />
 
 
-    <group>
-        <item
-            android:id="@+id/addCustomerFragment"
-            android:title="@string/add_new_customer" />
+            <item
+                android:id="@+id/addToolFragment"
+                android:icon="@drawable/icon_add_tool"
+                android:title="@string/add_new_tool" />
 
+        </menu>
 
-        <item
-            android:id="@+id/addToolFragment"
-            android:title="@string/add_new_tool" />
-
-
-    </group>
-
-    <item
-        android:enabled="true"
-        android:title="" />
-
-
-    <group>
-
-        <item
-            android:id="@+id/mockData"
-            android:title="Mock Data" />
-        <item
-            android:id="@+id/resetItem"
-            android:title="Reset" />
-        <item
-            android:icon="@drawable/about_icon"
-            android:id="@+id/aboutApp"
-            android:title="@string/about" />
-
-    </group>
-
-
-
-
-
-
-
-
+    </item>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/aboutApp"
+                android:icon="@drawable/about_icon"
+                android:title="@string/about" />
+        </menu>
+    </item>
 
 
 </menu>

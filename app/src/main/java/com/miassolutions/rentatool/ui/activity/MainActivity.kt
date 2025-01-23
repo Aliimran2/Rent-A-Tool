@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.navigationView.setupWithNavController(navController)
@@ -77,24 +78,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val mockdb = binding.navigationView.menu.findItem(R.id.mockData)
-        mockdb.setOnMenuItemClickListener {
-
-
-
-
-            binding.drawerLayout.closeDrawers()
-            true
-        }
-
-        val reset = binding.navigationView.menu.findItem(R.id.resetItem)
-
-        reset.setOnMenuItemClickListener {
-
-            binding.drawerLayout.closeDrawers()
-            true
-
-        }
 
 
     }
