@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp"
-            android:text="Customer Details"
+            android:text="@string/customer_detail"
             android:textColor="#444444"
             android:textSize="24sp"
             android:textStyle="bold" />

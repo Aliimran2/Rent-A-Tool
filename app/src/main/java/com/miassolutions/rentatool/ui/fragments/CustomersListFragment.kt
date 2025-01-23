@@ -14,6 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.core.utils.helper.LanguageHelper
 import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
@@ -35,15 +37,26 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomersListBinding.bind(view)
 
+        // Apply saved language preference on fragment creation
+        LanguageHelper.applySavedLanguage(requireContext())
+
         requireActivity().addMenuProvider(object : MenuProvider{
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.insert_tool_menu, menu)
+                menuInflater.inflate(R.menu.main_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId){
-                    R.menu.insert_tool_menu -> {
+                    R.id.add_tool_menu -> {
                         findNavController().navigate(R.id.addToolFragment)
+                        true
+                    }
+                    R.id.english_menu -> {
+                        switchLanguage("en")
+                        true
+                    }
+                    R.id.urdu_menu -> {
+                        switchLanguage("ur")
                         true
                     }
                     else -> false
@@ -55,6 +68,13 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         observeViewModel()
 
     }
+    private fun switchLanguage(language: String) {
+        LanguageHelper.setLocale(requireContext(), language)
+        LanguageHelper.saveLanguagePreference(requireContext(), language)
+        requireActivity().recreate() // Recreate the activity to apply the new language
+        showToast("Switched to ${if (language == "en") "English" else "Urdu"}")
+    }
+
 
     private fun setupUI() {
         adapter = CustomerListAdapter(

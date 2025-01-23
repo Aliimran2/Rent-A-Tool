@@ -201,11 +201,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="More Fonts..."
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp"
-                android:text="Owner Details"
+                android:text="@string/owner_details"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <!-- Owner Name -->
             <com.google.android.material.textfield.TextInputLayout

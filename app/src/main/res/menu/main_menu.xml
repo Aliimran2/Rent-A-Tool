@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Add a new tool"
+        android:id="@+id/add_tool_menu"/>
+
+    <item android:title="Select Language">
+        <menu>
+            <item android:title="English"
+                android:id="@+id/english_menu"/>
+            <item android:title="اردو"
+                android:id="@+id/urdu_menu"/>
+        </menu>
+    </item>
+</menu>

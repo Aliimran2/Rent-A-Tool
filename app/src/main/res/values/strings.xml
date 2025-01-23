@@ -89,5 +89,7 @@
     <string name="call_him">Call him</string>
     <string name="pdf">Pdf</string>
     <string name="contact_customer">Contact Customer</string>
+    <string name="customer_detail">Customer Details</string>
+    <string name="owner_details">Owner Details</string>
 
 </resources>
