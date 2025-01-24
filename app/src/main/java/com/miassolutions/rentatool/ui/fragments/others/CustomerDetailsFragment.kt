@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments.entry
+package com.miassolutions.rentatool.ui.fragments.others
 
 import android.net.Uri
 import android.os.Bundle
@@ -22,7 +22,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
 
-    private val args : CustomerDetailsFragmentArgs by navArgs()
+    private val args: CustomerDetailsFragmentArgs by navArgs()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,9 +30,9 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
         _binding = FragmentCustomerDetailsBinding.bind(view)
 
         val customerId = args.customerId
-//        rentalViewModel.getCustomerById(customerId)
 
-        observeViewModel()
+
+        observeViewModel(customerId)
 
     }
 
@@ -55,11 +55,12 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
         }
     }
 
-    private fun observeViewModel() {
-        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+    private fun observeViewModel(customerId: Long) {
 
+
+        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
             customer?.let {
-                setupUI(customer)
+                setupUI(it)
             }
         }
     }

@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_add_tool" />
     <fragment
         android:id="@+id/customerDetailsFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.entry.CustomerDetailsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.others.CustomerDetailsFragment"
         android:label="@string/customer_details"
         tools:layout="@layout/fragment_customer_details" >
         <argument
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateDeleteCustomerFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.entry.UpdateDeleteCustomerFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.others.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
         tools:layout="@layout/fragment_update_customer" />
     <fragment

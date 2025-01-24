@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments.entry
+package com.miassolutions.rentatool.ui.fragments.others
 
 import androidx.fragment.app.Fragment
 import com.miassolutions.rentatool.R
