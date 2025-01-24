@@ -35,12 +35,6 @@
         android:label="@string/customers"
         tools:layout="@layout/fragment_customers_list">
         <action
-            android:id="@+id/action_customersListFragment_to_addCustomerFragment"
-            app:destination="@id/addCustomerFragment" />
-        <action
-            android:id="@+id/action_customersListFragment_to_updateDeleteCustomerFragment"
-            app:destination="@id/updateDeleteCustomerFragment" />
-        <action
             android:id="@+id/action_customersListFragment_to_customerDetailsFragment"
             app:destination="@id/customerDetailsFragment" />
         <action
@@ -95,14 +89,11 @@
         <argument
             android:name="customerName"
             app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/rentedFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.RentedFragment"
-        android:label="fragment_rented"
-        tools:layout="@layout/fragment_rented" >
         <action
-            android:id="@+id/action_rentedFragment_to_toolSelectionFragment"
+            android:id="@+id/action_customerManagerFragment_to_updateDeleteCustomerFragment"
+            app:destination="@id/updateDeleteCustomerFragment" />
+        <action
+            android:id="@+id/action_customerManagerFragment_to_toolSelectionFragment"
             app:destination="@id/toolSelectionFragment" />
     </fragment>
     <fragment
@@ -110,16 +101,6 @@
         android:name="com.miassolutions.rentatool.ReturnedFragment"
         android:label="fragment_returned"
         tools:layout="@layout/fragment_returned" />
-    <fragment
-        android:id="@+id/retainedFragment"
-        android:name="com.miassolutions.rentatool.RetainedFragment"
-        android:label="fragment_retained"
-        tools:layout="@layout/fragment_retained" />
-    <fragment
-        android:id="@+id/billFragment"
-        android:name="com.miassolutions.rentatool.BillFragment"
-        android:label="fragment_bill"
-        tools:layout="@layout/fragment_bill" />
     <fragment
         android:id="@+id/toolSelectionFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.ToolSelectionFragment"

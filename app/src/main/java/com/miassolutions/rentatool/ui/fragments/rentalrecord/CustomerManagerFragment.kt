@@ -18,11 +18,6 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         private const val TAG = "CustomerManagerFragment"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     private val args : CustomerManagerFragmentArgs by navArgs()
 
     private var _binding : FragmentCustomerManagerBinding? = null
@@ -33,6 +28,10 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         _binding = FragmentCustomerManagerBinding.bind(view)
 
         val customerId = args.customerId
+
+        binding.rentToolsBtn.setOnClickListener {
+
+        }
 
 
         requireActivity().addMenuProvider(object : MenuProvider{
