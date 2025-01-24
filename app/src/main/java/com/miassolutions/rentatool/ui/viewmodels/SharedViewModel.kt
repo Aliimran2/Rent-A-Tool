@@ -37,7 +37,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun deleteCustomer(customer: Customer) {
         viewModelScope.launch {
             repository.deleteCustomer(customer)
-            repository.getAllCustomers()
         }
     }
 

@@ -2,14 +2,21 @@ package com.miassolutions.rentatool.ui.fragments.others
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomerDetailsBinding
+import com.miassolutions.rentatool.ui.fragments.rentalrecord.CustomerManagerFragmentDirections
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
@@ -30,6 +37,27 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
         _binding = FragmentCustomerDetailsBinding.bind(view)
 
         val customerId = args.customerId
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.update_fragment_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+
+
+                    R.id.edit_menu -> {
+                        val action =
+                            CustomerDetailsFragmentDirections.actionCustomerDetailsFragmentToUpdateDeleteCustomerFragment(customerId)
+                        findNavController().navigate(action)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
 
 
         observeViewModel(customerId)

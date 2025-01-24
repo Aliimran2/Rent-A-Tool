@@ -28,6 +28,9 @@
         <argument
             android:name="customerId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_customerDetailsFragment_to_updateDeleteCustomerFragment"
+            app:destination="@id/updateDeleteCustomerFragment" />
     </fragment>
     <fragment
         android:id="@+id/customersListFragment"
@@ -65,8 +68,13 @@
         android:label="Update or Delete"
         tools:layout="@layout/fragment_update_customer" >
         <argument
-            android:name="cutomerId"
+            android:name="customerId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_updateDeleteCustomerFragment_to_customersListFragment"
+            app:destination="@id/customersListFragment"
+            app:popUpTo="@id/customersListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/confirmDialogFragment"
@@ -93,9 +101,6 @@
         <argument
             android:name="customerName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_customerManagerFragment_to_updateDeleteCustomerFragment"
-            app:destination="@id/updateDeleteCustomerFragment" />
         <action
             android:id="@+id/action_customerManagerFragment_to_toolSelectionFragment"
             app:destination="@id/toolSelectionFragment" />

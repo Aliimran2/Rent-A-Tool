@@ -60,14 +60,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
                         true
                     }
 
-                    R.id.edit_menu -> {
-                        val action =
-                            CustomerManagerFragmentDirections.actionCustomerManagerFragmentToUpdateDeleteCustomerFragment(
-                                customerId!!
-                            )
-                        findNavController().navigate(action)
-                        true
-                    }
+
 
                     else -> false
                 }

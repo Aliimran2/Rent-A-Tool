@@ -39,7 +39,7 @@ class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer)
         _binding = FragmentUpdateCustomerBinding.bind(view)
 
 
-        customerId = args.cutomerId
+        customerId = args.customerId
         rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
             if (customer != null) {
                 setupUI(customer)
@@ -54,7 +54,7 @@ class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer)
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.delete_menu -> {
-                        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+                        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
                             if (customer != null) {
                                 confirmDeleteDialog(customer)
                             }
