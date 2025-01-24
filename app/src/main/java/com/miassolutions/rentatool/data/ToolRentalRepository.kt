@@ -19,20 +19,25 @@ class ToolRentalRepository(
     private val rentalDetailDao = db.rentalDetailDao()
 
     // Fetch all tools
-     fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
+    fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
 
     // Fetch all customers
     fun getAllCustomers(): LiveData<List<Customer>> = customerDao.getAllCustomers()
 
+    suspend fun deleteCustomer(customer: Customer) = customerDao.deleteCustomer(customer)
+
     // Fetch all rentals by customerId
-    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> = rentalDao.searchRentalsByCustomer(customerId)
+    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
+        rentalDao.searchRentalsByCustomer(customerId)
 
     // Fetch all rental details by rentalId
-    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> = rentalDetailDao.searchRentalDetailsByRental(rentalId)
+    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
+        rentalDetailDao.searchRentalDetailsByRental(rentalId)
 
-   suspend fun isToolExists(toolName : String) : Boolean {
-       return toolDao.getToolByName(toolName) != null
-   }
+    suspend fun isToolExists(toolName: String): Boolean {
+        return toolDao.getToolByName(toolName) != null
+    }
+
     // Search tools by name
     suspend fun searchToolsByName(name: String): List<Tool> {
         return withContext(Dispatchers.IO) {
@@ -104,11 +109,12 @@ class ToolRentalRepository(
     }
 
     // Fetch a tool by ID
-     fun getToolById(toolId: Long): LiveData<Tool?> = toolDao.getToolById(toolId)
+    fun getToolById(toolId: Long): LiveData<Tool?> = toolDao.getToolById(toolId)
 
 
     // Fetch a customer by ID
-    fun getCustomerById(customerId: Long): LiveData<Customer?> = customerDao.getCustomerById(customerId)
+    fun getCustomerById(customerId: Long): LiveData<Customer?> =
+        customerDao.getCustomerById(customerId)
 
     // Fetch a rental detail by ID
     suspend fun getRentalDetailById(rentalDetailId: Long): RentalDetail? {
@@ -117,5 +123,5 @@ class ToolRentalRepository(
         }
     }
 
-    fun getAllRentals() : LiveData<List<Rental>> = rentalDao.getAllRentals()
+    fun getAllRentals(): LiveData<List<Rental>> = rentalDao.getAllRentals()
 }

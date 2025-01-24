@@ -34,6 +34,15 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         return result
     }
 
+    fun deleteCustomer(customer: Customer) {
+        viewModelScope.launch {
+            repository.deleteCustomer(customer)
+            repository.getAllCustomers()
+        }
+    }
+
+
+
     // Expose LiveData to the UI (Fragment/Activity)
     val allTools: LiveData<List<Tool>> = repository.getAllTools()
     val allCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
