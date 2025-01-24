@@ -82,11 +82,23 @@ class MainActivity : AppCompatActivity() {
 
         binding.navigationView.setupWithNavController(navController)
 
-        val aboutApp = binding.navigationView.menu.findItem(R.id.aboutApp)
-        aboutApp.setOnMenuItemClickListener {
-            Toast.makeText(this@MainActivity, "MIAS Solutions", Toast.LENGTH_SHORT).show()
-            binding.drawerLayout.closeDrawers()
-            true
+
+        binding.navigationView.menu.apply {
+            findItem(R.id.aboutApp).setOnMenuItemClickListener {
+                showToast(this@MainActivity, "MIAS Solutions")
+                binding.drawerLayout.closeDrawers()
+                true
+            }
+            findItem(R.id.urdu_menu).setOnMenuItemClickListener {
+                switchLanguage("ur")
+                binding.drawerLayout.closeDrawers()
+                true
+            }
+            findItem(R.id.english_menu).setOnMenuItemClickListener {
+                switchLanguage("en")
+                binding.drawerLayout.closeDrawers()
+                true
+            }
         }
 
 
@@ -117,14 +129,6 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.add_tool_menu -> {
                 navController.navigate(R.id.addToolFragment)
-                return true
-            }
-            R.id.urdu_menu -> {
-                switchLanguage("ur")
-                return true
-            }
-            R.id.english_menu -> {
-                switchLanguage("en")
                 return true
             }
         }

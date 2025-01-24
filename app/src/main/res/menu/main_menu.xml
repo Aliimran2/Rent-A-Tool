@@ -10,12 +10,5 @@
     <item android:title="@string/add_new_tool"
         android:id="@+id/add_tool_menu"/>
 
-    <item android:title="@string/select_language">
-        <menu>
-            <item android:title="@string/english"
-                android:id="@+id/english_menu"/>
-            <item android:title="@string/urdu"
-                android:id="@+id/urdu_menu"/>
-        </menu>
-    </item>
+
 </menu>

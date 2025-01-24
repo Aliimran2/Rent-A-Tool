@@ -14,7 +14,7 @@
             android:icon="@drawable/tools_icon"
             android:title="@string/stock" />
 
-    <item android:title="">
+    <item android:title="New Entry">
         <menu>
             <item
                 android:id="@+id/addCustomerFragment"
@@ -30,6 +30,26 @@
         </menu>
 
     </item>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/select_app_language">
+            <menu>
+                <item
+                    android:id="@+id/english_menu"
+                    android:icon="@drawable/ic_english"
+                    android:title="" />
+
+
+                <item
+                    android:id="@+id/urdu_menu"
+                    android:icon="@drawable/ic_urdu"
+                    android:title="" />
+
+            </menu>
+        </item>
+
+    </group>
+
     <item android:title="">
         <menu>
             <item
