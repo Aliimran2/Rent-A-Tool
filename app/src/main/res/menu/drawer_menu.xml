@@ -53,6 +53,11 @@
     <item android:title="">
         <menu>
             <item
+                android:id="@+id/mockDb"
+                android:title="Insert Mock Customers" />
+
+
+            <item
                 android:id="@+id/aboutApp"
                 android:icon="@drawable/about_icon"
                 android:title="@string/about" />

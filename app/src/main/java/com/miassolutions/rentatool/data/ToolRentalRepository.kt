@@ -18,6 +18,10 @@ class ToolRentalRepository(
     private val rentalDao = db.rentalDao()
     private val rentalDetailDao = db.rentalDetailDao()
 
+    suspend fun insertCustomers(customers: List<Customer>) {
+        customerDao.insertCustomers(customers)
+    } //will be deleted later todo()
+
     // Fetch all tools
     fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
 

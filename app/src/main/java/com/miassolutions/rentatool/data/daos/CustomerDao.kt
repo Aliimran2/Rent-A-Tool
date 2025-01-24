@@ -11,8 +11,11 @@ import com.miassolutions.rentatool.data.model.Customer
 
 @Dao
 interface CustomerDao {
-    @Insert
-    suspend fun addCustomers(customers: List<Customer>)
+
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCustomers(customers: List<Customer>) //will be deleted later todo()
 
     @Query("SELECT * FROM customers WHERE customerId = :customerId LIMIT 1")
     fun getCustomerById(customerId: Long): LiveData<Customer?>

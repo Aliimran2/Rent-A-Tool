@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.miassolutions.rentatool.core.utils.mockdb.getMockCustomers
 import com.miassolutions.rentatool.data.ToolRentalRepository
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
@@ -37,6 +38,15 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun deleteCustomer(customer: Customer) {
         viewModelScope.launch {
             repository.deleteCustomer(customer)
+        }
+    }
+
+
+    //will be deleted later todo()
+    fun insertMockCustomers() {
+        viewModelScope.launch {
+            val mockCustomers = getMockCustomers()
+            repository.insertCustomers(mockCustomers)
         }
     }
 
