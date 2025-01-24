@@ -23,7 +23,6 @@ class CustomerListAdapter(
         fun bind(customer: Customer) {
             binding.apply {
                 tvCustomerName.text = customer.customerName
-//                tvConstructionPlace.text = customer.constructionPlace
                 tvCustomerPhone.text = customer.customerPhone
 
                 if (customer.customerPic.isNotEmpty()) {

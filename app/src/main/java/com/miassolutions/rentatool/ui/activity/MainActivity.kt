@@ -99,7 +99,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val currentFragment = navController.currentDestination?.id
+        if (currentFragment == R.id.customersListFragment){
+
         menuInflater.inflate(R.menu.main_menu, menu)
+        }else {
+            menu?.clear()
+        }
         return true
     }
 
