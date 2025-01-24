@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
@@ -80,7 +81,10 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+
         binding.navigationView.setupWithNavController(navController)
+
+
 
 
         binding.navigationView.menu.apply {
