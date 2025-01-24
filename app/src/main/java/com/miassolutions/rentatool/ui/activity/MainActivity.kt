@@ -107,34 +107,11 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onSupportNavigateUp(): Boolean {
+
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val currentFragment = navController.currentDestination?.id
-        if (currentFragment == R.id.customersListFragment){
 
-        menuInflater.inflate(R.menu.main_menu, menu)
-        }else {
-            menu?.clear()
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.add_customer_menu -> {
-                navController.navigate(R.id.addCustomerFragment)
-                return true
-            }
-            R.id.add_tool_menu -> {
-                navController.navigate(R.id.addToolFragment)
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
     private fun switchLanguage(language: String) {
         LanguageHelper.setLocale(this, language)
         LanguageHelper.saveLanguagePreference(this, language)

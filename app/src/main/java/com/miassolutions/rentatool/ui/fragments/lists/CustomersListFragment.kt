@@ -37,40 +37,27 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomersListBinding.bind(view)
 
-        // Apply saved language preference on fragment creation
-        LanguageHelper.applySavedLanguage(requireContext())
-//
-//        requireActivity().addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                menuInflater.inflate(R.menu.main_menu, menu)
-//            }
-//
-//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                return when (menuItem.itemId) {
-//                    R.id.add_customer_menu -> {
-//                        findNavController().navigate(R.id.addCustomerFragment)
-//                        true
-//                    }
-//
-//                    R.id.add_tool_menu -> {
-//                        findNavController().navigate(R.id.addToolFragment)
-//                        true
-//                    }
-//
-//                    R.id.english_menu -> {
-//                        switchLanguage("en")
-//                        true
-//                    }
-//
-//                    R.id.urdu_menu -> {
-//                        switchLanguage("ur")
-//                        true
-//                    }
-//
-//                    else -> false
-//                }
-//            }
-//        }, viewLifecycleOwner)
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.main_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.add_customer_menu -> {
+                        findNavController().navigate(R.id.addCustomerFragment)
+                        true
+                    }
+
+                    R.id.add_tool_menu -> {
+                        findNavController().navigate(R.id.addToolFragment)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
 
         setupUI()
         observeViewModel()
@@ -81,10 +68,18 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
 
     private fun setupUI() {
-        adapter = CustomerListAdapter { customer -> navigateToCustomerManagerFragment(customer) }
+        adapter = CustomerListAdapter(
+            navigationClickListener = { navigateToCustomerManagerFragment(it) },
+            navigateToDetailsListener = { navigateToDetails(it) }
+        )
 
         binding.rvCustomerList.adapter = adapter
 
+    }
+
+    private fun navigateToDetails(customer: Customer) {
+        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(customer.customerId)
+        findNavController().navigate(action)
     }
 
     private fun observeViewModel() {

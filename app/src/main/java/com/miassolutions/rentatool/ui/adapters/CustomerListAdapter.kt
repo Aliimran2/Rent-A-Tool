@@ -13,6 +13,7 @@ import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerListAdapter(
     val navigationClickListener: (Customer) -> Unit,
+    val navigateToDetailsListener : (Customer) -> Unit
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -34,6 +35,11 @@ class CustomerListAdapter(
 
                 root.setOnClickListener {
                     navigationClickListener(customer)
+                }
+
+                root.setOnLongClickListener {
+                    navigateToDetailsListener(customer)
+                    true
                 }
 
             }
