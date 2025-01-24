@@ -1,9 +1,10 @@
-package com.miassolutions.rentatool
+package com.miassolutions.rentatool.ui.fragments.rentalrecord
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.databinding.FragmentToolSelectionBinding
 import com.miassolutions.rentatool.myapplication.MyApplication

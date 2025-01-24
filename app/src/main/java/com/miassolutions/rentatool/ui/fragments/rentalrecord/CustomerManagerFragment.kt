@@ -1,16 +1,14 @@
-package com.miassolutions.rentatool
+package com.miassolutions.rentatool.ui.fragments.rentalrecord
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.tabs.TabLayoutMediator
+import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomerManagerBinding
 

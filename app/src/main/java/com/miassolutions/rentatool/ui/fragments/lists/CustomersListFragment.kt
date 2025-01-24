@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments
+package com.miassolutions.rentatool.ui.fragments.lists
 
 import android.content.Intent
 import android.net.Uri

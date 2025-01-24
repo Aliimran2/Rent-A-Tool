@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments
+package com.miassolutions.rentatool.ui.fragments.rentalrecord
 
 import android.os.Bundle
 import android.util.Log
