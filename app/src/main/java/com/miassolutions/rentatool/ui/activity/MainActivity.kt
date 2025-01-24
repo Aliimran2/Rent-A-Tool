@@ -4,7 +4,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val savedLanguage = LanguageHelper.getSavedLanguage(this)
-        if (savedLanguage.isNotEmpty()){
+        if (savedLanguage.isNotEmpty()) {
             LanguageHelper.setLocale(this, savedLanguage)
         }
 
@@ -106,7 +108,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
     }
 
 
@@ -120,9 +121,8 @@ class MainActivity : AppCompatActivity() {
         LanguageHelper.setLocale(this, language)
         LanguageHelper.saveLanguagePreference(this, language)
         this.recreate() // Recreate the activity to apply the new language
-        showToast(this,"Switched to ${if (language == "en") "English" else "Urdu"}")
+        showToast(this, "Switched to ${if (language == "en") "English" else "Urdu"}")
     }
-
 
 
     override fun onRequestPermissionsResult(

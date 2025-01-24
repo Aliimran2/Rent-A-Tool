@@ -63,7 +63,11 @@
         android:id="@+id/updateDeleteCustomerFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.others.UpdateDeleteCustomerFragment"
         android:label="Update or Delete"
-        tools:layout="@layout/fragment_update_customer" />
+        tools:layout="@layout/fragment_update_customer" >
+        <argument
+            android:name="cutomerId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/confirmDialogFragment"
         tools:layout="@layout/fragment_confirm_dialog"
