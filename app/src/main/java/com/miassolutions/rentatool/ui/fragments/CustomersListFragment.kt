@@ -12,7 +12,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.miassolutions.rentatool.MyApplication
+import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.core.utils.helper.LanguageHelper

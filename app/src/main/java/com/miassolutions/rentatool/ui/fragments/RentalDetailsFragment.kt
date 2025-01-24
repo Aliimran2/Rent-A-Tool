@@ -2,16 +2,13 @@ package com.miassolutions.rentatool.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.miassolutions.rentatool.MyApplication
+import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
-import com.miassolutions.rentatool.databinding.FragmentCustomerDetailsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentalDetailsBinding
 import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel

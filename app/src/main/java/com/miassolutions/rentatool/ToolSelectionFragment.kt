@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.databinding.FragmentToolSelectionBinding
-import com.miassolutions.rentatool.ui.fragments.newfragments.ToolBottomSheet
-import com.miassolutions.rentatool.ui.newadapters.RentedToolsAdapter
+import com.miassolutions.rentatool.myapplication.MyApplication
+import com.miassolutions.rentatool.ui.fragments.ToolBottomSheet
 import com.miassolutions.rentatool.ui.newadapters.ToolSelectionAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory

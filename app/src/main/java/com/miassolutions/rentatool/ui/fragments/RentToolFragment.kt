@@ -3,14 +3,12 @@ package com.miassolutions.rentatool.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.miassolutions.rentatool.MyApplication
+import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.showConfirmDialog
 import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.core.utils.extenstions.showToast

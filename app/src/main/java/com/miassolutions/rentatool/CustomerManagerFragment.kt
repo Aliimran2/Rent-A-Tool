@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomerManagerBinding
-import com.miassolutions.rentatool.ui.adapters.TabPagerAdapter
 
 
 class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {

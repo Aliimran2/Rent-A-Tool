@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool
+package com.miassolutions.rentatool.myapplication
 
 import android.app.Application
 import com.miassolutions.rentatool.core.AppDatabase

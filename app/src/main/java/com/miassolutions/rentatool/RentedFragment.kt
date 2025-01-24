@@ -2,21 +2,13 @@ package com.miassolutions.rentatool
 
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.miassolutions.rentatool.core.utils.extenstions.showBottomSheetDialog
-import com.miassolutions.rentatool.core.utils.extenstions.showToolSelectionBottomSheet
 import com.miassolutions.rentatool.data.model.Tool
-import com.miassolutions.rentatool.data.model.ToolsWithQuantity
-import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentedBinding
-import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
-import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
-import com.miassolutions.rentatool.ui.fragments.newfragments.ToolBottomSheet
+import com.miassolutions.rentatool.myapplication.MyApplication
+import com.miassolutions.rentatool.ui.fragments.ToolBottomSheet
 import com.miassolutions.rentatool.ui.newadapters.RentedToolsAdapter
-import com.miassolutions.rentatool.ui.newadapters.ToolSelectionAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 

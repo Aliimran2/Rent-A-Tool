@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.miassolutions.rentatool.MyApplication
+import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
 import com.miassolutions.rentatool.core.utils.helper.isPermissionGranted
