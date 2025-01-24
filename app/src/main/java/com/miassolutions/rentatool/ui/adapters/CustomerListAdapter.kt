@@ -12,9 +12,7 @@ import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerListAdapter(
-    val dialerClickListener: (Customer) -> Unit,
     val navigationClickListener: (Customer) -> Unit,
-    val navToDetailsClickListener: (Customer) -> Unit,
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -35,17 +33,10 @@ class CustomerListAdapter(
                     ivCustomer.setImageResource(R.drawable.place_holder_image)
                 }
 
-
-
-
                 root.setOnClickListener {
-                    navToDetailsClickListener(customer)
+                    navigationClickListener(customer)
                 }
 
-                ivCustomer.setOnLongClickListener {
-                    navigationClickListener(customer)
-                    true
-                }
             }
         }
 
@@ -58,5 +49,6 @@ class CustomerListAdapter(
         return CustomerVH(mBinding)
     }
 
-    override fun onBindViewHolder(holder: CustomerVH, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: CustomerVH, position: Int) =
+        holder.bind(getItem(position))
 }

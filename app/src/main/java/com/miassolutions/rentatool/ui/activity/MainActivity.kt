@@ -2,18 +2,23 @@ package com.miassolutions.rentatool.ui.activity
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.AppDatabase
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.core.utils.helper.LanguageHelper
 import com.miassolutions.rentatool.core.utils.helper.PermissionUtils
 import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.core.utils.mockdb.MockDB
@@ -39,6 +44,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val savedLanguage = LanguageHelper.getSavedLanguage(this)
+        if (savedLanguage.isNotEmpty()){
+            LanguageHelper.setLocale(this, savedLanguage)
+        }
+
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -86,6 +97,42 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.add_customer_menu -> {
+                navController.navigate(R.id.addCustomerFragment)
+                return true
+            }
+            R.id.add_tool_menu -> {
+                navController.navigate(R.id.addToolFragment)
+                return true
+            }
+            R.id.urdu_menu -> {
+                switchLanguage("ur")
+                return true
+            }
+            R.id.english_menu -> {
+                switchLanguage("en")
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+    private fun switchLanguage(language: String) {
+        LanguageHelper.setLocale(this, language)
+        LanguageHelper.saveLanguagePreference(this, language)
+        this.recreate() // Recreate the activity to apply the new language
+        showToast(this,"Switched to ${if (language == "en") "English" else "Urdu"}")
+    }
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
