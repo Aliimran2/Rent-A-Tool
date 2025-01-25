@@ -23,7 +23,7 @@ fun showToast(context: Context, message : String){
 }
 
 fun formattedDate(date: Date) : String {
-    return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
+    return SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)
 }
 fun formattedDateAndTime(date: Date) : String {
     return SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault()).format(date)

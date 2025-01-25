@@ -32,7 +32,8 @@ class RentalListAdapter(
         fun bind(rental: Rental) {
             binding.apply {
                 tvRentalId.text = "Rental Id : ${rental.rentalId}"
-                tvRentalDate.text = formattedDateAndTime(Date(rental.rentalDate))
+                tvRentalDate.text = "Rent Date: ${formattedDate(Date(rental.rentalDate))}"
+                tvEstReturnDate.text = "Est. Return: ${formattedDate(Date(rental.estReturnDate))}"
                 root.setOnClickListener { onClickListener(rental.customerId) }
             }
         }

@@ -18,5 +18,6 @@ data class Rental(
     val rentalId : Long=0L,
     val customerId: Long,
     val rentalDate : Long,
+    val estReturnDate : Long,
     val returnDate : Long?
 )

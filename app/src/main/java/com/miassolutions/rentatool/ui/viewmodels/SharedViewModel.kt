@@ -175,7 +175,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun getToolById(toolId : Long):LiveData<Tool?> = repository.getToolById(toolId)
 
     // Add rental
-    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
+    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long, estReturnDate: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Start a transaction
@@ -183,6 +183,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
                     Rental(
                         customerId = customerId,
                         rentalDate = rentalDate,
+                        estReturnDate = estReturnDate,
                         returnDate = null
                     )
                 )

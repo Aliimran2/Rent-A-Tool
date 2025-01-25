@@ -107,7 +107,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
             return
         }
         val selectedToolsList = tempSelectedTools.map { Pair(it.key, it.value) }
-        rentalViewModel.addRental(customerId!!, selectedToolsList, System.currentTimeMillis())
+        rentalViewModel.addRental(customerId!!, selectedToolsList, System.currentTimeMillis(), selectedEstimatedDate )
             .also {
                 showToast("Rental record successfully added.")
                 Log.d(
