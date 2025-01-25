@@ -22,7 +22,7 @@ class ToolSelectionListAdapter(
         fun bind(tool: Tool) {
             binding.apply {
                 tvToolName.text = tool.name
-                inputLayout.helperText = "Stock: ${tool.availableStock}"
+                inputLayout.helperText = "Stock:${tool.availableStock}"
                 //check box handling
                 cbTool.isChecked = selectedTools.containsKey(tool.toolId)
                 etQuantitySelected.isEnabled = false

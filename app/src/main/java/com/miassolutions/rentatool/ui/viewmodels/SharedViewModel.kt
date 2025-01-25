@@ -175,56 +175,56 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun getToolById(toolId : Long):LiveData<Tool?> = repository.getToolById(toolId)
 
     // Add rental
-//    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                // Start a transaction
-//                val rentalId = repository.insertRental(
-//                    Rental(
-//                        customerId = customerId,
-//                        rentalDate = rentalDate,
-//                        returnDate = null
-//                    )
-//                )
-//
-//                // Process each tool rental
-//                rentalId?.let { rentalId ->
-//                    toolRentals.forEach { (toolId, quantity) ->
-//                        val tool = repository.getToolById(toolId)
-//                        if (tool != null) {
-//                            if (tool.availableStock < quantity) {
-//                                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
-//                            }
-//
-//                            // Update stock values
-//                            val newAvailableStock = tool.availableStock - quantity
-//                            val newRentedQuantity = tool.rentedQuantity + quantity
-//
-//                            // Update stock in the database
-//                            repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
-//
-//                            // Add rental details
-//                            repository.insertRentalDetails(
-//                                RentalDetail(
-//                                    rentalId = rentalId,
-//                                    toolId = toolId,
-//                                    quantity = quantity,
-//                                    rentPerDay = tool.rentPerDay,
-//                                    rentalDate = rentalDate,
-//                                    returnDate = null
-//                                )
-//                            )
-//                        } else {
-//                            throw IllegalArgumentException("Tool not found with ID: $toolId")
-//                        }
-//                    }
-//                }
-//
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
+    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Start a transaction
+                val rentalById = repository.insertRental(
+                    Rental(
+                        customerId = customerId,
+                        rentalDate = rentalDate,
+                        returnDate = null
+                    )
+                )
+
+                // Process each tool rental
+                rentalById.let { rentalId ->
+                    toolRentals.forEach { (toolId, quantity) ->
+                        val tool = repository.getToolByIdDirect(toolId)
+                        if (tool != null) {
+                            if (tool.availableStock < quantity) {
+                                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
+                            }
+
+                            // Update stock values
+                            val newAvailableStock = tool.availableStock - quantity
+                            val newRentedQuantity = tool.rentedQuantity + quantity
+
+                            // Update stock in the database
+                            repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
+
+                            // Add rental details
+                            repository.insertRentalDetails(
+                                RentalDetail(
+                                    rentalId = rentalId,
+                                    toolId = toolId,
+                                    quantity = quantity,
+                                    rentPerDay = tool.rentPerDay,
+                                    rentalDate = rentalDate,
+                                    returnDate = null
+                                )
+                            )
+                        } else {
+                            throw IllegalArgumentException("Tool not found with ID: $toolId")
+                        }
+                    }
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     // Return tools
 //    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {

@@ -7,16 +7,25 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomerManagerBinding
+import com.miassolutions.rentatool.myapplication.MyApplication
+import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
+import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
 
 class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
     companion object {
         private const val TAG = "CustomerManagerFragment"
+    }
+
+    private val rentalViewModel: SharedViewModel by activityViewModels {
+        SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
 
     private val args: CustomerManagerFragmentArgs by navArgs()
@@ -32,6 +41,17 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
 
         customerId = args.customerId
+
+
+        val adapter = RentalListAdapter{
+
+        }
+
+        rentalViewModel.getAllRentals().observe(viewLifecycleOwner){
+            adapter.submitList(it)
+        }
+
+        binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
             val action = CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(

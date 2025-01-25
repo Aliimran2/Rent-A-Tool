@@ -27,6 +27,10 @@ class ToolRentalRepository(
     // Fetch all tools
     fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
 
+    suspend fun getToolByIdDirect(toolId:Long) : Tool? {
+        return toolDao.getToolByIdDirect(toolId)
+    }
+
     // Fetch all customers
     fun getAllCustomers(): LiveData<List<Customer>> = customerDao.getAllCustomers()
 
