@@ -228,24 +228,24 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     }
 
     // Return tools
-//    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {
-//        var rent: Double? = null
-//        viewModelScope.launch {
-//            try {
-//                val rentalDetail = repository.getRentalDetailById(rentalDetailId)
-//                if (rentalDetail != null) {
-//                    val tool = repository.getToolById(rentalDetail.toolId)
-//                    if (tool != null) {
-//                        rent =
-//                            (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
-//                        rentalDetail.quantity -= returnQuantity
-//                        tool.availableStock += returnQuantity
-//                    }
-//                }
-//            } catch (e: Exception) {
-//                // Handle error if needed
-//            }
-//        }
-//        return rent
-//    }
+    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {
+        var rent: Double? = null
+        viewModelScope.launch {
+            try {
+                val rentalDetail = repository.getRentalDetailById(rentalDetailId)
+                if (rentalDetail != null) {
+                    val tool = repository.getToolByIdDirect(rentalDetail.toolId)
+                    if (tool != null) {
+                        rent =
+                            (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
+                        rentalDetail.quantity -= returnQuantity
+                        tool.availableStock += returnQuantity
+                    }
+                }
+            } catch (e: Exception) {
+                // Handle error if needed
+            }
+        }
+        return rent
+    }
 }
