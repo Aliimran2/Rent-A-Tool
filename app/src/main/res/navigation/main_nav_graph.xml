@@ -83,8 +83,8 @@
     <fragment
         android:id="@+id/rentalDetailsFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.RentalDetailsFragment"
-        android:label="fragment_rental_details"
-        tools:layout="@layout/fragment_rental_details" >
+        android:label="Rental Details - {customerName}"
+        tools:layout="@layout/fragment_rental_details">
         <argument
             android:name="rentalId"
             app:argType="long" />
