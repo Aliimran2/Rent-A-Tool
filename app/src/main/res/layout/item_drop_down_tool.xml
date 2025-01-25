@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="12dp"
-    app:cardBackgroundColor="@color/background"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="8dp">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+
+    <!-- Tool Name TextView -->
+
+    <!-- Available Quantity TextInputLayout -->
+    <TextView
+        android:id="@+id/tv_tool_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_tool"
+        app:layout_constraintEnd_toStartOf="@+id/inputLayout"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_tool"
+        app:layout_constraintTop_toTopOf="@+id/cb_tool"
+        tools:text="Hammer" />
 
-        >
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        app:helperText="In Stock: 50"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_tool"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_tool_name"
+        app:layout_constraintTop_toTopOf="@+id/cb_tool">
 
-        <!-- Tool Name TextView -->
-        <TextView
-            android:id="@+id/tv_tool_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_quantity_selected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/quantity"
+            android:imeOptions="actionDone"
+            android:inputType="number"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cb_tool"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Hammer" />
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Available Quantity TextInputLayout -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:helperText="In Stock: 50"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <!-- CheckBox -->
+    <CheckBox
+        android:id="@+id/cb_tool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_tool_name"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_quantity_selected"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/quantity"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        app:dividerColor="@color/wheelbarrow_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
 
-        <!-- CheckBox -->
-        <CheckBox
-            android:id="@+id/cb_tool"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

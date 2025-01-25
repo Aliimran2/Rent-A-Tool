@@ -106,6 +106,13 @@ class MainActivity : AppCompatActivity() {
                 binding.drawerLayout.closeDrawers()
                 true
             }
+
+            findItem(R.id.mockTools).setOnMenuItemClickListener {
+                rentalViewModel.insertMockTools()
+                showToast(this@MainActivity, "Mock tools added")
+                binding.drawerLayout.closeDrawers()
+                true
+            }
         }
 
 

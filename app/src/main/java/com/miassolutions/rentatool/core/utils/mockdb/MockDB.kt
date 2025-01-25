@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.core.utils.mockdb
 
 import com.miassolutions.rentatool.data.model.Customer
+import com.miassolutions.rentatool.data.model.Tool
 
 fun getMockCustomers(): List<Customer> {
     return listOf(
@@ -56,3 +57,54 @@ fun getMockCustomers(): List<Customer> {
         )
     )
 }
+
+fun getMockTools(): List<Tool> {
+    return listOf(
+        Tool(
+            toolId = 1L,
+            name = "Hammer",
+            rentPerDay = 10.0,
+            totalStock = 15,
+            availableStock = 12,
+            rentedQuantity = 3,
+            toolCondition = "New"
+        ),
+        Tool(
+            toolId = 2L,
+            name = "Drill Machine",
+            rentPerDay = 25.0,
+            totalStock = 10,
+            availableStock = 8,
+            rentedQuantity = 2,
+            toolCondition = "Good"
+        ),
+        Tool(
+            toolId = 3L,
+            name = "Screwdriver Set",
+            rentPerDay = 5.0,
+            totalStock = 20,
+            availableStock = 18,
+            rentedQuantity = 2,
+            toolCondition = "New"
+        ),
+        Tool(
+            toolId = 4L,
+            name = "Saw",
+            rentPerDay = 15.0,
+            totalStock = 8,
+            availableStock = 5,
+            rentedQuantity = 3,
+            toolCondition = "Used"
+        ),
+        Tool(
+            toolId = 5L,
+            name = "Ladder",
+            rentPerDay = 30.0,
+            totalStock = 5,
+            availableStock = 3,
+            rentedQuantity = 2,
+            toolCondition = "Good"
+        )
+    )
+}
+

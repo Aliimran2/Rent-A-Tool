@@ -22,6 +22,8 @@ class ToolRentalRepository(
         customerDao.insertCustomers(customers)
     } //will be deleted later todo()
 
+    suspend fun insertTools(tools : List<Tool>) = toolDao.insertAll(tools)
+
     // Fetch all tools
     fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
 

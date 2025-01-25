@@ -16,7 +16,7 @@ interface ToolDao {
     suspend fun insertTool(tool: Tool)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(tools: List<Tool>)
+    suspend fun insertAll(tools: List<Tool>) //later will be deleted todo()
 
     @Update
     suspend fun updateTool(tool: Tool)

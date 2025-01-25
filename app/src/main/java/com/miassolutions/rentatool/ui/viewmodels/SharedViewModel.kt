@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.core.utils.mockdb.getMockCustomers
+import com.miassolutions.rentatool.core.utils.mockdb.getMockTools
 import com.miassolutions.rentatool.data.ToolRentalRepository
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Rental
@@ -16,12 +17,29 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
-    private val _selectedTools = MutableLiveData<List<Tool>>()
-    val selectedTools: LiveData<List<Tool>> = _selectedTools
+//    private val _selectedTools = MutableLiveData<List<Tool>>()
+//    val selectedTools: LiveData<List<Tool>> = _selectedTools
+//
+//    // Method to update selected tools
+//    fun updateSelectedTools(tools: List<Tool>) {
+//        _selectedTools.value = tools
+//    }
 
-    // Method to update selected tools
-    fun updateSelectedTools(tools: List<Tool>) {
-        _selectedTools.value = tools
+    private val _selectedTools = MutableLiveData<Map<Long, Int>>()
+    val selectedTools : LiveData<Map<Long, Int>> = _selectedTools
+
+    fun updatedSelectedTools(selected : Map<Long, Int>){
+        _selectedTools.value = selected
+
+        viewModelScope.launch {
+            saveSelectedToolsToDatabase(selected)
+        }
+    }
+
+    fun saveSelectedToolsToDatabase(selected: Map<Long, Int>){
+        selected.forEach { (toolId, quantity) ->
+            //later
+        }
     }
 
     fun getAllRentals() : LiveData<List<Rental>> = repository.getAllRentals()
@@ -47,6 +65,13 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         viewModelScope.launch {
             val mockCustomers = getMockCustomers()
             repository.insertCustomers(mockCustomers)
+        }
+    }
+
+    fun insertMockTools() {
+        viewModelScope.launch {
+            val mockTools = getMockTools()
+            repository.insertTools(mockTools)
         }
     }
 

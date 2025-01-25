@@ -7,24 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.ItemDropDownToolBinding
+import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
 
 class ToolSelectionListAdapter(
-    private val toolsList: List<Tool>,
+
     private val onSelectionChanged: (Map<Long, Int>) -> Unit
-) : RecyclerView.Adapter<ToolSelectionListAdapter.ToolVH>() {
+) : ListAdapter<Tool, ToolSelectionListAdapter.ToolVH>(ToolDiffUtil()) {
 
     private val selectedTools = mutableMapOf<Long, Int>()
-    private var filteredTools = toolsList.toMutableList()
-
-    fun filter(query: String) {
-        filteredTools = if (query.isEmpty()) {
-            toolsList.toMutableList()
-        } else {
-            toolsList.filter { it.name.contains(query, ignoreCase = true) }.toMutableList()
-        }
-        notifyDataSetChanged()
-    }
-
 
     inner class ToolVH(private val binding: ItemDropDownToolBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,7 +22,7 @@ class ToolSelectionListAdapter(
         fun bind(tool: Tool) {
             binding.apply {
                 tvToolName.text = tool.name
-                inputLayout.helperText = "In Stock : ${tool.availableStock}"
+                inputLayout.helperText = "Stock: ${tool.availableStock}"
                 //check box handling
                 cbTool.isChecked = selectedTools.containsKey(tool.toolId)
                 etQuantitySelected.isEnabled = false
@@ -40,7 +30,7 @@ class ToolSelectionListAdapter(
                 etQuantitySelected.doOnTextChanged { text, _, _, _ ->
                     val enteredValue = text?.toString()?.toIntOrNull() ?: 0
                     if (enteredValue > tool.availableStock) {
-                        inputLayout.error = "Only ${tool.availableStock} available"
+                        inputLayout.error = "${tool.availableStock} available"
                         inputLayout.helperText = null
                     } else {
                         inputLayout.error = null
@@ -74,13 +64,7 @@ class ToolSelectionListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolVH =
         ToolVH(ItemDropDownToolBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun getItemCount(): Int {
-        return filteredTools.size
-    }
-
     override fun onBindViewHolder(holder: ToolVH, position: Int) {
-
-        val currentTool = filteredTools[position]
-        holder.bind(currentTool)
+        holder.bind(getItem(position))
     }
 }

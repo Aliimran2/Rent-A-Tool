@@ -38,7 +38,7 @@ class ToolBottomSheet : BottomSheetDialogFragment() {
 
         toolSelectionAdapter = ToolSelectionAdapter { selectedTools ->
 
-            rentalViewModel.updateSelectedTools(selectedTools)
+
 
         }
 

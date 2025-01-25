@@ -172,11 +172,11 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
 
         //adapter setup
         val tempSelectedTools = mutableMapOf<Long, Int>()
-        toolSelectionAdapter = ToolSelectionListAdapter(tools) { selected ->
-            tempSelectedTools.clear()
-            tempSelectedTools.putAll(selected)
-
-        }
+//        toolSelectionAdapter = ToolSelectionListAdapter(tools) { selected ->
+//            tempSelectedTools.clear()
+//            tempSelectedTools.putAll(selected)
+//
+//        }
 
         bottomSheetToolsBinding.rvBottomSheet.adapter = toolSelectionAdapter
 //

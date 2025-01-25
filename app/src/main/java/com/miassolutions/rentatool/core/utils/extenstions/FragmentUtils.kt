@@ -115,14 +115,14 @@ fun Fragment.showToolSelectionBottomSheet(
     tools: List<Tool>,
     onSelectedTools: (List<Pair<Long, Int>>) -> Unit
 ) {
-    val binding = BottomSheetToolsBinding.inflate(layoutInflater)
-    val tempSelectedTools = mutableMapOf<Long, Int>()
-    val adapter = ToolSelectionListAdapter(tools) { selected ->
-        tempSelectedTools.clear()
-        tempSelectedTools.putAll(selected)
-    }
+//    val binding = BottomSheetToolsBinding.inflate(layoutInflater)
+//    val tempSelectedTools = mutableMapOf<Long, Int>()
+//    val adapter = ToolSelectionListAdapter(tools) { selected ->
+//        tempSelectedTools.clear()
+//        tempSelectedTools.putAll(selected)
+//    }
 
-    binding.rvBottomSheet.adapter = adapter
+//    binding.rvBottomSheet.adapter = adapter
 
 //    binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //        override fun onQueryTextSubmit(query: String?): Boolean = false
@@ -133,12 +133,12 @@ fun Fragment.showToolSelectionBottomSheet(
 //    })
 
 
-    showBottomSheetDialogWithAction(binding.root) { dialog ->
-        binding.btnConfirmation.setOnClickListener {
-            onSelectedTools(tempSelectedTools.map { it.key to it.value })
-            dialog.dismiss()
-        }
-    }
+//    showBottomSheetDialogWithAction(binding.root) { dialog ->
+//        binding.btnConfirmation.setOnClickListener {
+//            onSelectedTools(tempSelectedTools.map { it.key to it.value })
+//            dialog.dismiss()
+//        }
+//    }
 }
 
 fun Fragment.showToolSelection(
