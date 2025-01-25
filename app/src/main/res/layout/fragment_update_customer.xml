@@ -17,8 +17,8 @@
 
         <!-- Profile Picture Card -->
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:elevation="6dp"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/customer_details"
             android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -121,7 +121,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/contractor_details"
             android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -166,7 +166,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/owner_details"
             android:textAppearance="?attr/textAppearanceSubtitle1"

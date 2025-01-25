@@ -48,17 +48,13 @@ class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer)
 
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.delete_menu, menu)
+                menuInflater.inflate(R.menu.done_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
-                    R.id.delete_menu -> {
-                        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
-                            if (customer != null) {
-                                confirmDeleteDialog(customer)
-                            }
-                        }
+                    R.id.done_menu -> {
+                       updateData()
                         true
                     }
 
@@ -67,39 +63,17 @@ class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer)
             }
         }, viewLifecycleOwner)
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    updateData()
-                }
-            }
-        )
+//        requireActivity().onBackPressedDispatcher.addCallback(
+//            viewLifecycleOwner, object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    updateData()
+//                }
+//            }
+//        )
 
     }
 
-    private fun confirmDeleteDialog(customer: Customer) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete Customer?")
-            .setMessage("Are you sure?")
-            .setPositiveButton("Yes") { dialog, _ ->
-                rentalViewModel.deleteCustomer(customer)
-                Snackbar.make(
-                    binding.root,
-                    "${customer.customerName} deleted",
-                    Snackbar.LENGTH_LONG
-                ).setAction("Undo") {
-                    rentalViewModel.addCustomer(customer)
-                }.show()
 
-                findNavController().popBackStack()
-                dialog.dismiss()
-
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-    }
 
 
     private fun setupUI(customer: Customer) {

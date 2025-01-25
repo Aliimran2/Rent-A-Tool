@@ -10,5 +10,12 @@
         android:title="@string/edit_the_customer"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/delete_menu"
+        android:icon="@drawable/delete_icon"
+        android:title="@string/delete"
+        app:showAsAction="never"
+        />
+
 
 </menu>

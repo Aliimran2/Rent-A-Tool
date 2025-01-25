@@ -97,4 +97,6 @@
     <string name="select_app_language">Select App Language:</string>
     <string name="rent_tools">Rent Tools</string>
     <string name="edit_the_customer">Edit the customer</string>
+    <string name="delete">Delete</string>
+    <string name="confirm">Confirm</string>
 </resources>
