@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
@@ -58,6 +59,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
                     R.id.done_menu -> {
                         showToast("Tools selected")
                         updateDatabase()
+                        findNavController().popBackStack()
                         true
                     }
 
