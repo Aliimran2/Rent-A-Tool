@@ -69,6 +69,7 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
         rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
             adapter = RentalDetailAdapter(tools){rentalDetail ->
                 showToast("${rentalDetail.quantity}")
+
             }
             binding.rvReturnedToolsList.adapter = adapter
         }
