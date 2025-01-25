@@ -1,11 +1,16 @@
 package com.miassolutions.rentatool.ui.fragments.rentalrecord
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentToolSelectionBinding
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.ui.fragments.ToolBottomSheet
@@ -29,6 +34,22 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentToolSelectionBinding.bind(view)
 
+        requireActivity().addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.done_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when(menuItem.itemId){
+                    R.id.done_menu -> {
+                        showToast("Tools selected")
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
+
 
         toolSelectionAdapter = ToolSelectionAdapter { selectedTools ->
             rentalViewModel.updateSelectedTools(selectedTools)
@@ -47,9 +68,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
             toolSelectionAdapter.submitList(it)
         }
 
-        binding.btnConfirmation.setOnClickListener {
 
-        }
 
 
 

@@ -10,38 +10,6 @@
     android:layout_gravity="bottom"
     android:elevation="8dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="@string/select_tools_and_enter_quantity"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_weight="8"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorPrimary" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_confirmation"
-            android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Confirm" />
-    </LinearLayout>
-
-
-
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

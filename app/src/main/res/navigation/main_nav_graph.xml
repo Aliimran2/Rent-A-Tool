@@ -116,8 +116,8 @@
     <fragment
         android:id="@+id/toolSelectionFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.ToolSelectionFragment"
-        android:label="fragment_tool_selection"
-        tools:layout="@layout/fragment_tool_selection" >
+        android:label="@string/select_tools"
+        tools:layout="@layout/fragment_tool_selection">
         <argument
             android:name="customerId"
             app:argType="long" />

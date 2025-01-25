@@ -34,7 +34,10 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         customerId = args.customerId
 
         binding.rentToolsBtn.setOnClickListener {
-
+            val action = CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
+                customerId!!
+            )
+            findNavController().navigate(action)
         }
 
 
@@ -59,7 +62,6 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
                         showToast("Call the customer")
                         true
                     }
-
 
 
                     else -> false
