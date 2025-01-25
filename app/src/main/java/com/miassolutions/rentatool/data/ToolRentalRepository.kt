@@ -37,11 +37,11 @@ class ToolRentalRepository(
     suspend fun deleteCustomer(customer: Customer) = customerDao.deleteCustomer(customer)
 
     // Fetch all rentals by customerId
-    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
-        rentalDao.searchRentalsByCustomer(customerId)
+    fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
+        rentalDao.rentalsByCustomer(customerId)
 
     // Fetch all rental details by rentalId
-    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
+    fun rentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
         rentalDetailDao.searchRentalDetailsByRental(rentalId)
 
     suspend fun isToolExists(toolName: String): Boolean {

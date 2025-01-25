@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.core.utils.helper.formattedDate
+import com.miassolutions.rentatool.core.utils.helper.formattedDateAndTime
 import com.miassolutions.rentatool.data.model.Rental
 import com.miassolutions.rentatool.databinding.ItemRentalBinding
 import java.util.Date
@@ -30,8 +31,8 @@ class RentalListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(rental: Rental) {
             binding.apply {
-                tvRentalId.text = "Rental Id : ${rental.rentalId} Customer Id : ${rental.customerId}"
-                tvRentalDate.text = formattedDate(Date(rental.rentalDate))
+                tvRentalId.text = "Rental Id : ${rental.rentalId}"
+                tvRentalDate.text = formattedDateAndTime(Date(rental.rentalDate))
                 root.setOnClickListener { onClickListener(rental.customerId) }
             }
         }

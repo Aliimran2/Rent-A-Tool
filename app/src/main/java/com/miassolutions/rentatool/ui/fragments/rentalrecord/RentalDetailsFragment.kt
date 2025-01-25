@@ -46,7 +46,7 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
 
 
 
-        rentalViewModel.searchRentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
+        rentalViewModel.rentalsByCustomer(customerId).observe(viewLifecycleOwner) { rentals ->
             Log.d(TAG, "${rentals}")
             rentals.forEach { rental ->
 

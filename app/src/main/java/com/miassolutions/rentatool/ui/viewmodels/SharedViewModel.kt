@@ -83,12 +83,12 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
 
 
     // Function to observe rentals by customerId
-    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
-        repository.searchRentalsByCustomer(customerId)
+    fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
+        repository.rentalsByCustomer(customerId)
 
     // Function to observe rental details by rentalId
     fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
-        repository.searchRentalDetailsByRental(rentalId)
+        repository.rentalDetailsByRental(rentalId)
 
     // Toast message for success or error
     private val _toastMessage = MutableLiveData<String?>()

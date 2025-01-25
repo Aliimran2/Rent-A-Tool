@@ -12,7 +12,7 @@ interface RentalDao {
     fun getRentalById(rentalId: Long): Rental?
 
     @Query("SELECT * FROM rentals WHERE customerId = :customerId")
-    fun searchRentalsByCustomer(customerId: Long): LiveData<List<Rental>>
+    fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>>
 
     @Query("SELECT * FROM rentals")
     fun getAllRentals(): LiveData<List<Rental>>

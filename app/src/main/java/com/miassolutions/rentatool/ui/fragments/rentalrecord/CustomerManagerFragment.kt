@@ -47,7 +47,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
         }
 
-        rentalViewModel.getAllRentals().observe(viewLifecycleOwner){
+        rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
 

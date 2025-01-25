@@ -26,7 +26,7 @@ fun formattedDate(date: Date) : String {
     return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
 }
 fun formattedDateAndTime(date: Date) : String {
-    return SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault()).format(date)
+    return SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault()).format(date)
 }
 // Helper function to check if a permission is granted
 fun Fragment.isPermissionGranted(permission: String): Boolean {
