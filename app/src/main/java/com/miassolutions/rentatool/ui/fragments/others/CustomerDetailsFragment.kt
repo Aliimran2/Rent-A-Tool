@@ -30,6 +30,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
     }
 
     private val args: CustomerDetailsFragmentArgs by navArgs()
+    private var customerName : String = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
                     R.id.edit_menu -> {
                         val action =
-                            CustomerDetailsFragmentDirections.actionCustomerDetailsFragmentToUpdateDeleteCustomerFragment(customerId)
+                            CustomerDetailsFragmentDirections.actionCustomerDetailsFragmentToUpdateDeleteCustomerFragment(customerId, customerName)
                         findNavController().navigate(action)
                         true
                     }
@@ -104,6 +105,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
                 ivCustomer.setImageResource(R.drawable.place_holder_image)
             }
             tvCustomerName.text = customer.customerName
+            customerName = customer.customerName // for passing to edit fragment
             tvCustomerPhone.text = customer.customerPhone
             tvCnic.text = customer.cnicNumber
             tvPlace.text = customer.constructionPlace

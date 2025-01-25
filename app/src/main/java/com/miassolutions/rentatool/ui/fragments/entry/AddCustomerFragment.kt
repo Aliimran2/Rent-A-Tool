@@ -6,9 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.miassolutions.rentatool.myapplication.MyApplication
@@ -40,26 +44,53 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddCustomerBinding.bind(view)
 
-        setupSubmitBtn()
-        setupSelectPicBtn()
-
-    }
-
-    private fun setupSubmitBtn() {
-        binding.btnSubmit.setOnClickListener {
-            val customer = collectCustomer()
-            if (customer != null) {
-
-                rentalViewModel.addCustomer(customer)
-                showToast(
-                    requireContext(),
-                    getString(R.string.is_saved_successfully, customer.customerName)
-                )
-                clearInputFields()
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.done_menu, menu)
             }
 
-        }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.done_menu -> {
+                        val customer = collectCustomer()
+                        if (customer != null) {
+
+                            rentalViewModel.addCustomer(customer)
+                            showToast(
+                                requireContext(),
+                                getString(R.string.is_saved_successfully, customer.customerName)
+                            )
+                            clearInputFields()
+                        }
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
+
+//        setupSubmitBtn()
+        setupSelectPicBtn()
+
+
     }
+
+//    private fun setupSubmitBtn() {
+//        binding.btnSubmit.setOnClickListener {
+//            val customer = collectCustomer()
+//            if (customer != null) {
+//
+//                rentalViewModel.addCustomer(customer)
+//                showToast(
+//                    requireContext(),
+//                    getString(R.string.is_saved_successfully, customer.customerName)
+//                )
+//                clearInputFields()
+//            }
+//
+//        }
+//    }
 
     private fun collectCustomer(): Customer? {
         binding.apply {
@@ -219,8 +250,6 @@ class AddCustomerFragment : Fragment(R.layout.fragment_add_customer) {
             storageDir /* directory */
         )
     }
-
-
 
 
     override fun onDestroyView() {
