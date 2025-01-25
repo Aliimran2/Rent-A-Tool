@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
 
         setSupportActionBar(binding.toolbar)
+        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitle_Small)
 
 
         val navHostFragment =
@@ -79,6 +80,11 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.navigationView.setupWithNavController(navController)
+
+
+
+
+
 
 
 

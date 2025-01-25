@@ -2,6 +2,10 @@
     <!-- Base application theme with Material 3 guidelines -->
     <style name="Base.Theme.RentATool" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary color scheme -->
+
+
+
+
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
 <!--        <item name="android:fontFamily">@font/roboto</item>-->
@@ -22,6 +26,16 @@
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
     </style>
+
+<!--custom toolbar text size-->
+    <style name="ToolbarTitle.Small" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ToolbarTitle.Default" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
     <!-- Dashboard Theme -->
     <style name="DashboardTheme" parent="Theme.Material3.DayNight.NoActionBar">

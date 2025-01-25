@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomerManagerBinding
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
@@ -43,11 +44,13 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         customerId = args.customerId
 
 
+
         val adapter = RentalListAdapter {
             val rentalId: Long = 2L
             val action =
                 CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
                     rentalId
+
                 )
             findNavController().navigate(action)
         }
@@ -59,11 +62,11 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
-            val action =
-                CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
-                    customerId!!
-                )
-            findNavController().navigate(action)
+           rentalViewModel.getCustomerById(customerId!!).observe(viewLifecycleOwner){customer ->
+               if (customer != null){
+                   navigateToToolsSelections(customer)
+               }
+           }
         }
 
 
@@ -96,6 +99,16 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         }, viewLifecycleOwner)
 
 
+    }
+
+    private fun navigateToToolsSelections(customer: Customer){
+        val customerName = customer.customerName
+        val action =
+            CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
+                customerId!!,
+                customerName
+            )
+        findNavController().navigate(action)
     }
 
 
