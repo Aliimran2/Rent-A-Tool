@@ -42,7 +42,7 @@ class ToolRentalRepository(
 
     // Fetch all rental details by rentalId
     fun rentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
-        rentalDetailDao.searchRentalDetailsByRental(rentalId)
+        rentalDetailDao.rentalDetailsByRental(rentalId)
 
     suspend fun isToolExists(toolName: String): Boolean {
         return toolDao.getToolByName(toolName) != null

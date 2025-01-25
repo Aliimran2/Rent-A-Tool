@@ -43,20 +43,26 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         customerId = args.customerId
 
 
-        val adapter = RentalListAdapter{
-
+        val adapter = RentalListAdapter {
+            val rentalId: Long = 2L
+            val action =
+                CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
+                    rentalId
+                )
+            findNavController().navigate(action)
         }
 
-        rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner){
+        rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
         binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
-            val action = CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
-                customerId!!
-            )
+            val action =
+                CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
+                    customerId!!
+                )
             findNavController().navigate(action)
         }
 

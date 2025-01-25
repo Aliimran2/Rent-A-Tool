@@ -37,7 +37,7 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
         rentalListAdapter = RentalListAdapter(
             onClickListener = { customerId ->
 //                showToast(rental.rentalId.toString())
-                navigateToRentalDetails(customerId)
+//                navigateToRentalDetails(customerId)
             }
         )
         binding.rvReturnedToolsList.adapter = rentalListAdapter
@@ -50,11 +50,11 @@ class RentalFragment : Fragment(R.layout.fragment_rental) {
 //        }
     }
 
-    private fun navigateToRentalDetails(customerId: Long) {
-        val action = RentalFragmentDirections.actionRentalFragmentToRentalDetailsFragment(customerId)
-        findNavController().navigate(action)
-
-    }
+//    private fun navigateToRentalDetails(customerId: Long) {
+//        val action = RentalFragmentDirections.actionRentalFragmentToRentalDetailsFragment(customerId)
+//        findNavController().navigate(action)
+//
+//    }
 
 //    private fun setupInitialState() {
 //        // Clear rentals list and hide it to avoid showing old data on initialization

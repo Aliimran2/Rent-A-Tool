@@ -87,7 +87,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         repository.rentalsByCustomer(customerId)
 
     // Function to observe rental details by rentalId
-    fun searchRentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
+    fun rentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
         repository.rentalDetailsByRental(rentalId)
 
     // Toast message for success or error
