@@ -60,6 +60,10 @@
                 android:id="@+id/mockTools"
                 android:title="Insert Mock Tools" />
 
+            <item
+                android:id="@+id/change_font"
+                android:title="Change Font" />
+
 
             <item
                 android:id="@+id/aboutApp"
