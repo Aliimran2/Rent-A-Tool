@@ -5,14 +5,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.Customer
@@ -21,7 +18,7 @@ import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
-class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer) {
+class UpdateCustomerFragment : Fragment(R.layout.fragment_update_customer) {
 
     private var _binding: FragmentUpdateCustomerBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +27,7 @@ class UpdateDeleteCustomerFragment : Fragment(R.layout.fragment_update_customer)
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
 
-    private val args: UpdateDeleteCustomerFragmentArgs by navArgs()
+    private val args: UpdateCustomerFragmentArgs by navArgs()
 
     private var customerId: Long = 0L
 

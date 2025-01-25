@@ -50,7 +50,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
                     R.id.edit_menu -> {
                         val action =
-                            CustomerDetailsFragmentDirections.actionCustomerDetailsFragmentToUpdateDeleteCustomerFragment(customerId, customerName)
+                            CustomerDetailsFragmentDirections.actionCustomerDetailsFragmentToUpdateCustomerFragment(customerId, customerName)
                         findNavController().navigate(action)
                         true
                     }

@@ -29,8 +29,8 @@
             android:name="customerId"
             app:argType="long" />
         <action
-            android:id="@+id/action_customerDetailsFragment_to_updateDeleteCustomerFragment"
-            app:destination="@id/updateDeleteCustomerFragment" />
+            android:id="@+id/action_customerDetailsFragment_to_updateCustomerFragment"
+            app:destination="@id/updateCustomerFragment" />
     </fragment>
     <fragment
         android:id="@+id/customersListFragment"
@@ -63,15 +63,15 @@
             app:destination="@id/rentalDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/updateDeleteCustomerFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.others.UpdateDeleteCustomerFragment"
+        android:id="@+id/updateCustomerFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.others.UpdateCustomerFragment"
         android:label="Update {customerName}"
         tools:layout="@layout/fragment_update_customer">
         <argument
             android:name="customerId"
             app:argType="long" />
         <action
-            android:id="@+id/action_updateDeleteCustomerFragment_to_customersListFragment"
+            android:id="@+id/action_updateCustomerFragment_to_customersListFragment"
             app:destination="@id/customersListFragment"
             app:popUpTo="@id/customersListFragment"
             app:popUpToInclusive="true" />
