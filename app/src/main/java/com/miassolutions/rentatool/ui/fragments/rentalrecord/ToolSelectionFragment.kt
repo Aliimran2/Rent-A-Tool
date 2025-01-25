@@ -31,7 +31,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
     private var selectedEstimatedDate: Long = 0L
     private lateinit var toolSelectionListAdapter: ToolSelectionListAdapter
 
-    val tempSelectedTools = mutableMapOf<Long, Int>()
+    private val tempSelectedTools = mutableMapOf<Long, Int>()
 
     private val rentalViewModel: SharedViewModel by activityViewModels {
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)

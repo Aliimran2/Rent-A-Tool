@@ -88,6 +88,9 @@
         <argument
             android:name="rentalId"
             app:argType="long" />
+        <argument
+            android:name="customerName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/customerManagerFragment"

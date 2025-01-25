@@ -30,13 +30,19 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
     private val args: RentalDetailsFragmentArgs by navArgs()
     private var rentalId: Long = 0L
 
+    private var customerName: String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentalDetailsBinding.bind(view)
 
 
         rentalId = args.rentalId
+        customerName = args.customerName
+
         Log.d(TAG, "$rentalId")
+
+        binding.tvCustomerName.text = customerName
 
         setupRecyclerView()
         observeViewModel()
@@ -50,7 +56,7 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
         rentalViewModel.rentalDetailsByRental(rentalId).observe(viewLifecycleOwner) { it: List<RentalDetail>? ->
             Log.d(TAG, "${it}")
             it?.forEach { rd: RentalDetail ->
-//                binding.tvCustomerName.text = "Customer Id : ${rental.customerId}\nRental Id : ${rental.rentalId}"
+
                 rentalViewModel.rentalDetailsByRental(rd.rentalId)
                     .observe(viewLifecycleOwner) {
                         adapter.submitList(it)

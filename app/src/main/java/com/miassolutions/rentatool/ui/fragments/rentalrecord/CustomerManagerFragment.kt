@@ -45,14 +45,13 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
 
 
-        val adapter = RentalListAdapter {
-            val rentalId: Long = 2L
-            val action =
-                CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
-                    rentalId
+        val adapter = RentalListAdapter {rentalId ->
+            rentalViewModel.getCustomerById(customerId!!).observe(viewLifecycleOwner){customer ->
+                if (customer != null){
+                    navigate(customer, rentalId)
+                }
+            }
 
-                )
-            findNavController().navigate(action)
         }
 
         rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner) {
@@ -107,6 +106,19 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
             CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
                 customerId!!,
                 customerName
+            )
+        findNavController().navigate(action)
+    }
+
+    private fun navigate(customer : Customer, rentalId : Long){
+
+
+        val customerName = customer.customerName
+        val action =
+            CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
+                rentalId,
+                customerName
+
             )
         findNavController().navigate(action)
     }
