@@ -8,9 +8,72 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.rentalrecord.CustomerManagerFragment">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView_manager"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_rent_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Rent" />
+
+            <TextView
+                android:id="@+id/tv_rent_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_rent_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rent_title"
+                android:text="Rs. 2000" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/ledger"
+                android:elevation="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_rent_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_rent_title" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/rentals_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rentals"
+        android:textSize="30sp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/materialCardView_manager"
+        android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_customer_manager"
+        android:layout_below="@id/rentals_title"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

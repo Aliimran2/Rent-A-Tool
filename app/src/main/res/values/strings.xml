@@ -99,5 +99,6 @@
     <string name="edit_the_customer">Edit the customer</string>
     <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
+    <string name="ledger">LEDGER</string>
 
 </resources>
