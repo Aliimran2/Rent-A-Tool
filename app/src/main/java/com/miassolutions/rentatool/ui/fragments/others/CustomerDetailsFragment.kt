@@ -15,6 +15,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomerDetailsBinding
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
@@ -39,8 +41,6 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
         val customerId = args.customerId
 
-        rentalViewModel.getCustomerById(customerId)
-
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.customer_details_fragment_menu, menu)
@@ -57,11 +57,12 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
                         true
                     }
                     R.id.delete_menu -> {
-                        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
-                            if (customer != null) {
-                                confirmDeleteDialog(customer)
-                            }
-                        }
+                        showToast("will be later handle")
+//                        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+//                            if (customer != null) {
+//                                confirmDeleteDialog(customer)
+//                            }
+//                        }
                         true
                     }
 
@@ -69,34 +70,32 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
                 }
             }
         }, viewLifecycleOwner)
-
-
         observeViewModel(customerId)
 
     }
-    private fun confirmDeleteDialog(customer: Customer) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete Customer?")
-            .setMessage("Are you sure?")
-            .setPositiveButton("Yes") { dialog, _ ->
-                rentalViewModel.deleteCustomer(customer)
-                Snackbar.make(
-                    binding.root,
-                    "${customer.customerName} deleted",
-                    Snackbar.LENGTH_LONG
-                ).setAction("Undo") {
-                    rentalViewModel.addCustomer(customer)
-                }.show()
-
-                findNavController().popBackStack()
-                dialog.dismiss()
-
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-    }
+//    private fun confirmDeleteDialog(customer: Customer) {
+//        MaterialAlertDialogBuilder(requireContext())
+//            .setTitle("Delete Customer?")
+//            .setMessage("Are you sure?")
+//            .setPositiveButton("Yes") { dialog, _ ->
+//                rentalViewModel.deleteCustomer(customer)
+//                Snackbar.make(
+//                    binding.root,
+//                    "${customer.customerName} deleted",
+//                    Snackbar.LENGTH_LONG
+//                ).setAction("Undo") {
+//                    rentalViewModel.addCustomer(customer)
+//                }.show()
+//
+//                findNavController().popBackStack()
+//                dialog.dismiss()
+//
+//            }
+//            .setNegativeButton("Cancel") { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            .show()
+//    }
 
     private fun setupUI(customer: Customer) {
         binding.apply {
@@ -119,8 +118,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
     }
 
     private fun observeViewModel(customerId: Long) {
-
-
+        rentalViewModel.getCustomerById(customerId)
         rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
             customer?.let {
                 setupUI(it)

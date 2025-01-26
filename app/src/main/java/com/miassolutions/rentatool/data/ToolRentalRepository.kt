@@ -22,9 +22,10 @@ class ToolRentalRepository(
         rentalDetailDao.updateRentalDetail(rentalDetail)
     }
 
+    //will be deleted later todo()
     suspend fun insertCustomers(customers: List<Customer>) {
         customerDao.insertCustomers(customers)
-    } //will be deleted later todo()
+    }
 
     suspend fun insertTools(tools : List<Tool>) = toolDao.insertAll(tools)
 
@@ -38,7 +39,7 @@ class ToolRentalRepository(
     // Fetch all customers
     fun getAllCustomers(): LiveData<List<Customer>> = customerDao.getAllCustomers()
 
-    suspend fun deleteCustomer(customer: Customer) = customerDao.deleteCustomer(customer)
+//    suspend fun deleteCustomer(customer: Customer) = customerDao.deleteCustomer(customer)
 
     // Fetch all rentals by customerId
     fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>> =
