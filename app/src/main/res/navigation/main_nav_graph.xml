@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_customersListFragment_to_customerManagerFragment"
             app:destination="@id/customerManagerFragment" />
+        <action
+            android:id="@+id/action_customersListFragment_to_ledgerFragment"
+            app:destination="@id/ledgerFragment" />
     </fragment>
     <fragment
         android:id="@+id/rentToolFragment"
@@ -126,5 +129,14 @@
         <argument
             android:name="customerName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledgerFragment"
+        android:name="com.miassolutions.rentatool.LedgerFragment"
+        android:label="fragment_ledger"
+        tools:layout="@layout/fragment_ledger" >
+        <argument
+            android:name="customerId"
+            app:argType="long" />
     </fragment>
 </navigation>

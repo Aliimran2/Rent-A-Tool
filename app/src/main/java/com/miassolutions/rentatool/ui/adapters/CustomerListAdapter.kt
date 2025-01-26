@@ -15,7 +15,8 @@ import java.util.Locale
 
 class CustomerListAdapter(
     val navigationClickListener: (Customer) -> Unit,
-    val navigateToDetailsListener : (Customer) -> Unit
+    val navigateToDetailsListener : (Customer) -> Unit,
+    val navigateToLedger : (Customer) -> Unit
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -44,6 +45,7 @@ class CustomerListAdapter(
                     navigateToDetailsListener(customer)
                     true
                 }
+                customerLedgerBtn.setOnClickListener { navigateToLedger(customer) }
 
             }
         }

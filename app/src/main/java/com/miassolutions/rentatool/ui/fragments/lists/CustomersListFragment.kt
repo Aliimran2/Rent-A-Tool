@@ -64,17 +64,20 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
     }
 
-
-
-
     private fun setupUI() {
         adapter = CustomerListAdapter(
             navigationClickListener = { navigateToCustomerManagerFragment(it) },
-            navigateToDetailsListener = { navigateToDetails(it) }
+            navigateToDetailsListener = { navigateToDetails(it) },
+            navigateToLedger = {navigateToLedger(it)}
         )
 
         binding.rvCustomerList.adapter = adapter
 
+    }
+
+    private fun navigateToLedger(customer: Customer) {
+        val action = CustomersListFragmentDirections.actionCustomersListFragmentToLedgerFragment(customer.customerId)
+        findNavController().navigate(action)
     }
 
     private fun navigateToDetails(customer: Customer) {
