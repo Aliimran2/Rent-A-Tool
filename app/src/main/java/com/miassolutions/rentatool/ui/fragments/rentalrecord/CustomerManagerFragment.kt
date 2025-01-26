@@ -40,38 +40,37 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomerManagerBinding.bind(view)
 
-
         customerId = args.customerId
 
+        initializeUI()
+        setupMenuProvider()
+        setupObserver()
+
+    }
+
+    private fun setupObserver(){
         rentalViewModel.getCustomerById(customerId!!)
+    }
 
-
-
-
-        val adapter = RentalListAdapter {rentalId ->
-            rentalViewModel.customer.observe(viewLifecycleOwner){customer ->
-                if (customer != null){
-                    navigate(customer, rentalId)
-                }
+    private fun initializeUI() {
+        val adapter = RentalListAdapter { rentalId ->
+            rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+                customer?.let { navigateToRentalDetails(it, rentalId) }
             }
-
         }
-
         rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-
         binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
-           rentalViewModel.customer.observe(viewLifecycleOwner){customer ->
-               if (customer != null){
-                   navigateToToolsSelections(customer)
-               }
-           }
+            rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
+                customer?.let { navigateToToolsSelections(it) }
+            }
         }
+    }
 
-
+    private fun setupMenuProvider() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.customer_fragment_menu, menu)
@@ -99,11 +98,9 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
                 }
             }
         }, viewLifecycleOwner)
-
-
     }
 
-    private fun navigateToToolsSelections(customer: Customer){
+    private fun navigateToToolsSelections(customer: Customer) {
         val customerName = customer.customerName
         val action =
             CustomerManagerFragmentDirections.actionCustomerManagerFragmentToToolSelectionFragment(
@@ -113,15 +110,12 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         findNavController().navigate(action)
     }
 
-    private fun navigate(customer : Customer, rentalId : Long){
-
-
+    private fun navigateToRentalDetails(customer: Customer, rentalId: Long) {
         val customerName = customer.customerName
         val action =
             CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
                 rentalId,
                 customerName
-
             )
         findNavController().navigate(action)
     }
