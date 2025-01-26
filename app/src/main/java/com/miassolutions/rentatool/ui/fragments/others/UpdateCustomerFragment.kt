@@ -37,7 +37,9 @@ class UpdateCustomerFragment : Fragment(R.layout.fragment_update_customer) {
 
 
         customerId = args.customerId
-        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
+
+        rentalViewModel.getCustomerById(customerId)
+        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
             if (customer != null) {
                 setupUI(customer)
             }

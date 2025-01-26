@@ -43,10 +43,15 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
         customerId = args.customerId
 
+        rentalViewModel.getCustomerById(customerId!!)
+
+        rentalViewModel.rentResult.observe(viewLifecycleOwner){ it: Double? ->
+            binding.tvRentAmount.text = it.toString()
+        }
 
 
         val adapter = RentalListAdapter {rentalId ->
-            rentalViewModel.getCustomerById(customerId!!).observe(viewLifecycleOwner){customer ->
+            rentalViewModel.customer.observe(viewLifecycleOwner){customer ->
                 if (customer != null){
                     navigate(customer, rentalId)
                 }
@@ -61,7 +66,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
         binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
-           rentalViewModel.getCustomerById(customerId!!).observe(viewLifecycleOwner){customer ->
+           rentalViewModel.customer.observe(viewLifecycleOwner){customer ->
                if (customer != null){
                    navigateToToolsSelections(customer)
                }

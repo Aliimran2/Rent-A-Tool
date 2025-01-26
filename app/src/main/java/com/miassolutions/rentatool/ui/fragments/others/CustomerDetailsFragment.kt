@@ -39,6 +39,8 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
 
         val customerId = args.customerId
 
+        rentalViewModel.getCustomerById(customerId)
+
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.customer_details_fragment_menu, menu)
@@ -55,7 +57,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
                         true
                     }
                     R.id.delete_menu -> {
-                        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
+                        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
                             if (customer != null) {
                                 confirmDeleteDialog(customer)
                             }
@@ -119,7 +121,7 @@ class CustomerDetailsFragment : Fragment(R.layout.fragment_customer_details) {
     private fun observeViewModel(customerId: Long) {
 
 
-        rentalViewModel.getCustomerById(customerId).observe(viewLifecycleOwner) { customer ->
+        rentalViewModel.customer.observe(viewLifecycleOwner) { customer ->
             customer?.let {
                 setupUI(it)
             }

@@ -1,20 +1,18 @@
 package com.miassolutions.rentatool.ui.fragments.rentalrecord
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.showCustomerSelectionBottomSheet
 import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.Tool
 import com.miassolutions.rentatool.databinding.BottomSheetToolsBinding
 import com.miassolutions.rentatool.databinding.FragmentRentToolBinding
+import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.ui.adapters.SelectedToolListAdapter
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
@@ -209,15 +207,15 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
     private fun showCustomerSelection() {
         rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
 
-            if (!customers.isNullOrEmpty()) {
-                showCustomerSelectionBottomSheet(customers) { customer ->
-                    binding.etCustomerName.text?.clear()
-                    rentalViewModel.setCustomer(customer)
-                    binding.etCustomerName.setText(customer.customerName)
-                }
-            } else {
-                Log.d(TAG, "no customer found")
-            }
+//            if (!customers.isNullOrEmpty()) {
+//                showCustomerSelectionBottomSheet(customers) { customer ->
+//                    binding.etCustomerName.text?.clear()
+//                    rentalViewModel.setCustomer(customer)
+//                    binding.etCustomerName.setText(customer.customerName)
+//                }
+//            } else {
+//                Log.d(TAG, "no customer found")
+//            }
         }
     }
 

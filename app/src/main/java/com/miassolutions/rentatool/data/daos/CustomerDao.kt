@@ -18,7 +18,7 @@ interface CustomerDao {
     suspend fun insertCustomers(customers: List<Customer>) //will be deleted later todo()
 
     @Query("SELECT * FROM customers WHERE customerId = :customerId LIMIT 1")
-    fun getCustomerById(customerId: Long): LiveData<Customer?>
+    suspend fun getCustomerById(customerId: Long): Customer?
 
     @Query("SELECT * FROM customers WHERE customerName LIKE '%' || :query || '%' OR customerPhone LIKE '%' || :query || '%'")
     fun searchCustomers(query: String): List<Customer>

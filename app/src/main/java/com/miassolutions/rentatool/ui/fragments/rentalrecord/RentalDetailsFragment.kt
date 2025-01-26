@@ -6,14 +6,20 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.showBottomSheetDialog
+import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.RentalDetail
+import com.miassolutions.rentatool.databinding.DialogCalculateRentBinding
 import com.miassolutions.rentatool.databinding.FragmentRentalDetailsBinding
 import com.miassolutions.rentatool.ui.adapters.RentalDetailAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
@@ -47,32 +53,63 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
         setupRecyclerView()
         observeViewModel()
 
+        // Observe rentResult here
+        rentalViewModel.rentResult.observe(viewLifecycleOwner) { rent: Double? ->
+            rent?.let {
+                showToast("Calculated Rent: $it")
+            } ?: showToast("Failed to calculate rent")
+        }
+
     }
 
     private fun observeViewModel() {
+        rentalViewModel.rentalDetailsByRental(rentalId)
+            .observe(viewLifecycleOwner) { it: List<RentalDetail>? ->
+                Log.d(TAG, "${it}")
+                it?.forEach { rd: RentalDetail ->
 
-
-
-        rentalViewModel.rentalDetailsByRental(rentalId).observe(viewLifecycleOwner) { it: List<RentalDetail>? ->
-            Log.d(TAG, "${it}")
-            it?.forEach { rd: RentalDetail ->
-
-                rentalViewModel.rentalDetailsByRental(rd.rentalId)
-                    .observe(viewLifecycleOwner) {
-                        adapter.submitList(it)
-                    }
+                    rentalViewModel.rentalDetailsByRental(rd.rentalId)
+                        .observe(viewLifecycleOwner) {
+                            adapter.submitList(it)
+                        }
+                }
             }
-        }
+
+
     }
 
     private fun setupRecyclerView() {
         rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
-            adapter = RentalDetailAdapter(tools){rentalDetail ->
-                showToast("${rentalDetail.quantity}")
+            adapter = RentalDetailAdapter(tools) { rentalDetail ->
+                showToast("${rentalDetail.rentalDetailId}")
+
+                showDialog(rentalDetail.rentalDetailId)
 
             }
             binding.rvReturnedToolsList.adapter = adapter
         }
+    }
+
+    private fun showDialog(rentalDetailId: Long) {
+        val dialogBinding = DialogCalculateRentBinding.inflate(layoutInflater)
+        showBottomSheetDialog(dialogBinding.root)
+
+        //todo()
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        val date = dateFormat.parse("31 Jan 2025")
+        val timestamp: Long = date?.time ?: 0L
+
+
+        val returnQuantity = dialogBinding.etReturnQuantity.text.toString().toIntOrNull() ?: 0
+
+
+
+        dialogBinding.button.setOnClickListener {
+            rentalViewModel.returnTool(rentalDetailId, returnQuantity, timestamp)
+
+        }
+
+
     }
 
 

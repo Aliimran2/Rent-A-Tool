@@ -18,6 +18,10 @@ class ToolRentalRepository(
     private val rentalDao = db.rentalDao()
     private val rentalDetailDao = db.rentalDetailDao()
 
+    suspend fun updateRentalDetail(rentalDetail: RentalDetail) {
+        rentalDetailDao.updateRentalDetail(rentalDetail)
+    }
+
     suspend fun insertCustomers(customers: List<Customer>) {
         customerDao.insertCustomers(customers)
     } //will be deleted later todo()
@@ -123,7 +127,7 @@ class ToolRentalRepository(
 
 
     // Fetch a customer by ID
-    fun getCustomerById(customerId: Long): LiveData<Customer?> =
+    suspend fun getCustomerById(customerId: Long): Customer? =
         customerDao.getCustomerById(customerId)
 
     // Fetch a rental detail by ID

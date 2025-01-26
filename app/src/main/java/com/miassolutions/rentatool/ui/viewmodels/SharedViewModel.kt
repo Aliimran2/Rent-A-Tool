@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -97,8 +98,18 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     private val _customer = MutableLiveData<Customer?>()
     val customer: LiveData<Customer?> get() = _customer
 
-    fun getCustomerById(customerId: Long) : LiveData<Customer?>{
-        return repository.getCustomerById(customerId)
+
+
+    fun getCustomerById(customerId: Long) {
+        viewModelScope.launch {
+            try {
+                val result = repository.getCustomerById(customerId)
+                _customer.value = result
+            } catch (e: Exception){
+                _customer.value = null
+            }
+
+        }
     }
 
     private val _tool = MutableLiveData<Tool?>()
@@ -227,25 +238,60 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
+
+    private val _rentResult = MutableLiveData<Double?>()
+    val rentResult: LiveData<Double?> get() = _rentResult
+
+
+
     // Return tools
-    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long): Double? {
-        var rent: Double? = null
+    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long) {
         viewModelScope.launch {
             try {
+                // Fetch rental detail by ID
                 val rentalDetail = repository.getRentalDetailById(rentalDetailId)
+                Log.d("ReturnTool", "Rental Detail: $rentalDetail")
+
                 if (rentalDetail != null) {
+                    // Get the associated tool
                     val tool = repository.getToolByIdDirect(rentalDetail.toolId)
+                    Log.d("ReturnTool", "Tool: $tool")
+
                     if (tool != null) {
-                        rent =
+                        // Calculate the rent for the returned quantity
+                        val rent =
                             (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
+                        Log.d("ReturnTool", "Calculated Rent: $rent")
+
+                        // Update the rental and tool data
                         rentalDetail.quantity -= returnQuantity
                         tool.availableStock += returnQuantity
+
+                        // Fetch the customer and update their total rent
+                        val customerId = rentalDetail.rentalId // Assuming you have rentalId linked to Customer
+                        val customer = repository.getCustomerById(customerId)  // Assuming you can fetch customer by ID
+                        if (customer != null) {
+                            customer.totalRent += rent  // Add to the customer's accumulated rent
+                            repository.updateCustomer(customer)  // Update the customer in the database
+                        }
+
+                        // Update the rental and tool in the database
+                        repository.updateRentalDetail(rentalDetail)
+                        repository.updateTool(tool)
+
+                        // Post the result
+                        _rentResult.postValue(rent)
+                    } else {
+                        Log.e("ReturnTool", "Tool not found for toolId: ${rentalDetail.toolId}")
                     }
+                } else {
+                    Log.e("ReturnTool", "Rental detail not found for rentalDetailId: $rentalDetailId")
                 }
             } catch (e: Exception) {
-                // Handle error if needed
+                Log.e("ReturnTool", "Exception: ${e.message}", e)
+                _rentResult.postValue(null) // Handle failure case
             }
         }
-        return rent
     }
+
 }

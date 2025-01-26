@@ -18,6 +18,7 @@ data class Customer(
     var contractorName: String , //TODO()
     var contractorPhone : String , //TODO()
     var ownerName : String , //TODO()
-    var ownerPhone : String
+    var ownerPhone : String,
+    var totalRent: Double = 0.0
 )
 
