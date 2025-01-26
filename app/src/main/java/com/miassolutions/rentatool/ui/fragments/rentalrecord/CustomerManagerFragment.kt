@@ -45,9 +45,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
         rentalViewModel.getCustomerById(customerId!!)
 
-        rentalViewModel.rentResult.observe(viewLifecycleOwner){ it: Double? ->
-            binding.tvRentAmount.text = it.toString()
-        }
+
 
 
         val adapter = RentalListAdapter {rentalId ->

@@ -10,6 +10,8 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
+import java.text.NumberFormat
+import java.util.Locale
 
 class CustomerListAdapter(
     val navigationClickListener: (Customer) -> Unit,
@@ -24,7 +26,8 @@ class CustomerListAdapter(
         fun bind(customer: Customer) {
             binding.apply {
                 tvCustomerName.text = customer.customerName
-                tvCustomerPhone.text = customer.customerPhone
+
+                tvCustomerPhone.text = String.format(Locale.getDefault(),"Rs. %d",customer.customerId)
 
                 if (customer.customerPic.isNotEmpty()) {
                     val customerPicUri = Uri.parse(customer.customerPic)

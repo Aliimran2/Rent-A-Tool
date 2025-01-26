@@ -8,8 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_customer"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:src="@drawable/place_holder_image"
@@ -25,23 +25,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_customer_phone"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
         app:layout_constraintStart_toEndOf="@+id/iv_customer"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_customer"
         tools:text="Muhammad Imran" />
 
     <TextView
         android:id="@+id/tv_customer_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/customer_phone"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_customer_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name"
-        tools:text="03000123456" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
+        app:layout_constraintEnd_toStartOf="@+id/customer_ledger_btn"
+        app:layout_constraintTop_toTopOf="@+id/iv_customer"
+        tools:text="Rs. 2000" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="0dp"
@@ -49,5 +51,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_customer_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/customer_ledger_btn"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ledger"
+        android:textSize="12sp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_customer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
