@@ -100,5 +100,6 @@
     <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
     <string name="ledger">LEDGER</string>
+    <string name="add_transaction">Add Transaction</string>
 
 </resources>
