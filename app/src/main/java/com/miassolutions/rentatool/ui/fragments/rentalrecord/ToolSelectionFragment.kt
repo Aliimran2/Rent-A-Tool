@@ -76,7 +76,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
             rentalViewModel.updatedSelectedTools(selectedTools)
         }
 
-        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) { tools ->
             toolSelectionListAdapter.submitList(tools)
         }
 

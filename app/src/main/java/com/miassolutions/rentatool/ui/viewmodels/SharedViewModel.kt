@@ -18,32 +18,18 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel() {
 
-//    private val _selectedTools = MutableLiveData<List<Tool>>()
-//    val selectedTools: LiveData<List<Tool>> = _selectedTools
-//
-//    // Method to update selected tools
-//    fun updateSelectedTools(tools: List<Tool>) {
-//        _selectedTools.value = tools
-//    }
 
     private val _selectedTools = MutableLiveData<Map<Long, Int>>()
-    val selectedTools : LiveData<Map<Long, Int>> = _selectedTools
+    val selectedTools: LiveData<Map<Long, Int>> = _selectedTools
 
-    fun updatedSelectedTools(selected : Map<Long, Int>){
+    fun updatedSelectedTools(selected: Map<Long, Int>) {
         _selectedTools.value = selected
 
-        viewModelScope.launch {
-            saveSelectedToolsToDatabase(selected)
-        }
+
     }
 
-    fun saveSelectedToolsToDatabase(selected: Map<Long, Int>){
-        selected.forEach { (toolId, quantity) ->
-            //later
-        }
-    }
 
-    fun getAllRentals() : LiveData<List<Rental>> = repository.getAllRentals()
+    fun getAllRentals(): LiveData<List<Rental>> = repository.getAllRentals()
 
     fun checkToExists(toolName: String): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
@@ -53,13 +39,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
         return result
     }
-
-//    fun deleteCustomer(customer: Customer) {
-//        viewModelScope.launch {
-//            repository.deleteCustomer(customer)
-//        }
-//    }
-
 
     //will be deleted later todo()
     fun insertMockCustomers() {
@@ -76,11 +55,9 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
-
-
     // Expose LiveData to the UI (Fragment/Activity)
-    val allTools: LiveData<List<Tool>> = repository.getAllTools()
-    val allCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
+    val getAllTools: LiveData<List<Tool>> = repository.getAllTools()
+    val getAllCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
 
 
     // Function to observe rentals by customerId
@@ -99,13 +76,12 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     val customer: LiveData<Customer?> get() = _customer
 
 
-
     fun getCustomerById(customerId: Long) {
         viewModelScope.launch {
             try {
                 val result = repository.getCustomerById(customerId)
                 _customer.value = result
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 _customer.value = null
             }
 
@@ -121,19 +97,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     fun setEstimatedReturnDate(date: Long) {
         _estimatedReturnDate.value = date
     }
-
-    fun setCustomer(customer: Customer?) {
-        _customer.value = customer
-    }
-
-    // MutableLiveData for selected tools
-//    private val _selectedTools = MutableLiveData<List<Pair<Long, Int>>>()
-//    val selectedTools: LiveData<List<Pair<Long, Int>>> get() = _selectedTools
-//
-//    fun setSelectedTools(tools: List<Pair<Long, Int>>) {
-//        _selectedTools.value = tools
-//    }
-
 
 
     // Add tool
@@ -153,12 +116,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
-    // Update tool
-    fun updateTool(tool: Tool) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateTool(tool)
-        }
-    }
 
     // Add customer
     fun addCustomer(customer: Customer) {
@@ -183,115 +140,130 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
-    fun getToolById(toolId : Long):LiveData<Tool?> = repository.getToolById(toolId)
 
     // Add rental
-    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long, estReturnDate: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                // Start a transaction
-                val rentalById = repository.insertRental(
-                    Rental(
-                        customerId = customerId,
-                        rentalDate = rentalDate,
-                        estReturnDate = estReturnDate,
-                        returnDate = null
-                    )
-                )
-
-                // Process each tool rental
-                rentalById.let { rentalId ->
-                    toolRentals.forEach { (toolId, quantity) ->
-                        val tool = repository.getToolByIdDirect(toolId)
-                        if (tool != null) {
-                            if (tool.availableStock < quantity) {
-                                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
-                            }
-
-                            // Update stock values
-                            val newAvailableStock = tool.availableStock - quantity
-                            val newRentedQuantity = tool.rentedQuantity + quantity
-
-                            // Update stock in the database
-                            repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
-
-                            // Add rental details
-                            repository.insertRentalDetails(
-                                RentalDetail(
-                                    rentalId = rentalId,
-                                    toolId = toolId,
-                                    quantity = quantity,
-                                    rentPerDay = tool.rentPerDay,
-                                    rentalDate = rentalDate,
-                                    returnDate = null
-                                )
-                            )
-                        } else {
-                            throw IllegalArgumentException("Tool not found with ID: $toolId")
-                        }
-                    }
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
+//    fun addRental(customerId: Long, toolRentals: List<Pair<Long, Int>>, rentalDate: Long, estReturnDate: Long) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                // Start a transaction
+//                val rentalById = repository.insertRental(
+//                    Rental(
+//                        customerId = customerId,
+//                        rentalDate = rentalDate,
+//                        estReturnDate = estReturnDate,
+//                        returnDate = null
+//                    )
+//                )
+//
+//                // Process each tool rental
+//                rentalById.let { rentalId ->
+//                    toolRentals.forEach { (toolId, quantity) ->
+//                        val tool = repository.getToolByIdDirect(toolId)
+//                        if (tool != null) {
+//                            if (tool.availableStock < quantity) {
+//                                throw IllegalArgumentException("Insufficient stock for tool: ${tool.name}")
+//                            }
+//
+//                            // Update stock values
+//                            val newAvailableStock = tool.availableStock - quantity
+//                            val newRentedQuantity = tool.rentedQuantity + quantity
+//
+//                            // Update stock in the database
+//                            repository.updateToolStock(toolId, newAvailableStock, newRentedQuantity)
+//
+//                            // Add rental details
+//                            repository.insertRentalDetails(
+//                                RentalDetail(
+//                                    rentalId = rentalId,
+//                                    toolId = toolId,
+//                                    quantity = quantity,
+//                                    rentPerDay = tool.rentPerDay,
+//                                    rentalDate = rentalDate,
+//                                    returnDate = null
+//                                )
+//                            )
+//                        } else {
+//                            throw IllegalArgumentException("Tool not found with ID: $toolId")
+//                        }
+//                    }
+//                }
+//
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
 
 
     private val _rentResult = MutableLiveData<Double?>()
     val rentResult: LiveData<Double?> get() = _rentResult
 
+    private val _returnStatus = MutableLiveData<String>()
+    val returnStatus: LiveData<String> get() = _returnStatus
 
-
-    // Return tools
+    // Call the repository method to handle the tool return process
     fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long) {
         viewModelScope.launch {
             try {
-                // Fetch rental detail by ID
-                val rentalDetail = repository.getRentalDetailById(rentalDetailId)
-                Log.d("ReturnTool", "Rental Detail: $rentalDetail")
-
-                if (rentalDetail != null) {
-                    // Get the associated tool
-                    val tool = repository.getToolByIdDirect(rentalDetail.toolId)
-                    Log.d("ReturnTool", "Tool: $tool")
-
-                    if (tool != null) {
-                        // Calculate the rent for the returned quantity
-                        val rent =
-                            (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
-                        Log.d("ReturnTool", "Calculated Rent: $rent")
-
-                        // Update the rental and tool data
-                        rentalDetail.quantity -= returnQuantity
-                        tool.availableStock += returnQuantity
-
-                        // Fetch the customer and update their total rent
-                        val customerId = rentalDetail.rentalId // Assuming you have rentalId linked to Customer
-                        val customer = repository.getCustomerById(customerId)  // Assuming you can fetch customer by ID
-                        if (customer != null) {
-                            customer.totalRent += rent  // Add to the customer's accumulated rent
-                            repository.updateCustomer(customer)  // Update the customer in the database
-                        }
-
-                        // Update the rental and tool in the database
-                        repository.updateRentalDetail(rentalDetail)
-                        repository.updateTool(tool)
-
-                        // Post the result
-                        _rentResult.postValue(rent)
-                    } else {
-                        Log.e("ReturnTool", "Tool not found for toolId: ${rentalDetail.toolId}")
-                    }
-                } else {
-                    Log.e("ReturnTool", "Rental detail not found for rentalDetailId: $rentalDetailId")
-                }
+                repository.returnTool(rentalDetailId, returnQuantity, returnDate)
+                _returnStatus.postValue("Tool returned successfully.")
             } catch (e: Exception) {
-                Log.e("ReturnTool", "Exception: ${e.message}", e)
-                _rentResult.postValue(null) // Handle failure case
+                _returnStatus.postValue("Error: ${e.message}")
             }
         }
     }
+
+
+
+
+    // Return tools
+//    fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long) {
+//        viewModelScope.launch {
+//            try {
+//                // Fetch rental detail by ID
+//                val rentalDetail = repository.getRentalDetailById(rentalDetailId)
+//                Log.d("ReturnTool", "Rental Detail: $rentalDetail")
+//
+//                if (rentalDetail != null) {
+//                    // Get the associated tool
+//                    val tool = repository.getToolByIdDirect(rentalDetail.toolId)
+//                    Log.d("ReturnTool", "Tool: $tool")
+//
+//                    if (tool != null) {
+//                        // Calculate the rent for the returned quantity
+//                        val rent =
+//                            (returnDate - rentalDetail.rentalDate) / (24 * 60 * 60 * 1000) * tool.rentPerDay * returnQuantity
+//                        Log.d("ReturnTool", "Calculated Rent: $rent")
+//
+//                        // Update the rental and tool data
+//                        rentalDetail.quantity -= returnQuantity
+//                        tool.availableStock += returnQuantity
+//
+//                        // Fetch the customer and update their total rent
+//                        val customerId = rentalDetail.rentalId // Assuming you have rentalId linked to Customer
+//                        val customer = repository.getCustomerById(customerId)  // Assuming you can fetch customer by ID
+//                        if (customer != null) {
+//                            customer.totalRent += rent  // Add to the customer's accumulated rent
+//                            repository.updateCustomer(customer)  // Update the customer in the database
+//                        }
+//
+//                        // Update the rental and tool in the database
+//                        repository.updateRentalDetail(rentalDetail)
+//                        repository.updateTool(tool)
+//
+//                        // Post the result
+//                        _rentResult.postValue(rent)
+//                    } else {
+//                        Log.e("ReturnTool", "Tool not found for toolId: ${rentalDetail.toolId}")
+//                    }
+//                } else {
+//                    Log.e("ReturnTool", "Rental detail not found for rentalDetailId: $rentalDetailId")
+//                }
+//            } catch (e: Exception) {
+//                Log.e("ReturnTool", "Exception: ${e.message}", e)
+//                _rentResult.postValue(null) // Handle failure case
+//            }
+//        }
+//    }
 
 }

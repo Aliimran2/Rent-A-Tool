@@ -9,10 +9,14 @@ import com.miassolutions.rentatool.data.model.Rental
 @Dao
 interface RentalDao {
     @Query("SELECT * FROM rentals WHERE rentalId = :rentalId")
-    fun getRentalById(rentalId: Long): Rental?
+    fun getRentalById(rentalId: Long): Rental
 
     @Query("SELECT * FROM rentals WHERE customerId = :customerId")
     fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>>
+
+    @Query("UPDATE rentals SET totalRent = :totalRent, returnDate = :returnDate, isFinalized = :isFinalized WHERE rentalId = :rentalId")
+    suspend fun finalizeRental(rentalId: Long, totalRent: Double, returnDate: Long, isFinalized: Boolean)
+
 
     @Query("SELECT * FROM rentals")
     fun getAllRentals(): LiveData<List<Rental>>

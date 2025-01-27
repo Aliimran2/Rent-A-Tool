@@ -18,6 +18,69 @@ class ToolRentalRepository(
     private val rentalDao = db.rentalDao()
     private val rentalDetailDao = db.rentalDetailDao()
 
+
+    // Calculate current rent based on returned tools so far
+    suspend fun calculateCurrentRent(details: List<RentalDetail>, returnDate: Long): Double {
+        return details.sumOf { detail ->
+            if (detail.returnedQuantity > 0) { // Rent only for returned tools
+                val duration = ((returnDate - detail.returnDate!!) / (1000 * 60 * 60 * 24)).toInt() // Days
+                detail.returnedQuantity * detail.rentPerDay * duration
+            } else {
+                0.0
+            }
+        }
+    }
+
+    // Calculate total rent when all tools are returned
+    suspend fun calculateTotalRent(details: List<RentalDetail>, returnDate: Long): Double {
+        return details.sumOf { detail ->
+            val duration = (returnDate - detail.returnDate!!) / (1000 * 60 * 60 * 24) // Days
+            detail.returnedQuantity * detail.rentPerDay * duration
+        }
+    }
+
+
+    // Calculate total rent based on the rental details
+//    private fun calculateTotalRent(rentalDetails: List<RentalDetail>, returnDate: Long): Double {
+//        var totalRent = 0.0
+//        for (detail in rentalDetails) {
+//            val daysRented = ((returnDate - detail.returnDate!!) / (1000 * 60 * 60 * 24)).toInt()
+//            totalRent += daysRented * detail.rentPerDay * detail.returnedQuantity
+//        }
+//        return totalRent
+//    }
+
+    // Handle tool return and rental finalization
+    suspend fun returnTool(rentalDetailId: Long, returnQuantity: Int, returnDate: Long) {
+        val detail = rentalDetailDao.getRentalDetailById(rentalDetailId)
+        val newQuantity = detail.returnedQuantity + returnQuantity
+        val isFullyReturned = newQuantity == detail.rentedQuantity
+
+        // Update the return details in the RentalDetail table
+        rentalDetailDao.updateReturnDetails(
+            rentalDetailId = rentalDetailId,
+            returnedQuantity = newQuantity,
+            isReturned = isFullyReturned,
+            returnDate = returnDate
+        )
+
+        // Check if all tools in the rental are returned
+        val rentalDetails = rentalDetailDao.getRentalDetailsByRentalIdDirect(detail.rentalId)
+        if (rentalDetails.all { it.isReturned }) {
+            val totalRent = calculateTotalRent(rentalDetails, returnDate)
+
+            // Finalize the rental
+            rentalDao.finalizeRental(detail.rentalId, totalRent, returnDate, true)
+
+            // Update customer's total rent
+            val rental = rentalDao.getRentalById(detail.rentalId)
+            customerDao.updateCustomerTotalRent(rental.customerId, totalRent)
+        }
+    }
+
+
+
+
     suspend fun updateRentalDetail(rentalDetail: RentalDetail) {
         rentalDetailDao.updateRentalDetail(rentalDetail)
     }
@@ -47,25 +110,13 @@ class ToolRentalRepository(
 
     // Fetch all rental details by rentalId
     fun rentalDetailsByRental(rentalId: Long): LiveData<List<RentalDetail>> =
-        rentalDetailDao.rentalDetailsByRental(rentalId)
+        rentalDetailDao.getRentalDetailsByRentalId(rentalId)
 
     suspend fun isToolExists(toolName: String): Boolean {
         return toolDao.getToolByName(toolName) != null
     }
 
-    // Search tools by name
-    suspend fun searchToolsByName(name: String): List<Tool> {
-        return withContext(Dispatchers.IO) {
-            toolDao.searchTools(name) // Execute the DAO method on the IO thread
-        }
-    }
 
-    // Search customer by name
-    suspend fun searchCustomerByName(name: String): List<Customer> {
-        return withContext(Dispatchers.IO) {
-            customerDao.searchCustomers(name) // Execute the DAO method on the IO thread
-        }
-    }
 
     // Add a new tool
     suspend fun insertTool(tool: Tool): Result<Unit> {
@@ -76,13 +127,6 @@ class ToolRentalRepository(
             } catch (e: Exception) {
                 Result.failure(e) // Return failure in case of an exception
             }
-        }
-    }
-
-    // Update an existing tool
-    suspend fun updateTool(tool: Tool) {
-        withContext(Dispatchers.IO) {
-            toolDao.updateTool(tool) // Update tool in the database
         }
     }
 
@@ -132,7 +176,7 @@ class ToolRentalRepository(
         customerDao.getCustomerById(customerId)
 
     // Fetch a rental detail by ID
-    suspend fun getRentalDetailById(rentalDetailId: Long): RentalDetail? {
+    suspend fun getRentalDetailById(rentalDetailId: Long): RentalDetail {
         return withContext(Dispatchers.IO) {
             rentalDetailDao.getRentalDetailById(rentalDetailId) // Fetch rental detail by ID from the database
         }

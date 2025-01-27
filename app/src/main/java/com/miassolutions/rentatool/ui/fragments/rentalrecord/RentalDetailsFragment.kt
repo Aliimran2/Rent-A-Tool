@@ -6,11 +6,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showBottomSheetDialog
-import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.data.model.RentalDetail
 import com.miassolutions.rentatool.databinding.DialogCalculateRentBinding
@@ -79,7 +77,7 @@ class RentalDetailsFragment : Fragment(R.layout.fragment_rental_details) {
     }
 
     private fun setupRecyclerView() {
-        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) { tools ->
             adapter = RentalDetailAdapter(tools) { rentalDetail ->
                 showToast("${rentalDetail.rentalDetailId}")
 

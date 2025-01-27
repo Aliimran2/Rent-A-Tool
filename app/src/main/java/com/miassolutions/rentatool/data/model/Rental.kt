@@ -19,5 +19,7 @@ data class Rental(
     val customerId: Long,
     val rentalDate : Long,
     val estReturnDate : Long,
-    val returnDate : Long?
+    val returnDate : Long?,
+    var totalRent: Double = 0.0,
+    var isFinalized: Boolean = false
 )

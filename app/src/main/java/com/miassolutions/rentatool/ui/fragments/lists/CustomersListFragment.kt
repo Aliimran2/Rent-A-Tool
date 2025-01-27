@@ -14,8 +14,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
-import com.miassolutions.rentatool.core.utils.helper.LanguageHelper
 import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
@@ -83,7 +81,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     }
 
     private fun observeViewModel() {
-        rentalViewModel.allCustomers.observe(viewLifecycleOwner) {
+        rentalViewModel.getAllCustomers.observe(viewLifecycleOwner) {
             Log.d("CustomersListFragment", "Observed customers: $it")
             adapter.submitList(it)
         }

@@ -29,6 +29,10 @@ interface CustomerDao {
     @Update
     suspend fun updateCustomer(customer: Customer)
 
+    @Query("UPDATE customers SET totalRent = totalRent + :rent WHERE customerId = :customerId")
+    suspend fun updateCustomerTotalRent(customerId: Long, rent: Double)
+
+
     @Delete
     suspend fun deleteCustomer(customer: Customer)
 

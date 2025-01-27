@@ -44,7 +44,7 @@ class ToolBottomSheet : BottomSheetDialogFragment() {
 
         binding.rvBottomSheet.adapter = toolSelectionAdapter
 
-        rentalViewModel.allTools.observe(viewLifecycleOwner) {
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) {
             toolSelectionAdapter.submitList(it)
         }
 

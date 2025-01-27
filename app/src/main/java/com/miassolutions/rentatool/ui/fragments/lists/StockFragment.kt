@@ -42,7 +42,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
     }
 
     private fun observeViewModel() {
-        rentalViewModel.allTools.observe(viewLifecycleOwner) {
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }

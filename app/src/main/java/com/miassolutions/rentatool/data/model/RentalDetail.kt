@@ -19,8 +19,9 @@ data class RentalDetail(
     val rentalDetailId: Long=0L,
     val rentalId: Long,
     val toolId : Long,
-    var quantity: Int,
-    val rentPerDay: Double,
-    val rentalDate: Long,
-    var returnDate: Long?
+    val rentedQuantity: Int,
+    var returnedQuantity: Int = 0,
+    var isReturned: Boolean = false,
+    var returnDate: Long? = null, // Timestamp
+    val rentPerDay: Double
 )

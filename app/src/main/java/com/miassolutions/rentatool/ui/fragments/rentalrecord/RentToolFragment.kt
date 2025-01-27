@@ -95,7 +95,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
 
     private fun validateStock() : Boolean {
        //if selected tools are out of stock return false
-        val toolsInStock = rentalViewModel.allTools.value?: return false
+        val toolsInStock = rentalViewModel.getAllTools.value?: return false
         for ((toolId, quantityRequested) in selectedTools){
             val tool = toolsInStock.find { it.toolId == toolId }
             if (tool == null || tool.availableStock < quantityRequested ){
@@ -131,7 +131,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
             }
         }
 
-        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) { tools ->
 
             binding.btnToolSelection.setOnClickListener {
                 showToolSelectionBottomSheet(tools) { selected ->
@@ -142,7 +142,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
             }
 
         }
-        rentalViewModel.allTools.observe(viewLifecycleOwner) { tools ->
+        rentalViewModel.getAllTools.observe(viewLifecycleOwner) { tools ->
             selectedToolListAdapter.updateToolsList(tools)
         }
 
@@ -205,7 +205,7 @@ private val rentalViewModel: SharedViewModel by activityViewModels {
     }
 
     private fun showCustomerSelection() {
-        rentalViewModel.allCustomers.observe(viewLifecycleOwner) { customers ->
+        rentalViewModel.getAllCustomers.observe(viewLifecycleOwner) { customers ->
 
 //            if (!customers.isNullOrEmpty()) {
 //                showCustomerSelectionBottomSheet(customers) { customer ->
