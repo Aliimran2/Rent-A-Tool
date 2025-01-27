@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments.others
+package com.miassolutions.rentatool.ui.fragments.details
 
 import android.os.Bundle
 import android.view.Menu

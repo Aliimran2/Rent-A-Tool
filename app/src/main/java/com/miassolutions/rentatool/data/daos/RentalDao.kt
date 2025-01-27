@@ -43,8 +43,7 @@ interface RentalDao {
     @Query("SELECT * FROM rentals WHERE customerId = :customerId")
     fun rentalsByCustomer(customerId: Long): LiveData<List<Rental>>
 
-    @Query("UPDATE rentals SET totalRent = :totalRent, returnDate = :returnDate, isFinalized = :isFinalized WHERE rentalId = :rentalId")
-    suspend fun finalizeRental(rentalId: Long, totalRent: Double, returnDate: Long, isFinalized: Boolean)
+
 
 
     @Query("SELECT * FROM rentals")

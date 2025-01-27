@@ -58,9 +58,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
                 customer?.let { navigateToRentalDetails(it, rentalId) }
             }
         }
-        rentalViewModel.rentalsByCustomer(customerId!!).observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
+
         binding.rvCustomerManager.adapter = adapter
 
         binding.rentToolsBtn.setOnClickListener {
@@ -112,12 +110,7 @@ class CustomerManagerFragment : Fragment(R.layout.fragment_customer_manager) {
 
     private fun navigateToRentalDetails(customer: Customer, rentalId: Long) {
         val customerName = customer.customerName
-        val action =
-            CustomerManagerFragmentDirections.actionCustomerManagerFragmentToRentalDetailsFragment(
-                rentalId,
-                customerName
-            )
-        findNavController().navigate(action)
+
     }
 
 

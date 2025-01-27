@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.R
@@ -17,6 +18,8 @@ class CustomerListAdapter(
     val navigationClickListener: (Customer) -> Unit,
     val navigateToDetailsListener : (Customer) -> Unit
 ) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
+
+
 
 
     inner class CustomerVH(private val binding: ItemCustomerBinding) :

@@ -9,8 +9,7 @@
 
     </style>
 
-
-<!--custom toolbar text size-->
+    <!--custom toolbar text size-->
     <style name="ToolbarTitle.Small" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">16sp</item>
     </style>
