@@ -12,12 +12,14 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
+import com.miassolutions.rentatool.ui.fragments.entries.AddToolFragment
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
@@ -48,7 +50,8 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     }
 
                     R.id.add_tool_menu -> {
-                        findNavController().navigate(R.id.addToolFragment)
+                        val showBottomSheet = AddToolFragment()
+                        showBottomSheet.show(parentFragmentManager, showBottomSheet.tag)
                         true
                     }
 

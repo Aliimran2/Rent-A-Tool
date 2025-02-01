@@ -57,14 +57,10 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
         val selectedFont = sharedPreferences.getString("font", "roboto") ?: "roboto"
 
-//        enableEdgeToEdge()
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawerLayout)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+
 
         FontHelper.applyFontToViews(this, selectedFont, binding.root)
 
@@ -88,25 +84,12 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.stockFragment,
                 R.id.customersListFragment,
-                R.id.addToolFragment
             ), binding.drawerLayout
         )
 
-
-
-
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-
         binding.navigationView.setupWithNavController(navController)
-
-
-
-
-
-
-
-
 
         binding.navigationView.menu.apply {
             findItem(R.id.aboutApp).setOnMenuItemClickListener {
@@ -151,7 +134,6 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onSupportNavigateUp(): Boolean {
-
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 

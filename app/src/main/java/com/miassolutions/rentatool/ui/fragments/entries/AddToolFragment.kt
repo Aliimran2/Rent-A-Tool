@@ -1,9 +1,13 @@
 package com.miassolutions.rentatool.ui.fragments.entries
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.showToast
@@ -14,7 +18,7 @@ import com.miassolutions.rentatool.databinding.FragmentAddToolBinding
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
 
-class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
+class AddToolFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddToolBinding? = null
     private val binding get() = _binding!!
@@ -23,16 +27,19 @@ class AddToolFragment : Fragment(R.layout.fragment_add_tool) {
         SharedViewModelFactory((requireActivity().application as MyApplication).repository)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentAddToolBinding.bind(view)
 
-
-
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAddToolBinding.inflate(inflater,container, false)
         setupSubmitBtn()
 
+        return binding.root
     }
+
+
 
 
 
