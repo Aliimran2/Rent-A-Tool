@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:orientation="vertical"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@drawable/header_bg">
+    android:background="@drawable/gradient_background">
 
 
 
@@ -15,25 +16,27 @@
         android:id="@+id/navHeaderImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:src="@drawable/place_holder_image"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="2dp"
-        />
+        android:layout_marginTop="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- User Name -->
     <TextView
         android:id="@+id/navHeaderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/calibri"
         android:gravity="center"
         android:text="@string/farhan_sarfraz"
-        android:fontFamily="@font/calibri"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/navHeaderImage"
+        app:layout_constraintTop_toTopOf="@+id/navHeaderImage" />
 
     <!-- User Email -->
     <TextView
@@ -43,6 +46,9 @@
         android:text="@string/ahmad_rent_a_tool"
         android:textColor="@color/white"
         android:textSize="14sp"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/navHeaderImage"
+        app:layout_constraintEnd_toEndOf="@+id/navHeaderName"
+        app:layout_constraintStart_toStartOf="@+id/navHeaderName"
+        app:layout_constraintTop_toBottomOf="@+id/navHeaderName" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

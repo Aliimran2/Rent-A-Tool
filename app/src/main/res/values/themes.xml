@@ -2,10 +2,12 @@
     <!-- Base application theme with Material 3 guidelines -->
     <style name="Base.Theme.RentATool" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary color scheme -->
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:fontFamily">@font/dmsansregular</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+
+
 
     </style>
 
