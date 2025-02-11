@@ -18,7 +18,7 @@ interface CustomerDao {
     suspend fun insertCustomers(customers: List<Customer>) //will be deleted later todo()
 
     @Query("SELECT * FROM customers WHERE customerName LIKE '%' || :query || '%' OR customerPhone LIKE '%' || :query || '%'")
-    fun searchCustomers(query: String): List<Customer>
+    suspend fun searchCustomers(query: String): List<Customer>
 
     @Insert(onConflict = OnConflictStrategy.ABORT) // Prevent duplicate entries
     suspend fun insertCustomer(customer: Customer)

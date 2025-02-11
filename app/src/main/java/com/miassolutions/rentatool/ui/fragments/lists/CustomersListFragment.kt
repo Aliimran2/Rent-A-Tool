@@ -37,6 +37,15 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomersListBinding.bind(view)
 
+
+
+        setupUI()
+        observeViewModel()
+
+    }
+
+
+    private fun menuProvider() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.main_menu, menu)
@@ -60,33 +69,57 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             }
         }, viewLifecycleOwner)
 
-        setupUI()
-        observeViewModel()
-
     }
 
 
-
-
     private fun setupUI() {
+        menuProvider()
+
         adapter = CustomerListAdapter(
             navigationClickListener = { navigateToCustomerManagerFragment(it) },
             navigateToDetailsListener = { navigateToDetails(it) }
         )
 
+        binding.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query.isNullOrEmpty()) {
+
+                }
+                query?.let { rentalViewModel.searchCustomer(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                rentalViewModel.searchCustomer(newText ?: "")
+                return true
+            }
+        })
         binding.rvCustomerList.adapter = adapter
 
     }
 
     private fun navigateToDetails(customer: Customer) {
-        val action = CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(customer.customerId)
+        val action =
+            CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(
+                customer.customerId
+            )
         findNavController().navigate(action)
     }
 
     private fun observeViewModel() {
+
         rentalViewModel.getAllCustomers.observe(viewLifecycleOwner) {
-            Log.d("CustomersListFragment", "Observed customers: $it")
-            adapter.submitList(it)
+            if (binding.searchView.query.isNullOrEmpty()) {
+                adapter.submitList(it)
+            }
+        }
+
+        rentalViewModel.customerSearchResult.observe(viewLifecycleOwner) {
+            if (!binding.searchView.query.isNullOrEmpty()) {
+
+                adapter.submitList(it)
+            }
         }
     }
 

@@ -117,6 +117,16 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
+
+    private val _customerSearchResult = MutableLiveData<List<Customer>>()
+    val customerSearchResult : LiveData<List<Customer>> = _customerSearchResult
+
+    fun searchCustomer(query: String) {
+        viewModelScope.launch {
+            _customerSearchResult.postValue(repository.searchCustomer(query))
+        }
+    }
+
     // Update customer
     fun updateCustomer(updatedCustomer: Customer) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -62,6 +62,8 @@ class ToolRentalRepository(
         }
     }
 
+    suspend fun searchCustomer(query: String): List<Customer> = customerDao.searchCustomers(query)
+
     suspend fun isToolExists(toolName: String): Boolean {
         return toolDao.getToolByName(toolName) != null
     }
