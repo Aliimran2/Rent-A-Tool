@@ -61,23 +61,13 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     // Expose LiveData to the UI (Fragment/Activity)
     val getAllTools: LiveData<List<Tool>> = repository.getAllTools()
 
-    private val _customerList = MutableStateFlow<List<Customer>>(emptyList())
-    val customerList = _customerList.asStateFlow()
-
-    fun getAllCustomers() = viewModelScope.launch {
-        repository.getAllCustomers().collect { customerList ->
-            _customerList.value = customerList
-
-        }
-    }
-
 
     private val _searchQuery = MutableStateFlow("")
-    val searchQuery = _searchQuery.asStateFlow()
+    private val searchQuery = _searchQuery.asStateFlow()
 
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val _customerSearchResult: Flow<List<Customer>> = _searchQuery
+    val customerSearchResult: Flow<List<Customer>> = _searchQuery
         .debounce(300)
         .distinctUntilChanged()
         .flatMapLatest { query ->

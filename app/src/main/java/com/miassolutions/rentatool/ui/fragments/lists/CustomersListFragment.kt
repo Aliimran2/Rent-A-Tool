@@ -116,6 +116,18 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
     }
 
+    private fun observeViewModel() {
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                rentalViewModel.customerSearchResult.collectLatest {searchResult ->
+                    adapter.submitList(searchResult)
+
+                }
+            }
+        }
+    }
+
     private fun navigateToDetails(customer: Customer) {
         val action =
             CustomersListFragmentDirections.actionCustomersListFragmentToCustomerDetailsFragment(
@@ -124,25 +136,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         findNavController().navigate(action)
     }
 
-    private fun observeViewModel() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                rentalViewModel.customerList.collect {customers ->
-                    adapter.submitList(customers)
 
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                rentalViewModel._customerSearchResult.collectLatest {searchResult ->
-                    adapter.submitList(searchResult)
-
-                }
-            }
-        }
-    }
 
     private fun navigateToCustomerManagerFragment(customer: Customer) {
         val customerId = customer.customerId
