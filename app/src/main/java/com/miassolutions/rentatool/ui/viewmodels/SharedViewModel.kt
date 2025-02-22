@@ -10,6 +10,16 @@ import com.miassolutions.rentatool.data.ToolRentalRepository
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -50,7 +60,39 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
 
     // Expose LiveData to the UI (Fragment/Activity)
     val getAllTools: LiveData<List<Tool>> = repository.getAllTools()
-    val getAllCustomers: LiveData<List<Customer>> = repository.getAllCustomers()
+
+    private val _customerList = MutableStateFlow<List<Customer>>(emptyList())
+    val customerList = _customerList.asStateFlow()
+
+    fun getAllCustomers() = viewModelScope.launch {
+        repository.getAllCustomers().collect { customerList ->
+            _customerList.value = customerList
+
+        }
+    }
+
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
+
+
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val _customerSearchResult: Flow<List<Customer>> = _searchQuery
+        .debounce(300)
+        .distinctUntilChanged()
+        .flatMapLatest { query ->
+            if (query.isBlank()) {
+                repository.getAllCustomers()
+            } else {
+                repository.searchCustomer(query)
+            }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+
+    fun searchCustomer(query: String) {
+        _searchQuery.value = query
+    }
+
 
     // Toast message for success or error
     private val _toastMessage = MutableLiveData<String?>()
@@ -117,15 +159,6 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
-
-    private val _customerSearchResult = MutableLiveData<List<Customer>>()
-    val customerSearchResult : LiveData<List<Customer>> = _customerSearchResult
-
-    fun searchCustomer(query: String) {
-        viewModelScope.launch {
-            _customerSearchResult.postValue(repository.searchCustomer(query))
-        }
-    }
 
     // Update customer
     fun updateCustomer(updatedCustomer: Customer) {

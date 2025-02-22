@@ -11,6 +11,9 @@ import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.myapplication.MyApplication
@@ -22,6 +25,9 @@ import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.fragments.entries.AddToolFragment
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
@@ -96,6 +102,17 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             }
         })
         binding.rvCustomerList.adapter = adapter
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { rentalViewModel.searchCustomer(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                rentalViewModel.searchCustomer(newText ?: "")
+                return true
+            }
+        })
 
     }
 
@@ -108,17 +125,21 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     }
 
     private fun observeViewModel() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                rentalViewModel.customerList.collect {customers ->
+                    adapter.submitList(customers)
 
-        rentalViewModel.getAllCustomers.observe(viewLifecycleOwner) {
-            if (binding.searchView.query.isNullOrEmpty()) {
-                adapter.submitList(it)
+                }
             }
         }
 
-        rentalViewModel.customerSearchResult.observe(viewLifecycleOwner) {
-            if (!binding.searchView.query.isNullOrEmpty()) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                rentalViewModel._customerSearchResult.collectLatest {searchResult ->
+                    adapter.submitList(searchResult)
 
-                adapter.submitList(it)
+                }
             }
         }
     }

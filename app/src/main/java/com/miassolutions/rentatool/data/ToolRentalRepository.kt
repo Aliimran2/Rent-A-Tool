@@ -5,6 +5,7 @@ import com.miassolutions.rentatool.core.AppDatabase
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class ToolRentalRepository(
@@ -42,7 +43,7 @@ class ToolRentalRepository(
     }
 
     // Fetch all customers
-    fun getAllCustomers(): LiveData<List<Customer>> = customerDao.getAllCustomers()
+    fun getAllCustomers(): Flow<List<Customer>> = customerDao.getAllCustomers()
 
     // Fetch a customer by ID
     suspend fun getCustomerById(customerId: Long): Customer? =
@@ -62,7 +63,7 @@ class ToolRentalRepository(
         }
     }
 
-    suspend fun searchCustomer(query: String): List<Customer> = customerDao.searchCustomers(query)
+    suspend fun searchCustomer(query: String): Flow<List<Customer>> = customerDao.searchCustomers(query)
 
     suspend fun isToolExists(toolName: String): Boolean {
         return toolDao.getToolByName(toolName) != null
