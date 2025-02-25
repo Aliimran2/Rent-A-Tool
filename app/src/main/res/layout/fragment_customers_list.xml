@@ -18,8 +18,7 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
-            style="@style/search_bar_style"
-            />
+            style="@style/search_bar_style" />
     </com.google.android.material.card.MaterialCardView>
 
 

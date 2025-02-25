@@ -58,8 +58,7 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
         }
     }
 
-    // Expose LiveData to the UI (Fragment/Activity)
-    val getAllTools: Flow<List<Tool>> = repository.getAllTools()
+
 
 
     private val _searchCustomerQuery = MutableStateFlow("")

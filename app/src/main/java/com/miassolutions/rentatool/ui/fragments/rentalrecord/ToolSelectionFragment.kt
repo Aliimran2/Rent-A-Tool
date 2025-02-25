@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -80,13 +81,24 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
             tempSelectedTools.putAll(selectedTools)
             rentalViewModel.updatedSelectedTools(selectedTools)
         }
-lifecycleScope.launch {
-    repeatOnLifecycle(Lifecycle.State.STARTED){
-        rentalViewModel.getAllTools.collectLatest { tools ->
-            toolSelectionListAdapter.submitList(tools)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                rentalViewModel.toolSearchResult.collectLatest { tools ->
+                    toolSelectionListAdapter.submitList(tools)
+                }
+            }
         }
-    }
-}
+
+        binding.searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                rentalViewModel.searchTool(newText?:"")
+                return true
+            }
+        })
 
 
         binding.rvBottomSheet.adapter = toolSelectionListAdapter
