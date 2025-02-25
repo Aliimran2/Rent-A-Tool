@@ -8,31 +8,26 @@
     android:padding="8dp">
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        style="@style/material_card_style"
-        app:cardBackgroundColor="@color/on_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
+
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             app:queryHint="Search tool by name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             style="@style/search_bar_style" />
-    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_stock_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
         tools:listitem="@layout/item_stock_tools" />
 
 

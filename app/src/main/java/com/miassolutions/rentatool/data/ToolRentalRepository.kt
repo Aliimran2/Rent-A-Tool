@@ -1,6 +1,5 @@
 package com.miassolutions.rentatool.data
 
-import androidx.lifecycle.LiveData
 import com.miassolutions.rentatool.core.AppDatabase
 import com.miassolutions.rentatool.data.model.Customer
 import com.miassolutions.rentatool.data.model.Tool
@@ -21,7 +20,8 @@ class ToolRentalRepository(
     suspend fun insertCustomers(customers: List<Customer>) {
         customerDao.insertCustomers(customers)
     }
-    suspend fun insertTools(tools : List<Tool>) = toolDao.insertAll(tools)
+
+    suspend fun insertTools(tools: List<Tool>) = toolDao.insertAll(tools)
 
     // Add a new customer
     suspend fun insertCustomer(customer: Customer): Result<Unit> {
@@ -49,6 +49,7 @@ class ToolRentalRepository(
     suspend fun getCustomerById(customerId: Long): Customer? =
         customerDao.getCustomerById(customerId)
 
+    fun searchCustomer(query: String): Flow<List<Customer>> = customerDao.searchCustomers(query)
 
 
     // Add a new tool
@@ -63,20 +64,39 @@ class ToolRentalRepository(
         }
     }
 
-    suspend fun searchCustomer(query: String): Flow<List<Customer>> = customerDao.searchCustomers(query)
 
     suspend fun isToolExists(toolName: String): Boolean {
         return toolDao.getToolByName(toolName) != null
     }
 
     // Fetch all tools
-    fun getAllTools(): LiveData<List<Tool>> = toolDao.getAllTools()
+    fun getAllTools(): Flow<List<Tool>> = toolDao.getAllTools()
 
-    suspend fun getToolByIdDirect(toolId:Long) : Tool? {
-        return toolDao.getToolByIdDirect(toolId)
+    suspend fun rentTool(toolId: Long, rentedQuantity: Int) {
+        val tool = toolDao.getToolById(toolId) ?: throw IllegalArgumentException("Tool not found")
+        if (tool.availableStock >= rentedQuantity) {
+            tool.availableStock -= rentedQuantity
+            tool.rentedQuantity += rentedQuantity
+            toolDao.updateTool(tool)
+        } else {
+            throw IllegalStateException("Not enough stock available")
+        }
     }
 
-    // Fetch a tool by ID
-    fun getToolById(toolId: Long): LiveData<Tool?> = toolDao.getToolById(toolId)
+    suspend fun returnedTool(toolId: Long, returnedQuantity: Int) {
+        val tool = toolDao.getToolById(toolId) ?: throw IllegalArgumentException("Tool not found")
+        if (tool.rentedQuantity >= returnedQuantity){
+            tool.availableStock += returnedQuantity
+            tool.rentedQuantity -= returnedQuantity
+            toolDao.updateTool(tool)
+        } else {
+            throw IllegalStateException ("Returned quantity is greater than rented quantity")
+        }
+    }
+
+    fun searchTool(query: String) : Flow<List<Tool>> {
+        return toolDao.searchTools(query)
+    }
+
 
 }

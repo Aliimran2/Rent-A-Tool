@@ -9,6 +9,9 @@ import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
@@ -19,6 +22,8 @@ import com.miassolutions.rentatool.myapplication.MyApplication
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
 import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
 
@@ -75,10 +80,14 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tool_selection) {
             tempSelectedTools.putAll(selectedTools)
             rentalViewModel.updatedSelectedTools(selectedTools)
         }
-
-        rentalViewModel.getAllTools.observe(viewLifecycleOwner) { tools ->
+lifecycleScope.launch {
+    repeatOnLifecycle(Lifecycle.State.STARTED){
+        rentalViewModel.getAllTools.collectLatest { tools ->
             toolSelectionListAdapter.submitList(tools)
         }
+    }
+}
+
 
         binding.rvBottomSheet.adapter = toolSelectionListAdapter
 

@@ -59,15 +59,15 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
     }
 
     // Expose LiveData to the UI (Fragment/Activity)
-    val getAllTools: LiveData<List<Tool>> = repository.getAllTools()
+    val getAllTools: Flow<List<Tool>> = repository.getAllTools()
 
 
-    private val _searchQuery = MutableStateFlow("")
-    private val searchQuery = _searchQuery.asStateFlow()
+    private val _searchCustomerQuery = MutableStateFlow("")
+    private val searchCustomerQuery = _searchCustomerQuery.asStateFlow()
 
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val customerSearchResult: Flow<List<Customer>> = _searchQuery
+    val customerSearchResult: Flow<List<Customer>> = _searchCustomerQuery
         .debounce(300)
         .distinctUntilChanged()
         .flatMapLatest { query ->
@@ -80,7 +80,26 @@ class SharedViewModel(private val repository: ToolRentalRepository) : ViewModel(
 
 
     fun searchCustomer(query: String) {
-        _searchQuery.value = query
+        _searchCustomerQuery.value = query
+    }
+
+    private val _searchToolQuery = MutableStateFlow("")
+    val searchToolQuery = _searchToolQuery.asStateFlow()
+
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val toolSearchResult: Flow<List<Tool>> = _searchToolQuery
+        .debounce(300)
+        .distinctUntilChanged()
+        .flatMapLatest { query ->
+            if (query.isEmpty()) {
+                repository.getAllTools()
+            } else {
+                repository.searchTool(query)
+            }
+        }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun searchTool(query: String){
+        _searchToolQuery.value = query
     }
 
 
