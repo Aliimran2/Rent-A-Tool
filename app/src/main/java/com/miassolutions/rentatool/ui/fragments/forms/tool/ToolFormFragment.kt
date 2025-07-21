@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
-import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.ToolEntity
 import com.miassolutions.rentatool.databinding.FragmentToolFormBinding
 
@@ -93,17 +92,14 @@ class ToolFormFragment : BottomSheetDialogFragment() {
     private fun validateInputs(): Boolean {
         return when {
             binding.etToolName.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.enter_tool_name))
                 false
             }
 
             binding.etQuantity.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_quantity_of_tool))
                 false
             }
 
             binding.etRentPrice.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_the_rent_price))
                 false
             }
 

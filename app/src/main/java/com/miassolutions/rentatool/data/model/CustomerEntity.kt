@@ -6,19 +6,20 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "customers",
-    indices = [Index(value = ["customerPhone"], unique = true)] // Prevent duplicate customers
+    indices = [Index(value = ["cnicNumber"], unique = true)] // Prevent duplicate customers
 )
 data class CustomerEntity(
-    @PrimaryKey(autoGenerate = true) val customerId: Long = 0L,
-    var customerPic : String ="",
-    var customerName: String,
-    var cnicNumber: String , //TODO()
-    var customerPhone: String,
-    var constructionPlace: String ,//TODO()
-    var contractorName: String , //TODO()
-    var contractorPhone : String , //TODO()
-    var ownerName : String , //TODO()
-    var ownerPhone : String,
-    var totalRent: Double = 0.0
+    @PrimaryKey(autoGenerate = true)
+    val customerId: Long = 0L,
+    val customerPic: String = "",
+    val customerName: String,
+    val cnicNumber: String, //TODO()
+    val customerPhone: String = "",
+    val constructionPlace: String = "",//TODO()
+    val contractorName: String = "", //TODO()
+    val contractorPhone: String = "", //TODO()
+    val ownerName: String = "", //TODO()
+    val ownerPhone: String = "",
+    val totalRent: Double = 0.0
 )
 

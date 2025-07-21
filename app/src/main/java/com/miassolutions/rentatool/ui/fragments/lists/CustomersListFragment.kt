@@ -11,7 +11,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
@@ -30,7 +29,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         _binding = FragmentCustomersListBinding.bind(view)
 
 
-
+        menuProvider()
 
 
     }
@@ -63,13 +62,6 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     }
 
 
-
-
-
-
-
-
-
     private fun navigateToCustomerManagerFragment(customerEntity: CustomerEntity) {
         val customerId = customerEntity.customerId
         val customerName = customerEntity.customerName
@@ -88,7 +80,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             }
             startActivity(intent)
         } catch (e: Exception) {
-            showToast(requireContext(), "Unable to open the dialer.")
+            //show toast
         }
     }
 

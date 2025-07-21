@@ -5,19 +5,18 @@ import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.ToolDao
 import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
+import javax.inject.Inject
 
-class Repository(
+class Repository @Inject constructor(
     private val customerDao: CustomerDao,
     private val toolDao: ToolDao
 ) {
 
-
     suspend fun insertCustomer(customerEntity: CustomerEntity): CustomerFormResult {
-
         val duplicateCustomer = customerDao.getCustomerByCNIC(customerEntity.cnicNumber)
-
         return if (duplicateCustomer != null) {
             CustomerFormResult.Failure(Constants.DUPLICATE_CNIC)
+
         } else {
             try {
                 customerDao.insertCustomer(customerEntity)

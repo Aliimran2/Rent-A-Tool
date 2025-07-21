@@ -3,31 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:scrollbars="vertical"
-    android:background="@color/white">
-
+    android:scrollbars="vertical">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp"
-        android:scrollbars="vertical"
         android:orientation="vertical"
-        >
+        android:padding="12dp"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Title -->
 
             <!-- Profile Picture Card -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="16dp"
                 android:elevation="6dp"
@@ -40,39 +37,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/profile_picture"
-                    android:src="@drawable/place_holder_image"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/place_holder_image" />
             </com.google.android.material.card.MaterialCardView>
-
-
-
-            <!-- Customer Name -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/customer_name"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_customer_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:textColorHint="#B0BEC5"
-                    android:nextFocusDown="@id/et_cnic" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- CNIC Number -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cnic_no"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/cnic_no">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_cnic"
@@ -80,118 +53,132 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Cell Number -->
+            <!-- Customer Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_phone"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/customer_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/customer_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_customer_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="phone"
-                    android:nextFocusDown="@id/et_construction_place" />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Place of Construction -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/construction_place"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/construction_place">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_construction_place"
                     android:layout_width="match_parent"
-                    android:imeOptions="actionNext"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
-                    />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <!-- Contractor Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/contractor_name"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/contractor_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_contractor_name"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:layout_height="wrap_content"
-                    />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Contractor Cell Number -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/contractor_phone"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/contractor_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_contractor_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:nextFocusDown="@id/et_owner_name" />
+                    android:nextFocusDown="@id/et_owner_name"
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <!-- Owner Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/owner_name"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/owner_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_owner_name"
-                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
-                     />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Owner Cell Number -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/owner_phone"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:hintTextColor="@color/black">
+                android:hint="@string/owner_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_owner_phone"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/small_text_dimen" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Submit Button -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Submit" />
+
+                <Button
+                    android:id="@+id/saveAndNewBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Save and New" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

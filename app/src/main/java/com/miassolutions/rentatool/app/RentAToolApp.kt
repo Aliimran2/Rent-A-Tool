@@ -1,7 +1,7 @@
-package com.miassolutions.rentatool.myapplication
+package com.miassolutions.rentatool.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application()
+class RentAToolApp : Application()

@@ -1,233 +1,183 @@
 package com.miassolutions.rentatool.ui.fragments.forms.customer
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
-import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.core.utils.extenstions.setTextIfChanged
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.core.utils.helper.clearInputs
-import com.miassolutions.rentatool.core.utils.helper.isPermissionGranted
-import com.miassolutions.rentatool.core.utils.helper.requestPermission
-import com.miassolutions.rentatool.core.utils.helper.showToast
-import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.databinding.FragmentCustomerFormBinding
-import java.io.File
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
 
     private var _binding: FragmentCustomerFormBinding? = null
     private val binding get() = _binding!!
 
-
-
-    private var customerPicUri: Uri? = null // Holds the URI of the selected image
-
-    private val REQUEST_CODE_CAMERA_PERMISSION = 101
+    private val viewModel by viewModels<CustomerFormViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCustomerFormBinding.bind(view)
 
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.done_menu, menu)
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.done_menu -> {
-                        val customer = collectCustomer()
-                        if (customer != null) {
+        setupStateObserver()
+        setupEventObserver()
+        setupListeners()
 
-                            showToast(
-                                requireContext(),
-                                getString(R.string.is_saved_successfully, customer.customerName)
-                            )
-                            clearInputFields()
-                        }
-                        true
-                    }
 
-                    else -> false
+    }
+
+    private fun setupListeners() {
+
+        with(binding) {
+            etCustomerName.doAfterTextChanged { viewModel.onCustomerNameChange(it.toString()) }
+            etCustomerPhone.doAfterTextChanged { viewModel.onCustomerPhoneChange(it.toString()) }
+            etCnic.doAfterTextChanged { viewModel.onCnicChange(it.toString()) }
+//            etContractorName.doAfterTextChanged { viewModel.onContractorNameChange(it.toString()) }
+//            etContractorPhone.doAfterTextChanged { viewModel.onContractorPhoneChange(it.toString()) }
+//            etConstructionPlace.doAfterTextChanged { viewModel.onConstructionPlaceChange(it.toString()) }
+//            etOwnerName.doAfterTextChanged { viewModel.onOwnerNameChange(it.toString()) }
+//            etOwnerPhone.doAfterTextChanged { viewModel.onOwnerPhoneChange(it.toString()) }
+
+            saveButton.setOnClickListener {
+                if (validateInputs()) {
+                    viewModel.onSaveClicked()
+
                 }
             }
-        }, viewLifecycleOwner)
-
-//        setupSubmitBtn()
-        setupSelectPicBtn()
+        }
 
 
     }
 
-
-
-    private fun collectCustomer(): CustomerEntity? {
-        binding.apply {
-
-            val customerName = etCustomerName.text.toString()
-            val customerCnic = etCnic.text.toString()
-            val customerPhone = etCustomerPhone.text.toString()
-            val constructionPlace = etConstructionPlace.text.toString()
-            val contractorName = etContractorName.text.toString()
-            val contractorPhone = etContractorPhone.text.toString()
-            val ownerName = etOwnerName.text.toString()
-            val ownerPhone = etOwnerPhone.text.toString()
-
-            if (validateInputs()) {
-                return CustomerEntity(
-                    customerPic = customerPicUri?.toString() ?: "",
-
-                    customerName = customerName,
-                    cnicNumber = customerCnic,
-                    customerPhone = customerPhone,
-                    constructionPlace = constructionPlace,
-                    contractorName = contractorName,
-                    contractorPhone = contractorPhone,
-                    ownerName = ownerName,
-                    ownerPhone = ownerPhone
-                )
+    private fun setupEventObserver() {
+        collectingFlow {
+            viewModel.uiEvent.collectLatest { event ->
+                when (event) {
+                    CustomerUiEvent.NavigateBack -> {}
+                    is CustomerUiEvent.ShowToast -> showToast(event.message)
+                    is CustomerUiEvent.DuplicateCNIC -> {
+                        binding.etCnic.error = "CNIC already existed."
+                        binding.etCnic.requestFocus()
+                    }
+                    is CustomerUiEvent.CustomerAdded -> {
+                        clearAllFields()
+                    }
+                }
             }
         }
-        return null
     }
+
+    private fun setupStateObserver() {
+        collectingFlow {
+            viewModel.uiState.collectLatest { state ->
+                binding.apply {
+                    etCustomerName.setTextIfChanged(state.customerName)
+                    etCustomerPhone.setTextIfChanged(state.customerPhone)
+                    etCnic.setTextIfChanged(state.customerCnic)
+                    etContractorName.setTextIfChanged(state.contractorName)
+                    etContractorPhone.setTextIfChanged(state.contractorPhone)
+                    etConstructionPlace.setTextIfChanged(state.constructionPlace)
+                    etOwnerName.setTextIfChanged(state.ownerName)
+                    etOwnerPhone.setTextIfChanged(state.ownerPhone)
+
+                }
+
+            }
+        }
+
+    }
+
 
     private fun validateInputs(): Boolean {
-        return when {
-            binding.etCustomerName.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_customer_name))
-                false
+        with(binding) {
+            etCustomerName.error = null
+            etCustomerPhone.error = null
+            etCnic.error = null
+            etOwnerName.error = null
+            etOwnerPhone.error = null
+            etContractorName.error = null
+            etContractorPhone.error = null
+            etConstructionPlace.error = null
+
+
+            return when {
+                etCustomerName.text.isNullOrEmpty() -> {
+                    etCustomerName.error = "Enter customer name"
+                    etCustomerName.requestFocus()
+                    false
+                }
+
+                etCustomerPhone.text.isNullOrEmpty() -> {
+                    etCustomerPhone.error = "Enter customer phone no."
+                    etCustomerPhone.requestFocus()
+                    false
+                }
+
+                etCnic.text.isNullOrEmpty() -> {
+                    etCnic.error = "Enter customer cnic no."
+                    etCnic.requestFocus()
+                    false
+                }
+
+//                etOwnerName.text.isNullOrEmpty() -> {
+//                    etOwnerName.error = "Enter owner name"
+//                    etOwnerName.requestFocus()
+//                    false
+//                }
+//
+//                etOwnerPhone.text.isNullOrEmpty() -> {
+//                    etOwnerPhone.error = "Enter owner phone no."
+//                    etOwnerPhone.requestFocus()
+//                    false
+//                }
+//
+//                etConstructionPlace.text.isNullOrEmpty() -> {
+//                    etConstructionPlace.error = "Enter construction place"
+//                    etConstructionPlace.requestFocus()
+//                    false
+//                }
+//
+//                etContractorName.text.isNullOrEmpty() -> {
+//                    etContractorName.error = "Enter contractor name"
+//                    etContractorName.requestFocus()
+//                    false
+//                }
+//
+//                etContractorPhone.text.isNullOrEmpty() -> {
+//                    etContractorPhone.error = "Enter contractor phone"
+//                    etContractorPhone.requestFocus()
+//                    false
+//                }
+
+                else -> true
             }
 
-            binding.etCnic.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_customer_cnic))
-                false
-            }
-
-            binding.etCustomerPhone.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_customer_phone_no))
-                false
-            }
-
-            binding.etConstructionPlace.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_construction_place))
-
-                false
-            }
-
-            binding.etContractorName.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_contractor_name))
-                false
-            }
-
-            binding.etContractorPhone.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_contractor_phone_no))
-                false
-            }
-
-            binding.etOwnerName.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_owner_name))
-                false
-            }
-
-            binding.etOwnerPhone.text.isNullOrEmpty() -> {
-                showToast(requireContext(), getString(R.string.please_enter_owner_phone))
-                false
-            }
-
-            else -> true
         }
+
     }
 
-    private fun clearInputFields() {
-        binding.apply {
+    private fun clearAllFields() {
+        with(binding) {
             clearInputs(
                 etCustomerName,
-                etCnic,
                 etCustomerPhone,
-                etConstructionPlace,
+                etCnic,
                 etContractorName,
                 etContractorPhone,
                 etOwnerName,
-                etOwnerPhone
+                etOwnerPhone,
+                etConstructionPlace
             )
         }
-    }
 
-    private fun setupSelectPicBtn() {
-        binding.customerImage.setOnClickListener {
-            showImageSourceOptions()
-        }
-    }
-
-    private fun showImageSourceOptions() {
-        // Open a dialog to let the user choose between Camera and Gallery
-        val options = arrayOf("Take Photo", "Choose from Gallery")
-        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-        builder.setItems(options) { _, which ->
-            when (which) {
-                0 -> openCamera()
-                1 -> openGallery()
-            }
-        }
-        builder.show()
-    }
-
-    private fun openCamera() {
-        if (isPermissionGranted(Manifest.permission.CAMERA)) {
-            // Open Camera
-            val photoFile = createImageFile()
-            customerPicUri = FileProvider.getUriForFile(
-                requireContext(),
-                "com.miassolutions.rentatool.fileprovider",
-                photoFile
-            )
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                putExtra(MediaStore.EXTRA_OUTPUT, customerPicUri)
-            }
-            cameraResultLauncher.launch(intent)
-        } else {
-            requestPermission(Manifest.permission.CAMERA, REQUEST_CODE_CAMERA_PERMISSION)
-        }
-    }
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        galleryResultLauncher.launch(intent)
-    }
-
-    // Camera and Gallery result handlers
-    private val cameraResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                binding.customerImage.setImageURI(customerPicUri)
-            }
-        }
-
-    private val galleryResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                customerPicUri = result.data?.data
-                binding.customerImage.setImageURI(customerPicUri)
-            }
-        }
-
-    private fun createImageFile(): File {
-        val storageDir: File = requireContext().getExternalFilesDir(null)!!
-        return File.createTempFile(
-            "customer_pic_",  /* prefix */
-            ".jpg",  /* suffix */
-            storageDir /* directory */
-        )
     }
 
 
