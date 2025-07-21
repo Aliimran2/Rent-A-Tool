@@ -1,79 +1,37 @@
 package com.miassolutions.rentatool.ui.activity
 
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.Button
-import android.widget.RadioButton
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.helper.FontHelper
-import com.miassolutions.rentatool.core.utils.helper.LanguageHelper
-import com.miassolutions.rentatool.core.utils.helper.PermissionUtils
-import com.miassolutions.rentatool.core.utils.helper.showToast
 import com.miassolutions.rentatool.databinding.ActivityMainBinding
-import com.miassolutions.rentatool.databinding.DialogFontSelectionBinding
-import com.miassolutions.rentatool.myapplication.MyApplication
-import com.miassolutions.rentatool.ui.viewmodels.SharedViewModel
-import com.miassolutions.rentatool.ui.viewmodels.SharedViewModelFactory
+import com.miassolutions.rentatool.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val requiredPermissions = arrayOf(
-        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        android.Manifest.permission.READ_MEDIA_IMAGES
-    )
-
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val rentalViewModel: SharedViewModel by viewModels {
-        SharedViewModelFactory((this.application as MyApplication).repository)
-    }
+    private val mainViewModel by viewModels<MainViewModel>()
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val savedLanguage = LanguageHelper.getSavedLanguage(this)
-        if (savedLanguage.isNotEmpty()) {
-            LanguageHelper.setLocale(this, savedLanguage)
-        }
-
-        val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-        val selectedFont = sharedPreferences.getString("font", "roboto") ?: "roboto"
-
-
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-        FontHelper.applyFontToViews(this, selectedFont, binding.root)
-
-
-        if (!PermissionUtils.hasPermissions(this, requiredPermissions)) {
-            PermissionUtils.requestPermissions(this, requiredPermissions)
-        }
-
-
-
         setSupportActionBar(binding.toolbar)
-        binding.toolbar.setTitleTextAppearance(this, R.style.ToolbarTitle_Small)
-
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -91,44 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.navigationView.setupWithNavController(navController)
 
-        binding.navigationView.menu.apply {
-            findItem(R.id.aboutApp).setOnMenuItemClickListener {
-                showToast(this@MainActivity, "MIAS Solutions")
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-            findItem(R.id.urdu_menu).setOnMenuItemClickListener {
-                switchLanguage("ur")
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-            findItem(R.id.english_menu).setOnMenuItemClickListener {
-                switchLanguage("en")
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-
-            findItem(R.id.mockDb).setOnMenuItemClickListener {
-                rentalViewModel.insertMockCustomers()
-                showToast(this@MainActivity, "Mock customers added")
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-
-            findItem(R.id.mockTools).setOnMenuItemClickListener {
-                rentalViewModel.insertMockTools()
-                showToast(this@MainActivity, "Mock tools added")
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-
-            findItem(R.id.change_font).setOnMenuItemClickListener {
-                showFontSelectionDialog()
-                binding.drawerLayout.closeDrawers()
-                true
-            }
-        }
-
 
     }
 
@@ -136,75 +56,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-
-    private fun switchLanguage(language: String) {
-        LanguageHelper.setLocale(this, language)
-        LanguageHelper.saveLanguagePreference(this, language)
-        this.recreate() // Recreate the activity to apply the new language
-        showToast(this, "Switched to ${if (language == "en") "English" else "Urdu"}")
-    }
-
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-        deviceId: Int
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
-        if (requestCode == PermissionUtils.REQUEST_CODE) {
-            val deniedPermissions = permissions.zip(grantResults.toList())
-                .filter { it.second != PackageManager.PERMISSION_GRANTED }
-                .map { it.first }
-
-            if (deniedPermissions.isEmpty()) {
-                showToast(this, "All permissions granted")
-            } else showToast(this, "Permission denied : ${deniedPermissions.joinToString()}")
-        }
-    }
-
-    private fun showFontSelectionDialog() {
-        val dialog = BottomSheetDialog(this)
-        val dialogBinding = DialogFontSelectionBinding.inflate(layoutInflater)
-        val view = layoutInflater.inflate(R.layout.dialog_font_selection, null)
-        dialog.setContentView(dialogBinding.root)
-
-        val rbRoboto = dialogBinding.rbRoboto
-        val rbJameel = dialogBinding.jameel
-        val rbCalibri = dialogBinding.calibri
-        val rbDmsans = dialogBinding.rbDmsansregular
-        val btnApply = dialogBinding.btnApplyFont
-
-        val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        // Restore selected font
-        when (sharedPreferences.getString("font", "roboto")) {
-            "roboto" -> rbRoboto.isChecked = true
-            "jameel_nastaliq" -> rbJameel.isChecked = true
-            "calibri" -> rbCalibri.isChecked = true
-            "dmsansregular" -> rbDmsans.isChecked = true
-        }
-
-        btnApply.setOnClickListener {
-            val selectedFont = when {
-                rbRoboto.isChecked -> "roboto"
-                rbJameel.isChecked -> "jameel_nastaliq"
-                rbCalibri.isChecked -> "calibri"
-                rbDmsans.isChecked -> "dmsansregular"
-                else -> "roboto"
-            }
-
-            editor.putString("font", selectedFont).apply()
-
-            // Apply the selected font
-            FontHelper.applyFontToViews(this, selectedFont, binding.root)
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
-
-
 }

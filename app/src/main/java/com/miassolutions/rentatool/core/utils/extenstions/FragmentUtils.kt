@@ -33,7 +33,7 @@ fun Fragment.showConfirmDialog(
 
 fun Fragment.showToast(
     message: String
-){
+) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
@@ -41,7 +41,6 @@ fun Fragment.showDatePicker(
     title: String,
     onDateSelected: (String, Long) -> Unit
 ) {
-
 
 
     val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -57,7 +56,6 @@ fun Fragment.showDatePicker(
     datePicker.show(parentFragmentManager, "DatePicker")
 
 }
-
 
 
 fun Fragment.showBottomSheetDialog(

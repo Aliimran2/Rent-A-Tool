@@ -6,17 +6,8 @@ plugins {
     //ksp plugin in project level
     id("com.google.devtools.ksp") version "2.2.0-2.0.2"
 
+    id ("androidx.navigation.safeargs.kotlin") version "2.9.2" apply false
     //hilt
     id("com.google.dagger.hilt.android") version "2.57" apply false
 }
 
-buildscript {
-    repositories {
-        google()
-    }
-    //for safe args with navigation component
-    dependencies {
-        val nav_version = "2.8.5"
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
-    }
-}

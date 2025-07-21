@@ -1,0 +1,32 @@
+package com.miassolutions.rentatool.data.repository
+
+import com.miassolutions.rentatool.Constants
+import com.miassolutions.rentatool.data.dao.CustomerDao
+import com.miassolutions.rentatool.data.dao.ToolDao
+import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.uimodels.CustomerFormResult
+
+class Repository(
+    private val customerDao: CustomerDao,
+    private val toolDao: ToolDao
+) {
+
+
+    suspend fun insertCustomer(customerEntity: CustomerEntity): CustomerFormResult {
+
+        val duplicateCustomer = customerDao.getCustomerByCNIC(customerEntity.cnicNumber)
+
+        return if (duplicateCustomer != null) {
+            CustomerFormResult.Failure(Constants.DUPLICATE_CNIC)
+        } else {
+            try {
+                customerDao.insertCustomer(customerEntity)
+                CustomerFormResult.Success
+            } catch (e: Exception) {
+                CustomerFormResult.Failure(message = "Unknown error")
+            }
+        }
+
+
+    }
+}

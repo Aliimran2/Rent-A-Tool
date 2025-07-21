@@ -1,13 +1,13 @@
 package com.miassolutions.rentatool.ui.adapters.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.miassolutions.rentatool.data.model.Customer
+import com.miassolutions.rentatool.data.model.CustomerEntity
 
-class CustomerDiffUtil : DiffUtil.ItemCallback<Customer>() {
-    override fun areItemsTheSame(oldItem: Customer, newItem: Customer): Boolean =
+class CustomerDiffUtil : DiffUtil.ItemCallback<CustomerEntity>() {
+    override fun areItemsTheSame(oldItem: CustomerEntity, newItem: CustomerEntity): Boolean =
         oldItem.customerId == newItem.customerId
 
-    override fun areContentsTheSame(oldItem: Customer, newItem: Customer): Boolean =
+    override fun areContentsTheSame(oldItem: CustomerEntity, newItem: CustomerEntity): Boolean =
         oldItem == newItem
 
 }

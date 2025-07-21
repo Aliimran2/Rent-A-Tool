@@ -1,12 +1,11 @@
 package com.miassolutions.rentatool.core.utils.mockdb
 
-import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Customer
-import com.miassolutions.rentatool.data.model.Tool
+import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.model.ToolEntity
 
-fun getMockCustomers(): List<Customer> {
+fun getMockCustomers(): List<CustomerEntity> {
     return listOf(
-        Customer(
+        CustomerEntity(
             customerName = "Ali Khan",
             cnicNumber = "12345-6789012-3",
             customerPhone = "1234567890",
@@ -16,7 +15,7 @@ fun getMockCustomers(): List<Customer> {
             ownerName = "Usman",
             ownerPhone = "5432167890"
         ),
-        Customer(
+        CustomerEntity(
             customerName = "Ahmed Raza",
             cnicNumber = "98765-4321098-7",
             customerPhone = "0987654321",
@@ -26,7 +25,7 @@ fun getMockCustomers(): List<Customer> {
             ownerName = "Fahad",
             ownerPhone = "5678901234"
         ),
-        Customer(
+        CustomerEntity(
             customerName = "Kashif Malik",
             cnicNumber = "13579-2468013-5",
             customerPhone = "5551234567",
@@ -36,7 +35,7 @@ fun getMockCustomers(): List<Customer> {
             ownerName = "Shahbaz",
             ownerPhone = "4445556666"
         ),
-        Customer(
+        CustomerEntity(
             customerName = "Bilal Shah",
             cnicNumber = "19283-7465820-9",
             customerPhone = "7778889990",
@@ -46,7 +45,7 @@ fun getMockCustomers(): List<Customer> {
             ownerName = "Imran",
             ownerPhone = "1112223333"
         ),
-        Customer(
+        CustomerEntity(
             customerPic = "",
             customerName = "Farhan Ali",
             cnicNumber = "54879-1234567-2",
@@ -61,9 +60,9 @@ fun getMockCustomers(): List<Customer> {
 }
 
 
-fun getMockTools(): List<Tool> {
+fun getMockTools(): List<ToolEntity> {
     return listOf(
-        Tool(
+        ToolEntity(
             toolId = 1L,
             name = "Hammer",
             rentPerDay = 10.0,
@@ -72,7 +71,7 @@ fun getMockTools(): List<Tool> {
             rentedQuantity = 3,
             toolCondition = "New"
         ),
-        Tool(
+        ToolEntity(
             toolId = 2L,
             name = "Drill Machine",
             rentPerDay = 25.0,
@@ -81,7 +80,7 @@ fun getMockTools(): List<Tool> {
             rentedQuantity = 2,
             toolCondition = "Good"
         ),
-        Tool(
+        ToolEntity(
             toolId = 3L,
             name = "Screwdriver Set",
             rentPerDay = 5.0,
@@ -90,7 +89,7 @@ fun getMockTools(): List<Tool> {
             rentedQuantity = 2,
             toolCondition = "New"
         ),
-        Tool(
+        ToolEntity(
             toolId = 4L,
             name = "Saw",
             rentPerDay = 15.0,
@@ -99,7 +98,7 @@ fun getMockTools(): List<Tool> {
             rentedQuantity = 3,
             toolCondition = "Used"
         ),
-        Tool(
+        ToolEntity(
             toolId = 5L,
             name = "Ladder",
             rentPerDay = 30.0,

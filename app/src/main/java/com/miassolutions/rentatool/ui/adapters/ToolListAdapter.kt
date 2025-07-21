@@ -4,21 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.miassolutions.rentatool.data.model.Tool
+import com.miassolutions.rentatool.data.model.ToolEntity
 import com.miassolutions.rentatool.databinding.ItemStockToolsBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
 
-class ToolListAdapter : ListAdapter<Tool, ToolListAdapter.ToolVH>(ToolDiffUtil()) {
+class ToolListAdapter : ListAdapter<ToolEntity, ToolListAdapter.ToolVH>(ToolDiffUtil()) {
 
 
     class ToolVH(private val binding : ItemStockToolsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tool: Tool){
+        fun bind(toolEntity: ToolEntity){
             binding.apply {
-                tvToolName.text = tool.name
-                toolCondition.text = tool.toolCondition
-                tvAvailablCount.text = "${tool.availableStock}/${tool.totalStock}"
-                tvRentPerDay.text = "${tool.rentPerDay.toInt()} Rs/day"
+                tvToolName.text = toolEntity.name
+                toolCondition.text = toolEntity.toolCondition
+                tvAvailablCount.text = "${toolEntity.availableStock}/${toolEntity.totalStock}"
+                tvRentPerDay.text = "${toolEntity.rentPerDay.toInt()} Rs/day"
             }
         }
     }

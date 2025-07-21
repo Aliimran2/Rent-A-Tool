@@ -99,4 +99,6 @@
     <string name="edit_the_customer">Edit the customer</string>
     <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
+    <string name="search_customer">Search customer by name or id</string>
+    <string name="search_tool_by_name">Search tool by name</string>
 </resources>

@@ -1,17 +1,7 @@
 package com.miassolutions.rentatool.myapplication
 
 import android.app.Application
-import com.miassolutions.rentatool.core.AppDatabase
-import com.miassolutions.rentatool.data.ToolRentalRepository
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication : Application(){
-        val database by lazy { AppDatabase.getDatabase(this) }
-    // Initialize repository with the correct DAOs
-    val repository by lazy {
-        ToolRentalRepository(
-            database
-        )
-    }
-
-
-}
+@HiltAndroidApp
+class MyApplication : Application()

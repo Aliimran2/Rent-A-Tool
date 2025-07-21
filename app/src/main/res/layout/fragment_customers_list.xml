@@ -6,20 +6,26 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchInputLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:hint="@string/search_customer"
         app:cardBackgroundColor="@color/transparent"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:startIconDrawable="@drawable/ic_search">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            style="@style/search_bar_style" />
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
@@ -82,6 +88,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/searchInputLayout"
+        tools:listitem="@layout/item_customer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

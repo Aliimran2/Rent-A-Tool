@@ -4,20 +4,18 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.Customer
+import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
-import java.text.NumberFormat
 import java.util.Locale
 
 class CustomerListAdapter(
-    val navigationClickListener: (Customer) -> Unit,
-    val navigateToDetailsListener : (Customer) -> Unit
-) : ListAdapter<Customer, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
+    val navigationClickListener: (CustomerEntity) -> Unit,
+    val navigateToDetailsListener : (CustomerEntity) -> Unit
+) : ListAdapter<CustomerEntity, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
 
@@ -26,25 +24,25 @@ class CustomerListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("InlinedApi")
-        fun bind(customer: Customer) {
+        fun bind(customerEntity: CustomerEntity) {
             binding.apply {
-                tvCustomerName.text = customer.customerName
+                tvCustomerName.text = customerEntity.customerName
 
-                tvCustomerPhone.text = String.format(Locale.getDefault(),"Rs. %d",customer.customerId)
+                tvCustomerPhone.text = String.format(Locale.getDefault(),"Rs. %d",customerEntity.customerId)
 
-                if (customer.customerPic.isNotEmpty()) {
-                    val customerPicUri = Uri.parse(customer.customerPic)
+                if (customerEntity.customerPic.isNotEmpty()) {
+                    val customerPicUri = Uri.parse(customerEntity.customerPic)
                     ivCustomer.setImageURI(customerPicUri)
                 } else {
                     ivCustomer.setImageResource(R.drawable.place_holder_image)
                 }
 
                 root.setOnClickListener {
-                    navigationClickListener(customer)
+                    navigationClickListener(customerEntity)
                 }
 
                 root.setOnLongClickListener {
-                    navigateToDetailsListener(customer)
+                    navigateToDetailsListener(customerEntity)
                     true
                 }
 

@@ -5,40 +5,40 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.miassolutions.rentatool.data.model.Tool
-import com.miassolutions.rentatool.databinding.ItemDropDownToolBinding
+import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.databinding.ItemToolBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
 
 class ToolSelectionListAdapter(
 
     private val onSelectionChanged: (Map<Long, Int>) -> Unit
-) : ListAdapter<Tool, ToolSelectionListAdapter.ToolVH>(ToolDiffUtil()) {
+) : ListAdapter<ToolEntity, ToolSelectionListAdapter.ToolVH>(ToolDiffUtil()) {
 
     private val selectedTools = mutableMapOf<Long, Int>()
 
-    inner class ToolVH(private val binding: ItemDropDownToolBinding) :
+    inner class ToolVH(private val binding: ItemToolBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tool: Tool) {
+        fun bind(toolEntity: ToolEntity) {
             binding.apply {
-                tvToolName.text = tool.name
-                inputLayout.helperText = "Stock:${tool.availableStock}"
+                tvToolName.text = toolEntity.name
+                inputLayout.helperText = "Stock:${toolEntity.availableStock}"
                 //check box handling
-                cbTool.isChecked = selectedTools.containsKey(tool.toolId)
+                cbTool.isChecked = selectedTools.containsKey(toolEntity.toolId)
                 etQuantitySelected.isEnabled = false
 
                 etQuantitySelected.doOnTextChanged { text, _, _, _ ->
                     val enteredValue = text?.toString()?.toIntOrNull() ?: 0
-                    if (enteredValue > tool.availableStock) {
-                        inputLayout.error = "${tool.availableStock} available"
+                    if (enteredValue > toolEntity.availableStock) {
+                        inputLayout.error = "${toolEntity.availableStock} available"
                         inputLayout.helperText = null
                     } else {
                         inputLayout.error = null
-                        val remainingStock = tool.availableStock - enteredValue
+                        val remainingStock = toolEntity.availableStock - enteredValue
                         inputLayout.helperText = "${remainingStock} remaining"
                     }
                     if (cbTool.isChecked) {
-                        selectedTools[tool.toolId] = enteredValue
+                        selectedTools[toolEntity.toolId] = enteredValue
                         onSelectionChanged(selectedTools)
                     }
                 }
@@ -46,11 +46,11 @@ class ToolSelectionListAdapter(
                 cbTool.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         val quantity = etQuantitySelected.text?.toString()?.toIntOrNull() ?: 1
-                        selectedTools[tool.toolId] = quantity
+                        selectedTools[toolEntity.toolId] = quantity
                         etQuantitySelected.isEnabled = true
                     } else {
                         etQuantitySelected.isEnabled = false
-                        selectedTools.remove(tool.toolId)
+                        selectedTools.remove(toolEntity.toolId)
                         etQuantitySelected.text?.clear()
                     }
                     onSelectionChanged(selectedTools)
@@ -62,7 +62,7 @@ class ToolSelectionListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolVH =
-        ToolVH(ItemDropDownToolBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        ToolVH(ItemToolBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: ToolVH, position: Int) {
         holder.bind(getItem(position))

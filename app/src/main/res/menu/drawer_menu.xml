@@ -3,74 +3,30 @@
     tools:showIn="navigation_view">
 
 
+    <item
+        android:id="@+id/customersListFragment"
+        android:icon="@drawable/customer_icon"
+        android:title="@string/customers" />
 
-        <item
-            android:id="@+id/customersListFragment"
-            android:icon="@drawable/customer_icon"
-            android:title="@string/customers" />
-
-        <item
-            android:id="@+id/stockFragment"
-            android:icon="@drawable/tools_icon"
-            android:title="@string/stock" />
-
-    <item android:title="New Entry">
-        <menu>
-            <item
-                android:id="@+id/addCustomerFragment"
-                android:icon="@drawable/add_person"
-                android:title="@string/add_new_customer" />
+    <item
+        android:id="@+id/stockFragment"
+        android:icon="@drawable/tools_icon"
+        android:title="@string/stock" />
 
 
-            <item
-                android:id="@+id/addToolFragment"
-                android:icon="@drawable/icon_add_tool"
-                android:title="@string/add_new_tool" />
+    <!--    todo later these will be deleted-->
+    <item
+        android:id="@+id/mockDb"
+        android:title="Insert Mock Customers" />
 
-        </menu>
+    <item
+        android:id="@+id/mockTools"
+        android:title="Insert Mock Tools" />
 
-    </item>
-
-    <group android:checkableBehavior="single">
-        <item android:title="@string/select_app_language">
-            <menu>
-                <item
-                    android:id="@+id/english_menu"
-                    android:icon="@drawable/ic_english"
-                    android:title="" />
-
-
-                <item
-                    android:id="@+id/urdu_menu"
-                    android:icon="@drawable/ic_urdu"
-                    android:title="" />
-
-            </menu>
-        </item>
-
-    </group>
-
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/mockDb"
-                android:title="Insert Mock Customers" />
-
-            <item
-                android:id="@+id/mockTools"
-                android:title="Insert Mock Tools" />
-
-            <item
-                android:id="@+id/change_font"
-                android:title="Change Font" />
-
-
-            <item
-                android:id="@+id/aboutApp"
-                android:icon="@drawable/about_icon"
-                android:title="@string/about" />
-        </menu>
-    </item>
-
-
+    <item
+        android:id="@+id/aboutApp"
+        android:icon="@drawable/about_icon"
+        android:title="@string/about" />
 </menu>
+
+
