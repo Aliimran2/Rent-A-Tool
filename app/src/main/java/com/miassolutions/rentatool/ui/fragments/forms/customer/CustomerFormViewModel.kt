@@ -7,12 +7,10 @@ import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.data.repository.Repository
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,14 +25,27 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
     private val _uiEvent = MutableSharedFlow<CustomerUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
+    fun onCnicChange(cnic: String) {
+        _uiState.update { it.copy(customerCnic = cnic) }
+    }
+
 
     fun onCustomerNameChange(customerName: String) {
         _uiState.update { it.copy(customerName = customerName) }
     }
 
-    fun onCnicChange(cnic: String) {
-        _uiState.update { it.copy(customerCnic = cnic) }
+    fun onCustomerPhoneChange(customerPhone: String) {
+        _uiState.update { it.copy(customerPhone = customerPhone) }
     }
+
+    fun onConstructionPlaceChange(constructionPlace: String) {
+        _uiState.update { it.copy(constructionPlace = constructionPlace) }
+    }
+
+    fun onContractorPhoneChange(contractorPhone: String) {
+        _uiState.update { it.copy(contractorPhone = contractorPhone) }
+    }
+
 
     fun onContractorNameChange(contractorName: String) {
         _uiState.update { it.copy(contractorName = contractorName) }
@@ -44,24 +55,18 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
         _uiState.update { it.copy(ownerName = ownerName) }
     }
 
-    fun onCustomerPhoneChange(customerPhone: String) {
-        _uiState.update { it.copy(customerPhone = customerPhone) }
-    }
-
-    fun onContractorPhoneChange(contractorPhone: String) {
-        _uiState.update { it.copy(contractorPhone = contractorPhone) }
-    }
 
     fun onOwnerPhoneChange(ownerPhone: String) {
         _uiState.update { it.copy(ownerPhone = ownerPhone) }
     }
 
-    fun onConstructionPlaceChange(constructionPlace: String) {
-        _uiState.update { it.copy(constructionPlace = constructionPlace) }
-    }
+
+    private var saveAndExitClicked = false
 
 
-    fun onSaveClicked() {
+    fun onSaveClicked(isSaveAndExit : Boolean = false) {
+        saveAndExitClicked  = isSaveAndExit
+
         val state = _uiState.value
 
         val customerEntity = CustomerEntity(
@@ -81,7 +86,13 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
                 is CustomerFormResult.Failure -> {
                     _uiEvent.emit(CustomerUiEvent.DuplicateCNIC(Constants.DUPLICATE_CNIC))
                 }
-                CustomerFormResult.Success -> _uiEvent.emit(CustomerUiEvent.CustomerAdded(1003))
+
+                CustomerFormResult.Success -> {
+                    _uiEvent.emit(CustomerUiEvent.CustomerAdded(1003))
+                    if (isSaveAndExit){
+                        _uiEvent.emit(CustomerUiEvent.NavigateBack)
+                    }
+                }
             }
 
         }

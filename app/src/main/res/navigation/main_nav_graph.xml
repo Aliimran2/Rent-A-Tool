@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/stockListFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.lists.StockListFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.lists.tools.StockListFragment"
         android:label="Stock"
         tools:layout="@layout/fragment_stock_list"/>
     <fragment
@@ -23,31 +23,28 @@
 
     <fragment
         android:id="@+id/customersListFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.lists.CustomersListFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.lists.customers.CustomersListFragment"
         android:label="@string/customers"
         tools:layout="@layout/fragment_customers_list">
 
-        <action
-            android:id="@+id/action_customersListFragment_to_customerManagerFragment"
-            app:destination="@id/fragmentRentals" />
+
         <action
             android:id="@+id/action_customersListFragment_to_addCustomerFragment"
             app:destination="@id/customerFormFragment" />
         <action
             android:id="@+id/action_customersListFragment_to_addToolFragment"
             app:destination="@id/addToolFragment" />
+        <action
+            android:id="@+id/action_customersListFragment_to_fragmentRentals"
+            app:destination="@id/fragmentRentals" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRentals"
         android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.RentalsFragment"
-        android:label="{customerName}"
         tools:layout="@layout/fragment_rentals" >
         <argument
             android:name="customerId"
             app:argType="long" />
-        <argument
-            android:name="customerName"
-            app:argType="string" />
         <action
             android:id="@+id/action_customerManagerFragment_to_toolSelectionFragment"
             app:destination="@id/fragmentToolsList" />
@@ -55,13 +52,9 @@
     <fragment
         android:id="@+id/fragmentToolsList"
         android:name="com.miassolutions.rentatool.ui.fragments.rentalrecord.ToolsSelectionFragment"
-        android:label="Tool Selection: {customerName}"
         tools:layout="@layout/fragment_tools_selection">
         <argument
             android:name="customerId"
             app:argType="long" />
-        <argument
-            android:name="customerName"
-            app:argType="string" />
     </fragment>
 </navigation>

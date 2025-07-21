@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.core.utils.extenstions.setTextIfChanged
@@ -46,10 +47,16 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
 //            etOwnerName.doAfterTextChanged { viewModel.onOwnerNameChange(it.toString()) }
 //            etOwnerPhone.doAfterTextChanged { viewModel.onOwnerPhoneChange(it.toString()) }
 
-            saveButton.setOnClickListener {
+            saveAndNewBtn.setOnClickListener {
                 if (validateInputs()) {
-                    viewModel.onSaveClicked()
+                    viewModel.onSaveClicked(isSaveAndExit = false)
 
+                }
+            }
+
+            saveAndExitBtn.setOnClickListener {
+                if (validateInputs()) {
+                    viewModel.onSaveClicked(isSaveAndExit = true)
                 }
             }
         }
@@ -61,13 +68,17 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
         collectingFlow {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
-                    CustomerUiEvent.NavigateBack -> {}
+                    CustomerUiEvent.NavigateBack -> {
+                        findNavController().popBackStack()
+                    }
                     is CustomerUiEvent.ShowToast -> showToast(event.message)
                     is CustomerUiEvent.DuplicateCNIC -> {
                         binding.etCnic.error = "CNIC already existed."
                         binding.etCnic.requestFocus()
                     }
+
                     is CustomerUiEvent.CustomerAdded -> {
+                        showToast("Customer added in database successfully")
                         clearAllFields()
                     }
                 }
@@ -109,6 +120,13 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
 
 
             return when {
+
+                etCnic.text.isNullOrEmpty() -> {
+                    etCnic.error = "Enter customer cnic no."
+                    etCnic.requestFocus()
+                    false
+                }
+
                 etCustomerName.text.isNullOrEmpty() -> {
                     etCustomerName.error = "Enter customer name"
                     etCustomerName.requestFocus()
@@ -121,11 +139,6 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                     false
                 }
 
-                etCnic.text.isNullOrEmpty() -> {
-                    etCnic.error = "Enter customer cnic no."
-                    etCnic.requestFocus()
-                    false
-                }
 
 //                etOwnerName.text.isNullOrEmpty() -> {
 //                    etOwnerName.error = "Enter owner name"

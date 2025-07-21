@@ -13,8 +13,8 @@ import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 import java.util.Locale
 
 class CustomerListAdapter(
-    val navigationClickListener: (CustomerEntity) -> Unit,
-    val navigateToDetailsListener : (CustomerEntity) -> Unit
+    val navToRentals: (CustomerEntity) -> Unit,
+    val navToDetails : (CustomerEntity) -> Unit
 ) : ListAdapter<CustomerEntity, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -38,11 +38,11 @@ class CustomerListAdapter(
                 }
 
                 root.setOnClickListener {
-                    navigationClickListener(customerEntity)
+                    navToRentals(customerEntity)
                 }
 
                 root.setOnLongClickListener {
-                    navigateToDetailsListener(customerEntity)
+                    navToDetails(customerEntity)
                     true
                 }
 

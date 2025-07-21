@@ -165,11 +165,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saveButton"
+                    android:id="@+id/saveAndExitBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Submit" />
+                    android:text="Save and Exit" />
 
                 <Button
                     android:id="@+id/saveAndNewBtn"

@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments.lists
+package com.miassolutions.rentatool.ui.fragments.lists.customers
 
 import android.content.Intent
 import android.net.Uri
@@ -8,21 +8,29 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
     private var _binding: FragmentCustomersListBinding? = null
     private val binding get() = _binding!!
 
-
+    private val viewModel by viewModels<CustomerListViewModel>()
     private lateinit var adapter: CustomerListAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +38,64 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
 
 
         menuProvider()
+        setupRecyclerView()
+        observeUiState()
+        observeUiEvents()
+        setupSearchField()
 
+
+    }
+
+    private fun setupRecyclerView() {
+        adapter = CustomerListAdapter(
+            navToRentals = { customer ->
+                viewModel.navToRentals(customer)
+            },
+            navToDetails = { customer ->
+                viewModel.onEditClick(customer)
+            }
+        )
+        binding.rvCustomerList.adapter = adapter
+
+
+    }
+
+    private fun setupSearchField() {
+        binding.searchInputLayout.editText?.doAfterTextChanged { text ->
+            viewModel.onSearchQueryChanged(text.toString())
+        }
+    }
+
+
+    private fun observeUiState() {
+        collectingFlow {
+            viewModel.uiState.collectLatest { state ->
+                adapter.submitList(state.customerList)
+            }
+        }
+
+    }
+
+    private fun observeUiEvents() {
+
+        collectingFlow {
+            viewModel.uiEvent.collectLatest { event ->
+                when (event) {
+                    is CustomerListUiEvent.NavToCustomerRentals -> {
+                        findNavController().navigate(
+                            CustomersListFragmentDirections.actionCustomersListFragmentToFragmentRentals(
+                                event.customer.customerId
+                            )
+                        )
+                    }
+
+                    is CustomerListUiEvent.NavToEditCustomer -> {
+                        showToast("Navigating to edit customer")
+                    }
+                    is CustomerListUiEvent.ShowToast -> {}
+                }
+            }
+        }
 
     }
 
@@ -57,21 +122,12 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     else -> false
                 }
             }
-        }, viewLifecycleOwner)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     }
 
 
-    private fun navigateToCustomerManagerFragment(customerEntity: CustomerEntity) {
-        val customerId = customerEntity.customerId
-        val customerName = customerEntity.customerName
-        val action =
-            CustomersListFragmentDirections.actionCustomersListFragmentToCustomerManagerFragment(
-                customerId,
-                customerName
-            )
-        findNavController().navigate(action)
-    }
+
 
     private fun initializePhoneCall(phoneNumber: String) {
         try {
