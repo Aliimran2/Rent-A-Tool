@@ -52,7 +52,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                 viewModel.navToRentals(customer)
             },
             navToDetails = { customer ->
-                viewModel.onEditClick(customer)
+                viewModel.deleteCustomer(customer)
             }
         )
         binding.rvCustomerList.adapter = adapter
@@ -92,7 +92,10 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     is CustomerListUiEvent.NavToEditCustomer -> {
                         showToast("Navigating to edit customer")
                     }
-                    is CustomerListUiEvent.ShowToast -> {}
+
+                    is CustomerListUiEvent.ShowToast -> {
+                        showToast(event.message)
+                    }
                 }
             }
         }
@@ -118,6 +121,10 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                         showBottomSheet.show(parentFragmentManager, showBottomSheet.tag)
                         true
                     }
+                    R.id.delete_all_menu -> {
+                        viewModel.deleteAllCustomers()
+                        true
+                    }
 
                     else -> false
                 }
@@ -125,8 +132,6 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     }
-
-
 
 
     private fun initializePhoneCall(phoneNumber: String) {

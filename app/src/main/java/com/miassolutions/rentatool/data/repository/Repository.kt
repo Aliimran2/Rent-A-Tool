@@ -32,6 +32,12 @@ class Repository @Inject constructor(
 
     fun getAllCustomers(): Flow<List<CustomerEntity>> = customerDao.getAllCustomers()
 
+    suspend fun deleteCustomer(customer: CustomerEntity) {
+        customerDao.deleteCustomer(customer)
+    }
+
+    suspend fun deleteAllCustomers() = customerDao.deleteAllCustomers() //todo()
+
     fun searchCustomers(query: String): Flow<List<CustomerEntity>> =
         customerDao.searchCustomers(query)
 

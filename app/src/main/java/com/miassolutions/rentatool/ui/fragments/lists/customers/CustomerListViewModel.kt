@@ -70,6 +70,19 @@ class CustomerListViewModel @Inject constructor(private val repository: Reposito
         }
     }
 
+    fun deleteCustomer(customer: CustomerEntity) {
+        viewModelScope.launch {
+            repository.deleteCustomer(customer)
+            _uiEvent.send(CustomerListUiEvent.ShowToast("Customer deleted"))
+        }
+    }
+
+    fun deleteAllCustomers() {
+        viewModelScope.launch {
+            repository.deleteAllCustomers()
+            _uiEvent.send(CustomerListUiEvent.ShowToast("All Customers deleted"))
+        }
+    }
 
 
 }
