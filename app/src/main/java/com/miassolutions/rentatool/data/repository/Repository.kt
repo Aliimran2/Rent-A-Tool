@@ -4,6 +4,7 @@ import com.miassolutions.rentatool.Constants
 import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.ToolDao
 import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.model.ToolEntity
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -40,5 +41,10 @@ class Repository @Inject constructor(
 
     fun searchCustomers(query: String): Flow<List<CustomerEntity>> =
         customerDao.searchCustomers(query)
+
+
+    suspend fun insertTool(tool: ToolEntity) {
+        toolDao.insertTool(tool)
+    }
 
 }

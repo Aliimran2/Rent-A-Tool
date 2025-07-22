@@ -13,7 +13,7 @@ data class ToolEntity(
     val name: String,
     val rentPerDay: Double,
     val totalStock: Int,
-    var availableStock: Int,
-    var rentedQuantity: Int,
+    var availableStock: Int =0,
+    var rentedQuantity: Int=0,
     var toolCondition : String = "New"
 )

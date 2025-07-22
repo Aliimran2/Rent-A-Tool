@@ -66,7 +66,7 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
 
     private fun setupEventObserver() {
         collectingFlow {
-            viewModel.uiEvent.collectLatest { event ->
+            viewModel.uiEvent.collect { event ->
                 when (event) {
                     CustomerUiEvent.NavigateBack -> {
                         findNavController().popBackStack()
