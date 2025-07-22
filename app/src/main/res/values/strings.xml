@@ -102,5 +102,6 @@
     <string name="ledger">LEDGER</string>
     <string name="search_customer">Search customer by name or id</string>
     <string name="search_tool_by_name">Search tool by name</string>
+    <string name="search_tools_by_name">Search tools by name</string>
 
 </resources>

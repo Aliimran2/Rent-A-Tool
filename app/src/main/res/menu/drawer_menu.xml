@@ -9,7 +9,7 @@
         android:title="@string/customers" />
 
     <item
-        android:id="@+id/stockFragment"
+        android:id="@+id/stockListFragment"
         android:icon="@drawable/tools_icon"
         android:title="@string/stock" />
 

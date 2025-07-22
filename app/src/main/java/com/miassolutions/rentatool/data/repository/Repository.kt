@@ -42,9 +42,14 @@ class Repository @Inject constructor(
     fun searchCustomers(query: String): Flow<List<CustomerEntity>> =
         customerDao.searchCustomers(query)
 
+    /*End Region of CustomerEntity*/
+
 
     suspend fun insertTool(tool: ToolEntity) {
         toolDao.insertTool(tool)
     }
+
+    fun getAllTools(): Flow<List<ToolEntity>> = toolDao.getAllTools()
+    fun searchTool(query: String): Flow<List<ToolEntity>> = toolDao.searchTools(query)
 
 }

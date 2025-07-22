@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.stockFragment,
+                R.id.stockListFragment,
                 R.id.customersListFragment,
             ), binding.drawerLayout
         )

@@ -1,22 +1,80 @@
 package com.miassolutions.rentatool.ui.fragments.lists.tools
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.core.utils.helper.hide
+import com.miassolutions.rentatool.core.utils.helper.show
 import com.miassolutions.rentatool.databinding.FragmentStockListBinding
+import com.miassolutions.rentatool.ui.adapters.ToolListAdapter
+import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
-
+@AndroidEntryPoint
 class StockListFragment : Fragment(R.layout.fragment_stock_list) {
 
     private var _binding: FragmentStockListBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<StockListViewModel>()
+    private val adapter = ToolListAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentStockListBinding.bind(view)
+
+
+
+        setupSearchQuery()
+        setupUiState()
+        setupRecyclerview()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.floatingActionButton.setOnClickListener{
+            val bottomSheet = ToolFormFragment()
+            bottomSheet.show(parentFragmentManager, null)
+        }
+
     }
 
 
+
+    private fun setupRecyclerview() {
+        binding.rvStock.show()
+        binding.rvStock.adapter = adapter
+    }
+
+
+    private fun setupUiState() {
+        collectingFlow {
+            viewModel.uiState.collectLatest { state ->
+                binding.apply {
+                    if (state.isLoading) progressbar.show() else progressbar.hide()
+                }
+                adapter.submitList(state.stockList)
+
+                state.errorMessage?.let {
+                    showToast(it)
+                }
+            }
+        }
+    }
+
+    private fun setupSearchQuery() {
+        binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
+    }
 
 
     override fun onDestroyView() {

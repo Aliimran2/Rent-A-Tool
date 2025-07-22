@@ -9,7 +9,11 @@
         android:id="@+id/stockListFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.lists.tools.StockListFragment"
         android:label="Stock"
-        tools:layout="@layout/fragment_stock_list"/>
+        tools:layout="@layout/fragment_stock_list">
+        <action
+            android:id="@+id/action_stockListFragment_to_addToolFragment"
+            app:destination="@id/addToolFragment" />
+    </fragment>
     <fragment
         android:id="@+id/customerFormFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.forms.customer.CustomerFormFragment"
