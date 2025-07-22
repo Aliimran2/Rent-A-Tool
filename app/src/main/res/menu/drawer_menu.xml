@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-
+<group android:checkableBehavior="single" >
     <item
         android:id="@+id/customersListFragment"
         android:icon="@drawable/customer_icon"
@@ -14,19 +14,17 @@
         android:title="@string/stock" />
 
 
-    <!--    todo later these will be deleted-->
-    <item
-        android:id="@+id/mockDb"
-        android:title="Insert Mock Customers" />
-
-    <item
-        android:id="@+id/mockTools"
-        android:title="Insert Mock Tools" />
 
     <item
         android:id="@+id/aboutApp"
         android:icon="@drawable/about_icon"
         android:title="@string/about" />
+
+
+</group>
+
+
+
 </menu>
 
 

@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.activity.MainActivity"
+    tools:openDrawer="start">
 
     <!-- Main content area -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -17,10 +17,9 @@
 
         <!-- AppBarLayout containing the Toolbar -->
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/ThemeOverlay.Material3.BottomAppBar"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <!-- Toolbar -->
             <com.google.android.material.appbar.MaterialToolbar
@@ -50,6 +49,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@color/icon_default"
         app:headerLayout="@layout/header_nav_drawer"
         app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

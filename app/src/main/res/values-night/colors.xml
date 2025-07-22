@@ -40,7 +40,7 @@
     <color name="onErrorContainer">#370617</color>
 
     <color name="outline">#BDBDBD</color>          <!-- Divider lines or borders -->
-    <color name="icon_default">#555555</color>     <!-- Default icon tint -->
+    <color name="icon_default">#BDBDBD</color>     <!-- Default icon tint -->
 
 
     <color name="text_primary">#CEC8DC</color>  <!-- Very dark gray, softer than black -->
