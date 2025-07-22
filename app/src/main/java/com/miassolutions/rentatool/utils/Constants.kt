@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool
+package com.miassolutions.rentatool.utils
 
 object Constants {
 

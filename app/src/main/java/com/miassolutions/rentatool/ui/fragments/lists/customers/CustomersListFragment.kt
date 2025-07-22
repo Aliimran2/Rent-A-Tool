@@ -14,8 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment

@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
-import com.miassolutions.rentatool.core.utils.extenstions.setTextIfChanged
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
-import com.miassolutions.rentatool.core.utils.helper.clearInputs
+import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.setTextIfChanged
+import com.miassolutions.rentatool.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.helper.clearInputs
 import com.miassolutions.rentatool.databinding.FragmentCustomerFormBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

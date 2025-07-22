@@ -8,9 +8,9 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
-import com.miassolutions.rentatool.core.utils.extenstions.setTextIfChanged
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.setTextIfChanged
+import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentToolFormBinding
 import dagger.hilt.android.AndroidEntryPoint
 

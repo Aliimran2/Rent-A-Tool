@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.core.utils.extenstions
+package com.miassolutions.rentatool.utils.extenstions
 
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout

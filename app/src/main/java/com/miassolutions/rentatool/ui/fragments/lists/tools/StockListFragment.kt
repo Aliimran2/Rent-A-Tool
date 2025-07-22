@@ -9,10 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.navigateUp
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.collectingFlow
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
-import com.miassolutions.rentatool.core.utils.helper.hide
-import com.miassolutions.rentatool.core.utils.helper.show
+import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.helper.hide
+import com.miassolutions.rentatool.utils.helper.show
 import com.miassolutions.rentatool.databinding.FragmentStockListBinding
 import com.miassolutions.rentatool.ui.adapters.ToolListAdapter
 import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment

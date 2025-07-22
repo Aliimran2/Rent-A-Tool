@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.core.utils.extenstions.showDatePicker
-import com.miassolutions.rentatool.core.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentToolsSelectionBinding
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import kotlinx.coroutines.launch

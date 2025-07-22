@@ -1,6 +1,6 @@
 package com.miassolutions.rentatool.data.repository
 
-import com.miassolutions.rentatool.Constants
+import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.ToolDao
 import com.miassolutions.rentatool.data.model.CustomerEntity
