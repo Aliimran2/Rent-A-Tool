@@ -5,12 +5,21 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.miassolutions.rentatool.data.converter.LocalDateConverter
 import com.miassolutions.rentatool.data.dao.CustomerDao
+import com.miassolutions.rentatool.data.dao.RentalLineItemDao
+import com.miassolutions.rentatool.data.dao.RentalOrderDao
 import com.miassolutions.rentatool.data.dao.ToolDao
-import com.miassolutions.rentatool.data.model.CustomerEntity
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
+import com.miassolutions.rentatool.data.entities.RentalLineItemEntity
+import com.miassolutions.rentatool.data.entities.RentalOrderEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 
 @Database(
-    entities = [ToolEntity::class, CustomerEntity::class],
+    entities = [
+        ToolEntity::class,
+        CustomerEntity::class,
+        RentalOrderEntity::class,
+        RentalLineItemEntity::class,
+    ],
     version = 1,
     exportSchema = false
 )
@@ -18,7 +27,8 @@ import com.miassolutions.rentatool.data.model.ToolEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun toolDao(): ToolDao
     abstract fun customerDao(): CustomerDao
-
+    abstract fun rentalOrderDao(): RentalOrderDao
+    abstract fun rentalLineItemDao(): RentalLineItemDao
 
 
 }

@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.data.model
+package com.miassolutions.rentatool.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -32,6 +32,6 @@ data class RentalLineItemEntity(
     val quantityRented: Int,
     val quantityReturned: Int = 0,
     val rentalStartDate: LocalDate,
-    val lastReturnDate: LocalDate? = null // updates on each partial return
+    val lastReturnDate: LocalDate? = null
 )
 

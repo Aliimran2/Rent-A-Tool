@@ -49,7 +49,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     private fun setupRecyclerView() {
         adapter = CustomerListAdapter(
             navToRentals = { customer ->
-                viewModel.navToRentals(customer)
+                viewModel.navToRentals(customer.customerId, customer.customerName)
             },
             navToDetails = { customer ->
 
@@ -84,7 +84,8 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     is CustomerListUiEvent.NavToCustomerRentals -> {
                         findNavController().navigate(
                             CustomersListFragmentDirections.actionCustomersListFragmentToFragmentRentals(
-                                event.customer.customerId
+                                event.customerId,
+                                event.customerName
                             )
                         )
                     }

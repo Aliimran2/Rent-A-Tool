@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

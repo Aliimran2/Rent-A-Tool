@@ -2,7 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.forms.tool
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.data.model
+package com.miassolutions.rentatool.data.entities
 
 import androidx.room.Entity
 import androidx.room.Index

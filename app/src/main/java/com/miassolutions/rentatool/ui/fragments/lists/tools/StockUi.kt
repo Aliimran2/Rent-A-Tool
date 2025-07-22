@@ -1,6 +1,6 @@
 package com.miassolutions.rentatool.ui.fragments.lists.tools
 
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 
 data class StockUiState(
     val isLoading: Boolean = false,

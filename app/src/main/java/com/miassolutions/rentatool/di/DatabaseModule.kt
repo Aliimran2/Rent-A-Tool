@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.miassolutions.rentatool.data.db.AppDatabase
 import com.miassolutions.rentatool.data.dao.CustomerDao
+import com.miassolutions.rentatool.data.dao.RentalLineItemDao
+import com.miassolutions.rentatool.data.dao.RentalOrderDao
 import com.miassolutions.rentatool.data.dao.ToolDao
 import dagger.Module
 import dagger.Provides
@@ -36,9 +38,13 @@ object DatabaseModule {
     fun providesToolDao(db: AppDatabase): ToolDao = db.toolDao()
 
 
+    @Singleton
+    @Provides
+    fun providesRentalOrderDao(db: AppDatabase): RentalOrderDao = db.rentalOrderDao()
 
-
-
+    @Singleton
+    @Provides
+    fun providesRentalLineItemDao(db: AppDatabase): RentalLineItemDao = db.rentalLineItemDao()
 
 
 }

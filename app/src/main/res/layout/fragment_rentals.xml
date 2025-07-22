@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragments.rentalrecord.RentalsFragment">
+    tools:context=".ui.fragments.lists.rentalrecord.RentalsFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -3,7 +3,7 @@ package com.miassolutions.rentatool.ui.fragments.forms.customer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.utils.Constants
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
 import com.miassolutions.rentatool.data.repository.Repository
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import dagger.hilt.android.lifecycle.HiltViewModel

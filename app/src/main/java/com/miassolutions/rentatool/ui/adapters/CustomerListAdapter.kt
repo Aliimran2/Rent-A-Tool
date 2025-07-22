@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 

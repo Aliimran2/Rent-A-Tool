@@ -2,15 +2,13 @@ package com.miassolutions.rentatool.ui.fragments.lists.customers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
 import com.miassolutions.rentatool.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -64,9 +62,9 @@ class CustomerListViewModel @Inject constructor(private val repository: Reposito
         }
     }
 
-    fun navToRentals(customer: CustomerEntity) {
+    fun navToRentals(customerId : Long, customerName : String) {
         viewModelScope.launch {
-            _uiEvent.send(CustomerListUiEvent.NavToCustomerRentals(customer))
+            _uiEvent.send(CustomerListUiEvent.NavToCustomerRentals(customerId, customerName))
         }
     }
 

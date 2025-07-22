@@ -1,7 +1,7 @@
 package com.miassolutions.rentatool.ui.adapters.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 
 class ToolDiffUtil : DiffUtil.ItemCallback<ToolEntity>() {
     override fun areItemsTheSame(oldItem: ToolEntity, newItem: ToolEntity): Boolean = oldItem.toolId == newItem.toolId

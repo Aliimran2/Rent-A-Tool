@@ -1,6 +1,6 @@
 package com.miassolutions.rentatool.ui.fragments.lists.customers
 
-import com.miassolutions.rentatool.data.model.CustomerEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
 
 data class CustomerListUiState(
     val isLoading: Boolean = false,
@@ -12,6 +12,6 @@ data class CustomerListUiState(
 sealed class CustomerListUiEvent {
     data class NavToEditCustomer(val customer: CustomerEntity) : CustomerListUiEvent()
     data class NavToDetail(val customer: CustomerEntity) : CustomerListUiEvent()
-    data class NavToCustomerRentals(val customer: CustomerEntity) : CustomerListUiEvent()
+    data class NavToCustomerRentals(val customerId : Long, val customerName : String) : CustomerListUiEvent()
     data class ShowToast(val message: String) : CustomerListUiEvent()
 }

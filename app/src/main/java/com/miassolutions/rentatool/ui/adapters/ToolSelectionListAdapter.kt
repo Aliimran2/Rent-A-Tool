@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.databinding.ItemToolBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
 

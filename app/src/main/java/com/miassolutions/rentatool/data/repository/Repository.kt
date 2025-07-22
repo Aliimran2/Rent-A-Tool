@@ -2,9 +2,12 @@ package com.miassolutions.rentatool.data.repository
 
 import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.data.dao.CustomerDao
+import com.miassolutions.rentatool.data.dao.RentalLineItemDao
+import com.miassolutions.rentatool.data.dao.RentalOrderDao
 import com.miassolutions.rentatool.data.dao.ToolDao
-import com.miassolutions.rentatool.data.model.CustomerEntity
-import com.miassolutions.rentatool.data.model.ToolEntity
+import com.miassolutions.rentatool.data.entities.CustomerEntity
+import com.miassolutions.rentatool.data.entities.RentalOrderEntity
+import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,6 +15,8 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val customerDao: CustomerDao,
     private val toolDao: ToolDao,
+    private val rentalOrderDao: RentalOrderDao,
+    private val rentalLineItemDao: RentalLineItemDao
 ) {
 
     suspend fun insertCustomer(customerEntity: CustomerEntity): CustomerFormResult {
@@ -52,8 +57,13 @@ class Repository @Inject constructor(
     fun getAllTools(): Flow<List<ToolEntity>> = toolDao.getAllTools()
     fun searchTool(query: String): Flow<List<ToolEntity>> = toolDao.searchTools(query)
 
-        /*end region of tools functions*/
+    /*end region of tools functions*/
 
+    fun getAllRentalOrders(customerId: Long): Flow<List<RentalOrderEntity>> =
+        rentalOrderDao.getOrdersForCustomer(customerId)
+
+    suspend fun getRentalOrderById(orderId: Long): RentalOrderEntity? =
+        rentalOrderDao.getOrderById(orderId)
 
 
 }
