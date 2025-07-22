@@ -91,7 +91,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_customer_phone"
+                android:id="@+id/tvStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="+123456789"

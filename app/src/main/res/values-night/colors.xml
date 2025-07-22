@@ -46,4 +46,8 @@
     <color name="text_primary">#CEC8DC</color>  <!-- Very dark gray, softer than black -->
     <color name="text_secondary">#4D4D4D</color> <!-- Medium gray for less emphasis -->
     <color name="text_background">#D7F4F8</color>
+
+    <color name="active">#A5D6A7</color>
+    <color name="inactive">#EF9A9A</color>
+    <color name="civ_border">@color/white</color>
 </resources>

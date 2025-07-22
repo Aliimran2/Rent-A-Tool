@@ -12,12 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:hint="@string/search_customer"
-        app:cardBackgroundColor="@color/transparent"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:startIconDrawable="@drawable/ic_search">
+        app:startIconDrawable="@drawable/ic_search_0">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_input"
@@ -70,10 +73,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
+                    android:text="@string/ahmad_rent_a_tool"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold"
-                    android:text="@string/ahmad_rent_a_tool" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

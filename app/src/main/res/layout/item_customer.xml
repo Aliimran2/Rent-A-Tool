@@ -13,7 +13,7 @@
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:src="@drawable/place_holder_image"
-        app:civ_border_color="@android:color/white"
+        app:civ_border_color="@color/civ_border"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,28 +22,32 @@
 
     <TextView
         android:id="@+id/tv_customer_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
-        app:layout_constraintStart_toEndOf="@+id/iv_customer"
-        app:layout_constraintTop_toTopOf="@+id/iv_customer"
-        tools:text="Muhammad Imran" />
-
-    <TextView
-        android:id="@+id/tv_customer_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_phone"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
-        app:layout_constraintEnd_toStartOf="@+id/customer_ledger_btn"
-        app:layout_constraintTop_toTopOf="@+id/iv_customer"
-        tools:text="Rs. 2000" />
+        app:layout_constraintStart_toEndOf="@+id/iv_customer"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Muhammad Imran Ali Sajid" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/active_bg"
+        android:padding="4dp"
+        android:text="@string/active"
+        android:textColor="@color/black"
+
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_customer_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_name"
+        tools:ignore="SmallSp"
+        tools:text="Active" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="0dp"
@@ -54,14 +58,35 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/customer_ledger_btn"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/ledger"
+        app:icon="@drawable/ic_ledger"
+        app:iconGravity="top"
+        app:iconPadding="4dp"
         android:textSize="12sp"
-        android:padding="4dp"
+        app:iconSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_customer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_customer" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/customer_rentals_btn"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/rentals"
+        app:icon="@drawable/ic_rental"
+        app:iconGravity="top"
+        app:iconPadding="4dp"
+        android:textSize="12sp"
+        app:iconSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/customer_ledger_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

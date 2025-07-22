@@ -1,6 +1,5 @@
 package com.miassolutions.rentatool.ui.adapters
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,25 +9,28 @@ import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.model.CustomerEntity
 import com.miassolutions.rentatool.databinding.ItemCustomerBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
-import java.util.Locale
 
 class CustomerListAdapter(
     val navToRentals: (CustomerEntity) -> Unit,
-    val navToDetails : (CustomerEntity) -> Unit
+    val navToDetails: (CustomerEntity) -> Unit
 ) : ListAdapter<CustomerEntity, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
-
-
 
 
     inner class CustomerVH(private val binding: ItemCustomerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("InlinedApi")
+
         fun bind(customerEntity: CustomerEntity) {
             binding.apply {
                 tvCustomerName.text = customerEntity.customerName
 
-                tvCustomerPhone.text = String.format(Locale.getDefault(),"Rs. %d",customerEntity.customerId)
+                if ((customerEntity.customerId % 2).toInt() == 0) {
+                    tvStatus.setBackgroundResource(R.drawable.active_bg)
+                    tvStatus.text = "Active"
+                } else {
+                    tvStatus.setBackgroundResource(R.drawable.inactive_bg)
+                    tvStatus.text = "Inactive"
+                }
 
                 if (customerEntity.customerPic.isNotEmpty()) {
                     val customerPicUri = Uri.parse(customerEntity.customerPic)
