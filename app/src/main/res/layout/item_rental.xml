@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
@@ -11,22 +13,49 @@
 
     <TextView
         android:id="@+id/tv_rental_id"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        tools:text="Rental Id" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Rental Id : 10001" />
+
+    <TextView
+        android:id="@+id/tv_no_of_tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rental_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rental_id"
+        tools:text="Rented Tools : 25" />
 
     <TextView
         android:id="@+id/tv_rental_date"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Date" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_promise_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_promise_date"
+        tools:text="Rent Date : 21/07/2025" />
 
     <TextView
-        android:id="@+id/tv_est_return_date"
-        android:layout_width="match_parent"
+        android:id="@+id/tv_promise_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="30/01/2025" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rental_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_no_of_tools"
+        tools:text="Promise Date :30/01/2025" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:text="Update"
+        app:icon="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_rental_id" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

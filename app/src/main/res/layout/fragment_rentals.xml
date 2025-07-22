@@ -22,14 +22,11 @@
         tools:listitem="@layout/item_rental" />
 
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/rent_tools_btn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
         android:elevation="4dp"
         android:text="@string/rent_tools"
         app:cornerRadius="8dp"
