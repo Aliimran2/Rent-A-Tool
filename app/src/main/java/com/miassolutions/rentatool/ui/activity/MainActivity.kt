@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.ActivityMainBinding
-import com.miassolutions.rentatool.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val mainViewModel by viewModels<MainViewModel>()
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration

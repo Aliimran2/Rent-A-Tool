@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.miassolutions.rentatool.data.db.AppDatabase
 import com.miassolutions.rentatool.data.dao.CustomerDao
-import com.miassolutions.rentatool.data.dao.RentalDao
 import com.miassolutions.rentatool.data.dao.ToolDao
-import com.miassolutions.rentatool.data.dao.ToolHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,13 +37,7 @@ object DatabaseModule {
 
 
 
-    @Singleton
-    @Provides
-    fun providesRentalDao(db: AppDatabase): RentalDao = db.rentalDao()
 
-    @Singleton
-    @Provides
-    fun providesToolHistoryDao(db: AppDatabase):     ToolHistoryDao = db.toolHistoryDao()
 
 
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val customerDao: CustomerDao,
-    private val toolDao: ToolDao
+    private val toolDao: ToolDao,
 ) {
 
     suspend fun insertCustomer(customerEntity: CustomerEntity): CustomerFormResult {
@@ -51,5 +51,9 @@ class Repository @Inject constructor(
 
     fun getAllTools(): Flow<List<ToolEntity>> = toolDao.getAllTools()
     fun searchTool(query: String): Flow<List<ToolEntity>> = toolDao.searchTools(query)
+
+        /*end region of tools functions*/
+
+
 
 }

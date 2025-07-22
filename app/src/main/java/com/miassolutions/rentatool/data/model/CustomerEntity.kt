@@ -20,6 +20,5 @@ data class CustomerEntity(
     val contractorPhone: String = "", //TODO()
     val ownerName: String = "", //TODO()
     val ownerPhone: String = "",
-    val totalRent: Double = 0.0
 )
 

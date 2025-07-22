@@ -33,9 +33,6 @@ interface CustomerDao {
     @Query("SELECT * FROM customers WHERE cnicNumber = :cnicNumber LIMIT 1")
     suspend fun getCustomerByCNIC(cnicNumber: String): CustomerEntity?
 
-    // Update customer total rent (after calculating rent)
-    @Query("UPDATE customers SET totalRent = totalRent + :rent WHERE customerId = :customerId")
-    suspend fun updateCustomerTotalRent(customerId: Long, rent: Double)
 
 
     @Delete

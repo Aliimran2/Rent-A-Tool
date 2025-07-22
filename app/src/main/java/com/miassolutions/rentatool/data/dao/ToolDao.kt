@@ -24,7 +24,7 @@ interface ToolDao {
     fun getAllTools() : Flow<List<ToolEntity>>
 
     // Get available tools (those with stock > 0)
-    @Query("SELECT * FROM tools WHERE availableStock > 0 ORDER BY name")
+    @Query("SELECT * FROM tools WHERE totalQuantity > 0 ORDER BY name")
     fun getAvailableTools(): Flow<List<ToolEntity>>
 
     @Query("SELECT * FROM tools WHERE toolId =:toolId")

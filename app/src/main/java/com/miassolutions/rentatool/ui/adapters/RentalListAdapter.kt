@@ -5,19 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.miassolutions.rentatool.data.model.RentalEntity
+import com.miassolutions.rentatool.data.model.RentalOrderEntity
 import com.miassolutions.rentatool.databinding.ItemRentalBinding
 
 class RentalListAdapter(
     val onClickListener: (Long) -> Unit
-) : ListAdapter<RentalEntity, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
+) : ListAdapter<RentalOrderEntity, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RentalEntity>() {
-            override fun areItemsTheSame(oldItem: RentalEntity, newItem: RentalEntity): Boolean {
-                return oldItem.rentalId == newItem.rentalId
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RentalOrderEntity>() {
+            override fun areItemsTheSame(
+                oldItem: RentalOrderEntity,
+                newItem: RentalOrderEntity
+            ): Boolean {
+                return oldItem.orderId == newItem.orderId
             }
 
-            override fun areContentsTheSame(oldItem: RentalEntity, newItem: RentalEntity): Boolean {
+            override fun areContentsTheSame(
+                oldItem: RentalOrderEntity,
+                newItem: RentalOrderEntity
+            ): Boolean {
                 return oldItem == newItem
             }
 
@@ -26,10 +32,10 @@ class RentalListAdapter(
 
     inner class RentalVH(private val binding: ItemRentalBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(rentalEntity: RentalEntity) {
+        fun bind(rentalEntity: RentalOrderEntity) {
             binding.apply {
 
-                root.setOnClickListener { onClickListener(rentalEntity.rentalId) }
+                root.setOnClickListener { onClickListener(rentalEntity.orderId) }
             }
         }
     }

@@ -22,19 +22,19 @@ class ToolSelectionListAdapter(
         fun bind(toolEntity: ToolEntity) {
             binding.apply {
                 tvToolName.text = toolEntity.name
-                inputLayout.helperText = "Stock:${toolEntity.availableStock}"
+                inputLayout.helperText = "Stock:${toolEntity.totalQuantity}"
                 //check box handling
                 cbTool.isChecked = selectedTools.containsKey(toolEntity.toolId)
                 etQuantitySelected.isEnabled = false
 
                 etQuantitySelected.doOnTextChanged { text, _, _, _ ->
                     val enteredValue = text?.toString()?.toIntOrNull() ?: 0
-                    if (enteredValue > toolEntity.availableStock) {
-                        inputLayout.error = "${toolEntity.availableStock} available"
+                    if (enteredValue > toolEntity.totalQuantity) {
+                        inputLayout.error = "${toolEntity.totalQuantity} available"
                         inputLayout.helperText = null
                     } else {
                         inputLayout.error = null
-                        val remainingStock = toolEntity.availableStock - enteredValue
+                        val remainingStock = toolEntity.totalQuantity - enteredValue
                         inputLayout.helperText = "${remainingStock} remaining"
                     }
                     if (cbTool.isChecked) {
