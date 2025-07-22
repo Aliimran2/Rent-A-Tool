@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="very_small_text_dimen">10sp</dimen>
-    <dimen name="small_text_dimen">12sp</dimen>
-    <dimen name="medium_text_dimen">14sp</dimen>
-
-</resources>

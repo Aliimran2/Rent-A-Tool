@@ -56,12 +56,23 @@
                 android:padding="8dp">
 
                 <TextView
-                    style="@style/titleTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="@string/welcome" />
+                    android:gravity="center"
+                    android:text="@string/welcome"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold" />
 
                 <TextView
-                    style="@style/titleTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     android:text="@string/ahmad_rent_a_tool" />
 
             </LinearLayout>

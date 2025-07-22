@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
-                    android:textSize="@dimen/small_text_dimen" />
+                    android:textSize="@dimen/text_size_small" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
