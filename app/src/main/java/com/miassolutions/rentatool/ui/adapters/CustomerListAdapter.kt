@@ -1,6 +1,5 @@
 package com.miassolutions.rentatool.ui.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -20,11 +19,11 @@ class CustomerListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(customerEntity: CustomerEntity) {
+        fun bind(customer: CustomerEntity) {
             binding.apply {
-                tvCustomerName.text = customerEntity.customerName
+                tvCustomerName.text = customer.customerName
 
-                if ((customerEntity.customerId % 2).toInt() == 0) {
+                if ((customer.customerId % 2).toInt() == 0) {
                     tvStatus.setBackgroundResource(R.drawable.active_bg)
                     tvStatus.text = "Active"
                 } else {
@@ -32,20 +31,14 @@ class CustomerListAdapter(
                     tvStatus.text = "Inactive"
                 }
 
-                if (customerEntity.customerPic.isNotEmpty()) {
-                    val customerPicUri = Uri.parse(customerEntity.customerPic)
-                    ivCustomer.setImageURI(customerPicUri)
-                } else {
-                    ivCustomer.setImageResource(R.drawable.place_holder_image)
+
+
+                customerRentalsBtn.setOnClickListener {
+                    navToRentals(customer)
                 }
 
-                root.setOnClickListener {
-                    navToRentals(customerEntity)
-                }
-
-                root.setOnLongClickListener {
-                    navToDetails(customerEntity)
-                    true
+                customerLedgerBtn.setOnClickListener {
+                    navToDetails(customer)
                 }
 
             }

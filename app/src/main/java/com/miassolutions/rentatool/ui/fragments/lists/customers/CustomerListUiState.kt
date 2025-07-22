@@ -11,6 +11,7 @@ data class CustomerListUiState(
 
 sealed class CustomerListUiEvent {
     data class NavToEditCustomer(val customer: CustomerEntity) : CustomerListUiEvent()
+    data class NavToDetail(val customer: CustomerEntity) : CustomerListUiEvent()
     data class NavToCustomerRentals(val customer: CustomerEntity) : CustomerListUiEvent()
     data class ShowToast(val message: String) : CustomerListUiEvent()
 }

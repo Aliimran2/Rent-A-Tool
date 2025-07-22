@@ -52,7 +52,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                 viewModel.navToRentals(customer)
             },
             navToDetails = { customer ->
-                viewModel.deleteCustomer(customer)
+
             }
         )
         binding.rvCustomerList.adapter = adapter
@@ -90,11 +90,15 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     }
 
                     is CustomerListUiEvent.NavToEditCustomer -> {
-                        showToast("Navigating to edit customer")
+                        showToast("Navigation to edit customer")
                     }
 
                     is CustomerListUiEvent.ShowToast -> {
                         showToast(event.message)
+                    }
+
+                    is CustomerListUiEvent.NavToDetail -> {
+                        showToast("Navigation to details")
                     }
                 }
             }
