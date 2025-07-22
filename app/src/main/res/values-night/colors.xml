@@ -6,29 +6,29 @@
     <color name="gray_dark">#333131</color>
 
     <!-- Primary Colors -->
-<!--    <color name="colorPrimary">#3EB489</color>-->
-    <color name="colorPrimary">#4B7BE5</color>
-    <color name="onPrimary">#ffffff</color>
-    <color name="primaryContainer">#D6E3FF</color>
-    <color name="onPrimaryContainer">#002F6C</color>
+    <!--    <color name="colorPrimary">#3EB489</color>-->
+    <color name="colorPrimary">#9CBFFF</color>
+    <color name="onPrimary">#002F6C</color>
+    <color name="primaryContainer">#00325E</color>
+    <color name="onPrimaryContainer">#D6E3FF</color>
 
     <!-- Secondary Colors -->
-    <color name="secondary">#00A86B</color>
-    <color name="onSecondary">#FFFFFF</color>
+    <color name="secondary">#34D399</color>
+    <color name="onSecondary">#003B2D</color>
     <color name="secondaryContainer">#FDFDFD</color>
     <color name="onSecondaryContainer">#646464</color>
 
-<!--    temp-->
-<!--    <color name="colorAccent">#936BA9</color>-->
+    <!--    temp-->
+    <!--    <color name="colorAccent">#936BA9</color>-->
     <color name="colorAccent">#C2185B</color>
 
 
 
     <!-- Background and Surface Colors -->
-    <color name="background">#FDFDFD</color>       <!-- Soft white background -->
-    <color name="onBackground">#1C1B1F</color>
-    <color name="surface">#FFFFFF</color>          <!-- Card or surface background -->
-    <color name="onSurface">#1C1B1F</color>
+    <color name="background">#121212</color>       <!-- Soft white background -->
+    <color name="onBackground">#FFFFFF</color>
+    <color name="surface">#1E1E1E</color>          <!-- Card or surface background -->
+    <color name="onSurface">#FFFFFF</color>
 
     <color name="transparent">#00000000</color>
 
@@ -43,7 +43,7 @@
     <color name="icon_default">#555555</color>     <!-- Default icon tint -->
 
 
-    <color name="text_primary">#1C1B1F</color>  <!-- Very dark gray, softer than black -->
+    <color name="text_primary">#CEC8DC</color>  <!-- Very dark gray, softer than black -->
     <color name="text_secondary">#4D4D4D</color> <!-- Medium gray for less emphasis -->
     <color name="text_background">#D7F4F8</color>
 </resources>
