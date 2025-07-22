@@ -1,19 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:scrollbars="vertical">
+    android:padding="12dp"
+    android:scrollbars="vertical"
+  >
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:scrollbars="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,14 +159,14 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/saveAndExitBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Save and Exit" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/saveAndNewBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -182,7 +177,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
-</LinearLayout>
