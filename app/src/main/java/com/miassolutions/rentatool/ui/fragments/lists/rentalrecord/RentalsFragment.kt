@@ -32,7 +32,6 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentalsBinding.bind(view)
 
-        viewModel.loadRentals(args.customerId)
 
         setupUiState()
         setupListeners()

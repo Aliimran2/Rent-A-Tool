@@ -2,7 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.lists.rentalrecord
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repository.Repository
+import com.miassolutions.rentatool.data.repository.ToolRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RentalViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class RentalViewModel @Inject constructor(private val toolRepository: ToolRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RentalUiState())
     val uiState = _uiState.asStateFlow()
@@ -23,16 +23,7 @@ class RentalViewModel @Inject constructor(private val repository: Repository) : 
 
 
 
-    fun loadRentals(customerId: Long) {
-        _uiState.update { it.copy(isLoading = true, customerId = customerId) }
-        viewModelScope.launch {
-            repository.getAllRentalOrders(customerId)
-                .collect{orders ->
-                    _uiState.update { it.copy(isLoading = false, rentalList = orders) }
 
-                }
-        }
-    }
 
     fun onRentToolsClick(){
         viewModelScope.launch {

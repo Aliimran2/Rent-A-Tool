@@ -63,6 +63,7 @@ class StockListFragment : Fragment(R.layout.fragment_stock_list) {
                 binding.apply {
                     if (state.isLoading) progressbar.show() else progressbar.hide()
                 }
+                adapter.submitList(state.stockList)
 
                 state.errorMessage?.let {
                     showToast(it)

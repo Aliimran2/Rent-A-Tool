@@ -2,11 +2,10 @@ package com.miassolutions.rentatool.ui.fragments.lists.tools
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repository.Repository
+import com.miassolutions.rentatool.data.repository.ToolRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StockListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class StockListViewModel @Inject constructor(private val toolRepository: ToolRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StockUiState())
     val uiState = _uiState.asStateFlow()
@@ -55,9 +54,9 @@ class StockListViewModel @Inject constructor(private val repository: Repository)
                     try {
 
                         if (query.isBlank()) {
-                            repository.getAllTools()
+                            toolRepository.getAllTools()
                         } else {
-                            repository.searchTool(query)
+                            toolRepository.searchTool(query)
                         }
                     } catch (e: Exception) {
                         _uiState.update { it.copy(errorMessage = "Failed to load tools : ${e.message}") }

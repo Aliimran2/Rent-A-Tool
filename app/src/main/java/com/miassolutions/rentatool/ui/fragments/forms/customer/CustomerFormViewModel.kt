@@ -3,12 +3,8 @@ package com.miassolutions.rentatool.ui.fragments.forms.customer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.data.common.CustomerResult
-import com.miassolutions.rentatool.data.dao.CustomerDao
-import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.data.entities.CustomerEntity
 import com.miassolutions.rentatool.data.repository.CustomerRepository
-import com.miassolutions.rentatool.data.repository.Repository
-import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
