@@ -12,6 +12,9 @@ import com.miassolutions.rentatool.data.entities.CustomerEntity
 import com.miassolutions.rentatool.data.entities.RentalLineItemEntity
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.ToolEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Database(
     entities = [
@@ -29,6 +32,13 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun customerDao(): CustomerDao
     abstract fun rentalOrderDao(): RentalOrderDao
     abstract fun rentalLineItemDao(): RentalLineItemDao
+
+
+    fun clearAllTablesAndReset(){
+        CoroutineScope(Dispatchers.IO).launch {
+            clearAllTables()
+        }
+    }
 
 
 }

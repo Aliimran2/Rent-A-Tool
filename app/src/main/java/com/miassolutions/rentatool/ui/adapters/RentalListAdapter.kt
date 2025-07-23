@@ -34,9 +34,9 @@ class RentalListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RentalOrderEntity) {
             binding.apply {
-                tvRentalId.text = item.orderId.toString()
-                tvRentalDate.text = item.orderDate.toString()
-                tvPromiseDate.text = item.promisedReturnDate.toString()
+                tvRentalId.text = "Rental ID : ${item.orderId}"
+                tvRentalDate.text = "Rent Date : ${item.orderDate}"
+                tvPromiseDate.text = "Promise Date : ${item.promisedReturnDate}"
 
 
 //                root.setOnClickListener { onClickListener(rentalEntity.orderId) }

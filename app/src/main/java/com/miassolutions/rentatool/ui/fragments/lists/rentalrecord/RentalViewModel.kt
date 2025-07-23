@@ -21,6 +21,8 @@ class RentalViewModel @Inject constructor(private val repository: Repository) : 
     private val _uiEvent = MutableSharedFlow<RentalUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
+
+
     fun loadRentals(customerId: Long) {
         _uiState.update { it.copy(isLoading = true, customerId = customerId) }
         viewModelScope.launch {

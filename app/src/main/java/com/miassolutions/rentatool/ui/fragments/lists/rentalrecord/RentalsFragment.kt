@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.ui.fragments.lists.rentalrecord
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentRentalsBinding
 import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
+import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,8 +37,13 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         setupUiState()
         setupListeners()
         setupUiEvent()
+        setupRecyclerview()
 
 
+    }
+
+    private fun setupRecyclerview() {
+        binding.rvRentals.adapter = adapter
     }
 
     private fun setupUiEvent() {
@@ -68,6 +75,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
     private fun setupUiState() {
         collectingFlow {
             viewModel.uiState.collect { state ->
+                Log.d(Constants.TAG, "${state.rentalList} - ${state.customerId}")
                 adapter.submitList(state.rentalList)
             }
         }

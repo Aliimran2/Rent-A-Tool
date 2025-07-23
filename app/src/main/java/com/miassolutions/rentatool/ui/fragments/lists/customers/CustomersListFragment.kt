@@ -19,6 +19,7 @@ import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
 import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment
+import com.miassolutions.rentatool.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -29,6 +30,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<CustomerListViewModel>()
+    private val mainViewModel by viewModels<MainViewModel>()
     private lateinit var adapter: CustomerListAdapter
 
 
@@ -126,8 +128,9 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                         showBottomSheet.show(parentFragmentManager, showBottomSheet.tag)
                         true
                     }
-                    R.id.delete_all_menu -> {
-                        viewModel.deleteAllCustomers()
+                    R.id.menu_reset -> {
+                       mainViewModel.resetAllDatabase()
+                        showToast("Database reset")
                         true
                     }
 

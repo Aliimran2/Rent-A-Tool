@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
+    android:layout_margin="@dimen/card_margin"
+
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:orientation="vertical"
-    android:padding="8dp">
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/card_padding"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_rental_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rental Id : 10001" />
+
+        <TextView
+            android:id="@+id/tv_no_of_tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_rental_id"
+            tools:text="Rented Tools : 25" />
+
+        <TextView
+            android:id="@+id/tv_rental_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_rental_id"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rental_id"
+            tools:text="Rent Date : 21/07/2025" />
+
+        <TextView
+            android:id="@+id/tv_promise_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_rental_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rental_date"
+            tools:text="Promise Date :30/01/2025" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/tv_rental_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Rental Id : 10001" />
-
-    <TextView
-        android:id="@+id/tv_no_of_tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_rental_id"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rental_id"
-        tools:text="Rented Tools : 25" />
-
-    <TextView
-        android:id="@+id/tv_rental_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_promise_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_promise_date"
-        tools:text="Rent Date : 21/07/2025" />
-
-    <TextView
-        android:id="@+id/tv_promise_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_rental_id"
-        app:layout_constraintTop_toBottomOf="@+id/tv_no_of_tools"
-        tools:text="Promise Date :30/01/2025" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:text="Update"
-        app:icon="@drawable/ic_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_rental_id" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

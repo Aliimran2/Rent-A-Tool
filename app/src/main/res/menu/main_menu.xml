@@ -11,8 +11,8 @@
     <item android:title="@string/add_new_tool"
         android:id="@+id/add_tool_menu"/>
 
-    <item android:title="Delete All"
-        android:id="@+id/delete_all_menu"/>
+    <item android:title="Reset DB"
+        android:id="@+id/menu_reset"/>
 
 
 </menu>
