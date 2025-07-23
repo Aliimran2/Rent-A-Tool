@@ -12,19 +12,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CustomerDao {
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertCustomer(customerEntity: CustomerEntity) : Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCustomers(customerEntities: List<CustomerEntity>) //will be deleted later todo()
+    @Update
+    suspend fun updateCustomer(customerEntity: CustomerEntity)
 
-    @Query("SELECT * FROM customers ORDER BY customerName")
-    fun getAllCustomers(): Flow<List<CustomerEntity>>
-
-    @Query("SELECT * FROM customers WHERE customerName LIKE '%' || :query || '%' OR customerPhone LIKE '%' || :query || '%'")
-    fun searchCustomers(query: String): Flow<List<CustomerEntity>>
-
-
-    @Insert(onConflict = OnConflictStrategy.ABORT) // Prevent duplicate entries
-    suspend fun insertCustomer(customerEntity: CustomerEntity)
+    @Delete
+    suspend fun deleteCustomer(customerEntity: CustomerEntity)
 
 
     @Query("SELECT * FROM customers WHERE customerId = :customerId LIMIT 1")
@@ -34,13 +29,13 @@ interface CustomerDao {
     suspend fun getCustomerByCNIC(cnicNumber: String): CustomerEntity?
 
 
-
-    @Delete
-    suspend fun deleteCustomer(customerEntity: CustomerEntity)
-
     @Query("DELETE FROM customers")
     suspend fun deleteAllCustomers() //TODO()
 
-    @Update
-    suspend fun updateCustomer(customerEntity: CustomerEntity)
+
+    @Query("SELECT * FROM customers ORDER BY customerName")
+    fun getAllCustomers(): Flow<List<CustomerEntity>>
+
+    @Query("SELECT * FROM customers WHERE customerName LIKE '%' || :query || '%' OR customerPhone LIKE '%' || :query || '%'")
+    fun searchCustomers(query: String): Flow<List<CustomerEntity>>
 }

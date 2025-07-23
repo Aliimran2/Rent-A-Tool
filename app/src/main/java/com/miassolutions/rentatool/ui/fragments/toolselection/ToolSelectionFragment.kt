@@ -43,13 +43,13 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
 
     private fun setupListener() {
 
-        binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
-
-        binding.etEstimatedDate.setOnClickListener {
-            datePicker {
-                viewModel.onEstimatedReturnSelected(it)
-            }
-        }
+//        binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
+//
+//        binding.etEstimatedDate.setOnClickListener {
+//            datePicker {
+//                viewModel.onEstimatedReturnSelected(it)
+//            }
+//        }
 
     }
 
@@ -80,7 +80,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
                 quantity: Int,
                 isChecked: Boolean
             ) {
-                viewModel.toggleToolSelection(tool, quantity, isChecked)
+//                viewModel.toggleToolSelection(tool, quantity, isChecked)
             }
         })
 
@@ -90,8 +90,8 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     private fun setupUiState() {
         collectingFlow {
             viewModel.uiState.collect { state ->
-                Log.d("MiasSolutionTag", state.tools.toString())
-                adapter.submitList(state.tools)
+//                Log.d("MiasSolutionTag", state.tools.toString())
+//                adapter.submitList(state.tools)
 
             }
         }

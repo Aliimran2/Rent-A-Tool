@@ -12,11 +12,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ToolDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(toolEntities: List<ToolEntity>) //later will be deleted todo()
 
-    @Insert(onConflict = OnConflictStrategy.ABORT) // prevents duplicate entries
-    suspend fun insertTool(toolEntity: ToolEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertTool(toolEntity: ToolEntity) : Long
 
     @Delete
     suspend fun delete(tool: ToolEntity)
@@ -30,13 +28,11 @@ interface ToolDao {
     @Query("SELECT * FROM tools WHERE toolId =:toolId")
     suspend fun getToolById(toolId: Long): ToolEntity?
 
-    @Query("UPDATE tools SET totalQuantity = totalQuantity - :rented WHERE toolId = :toolId")
-    suspend fun deductToolQuantity(toolId: Long, rented: Int)
+    @Query("UPDATE tools SET availableQuantity = availableQuantity -:qty WHERE toolId =:toolId ")
+    suspend fun decreaseToolQuantity(toolId: Long, qty : Int)
 
-    @Query("UPDATE tools SET totalQuantity = totalQuantity + :returned WHERE toolId = :toolId")
-    suspend fun addToolQuantity(toolId: Long, returned: Int)
-
-
+    @Query("UPDATE tools SET availableQuantity = availableQuantity +:qty WHERE toolId =:toolId ")
+    suspend fun increaseToolQuantity(toolId: Long, qty : Int)
 
 
 

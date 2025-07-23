@@ -2,8 +2,11 @@ package com.miassolutions.rentatool.ui.fragments.forms.customer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.miassolutions.rentatool.data.common.CustomerResult
+import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.data.entities.CustomerEntity
+import com.miassolutions.rentatool.data.repository.CustomerRepository
 import com.miassolutions.rentatool.data.repository.Repository
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerFormViewModel @Inject constructor(private val repository: Repository) :
+class CustomerFormViewModel @Inject constructor(private val repository: CustomerRepository) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(CustomerFormUiState())
@@ -39,13 +42,11 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
     }
 
 
-
-
     private var saveAndExitClicked = false
 
 
-    fun onSaveClicked(isSaveAndExit : Boolean = false) {
-        saveAndExitClicked  = isSaveAndExit
+    fun onSaveClicked(isSaveAndExit: Boolean = false) {
+        saveAndExitClicked = isSaveAndExit
 
         val state = _uiState.value
 
@@ -54,22 +55,35 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
             cnicNumber = state.customerCnic,
             customerPhone = state.customerPhone,
 
-        )
+            )
 
         viewModelScope.launch {
             val result = repository.insertCustomer(customerEntity)
             when (result) {
-                is CustomerFormResult.Failure -> {
-                    _uiEvent.emit(CustomerUiEvent.DuplicateCNIC(Constants.DUPLICATE_CNIC))
+
+                is CustomerResult.Failure -> {
+                    _uiEvent.emit(CustomerUiEvent.ShowToast(result.message))
                 }
 
-                CustomerFormResult.Success -> {
-                    _uiEvent.emit(CustomerUiEvent.CustomerAdded(1003))
-                    if (isSaveAndExit){
+                is CustomerResult.Success -> {
+                    _uiEvent.emit(CustomerUiEvent.CustomerAdded(result.customerId))
+                    if (isSaveAndExit) {
                         _uiEvent.emit(CustomerUiEvent.NavigateBack)
                     }
                 }
             }
+//            when (result) {
+//                is CustomerFormResult.Failure -> {
+//                    _uiEvent.emit(CustomerUiEvent.DuplicateCNIC(Constants.DUPLICATE_CNIC))
+//                }
+//
+//                CustomerFormResult.Success -> {
+//                    _uiEvent.emit(CustomerUiEvent.CustomerAdded(1003))
+//                    if (isSaveAndExit){
+//                        _uiEvent.emit(CustomerUiEvent.NavigateBack)
+//                    }
+//                }
+//            }
 
         }
     }

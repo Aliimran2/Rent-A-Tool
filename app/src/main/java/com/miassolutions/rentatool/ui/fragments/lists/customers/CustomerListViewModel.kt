@@ -3,6 +3,7 @@ package com.miassolutions.rentatool.ui.fragments.lists.customers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.data.entities.CustomerEntity
+import com.miassolutions.rentatool.data.repository.CustomerRepository
 import com.miassolutions.rentatool.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-class CustomerListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class CustomerListViewModel @Inject constructor(private val repository: CustomerRepository) :
+    ViewModel() {
 
     private val _uiState = MutableStateFlow(CustomerListUiState())
     val uiState = _uiState.asStateFlow()
@@ -62,23 +64,9 @@ class CustomerListViewModel @Inject constructor(private val repository: Reposito
         }
     }
 
-    fun navToRentals(customerId : Long, customerName : String) {
+    fun navToRentals(customerId: Long, customerName: String) {
         viewModelScope.launch {
             _uiEvent.send(CustomerListUiEvent.NavToCustomerRentals(customerId, customerName))
-        }
-    }
-
-    fun deleteCustomer(customer: CustomerEntity) {
-        viewModelScope.launch {
-            repository.deleteCustomer(customer)
-            _uiEvent.send(CustomerListUiEvent.ShowToast("Customer deleted"))
-        }
-    }
-
-    fun deleteAllCustomers() {
-        viewModelScope.launch {
-            repository.deleteAllCustomers()
-            _uiEvent.send(CustomerListUiEvent.ShowToast("All Customers deleted"))
         }
     }
 

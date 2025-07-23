@@ -11,14 +11,15 @@ import kotlinx.coroutines.flow.Flow
 interface RentalOrderDao {
 
     @Insert
-    suspend fun insertOrder(order: RentalOrderEntity): Long
+    suspend fun insertRentalOrder(order: RentalOrderEntity): Long
 
     @Update
-    suspend fun updateOrder(order: RentalOrderEntity)
+    suspend fun updateRentalOrder(order: RentalOrderEntity)
 
-    @Query("SELECT * FROM rental_orders WHERE customerId =:customerId ORDER BY rentDate DESC")
-    fun getOrdersForCustomer(customerId : Long) : Flow<List<RentalOrderEntity>>
 
     @Query("SELECT * FROM rental_orders WHERE orderId = :orderId")
     suspend fun getOrderById(orderId : Long): RentalOrderEntity?
+
+    @Query("SELECT * FROM rental_orders WHERE customerId =:customerId ORDER BY rentDate DESC")
+    fun getOrdersForCustomer(customerId : Long) : Flow<List<RentalOrderEntity>>
 }

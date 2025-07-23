@@ -67,14 +67,14 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                     CustomerUiEvent.NavigateBack -> {
                         findNavController().popBackStack()
                     }
-                    is CustomerUiEvent.ShowToast -> showToast(event.message)
-                    is CustomerUiEvent.DuplicateCNIC -> {
+                    is CustomerUiEvent.ShowToast -> {
                         binding.etCnic.error = "CNIC already existed."
                         binding.etCnic.requestFocus()
+                        showToast(event.message)
                     }
 
                     is CustomerUiEvent.CustomerAdded -> {
-                        showToast("Customer added in database successfully")
+                        showToast("Customer added in db successfully with Id : ${event.customerId}")
                         clearAllFields()
                     }
                 }
@@ -138,7 +138,9 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                 etCustomerPhone,
                 etCnic
             )
+            binding.etCnic.requestFocus()
         }
+
 
     }
 
