@@ -4,34 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.fragments.lists.rentalrecord.RentalsFragment">
+    android:padding="16dp">
 
+    <!-- Customer Name -->
+    <TextView
+        android:id="@+id/tv_customer_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Customer: Muhammad Asif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Summary Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_customer_name">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_total_rent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Rent: Rs. 0"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_active_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Active Orders: 0" />
+
+            <TextView
+                android:id="@+id/tv_returned_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Returned Orders: 0" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_rentals"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_above="@+id/rent_tools_btn"
-        android:padding="8dp"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        tools:listitem="@layout/item_rental_order"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/rent_tools_btn"
+        app:layout_constraintBottom_toTopOf="@+id/btn_rent_tools"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_rental" />
+        app:layout_constraintTop_toBottomOf="@id/card_summary" />
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/rent_tools_btn"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_rent_tools"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:elevation="4dp"
-        android:text="@string/rent_tools"
-        app:cornerRadius="8dp"
+        android:layout_weight="1"
+        android:text="Rent Tools"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
 
