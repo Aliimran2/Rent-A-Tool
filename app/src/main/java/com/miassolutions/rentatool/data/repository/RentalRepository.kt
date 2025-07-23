@@ -5,12 +5,8 @@ import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
 
 interface RentalRepository {
-    suspend fun rentToolsToCustomer(
-        order: RentalOrderEntity,
-        rentedTools: List<RentedToolEntity>
-    )
 
-    suspend fun returnTools(
-        returnList: List<ReturnedToolEntity>
-    )
+    suspend fun rentToolsToCustomer(order: RentalOrderEntity, rentedTools: List<RentedToolEntity>)
+
+    suspend fun returnTools(returnList: List<ReturnedToolEntity>)
 }

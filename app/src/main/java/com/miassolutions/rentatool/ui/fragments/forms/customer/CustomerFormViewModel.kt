@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.data.common.CustomerResult
 import com.miassolutions.rentatool.data.entities.CustomerEntity
-import com.miassolutions.rentatool.data.repository.CustomerRepository
+import com.miassolutions.rentatool.data.repositoryimpl.CustomerRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerFormViewModel @Inject constructor(private val repository: CustomerRepository) :
+class CustomerFormViewModel @Inject constructor(private val repository: CustomerRepositoryImpl) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(CustomerFormUiState())

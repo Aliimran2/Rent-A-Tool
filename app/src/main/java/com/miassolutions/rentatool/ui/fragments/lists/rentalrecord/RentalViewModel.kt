@@ -2,18 +2,17 @@ package com.miassolutions.rentatool.ui.fragments.lists.rentalrecord
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repository.ToolRepository
+import com.miassolutions.rentatool.data.repositoryimpl.ToolRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RentalViewModel @Inject constructor(private val toolRepository: ToolRepository) : ViewModel() {
+class RentalViewModel @Inject constructor(private val toolRepository: ToolRepositoryImpl) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RentalUiState())
     val uiState = _uiState.asStateFlow()

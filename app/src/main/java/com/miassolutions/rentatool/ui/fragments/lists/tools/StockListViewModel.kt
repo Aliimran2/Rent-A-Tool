@@ -2,7 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.lists.tools
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repository.ToolRepository
+import com.miassolutions.rentatool.data.repositoryimpl.ToolRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StockListViewModel @Inject constructor(private val toolRepository: ToolRepository) : ViewModel() {
+class StockListViewModel @Inject constructor(private val toolRepository: ToolRepositoryImpl) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StockUiState())
     val uiState = _uiState.asStateFlow()
