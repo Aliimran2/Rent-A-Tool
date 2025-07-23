@@ -5,11 +5,7 @@ data class CustomerFormUiState(
     val customerName: String = "",
     val customerCnic: String = "",
     val customerPhone: String = "",
-    val contractorName: String = "",
-    val contractorPhone: String = "",
-    val ownerName: String = "",
-    val ownerPhone: String = "",
-    val constructionPlace: String = ""
+
 )
 
 

@@ -16,7 +16,7 @@ interface RentalOrderDao {
     @Update
     suspend fun updateOrder(order: RentalOrderEntity)
 
-    @Query("SELECT * FROM rental_orders WHERE customerId =:customerId ORDER BY orderDate DESC")
+    @Query("SELECT * FROM rental_orders WHERE customerId =:customerId ORDER BY rentDate DESC")
     fun getOrdersForCustomer(customerId : Long) : Flow<List<RentalOrderEntity>>
 
     @Query("SELECT * FROM rental_orders WHERE orderId = :orderId")

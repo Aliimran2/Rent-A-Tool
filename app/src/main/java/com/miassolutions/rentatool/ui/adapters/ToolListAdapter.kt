@@ -16,8 +16,8 @@ class ToolListAdapter : ListAdapter<ToolEntity, ToolListAdapter.ToolVH>(ToolDiff
         fun bind(toolEntity: ToolEntity){
             binding.apply {
                 tvToolName.text = toolEntity.name
-                toolCondition.text = toolEntity.toolCondition
-                tvRentPerDay.text = "${toolEntity.rentPerDay.toInt()} Rs/day"
+                toolCondition.text = toolEntity.condition
+                tvRentPerDay.text = "${toolEntity.rentPricePerDay.toInt()} Rs/day"
             }
         }
     }

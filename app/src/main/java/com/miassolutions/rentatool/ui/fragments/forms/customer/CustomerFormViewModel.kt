@@ -38,27 +38,7 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
         _uiState.update { it.copy(customerPhone = customerPhone) }
     }
 
-    fun onConstructionPlaceChange(constructionPlace: String) {
-        _uiState.update { it.copy(constructionPlace = constructionPlace) }
-    }
 
-    fun onContractorPhoneChange(contractorPhone: String) {
-        _uiState.update { it.copy(contractorPhone = contractorPhone) }
-    }
-
-
-    fun onContractorNameChange(contractorName: String) {
-        _uiState.update { it.copy(contractorName = contractorName) }
-    }
-
-    fun onOwnerNameChange(ownerName: String) {
-        _uiState.update { it.copy(ownerName = ownerName) }
-    }
-
-
-    fun onOwnerPhoneChange(ownerPhone: String) {
-        _uiState.update { it.copy(ownerPhone = ownerPhone) }
-    }
 
 
     private var saveAndExitClicked = false
@@ -73,11 +53,7 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
             customerName = state.customerName,
             cnicNumber = state.customerCnic,
             customerPhone = state.customerPhone,
-//            constructionPlace = state.constructionPlace,
-//            contractorName = state.contractorName,
-//            contractorPhone = state.contractorPhone,
-//            ownerName = state.ownerName,
-//            ownerPhone = state.ownerPhone
+
         )
 
         viewModelScope.launch {

@@ -42,7 +42,6 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
 
 
     private fun setupListener() {
-        binding.submitBtn.setOnClickListener { viewModel.rentTools(args.customerId) }
 
         binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
 

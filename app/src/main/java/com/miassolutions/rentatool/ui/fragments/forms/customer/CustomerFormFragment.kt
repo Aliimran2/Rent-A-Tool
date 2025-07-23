@@ -41,11 +41,7 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
             etCustomerName.doAfterTextChanged { viewModel.onCustomerNameChange(it.toString()) }
             etCustomerPhone.doAfterTextChanged { viewModel.onCustomerPhoneChange(it.toString()) }
             etCnic.doAfterTextChanged { viewModel.onCnicChange(it.toString()) }
-//            etContractorName.doAfterTextChanged { viewModel.onContractorNameChange(it.toString()) }
-//            etContractorPhone.doAfterTextChanged { viewModel.onContractorPhoneChange(it.toString()) }
-//            etConstructionPlace.doAfterTextChanged { viewModel.onConstructionPlaceChange(it.toString()) }
-//            etOwnerName.doAfterTextChanged { viewModel.onOwnerNameChange(it.toString()) }
-//            etOwnerPhone.doAfterTextChanged { viewModel.onOwnerPhoneChange(it.toString()) }
+
 
             saveAndNewBtn.setOnClickListener {
                 if (validateInputs()) {
@@ -93,11 +89,6 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                     etCustomerName.setTextIfChanged(state.customerName)
                     etCustomerPhone.setTextIfChanged(state.customerPhone)
                     etCnic.setTextIfChanged(state.customerCnic)
-//                    etContractorName.setTextIfChanged(state.contractorName)
-//                    etContractorPhone.setTextIfChanged(state.contractorPhone)
-//                    etConstructionPlace.setTextIfChanged(state.constructionPlace)
-//                    etOwnerName.setTextIfChanged(state.ownerName)
-//                    etOwnerPhone.setTextIfChanged(state.ownerPhone)
 
                 }
 
@@ -112,12 +103,6 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
             etCustomerName.error = null
             etCustomerPhone.error = null
             etCnic.error = null
-//            etOwnerName.error = null
-//            etOwnerPhone.error = null
-//            etContractorName.error = null
-//            etContractorPhone.error = null
-//            etConstructionPlace.error = null
-
 
             return when {
 
@@ -139,37 +124,6 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                     false
                 }
 
-
-//                etOwnerName.text.isNullOrEmpty() -> {
-//                    etOwnerName.error = "Enter owner name"
-//                    etOwnerName.requestFocus()
-//                    false
-//                }
-//
-//                etOwnerPhone.text.isNullOrEmpty() -> {
-//                    etOwnerPhone.error = "Enter owner phone no."
-//                    etOwnerPhone.requestFocus()
-//                    false
-//                }
-//
-//                etConstructionPlace.text.isNullOrEmpty() -> {
-//                    etConstructionPlace.error = "Enter construction place"
-//                    etConstructionPlace.requestFocus()
-//                    false
-//                }
-//
-//                etContractorName.text.isNullOrEmpty() -> {
-//                    etContractorName.error = "Enter contractor name"
-//                    etContractorName.requestFocus()
-//                    false
-//                }
-//
-//                etContractorPhone.text.isNullOrEmpty() -> {
-//                    etContractorPhone.error = "Enter contractor phone"
-//                    etContractorPhone.requestFocus()
-//                    false
-//                }
-
                 else -> true
             }
 
@@ -182,12 +136,7 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
             clearInputs(
                 etCustomerName,
                 etCustomerPhone,
-                etCnic,
-//                etContractorName,
-//                etContractorPhone,
-//                etOwnerName,
-//                etOwnerPhone,
-//                etConstructionPlace
+                etCnic
             )
         }
 

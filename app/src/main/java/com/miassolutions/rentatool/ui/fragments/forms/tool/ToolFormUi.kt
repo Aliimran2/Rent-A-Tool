@@ -2,9 +2,10 @@ package com.miassolutions.rentatool.ui.fragments.forms.tool
 
 data class ToolFormUiState(
     val toolName: String = "",
-    val noOfTools: String = "",
+    val totalQuantity: String = "",
+    val availableQuantity :String = "",
     val condition: ToolCondition = ToolCondition.NEW,
-    val rent: String = "",
+    val rentPricePerDay: String = "",
     val isValidForm: Boolean = false
 )
 

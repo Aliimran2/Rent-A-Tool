@@ -4,10 +4,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
 @Entity(
-    tableName = "rental_line_items",
+    tableName = "rented_tools",
     foreignKeys = [
         ForeignKey(
             entity = RentalOrderEntity::class,
@@ -19,19 +18,20 @@ import java.time.LocalDate
             entity = ToolEntity::class,
             parentColumns = ["toolId"],
             childColumns = ["toolId"],
-            onDelete = ForeignKey.RESTRICT
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [Index("orderId"), Index("toolId")]
 )
-data class RentalLineItemEntity(
+data class RentedToolEntity(
     @PrimaryKey(autoGenerate = true)
-    val lineItemId: Long = 0L,
+    val rentedToolId: Long = 0,
     val orderId: Long,
     val toolId: Long,
-    val quantityRented: Int,
-    val quantityReturned: Int = 0,
-    val rentalStartDate: LocalDate,
-    val lastReturnDate: LocalDate? = null
+    val rentedQuantity: Int,
+    val rentPricePerDay: Double,
+    val daysRented: Int,
+    val remainingQuantity: Int // To track partial returns
 )
+
 

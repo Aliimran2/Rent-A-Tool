@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.miassolutions.rentatool.data.entities.ToolEntity
-import com.miassolutions.rentatool.data.model.ToolWithAvailability
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -37,14 +36,7 @@ interface ToolDao {
     @Query("UPDATE tools SET totalQuantity = totalQuantity + :returned WHERE toolId = :toolId")
     suspend fun addToolQuantity(toolId: Long, returned: Int)
 
-    @Query("""
-        SELECT t.*,
-        t.totalQuantity - IFNULL(SUM(r.quantityRented - r.quantityReturned), 0) AS availableQuantity
-        FROM tools t
-        LEFT JOIN rental_line_items r ON r.toolId = t.toolId
-        GROUP BY t.toolId
-    """)
-    fun getToolsWithAvailableQuantity(): Flow<List<ToolWithAvailability>>
+
 
 
 

@@ -68,22 +68,4 @@ class ToolSelectionViewModel @Inject constructor(
         _uiState.update { it.copy(estimatedReturnDate = date) }
     }
 
-    fun rentTools(customerId : Long){
-        viewModelScope.launch {
-            val state = _uiState.value
-            if (state.selectedTools.isEmpty() || state.estimatedReturnDate == null){
-                _uiEvent.emit(ToolSelectionUiEvent.ShowToast("Please select tools and return date"))
-                return@launch
-            }
-
-            repository.rentTools(
-                customerId = customerId,
-                rentedTools = state.selectedTools,
-                returnDate = state.estimatedReturnDate
-            )
-
-            _uiEvent.emit(ToolSelectionUiEvent.SuccessSelection)
-
-        }
-    }
 }

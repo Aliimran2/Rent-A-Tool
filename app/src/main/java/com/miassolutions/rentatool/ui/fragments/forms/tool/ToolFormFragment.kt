@@ -77,8 +77,8 @@ class ToolFormFragment : BottomSheetDialogFragment() {
             viewModel.uiState.collect { state ->
                 with(binding) {
                     etToolName.setTextIfChanged(state.toolName)
-                    etQuantity.setTextIfChanged(state.noOfTools)
-                    etRentPrice.setTextIfChanged(state.rent)
+                    etQuantity.setTextIfChanged(state.totalQuantity)
+                    etRentPrice.setTextIfChanged(state.rentPricePerDay)
                     rgCondition.check(
                         when (state.condition) {
                             ToolCondition.NEW -> R.id.rb_new

@@ -35,8 +35,8 @@ class RentalListAdapter(
         fun bind(item: RentalOrderEntity) {
             binding.apply {
                 tvRentalId.text = "Rental ID : ${item.orderId}"
-                tvRentalDate.text = "Rent Date : ${item.orderDate}"
-                tvPromiseDate.text = "Promise Date : ${item.promisedReturnDate}"
+                tvRentalDate.text = "Rent Date : ${item.rentDate}"
+                tvPromiseDate.text = "Promise Date : ${item.estimatedReturnDate}"
 
 
 //                root.setOnClickListener { onClickListener(rentalEntity.orderId) }

@@ -30,7 +30,7 @@ class ToolFormViewModel @Inject constructor(private val repository: Repository) 
     }
 
     fun onQuantityChanged(value: String) {
-        _uiState.update { it.copy(noOfTools = value) }
+        _uiState.update { it.copy(totalQuantity = value) }
         validateForm()
     }
 
@@ -40,13 +40,13 @@ class ToolFormViewModel @Inject constructor(private val repository: Repository) 
     }
 
     fun onRentChanged(value: String) {
-        _uiState.update { it.copy(rent = value) }
+        _uiState.update { it.copy(rentPricePerDay = value) }
         validateForm()
     }
 
     fun onSubmitClick() {
         val state = _uiState.value
-        if (state.toolName.isBlank() || state.noOfTools.isBlank() || state.rent.isBlank()) {
+        if (state.toolName.isBlank() || state.totalQuantity.isBlank() || state.rentPricePerDay.isBlank()) {
             viewModelScope.launch {
                 _uiEvent.emit(ToolFormUiEvent.ShowToast("Please fill all the fields"))
             }
@@ -65,16 +65,16 @@ class ToolFormViewModel @Inject constructor(private val repository: Repository) 
     private fun toToolEntity(state: ToolFormUiState): ToolEntity {
         return ToolEntity(
             name = state.toolName,
-            rentPerDay = state.rent.toDouble(),
-            totalQuantity = state.noOfTools.toInt(),
-            toolCondition = state.condition.name
+            totalQuantity = state.totalQuantity.toInt(),
+            availableQuantity = state.availableQuantity.toIntOrNull()?:0,
+            rentPricePerDay = state.rentPricePerDay.toDouble(),
         )
     }
 
     private fun validateForm() {
         val state = _uiState.value
         val isValid =
-            state.toolName.isNotBlank() && state.noOfTools.isNotBlank() && state.rent.isNotBlank()
+            state.toolName.isNotBlank() && state.totalQuantity.isNotBlank() && state.rentPricePerDay.isNotBlank()
         _uiState.update { it.copy(isValidForm = isValid) }
     }
 
