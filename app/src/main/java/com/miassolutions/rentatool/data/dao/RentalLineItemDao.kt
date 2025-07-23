@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RentalLineItemDao {
     @Insert
-    suspend fun insert(lineItem: RentalLineItemEntity): Long
+    suspend fun insertItem(lineItem: RentalLineItemEntity): Long
 
     @Update
     suspend fun update(lineItem: RentalLineItemEntity)

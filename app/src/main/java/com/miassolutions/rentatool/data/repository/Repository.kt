@@ -6,10 +6,13 @@ import com.miassolutions.rentatool.data.dao.RentalLineItemDao
 import com.miassolutions.rentatool.data.dao.RentalOrderDao
 import com.miassolutions.rentatool.data.dao.ToolDao
 import com.miassolutions.rentatool.data.entities.CustomerEntity
+import com.miassolutions.rentatool.data.entities.RentalLineItemEntity
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.ToolEntity
+import com.miassolutions.rentatool.ui.fragments.toolselection.RentedTool
 import com.miassolutions.rentatool.uimodels.CustomerFormResult
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -64,6 +67,32 @@ class Repository @Inject constructor(
 
     suspend fun getRentalOrderById(orderId: Long): RentalOrderEntity? =
         rentalOrderDao.getOrderById(orderId)
+
+    suspend fun rentTools(
+        customerId: Long,
+        rentedTools: List<RentedTool>,
+        returnDate: LocalDate
+    ) {
+        val orderId = rentalOrderDao.insertOrder(
+            RentalOrderEntity(
+                customerId = customerId,
+                orderDate = LocalDate.now(),
+                promisedReturnDate = returnDate,
+            )
+        )
+
+        rentedTools.forEach {
+            rentalLineItemDao.insertItem(
+                RentalLineItemEntity(
+                    orderId = orderId,
+                    toolId = it.toolId,
+                    quantityRented = it.quantity,
+                    rentalStartDate = LocalDate.now(),
+                )
+            )
+            toolDao.deductToolQuantity(toolId = it.toolId, rented = it.quantity)
+        }
+    }
 
 
 }

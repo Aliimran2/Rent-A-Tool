@@ -27,7 +27,7 @@ data class RentalOrderEntity(
     val customerId: Long,
     val orderDate: LocalDate,
     val promisedReturnDate: LocalDate,
-    val totalRentalAmount: Double
+    val totalRentalAmount: Double = 0.0
 )
 
 

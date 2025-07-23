@@ -7,9 +7,6 @@
     android:scrollbars="vertical"
   >
 
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,77 +77,77 @@
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/construction_place">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/construction_place">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_construction_place"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_construction_place"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:inputType="text"-->
+<!--                    android:textSize="12sp" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 
-            <!-- Contractor Name -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/contractor_name">
+<!--            &lt;!&ndash; Contractor Name &ndash;&gt;-->
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/contractor_name">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_contractor_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_contractor_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:inputType="text"-->
+<!--                    android:textSize="12sp" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/contractor_phone">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/contractor_phone">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_contractor_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:nextFocusDown="@id/et_owner_name"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_contractor_phone"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="phone"-->
+<!--                    android:nextFocusDown="@id/et_owner_name"-->
+<!--                    android:textSize="12sp" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/owner_name">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/owner_name">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_owner_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_owner_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:inputType="text"-->
+<!--                    android:textSize="12sp" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/owner_phone">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/owner_phone">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_owner_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="phone"
-                    android:textSize="@dimen/text_size_small" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_owner_phone"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:imeOptions="actionDone"-->
+<!--                    android:inputType="phone"-->
+<!--                    android:textSize="@dimen/text_size_small" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 
             <LinearLayout

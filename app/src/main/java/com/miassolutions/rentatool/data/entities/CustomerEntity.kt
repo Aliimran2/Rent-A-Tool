@@ -11,14 +11,14 @@ import androidx.room.PrimaryKey
 data class CustomerEntity(
     @PrimaryKey(autoGenerate = true)
     val customerId: Long = 0L,
-    val customerPic: String = "",
-    val customerName: String,
     val cnicNumber: String, //TODO()
+    val customerName: String,
     val customerPhone: String = "",
-    val constructionPlace: String = "",//TODO()
-    val contractorName: String = "", //TODO()
-    val contractorPhone: String = "", //TODO()
-    val ownerName: String = "", //TODO()
-    val ownerPhone: String = ""
+//    val constructionPlace: String = "",//TODO()
+//    val contractorName: String = "", //TODO()
+//    val contractorPhone: String = "", //TODO()
+//    val ownerName: String = "", //TODO()
+//    val ownerPhone: String = "",
+//    val customerPic: String = ""
 )
 

@@ -73,11 +73,11 @@ class CustomerFormViewModel @Inject constructor(private val repository: Reposito
             customerName = state.customerName,
             cnicNumber = state.customerCnic,
             customerPhone = state.customerPhone,
-            constructionPlace = state.constructionPlace,
-            contractorName = state.contractorName,
-            contractorPhone = state.contractorPhone,
-            ownerName = state.ownerName,
-            ownerPhone = state.ownerPhone
+//            constructionPlace = state.constructionPlace,
+//            contractorName = state.contractorName,
+//            contractorPhone = state.contractorPhone,
+//            ownerName = state.ownerName,
+//            ownerPhone = state.ownerPhone
         )
 
         viewModelScope.launch {

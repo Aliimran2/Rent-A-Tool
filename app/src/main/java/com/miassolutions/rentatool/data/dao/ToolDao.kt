@@ -31,6 +31,12 @@ interface ToolDao {
     @Query("SELECT * FROM tools WHERE toolId =:toolId")
     suspend fun getToolById(toolId: Long): ToolEntity?
 
+    @Query("UPDATE tools SET totalQuantity = totalQuantity - :rented WHERE toolId = :toolId")
+    suspend fun deductToolQuantity(toolId: Long, rented: Int)
+
+    @Query("UPDATE tools SET totalQuantity = totalQuantity + :returned WHERE toolId = :toolId")
+    suspend fun addToolQuantity(toolId: Long, returned: Int)
+
     @Query("""
         SELECT t.*,
         t.totalQuantity - IFNULL(SUM(r.quantityRented - r.quantityReturned), 0) AS availableQuantity

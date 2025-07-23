@@ -93,11 +93,11 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                     etCustomerName.setTextIfChanged(state.customerName)
                     etCustomerPhone.setTextIfChanged(state.customerPhone)
                     etCnic.setTextIfChanged(state.customerCnic)
-                    etContractorName.setTextIfChanged(state.contractorName)
-                    etContractorPhone.setTextIfChanged(state.contractorPhone)
-                    etConstructionPlace.setTextIfChanged(state.constructionPlace)
-                    etOwnerName.setTextIfChanged(state.ownerName)
-                    etOwnerPhone.setTextIfChanged(state.ownerPhone)
+//                    etContractorName.setTextIfChanged(state.contractorName)
+//                    etContractorPhone.setTextIfChanged(state.contractorPhone)
+//                    etConstructionPlace.setTextIfChanged(state.constructionPlace)
+//                    etOwnerName.setTextIfChanged(state.ownerName)
+//                    etOwnerPhone.setTextIfChanged(state.ownerPhone)
 
                 }
 
@@ -112,11 +112,11 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
             etCustomerName.error = null
             etCustomerPhone.error = null
             etCnic.error = null
-            etOwnerName.error = null
-            etOwnerPhone.error = null
-            etContractorName.error = null
-            etContractorPhone.error = null
-            etConstructionPlace.error = null
+//            etOwnerName.error = null
+//            etOwnerPhone.error = null
+//            etContractorName.error = null
+//            etContractorPhone.error = null
+//            etConstructionPlace.error = null
 
 
             return when {
@@ -183,11 +183,11 @@ class CustomerFormFragment : Fragment(R.layout.fragment_customer_form) {
                 etCustomerName,
                 etCustomerPhone,
                 etCnic,
-                etContractorName,
-                etContractorPhone,
-                etOwnerName,
-                etOwnerPhone,
-                etConstructionPlace
+//                etContractorName,
+//                etContractorPhone,
+//                etOwnerName,
+//                etOwnerPhone,
+//                etConstructionPlace
             )
         }
 
