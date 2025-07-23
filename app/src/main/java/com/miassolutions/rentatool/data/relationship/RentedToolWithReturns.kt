@@ -3,6 +3,7 @@ package com.miassolutions.rentatool.data.relationship
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
+import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
 
 data class RentedToolWithReturns(
     @Embedded val rentedTool: RentedToolEntity,
@@ -11,5 +12,5 @@ data class RentedToolWithReturns(
         entityColumn = "rentedToolId"
     )
 
-    val returnedTools: List<RentedToolEntity>
+    val returnedTools: List<ReturnedToolEntity>
 )

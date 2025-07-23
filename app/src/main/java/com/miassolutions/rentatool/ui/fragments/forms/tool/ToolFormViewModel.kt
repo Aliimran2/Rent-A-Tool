@@ -3,6 +3,7 @@ package com.miassolutions.rentatool.ui.fragments.forms.tool
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.data.entities.ToolEntity
+import com.miassolutions.rentatool.data.repository.ToolRepository
 import com.miassolutions.rentatool.data.repositoryimpl.ToolRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ToolFormViewModel @Inject constructor(private val toolRepository: ToolRepositoryImpl) :
+class ToolFormViewModel @Inject constructor(private val toolRepository: ToolRepository) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(ToolFormUiState())

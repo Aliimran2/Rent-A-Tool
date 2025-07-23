@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collectLatest
 class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     private val args: RentalsFragmentArgs by navArgs()
-    private val viewModel by viewModels<RentalViewModel>()
+    private val viewModel by viewModels<RentalsViewModel>()
     private val adapter = RentalListAdapter()
 
     private var _binding: FragmentRentalsBinding? = null
@@ -48,18 +48,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
     private fun setupUiEvent() {
         collectingFlow {
             viewModel.uiEvent.collect{event ->
-                when(event){
-                    is RentalUiEvent.NavigationToRentTools -> {
-                        val action = RentalsFragmentDirections.actionFragmentRentalsToToolSelectionFragment(args.customerId)
-                        findNavController().navigate(action)
-                    }
-                    is RentalUiEvent.NavigationToUpdateRentals -> {
-                        showToast("Navigation to Updating Rentals")
-                    }
-                    is RentalUiEvent.ShowToast -> {
-                        showToast(event.message)
-                    }
-                }
+
 
             }
         }
@@ -73,11 +62,9 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     private fun setupUiState() {
         collectingFlow {
-            viewModel.uiState.collect { state ->
-                Log.d(Constants.TAG, "${state.rentalList} - ${state.customerId}")
-                adapter.submitList(state.rentalList)
+
             }
-        }
+
     }
 
 

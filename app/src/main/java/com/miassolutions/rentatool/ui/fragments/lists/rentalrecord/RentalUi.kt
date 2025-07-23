@@ -1,15 +1,26 @@
 package com.miassolutions.rentatool.ui.fragments.lists.rentalrecord
 
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
+import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 
-data class RentalUiState(
+data class RentalsUiState(
+    val customerId: Long = -1L,
+    val customerName: String = "",
+    val totalRent: Double = 0.0,
+    val activeOrdersCount: Int = 0,
+    val returnedOrderCount: Int = 0,
+    val rentalOrders: List<RentalOrderWithRentedTools> = emptyList(),
     val isLoading: Boolean = false,
-    val customerId : Long = -1L,
-    val rentalList: List<RentalOrderEntity> = emptyList()
+    val errorMessage: String? = null
 )
 
-sealed class RentalUiEvent {
-    data class NavigationToRentTools(val customerId: Long) : RentalUiEvent()
-    data class NavigationToUpdateRentals(val orderId: Long) : RentalUiEvent()
-    data class ShowToast(val message :String) : RentalUiEvent()
+sealed class RentalsUiEvent {
+    data class NavigationToRentTools(val customerId: Long, val customerName: String) :
+        RentalsUiEvent()
+
+    data class NavigationToReturnTools(val orderId: Long, val customerName: String) :
+        RentalsUiEvent()
+
+    data class NavigationToRentalDetail(val orderId: Long) : RentalsUiEvent()
+    data class ShowSnackbar(val message: String) : RentalsUiEvent()
 }

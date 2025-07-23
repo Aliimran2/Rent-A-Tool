@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
+import kotlinx.coroutines.flow.Flow
 
 data class RentalOrderWithRentedTools(
     @Embedded val rentalOrder: RentalOrderEntity,
@@ -14,3 +15,7 @@ data class RentalOrderWithRentedTools(
 
     val rentedTools: List<RentedToolEntity>
 )
+
+interface RentalOrderRepository {
+    fun getOrdersWithRentedTools(customerId: Long): Flow<List<RentalOrderWithRentedTools>>
+}
