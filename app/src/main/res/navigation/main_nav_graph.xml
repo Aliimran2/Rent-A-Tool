@@ -50,17 +50,18 @@
         <argument
             android:name="customerId"
             app:argType="long" />
-        <action
-            android:id="@+id/action_customerManagerFragment_to_toolSelectionFragment"
-            app:destination="@id/fragmentToolsList" />
         <argument
             android:name="customerName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentRentals_to_toolSelectionFragment"
+            app:destination="@id/toolSelectionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentToolsList"
-        android:name="com.miassolutions.rentatool.ui.fragments.lists.rentalrecord.ToolsSelectionFragment"
-        tools:layout="@layout/fragment_tools_selection">
+        android:id="@+id/toolSelectionFragment"
+        tools:layout="@layout/fragment_tools_selection"
+        android:name="com.miassolutions.rentatool.ui.fragments.toolselection.ToolSelectionFragment"
+        android:label="ToolSelectionFragment" >
         <argument
             android:name="customerId"
             app:argType="long" />

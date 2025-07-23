@@ -48,6 +48,10 @@ class ToolSelectionViewModel @Inject constructor(
         }
     }
 
+    init {
+        loadAllTools()
+    }
+
 
     fun toggleToolSelection(tool: ToolEntity, quantity: Int, isChecked: Boolean) {
         val current = _uiState.value.selectedTools.toMutableList()
@@ -72,6 +76,13 @@ class ToolSelectionViewModel @Inject constructor(
                 return@launch
             }
 
+            repository.rentTools(
+                customerId = customerId,
+                rentedTools = state.selectedTools,
+                returnDate = state.estimatedReturnDate
+            )
+
+            _uiEvent.emit(ToolSelectionUiEvent.SuccessSelection)
 
         }
     }

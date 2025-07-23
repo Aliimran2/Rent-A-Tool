@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentRentalsBinding
@@ -43,7 +44,8 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
             viewModel.uiEvent.collect{event ->
                 when(event){
                     is RentalUiEvent.NavigationToRentTools -> {
-                        showToast("Navigation to Renting Tools")
+                        val action = RentalsFragmentDirections.actionFragmentRentalsToToolSelectionFragment(args.customerId)
+                        findNavController().navigate(action)
                     }
                     is RentalUiEvent.NavigationToUpdateRentals -> {
                         showToast("Navigation to Updating Rentals")

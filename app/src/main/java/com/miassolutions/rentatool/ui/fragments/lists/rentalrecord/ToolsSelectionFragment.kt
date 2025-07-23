@@ -28,7 +28,6 @@ class ToolsSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     private val tempSelectedTools = mutableMapOf<Long, Int>()
 
 
-    private val args: ToolsSelectionFragmentArgs by navArgs()
 
     private var customerId: Long? = null
 
@@ -38,22 +37,12 @@ class ToolsSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentToolsSelectionBinding.bind(view)
 
-        customerId = args.customerId
 
 
 
 
-        toolSelectionListAdapter = ToolSelectionListAdapter { selectedTools ->
-            tempSelectedTools.clear()
-
-            tempSelectedTools.putAll(selectedTools)
-        }
-        lifecycleScope.launch {
-
-        }
 
 
-        binding.rvBottomSheet.adapter = toolSelectionListAdapter
 
         binding.etEstimatedDate.setOnClickListener {
             showDatePicker("Estimated Returned Date") { dateInString, dateInLong ->

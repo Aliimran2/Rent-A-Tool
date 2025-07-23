@@ -8,7 +8,8 @@ data class ToolSelectionUiState(
     val estimatedReturnDate : LocalDate? = null,
     val tools : List<ToolEntity> = emptyList(),
     val searchQuery : String = "",
-    val isLoading : Boolean = false
+    val isLoading : Boolean = false,
+    val customerId : Long = -1L
 
 )
 

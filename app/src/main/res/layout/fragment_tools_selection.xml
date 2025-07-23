@@ -53,15 +53,25 @@
 
     <!-- RecyclerView with custom dividers -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_bottom_sheet"
+        android:id="@+id/rv_tools_selection"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_tool"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/searchInputLayout"
+        tools:listitem="@layout/item_tool" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Selection"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
