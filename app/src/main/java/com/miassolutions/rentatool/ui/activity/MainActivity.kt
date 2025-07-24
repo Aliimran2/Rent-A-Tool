@@ -1,6 +1,7 @@
 package com.miassolutions.rentatool.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.ActivityMainBinding
+import com.miassolutions.rentatool.utils.helper.hide
+import com.miassolutions.rentatool.utils.helper.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.stockListFragment,
                 R.id.customersListFragment,
+                R.id.activeRentalsFragment
+
             ), binding.drawerLayout
         )
 
@@ -55,6 +60,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
         binding.navigationView.setupWithNavController(navController)
 
+        navController.addOnDestinationChangedListener{_, destination, _, ->
+            when(destination.id){
+                R.id.settingsFragment -> binding.bottomNavView.hide()
+                else -> binding.bottomNavView.show()
+            }
+        }
 
 
 

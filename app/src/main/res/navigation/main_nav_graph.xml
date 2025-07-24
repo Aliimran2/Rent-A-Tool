@@ -36,9 +36,6 @@
             android:id="@+id/action_customersListFragment_to_addCustomerFragment"
             app:destination="@id/customerFormFragment" />
         <action
-            android:id="@+id/action_customersListFragment_to_addToolFragment"
-            app:destination="@id/addToolFragment" />
-        <action
             android:id="@+id/action_customersListFragment_to_fragmentRentals"
             app:destination="@id/fragmentRentals" />
     </fragment>
@@ -106,5 +103,15 @@
         android:name="com.miassolutions.rentatool.ui.fragments.lists.rentalrecord.RentalDetailFragment"
         android:label="RentalDetailFragment"
         tools:layout="@layout/fragment_rental_details" />
+    <fragment
+        tools:layout="@layout/fragment_settings"
+        android:id="@+id/settingsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.drawerfragments.SettingsFragment"
+        android:label="Settings" />
+    <fragment
+        tools:layout="@layout/fragment_active_rentals"
+        android:id="@+id/activeRentalsFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.ActiveRentalsFragment"
+        android:label="Active Rentals" />
 
 </navigation>
