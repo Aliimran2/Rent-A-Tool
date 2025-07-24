@@ -12,6 +12,7 @@ import com.miassolutions.rentatool.databinding.FragmentRentalsBinding
 import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
 import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.showSnackbar
 import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.utils.helper.hide
 import com.miassolutions.rentatool.utils.helper.show
@@ -51,19 +52,51 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         binding.rvRentals.adapter = adapter
     }
 
+
     private fun setupUiEvent() {
         collectingFlow {
             viewModel.uiEvent.collect { event ->
+                when (event) {
+                    is RentalsUiEvent.NavigationToRentTools -> {
+                        val action =
+                            RentalsFragmentDirections.actionFragmentRentalsToToolSelectionFragment(
+                                event.customerId,
+                                event.customerName
+                            )
+                        findNavController().navigate(action)
+                    }
 
+                    is RentalsUiEvent.NavigationToRentalDetail -> {
+                        val action =
+                            RentalsFragmentDirections.actionFragmentRentalsToRentalDetailFragment(
+                                event.orderId
+                            )
+                        findNavController().navigate(action)
+
+                    }
+
+                    is RentalsUiEvent.NavigationToReturnTools -> {
+                        val action =
+                            RentalsFragmentDirections.actionFragmentRentalsToReturnToolsFragment(
+                                event.orderId,
+                                event.customerName
+                            )
+                        findNavController().navigate(action)
+                    }
+
+                    is RentalsUiEvent.ShowSnackbar -> {
+                        binding.root.showSnackbar(event.message)
+                    }
+                }
 
             }
         }
     }
 
     private fun setupListeners() {
-//        binding.rentToolsBtn.setOnClickListener {
-//            viewModel.onRentToolsClick()
-//        }
+        binding.btnRentTools.setOnClickListener {
+            viewModel.onRentToolsClick()
+        }
     }
 
     private fun setupUiState() {

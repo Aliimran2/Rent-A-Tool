@@ -1,5 +1,6 @@
 package com.miassolutions.rentatool.utils.extenstions
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -8,11 +9,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-fun LifecycleOwner.collectingFlow(
+fun Fragment.collectingFlow(
     lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
     block: suspend CoroutineScope.() -> Unit
 ) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(lifecycleState) { block() }
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(lifecycleState, block)
     }
 }

@@ -27,7 +27,7 @@ class RentalsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RentalsUiState())
     val uiState: StateFlow<RentalsUiState> = _uiState
 
-    private val _uiEvent = MutableSharedFlow<RentalsUiEvent>()
+    private val _uiEvent = MutableSharedFlow<RentalsUiEvent>(replay = 0)
     val uiEvent = _uiEvent.asSharedFlow()
 
     fun loadData(customerId: Long) {
@@ -45,7 +45,8 @@ class RentalsViewModel @Inject constructor(
                         order.rentedTools.sumOf { it.rentPricePerDay * it.rentedQuantity * it.daysRented }
                     }
 
-                    val activeCount = orders.count { it.rentedTools.any { tool -> tool.remainingQuantity > 0 } }
+                    val activeCount =
+                        orders.count { it.rentedTools.any { tool -> tool.remainingQuantity > 0 } }
                     val returnedCount = orders.size - activeCount
 
                     _uiState.update {
@@ -65,23 +66,27 @@ class RentalsViewModel @Inject constructor(
         }
     }
 
-//    fun onRentToolsClick() {
-//        val state = _uiState.value
-//        viewModelScope.launch {
-//            _uiEvent.emit(RentalsUiEvent.NavigateToRentTools(state.customerId, state.customerName))
-//        }
-//    }
-//
-//    fun onReturnClick(orderId: Long) {
-//        val state = _uiState.value
-//        viewModelScope.launch {
-//            _uiEvent.emit(RentalsUiEvent.NavigateToReturnTools(orderId, state.customerName))
-//        }
-//    }
-//
-//    fun onRentalClick(orderId: Long) {
-//        viewModelScope.launch {
-//            _uiEvent.emit(RentalsUiEvent.NavigateToRentalDetail(orderId))
-//        }
-//    }
+    fun onRentToolsClick() {
+        val state = _uiState.value
+        viewModelScope.launch {
+            _uiEvent.emit(
+                RentalsUiEvent.NavigationToRentTools(
+                    customerId = state.customerId,
+                    customerName = state.customerName
+                ))
+        }
+    }
+
+    fun onReturnClick(orderId: Long) {
+        val state = _uiState.value
+        viewModelScope.launch {
+            _uiEvent.emit(RentalsUiEvent.NavigationToReturnTools(orderId, state.customerName))
+        }
+    }
+
+    fun onRentalClick(orderId: Long) {
+        viewModelScope.launch {
+            _uiEvent.emit(RentalsUiEvent.NavigationToRentalDetail(orderId))
+        }
+    }
 }
