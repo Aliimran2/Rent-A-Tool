@@ -21,17 +21,4 @@ data class CustomerEntity(
 
 
 
-//data class CustomerEntity(
-//    @PrimaryKey(autoGenerate = true)
-//    val customerId: Long = 0L,
-//    val cnicNumber: String, //TODO()
-//    val customerName: String,
-//    val customerPhone: String = "",
-//    val constructionPlace: String = "",//TODO()
-//    val contractorName: String = "", //TODO()
-//    val contractorPhone: String = "", //TODO()
-//    val ownerName: String = "", //TODO()
-//    val ownerPhone: String = "",
-//    val customerPic: String = ""
-//)
 

@@ -67,7 +67,6 @@ class ToolFormViewModel @Inject constructor(private val toolRepository: ToolRepo
         return ToolEntity(
             name = state.toolName,
             totalQuantity = state.totalQuantity.toInt(),
-            availableQuantity = state.availableQuantity.toIntOrNull()?:0,
             rentPricePerDay = state.rentPricePerDay.toDouble(),
         )
     }

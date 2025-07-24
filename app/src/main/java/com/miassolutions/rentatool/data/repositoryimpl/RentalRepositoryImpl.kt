@@ -12,10 +12,6 @@ import com.miassolutions.rentatool.data.repository.RentalRepository
 import javax.inject.Inject
 
 class RentalRepositoryImpl @Inject constructor(
-    private val rentalOrderDao: RentalOrderDao,
-    private val rentedToolDao: RentedToolDao,
-    private val returnedToolDao: ReturnedToolDao,
-    private val toolDao: ToolDao,
     private val rentalTransactionDao: RentalTransactionDao
 ) : RentalRepository {
     override suspend fun rentToolsToCustomer(

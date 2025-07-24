@@ -29,10 +29,6 @@ interface CustomerDao {
     suspend fun getCustomerByCNIC(cnicNumber: String): CustomerEntity?
 
 
-    @Query("DELETE FROM customers")
-    suspend fun deleteAllCustomers() //TODO()
-
-
     @Query("SELECT * FROM customers ORDER BY customerName")
     fun getAllCustomers(): Flow<List<CustomerEntity>>
 

@@ -10,6 +10,7 @@ import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
 
 @Dao
 interface RentalTransactionDao {
+
     @Insert
     suspend fun insertOrder(order: RentalOrderEntity): Long
 
@@ -19,38 +20,34 @@ interface RentalTransactionDao {
     @Insert
     suspend fun insertReturnedTools(tools: List<ReturnedToolEntity>)
 
-    @Query("UPDATE tools SET availableQuantity = availableQuantity - :qty WHERE toolId = :toolId")
-    suspend fun decreaseToolQty(toolId: Long, qty: Int)
-
-    @Query("UPDATE tools SET availableQuantity = availableQuantity + :qty WHERE toolId = :toolId")
-    suspend fun increaseToolQty(toolId: Long, qty: Int)
-
     @Query("UPDATE rented_tools SET remainingQuantity = remainingQuantity - :qty WHERE rentedToolId = :rentedToolId")
     suspend fun updateRemainingQty(rentedToolId: Long, qty: Int)
 
+    /**
+     * Save order and rented tools in a single transaction
+     */
     @Transaction
     suspend fun performRentalTransaction(
         order: RentalOrderEntity,
         tools: List<RentedToolEntity>
     ) {
         val orderId = insertOrder(order)
-        val updateTools = tools.map { it.copy(orderId = orderId) }
-        insertRentedTools(updateTools)
-
-        updateTools.forEach {
-            decreaseToolQty(it.toolId, it.rentedQuantity)
-        }
+        val updatedTools = tools.map { it.copy(orderId = orderId) }
+        insertRentedTools(updatedTools)
+        // ToolEntity stock is no longer updated here, it's computed at runtime
     }
 
+    /**
+     * Save returned tools and update remaining quantity
+     */
     @Transaction
     suspend fun performReturnTransaction(
         returnList: List<ReturnedToolEntity>
     ) {
         insertReturnedTools(returnList)
-
         returnList.forEach {
-            increaseToolQty(it.rentedToolId, it.returnedQuantity)
             updateRemainingQty(it.rentedToolId, it.returnedQuantity)
+            // ToolEntity availableQuantity is not updated directly
         }
     }
 }

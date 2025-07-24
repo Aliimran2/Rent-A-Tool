@@ -6,7 +6,9 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.navigateUp
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.data.converter.LocalDateConverter
@@ -16,6 +18,8 @@ import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.formattedDate
 import com.miassolutions.rentatool.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.utils.extenstions.showSnackbar
+import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.utils.extenstions.toFormattedDate
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.*
@@ -36,11 +40,17 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentToolsSelectionBinding.bind(view)
 
-
+        viewModel.setCustomer(args.customerId, args.customerName)
 
         setupUiState()
+        setupUiEvent()
         setupRecyclerview()
         setupListener()
+        viewModel.loadAvailableTools()
+
+    }
+
+    private fun setupUiEvent() {
 
 
     }
@@ -48,10 +58,20 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
 
     private fun setupListener() {
 
-//        binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
-//
+        binding.etEstimatedDate.doAfterTextChanged {
+            viewModel.onEvent(ToolSelectionUiEvent.OnEstimatedDateChanged(it.toString()))
+        }
+
+        binding.submitBtn.setOnClickListener {
+            viewModel.onEvent(ToolSelectionUiEvent.OnSubmit)
+        }
+
+
+
+
+
         binding.etEstimatedDate.setOnClickListener {
-            showDatePicker("Select Estimated Return Date"){localDate ->
+            showDatePicker("Select Estimated Return Date") { localDate ->
 
                 binding.etEstimatedDate.setText(localDate.toFormattedDate())
             }
@@ -60,17 +80,15 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     }
 
 
-
     private fun setupRecyclerview() {
-        adapter = ToolSelectionListAdapter(object : ToolSelectionListAdapter.ToolSelectionListener {
-            override fun onToolSelectionChanged(
-                tool: ToolEntity,
-                quantity: Int,
-                isChecked: Boolean
-            ) {
-//                viewModel.toggleToolSelection(tool, quantity, isChecked)
+        adapter = ToolSelectionListAdapter(
+            onChecked = { toolId, checked ->
+                viewModel.onEvent(ToolSelectionUiEvent.OnToolChecked(toolId, checked))
+            },
+            onQuantityChanged = { toolId, qty ->
+                viewModel.onEvent(ToolSelectionUiEvent.OnQuantityChanged(toolId, qty))
             }
-        })
+        )
 
         binding.rvToolsSelection.adapter = adapter
     }
@@ -79,7 +97,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         collectingFlow {
             viewModel.uiState.collect { state ->
 //                Log.d("MiasSolutionTag", state.tools.toString())
-//                adapter.submitList(state.tools)
+                adapter.submitList(state.tools)
 
             }
         }

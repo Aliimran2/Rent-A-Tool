@@ -4,32 +4,23 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 import java.time.LocalDate
 
 data class ToolSelectionUiState(
-    val customerId: Long = -1L,
-    val customerName: String = "",
-    val estimatedReturnDate: LocalDate? = null,
-    val searchQuery: String = "",
-    val tools: List<ToolSelectionItem> = emptyList(),
+    val tools: List<ToolItemUiModel> = emptyList(),
+    val estimatedReturnDate: String = "",
     val isSubmitting: Boolean = false,
-    val errorMessage: String? = null,
+    val errorMessage: String? = null
 )
 
-data class ToolSelectionItem(
-    val toolId : Long,
-    val toolName : String,
-    val availableQuantity : Int,
-    val isSelected : Boolean = false,
-    val selectedQuantity : String = "",
-    val inputError : String? = null
+data class ToolItemUiModel(
+    val toolId: Long,
+    val name: String,
+    val availableQuantity: Int,
+    val isSelected: Boolean = false,
+    val selectedQuantity: String = ""
 )
-
-
-
 
 sealed class ToolSelectionUiEvent {
-    data class OnToolSelectionChanged(val tool: ToolEntity, val quantity: Int, val isChecked: Boolean) : ToolSelectionUiEvent()
-    data class OnSearchQueryChanged(val query: String) : ToolSelectionUiEvent()
-    data class OnEstimatedDateSelected(val date: LocalDate) : ToolSelectionUiEvent()
-    data object OnSubmitRental : ToolSelectionUiEvent()
-    data class ShowError(val message: String) : ToolSelectionUiEvent()
-    data object RentalCompleted : ToolSelectionUiEvent()
+    data class OnQuantityChanged(val toolId: Long, val quantity: String) : ToolSelectionUiEvent()
+    data class OnToolChecked(val toolId: Long, val checked: Boolean) : ToolSelectionUiEvent()
+    data class OnEstimatedDateChanged(val date: String) : ToolSelectionUiEvent()
+    object OnSubmit : ToolSelectionUiEvent()
 }

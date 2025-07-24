@@ -2,6 +2,7 @@ package com.miassolutions.rentatool.data.repositoryimpl
 
 import com.miassolutions.rentatool.data.dao.ToolDao
 import com.miassolutions.rentatool.data.entities.ToolEntity
+import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.data.repository.ToolRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -29,5 +30,9 @@ class ToolRepositoryImpl @Inject constructor(private val toolDao: ToolDao) : Too
 
     override fun searchTool(query: String): Flow<List<ToolEntity>> {
         return toolDao.searchTools(query)
+    }
+
+    override fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>> {
+        return toolDao.getToolsWithAvailability()
     }
 }
