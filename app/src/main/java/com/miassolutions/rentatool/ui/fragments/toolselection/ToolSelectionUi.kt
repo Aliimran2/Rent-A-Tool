@@ -4,15 +4,22 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 import java.time.LocalDate
 
 data class ToolSelectionUiState(
-    val customerId: Long? = null,
-    val allTools: List<ToolEntity> = emptyList(),
-    val filteredTools: List<ToolEntity> = emptyList(),
-    val selectedTools: Map<Long, Int> = emptyMap(), // toolId -> quantity
+    val customerId: Long = -1L,
+    val customerName: String = "",
     val estimatedReturnDate: LocalDate? = null,
+    val searchQuery: String = "",
+    val tools: List<ToolSelectionItem> = emptyList(),
     val isSubmitting: Boolean = false,
     val errorMessage: String? = null,
-    val rentalSuccess: Boolean = false
+)
 
+data class ToolSelectionItem(
+    val toolId : Long,
+    val toolName : String,
+    val availableQuantity : Int,
+    val isSelected : Boolean = false,
+    val selectedQuantity : String = "",
+    val inputError : String? = null
 )
 
 

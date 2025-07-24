@@ -1,56 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_tool_name"
+    <CheckBox
+        android:id="@+id/checkBoxToolName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:text="Tool Name"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/cb_tool"
-        app:layout_constraintEnd_toStartOf="@+id/inputLayout"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cb_tool"
-        app:layout_constraintTop_toTopOf="@+id/cb_tool"
-        tools:text="Hammer" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvAvailable"
+        app:layout_constraintBottom_toTopOf="@id/layoutQuantity" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        app:helperText="In Stock: 50"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_tool_name"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_quantity_selected"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/quantity"
-            android:inputType="number"
-            android:textSize="12sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- CheckBox -->
-    <CheckBox
-        android:id="@+id/cb_tool"
+    <TextView
+        android:id="@+id/tvAvailable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_tool_name"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="Available: 10"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/checkBoxToolName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/checkBoxToolName" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Quantity"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxToolName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-
-
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

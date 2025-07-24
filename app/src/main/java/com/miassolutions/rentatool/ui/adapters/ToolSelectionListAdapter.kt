@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.databinding.ItemToolBinding
 import com.miassolutions.rentatool.ui.adapters.diffutil.ToolDiffUtil
+import com.miassolutions.rentatool.ui.fragments.toolselection.ToolSelectionItem
 
 class ToolSelectionListAdapter(
-    private val listener: ToolSelectionListener
+    private val onCheckedChanged: (Long, Boolean) -> Unit,
+    private val onQuantityChanged: (Long, String) -> Unit
 
-) : ListAdapter<ToolEntity, ToolSelectionListAdapter.ToolVH>(ToolDiffUtil()) {
+) : ListAdapter<ToolSelectionItem, ToolSelectionListAdapter.ToolVH>(ToolDiffUtil()) {
 
 
     interface ToolSelectionListener {
@@ -22,41 +24,29 @@ class ToolSelectionListAdapter(
     inner class ToolVH(private val binding: ItemToolBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tool: ToolEntity) {
-            with(binding) {
-                tvToolName.text = tool.name
-                cbTool.setOnCheckedChangeListener(null)
-                cbTool.isChecked = false
-                etQuantitySelected.setText("")
+        fun bind(item: ToolSelectionItem) = with(binding) {
+            checkBoxToolName.text = item.toolName
+            checkBoxToolName.isChecked = item.isSelected
+            tvAvailable.text = "Available: ${item.availableQuantity}"
+            inputQuantity.setText(item.selectedQuantity)
 
-                inputLayout.helperText = "In stock: ${tool.totalQuantity}"
+            layoutQuantity.error = item.inputError
 
-                cbTool.setOnCheckedChangeListener { _, isChecked ->
-                    etQuantitySelected.isEnabled = isChecked
-                    if (!isChecked) {
-                        etQuantitySelected.setText("")
-                    }
-                    listener.onToolSelectionChanged(
-                        tool,
-                        etQuantitySelected.text.toString().toIntOrNull() ?: 0,
-                        isChecked
-                    )
-                }
-                etQuantitySelected.doAfterTextChanged {
-                    val qty = it.toString().toIntOrNull() ?: 0
-                    val valid = qty in 1..tool.totalQuantity
+            checkBoxToolName.setOnCheckedChangeListener(null)
+            inputQuantity.doAfterTextChanged { val nothing = null }
 
-                    etQuantitySelected.error = if (!valid && cbTool.isChecked) {
-                        "Invalid quantity"
-                    } else null
+            checkBoxToolName.isChecked = item.isSelected
+            inputQuantity.setText(item.selectedQuantity)
 
-                    if (cbTool.isChecked && valid) {
-                        listener.onToolSelectionChanged(tool, qty, true)
-                    }
-                }
-
-                etQuantitySelected.isEnabled = false
+            checkBoxToolName.setOnCheckedChangeListener { _, isChecked ->
+                onCheckedChanged(item.toolId, isChecked)
             }
+
+            inputQuantity.doAfterTextChanged { text ->
+                onQuantityChanged(item.toolId, text.toString())
+            }
+
+            layoutQuantity.isEnabled = item.isSelected
 
         }
 
