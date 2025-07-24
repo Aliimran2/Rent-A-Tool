@@ -9,11 +9,12 @@
 
 
     <Button
-        android:id="@+id/btn_done"
+        android:id="@+id/resetBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="Reset Database"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
