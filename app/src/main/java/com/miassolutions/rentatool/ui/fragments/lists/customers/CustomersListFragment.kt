@@ -123,16 +123,6 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                         true
                     }
 
-                    R.id.add_tool_menu -> {
-                        val showBottomSheet = ToolFormFragment()
-                        showBottomSheet.show(parentFragmentManager, showBottomSheet.tag)
-                        true
-                    }
-                    R.id.menu_reset -> {
-                       mainViewModel.resetAllDatabase()
-                        showToast("Database reset")
-                        true
-                    }
 
                     else -> false
                 }

@@ -3,15 +3,12 @@
     tools:showIn="navigation_view">
 
 <group android:checkableBehavior="single" >
-    <item
-        android:id="@+id/customersListFragment"
-        android:icon="@drawable/customer_icon"
-        android:title="@string/customers" />
+
 
     <item
-        android:id="@+id/stockListFragment"
-        android:icon="@drawable/tools_icon"
-        android:title="@string/stock" />
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings"
+        android:title="@string/settings" />
 
 
 
