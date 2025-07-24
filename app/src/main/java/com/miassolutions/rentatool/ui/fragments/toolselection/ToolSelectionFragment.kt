@@ -9,12 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.miassolutions.rentatool.R
+import com.miassolutions.rentatool.data.converter.LocalDateConverter
 import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.databinding.FragmentToolsSelectionBinding
 import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
+import com.miassolutions.rentatool.utils.extenstions.formattedDate
+import com.miassolutions.rentatool.utils.extenstions.showDatePicker
+import com.miassolutions.rentatool.utils.extenstions.toFormattedDate
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.*
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
@@ -45,33 +50,16 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
 
 //        binding.searchInput.doAfterTextChanged { viewModel.onSearchQueryChanged(it.toString()) }
 //
-//        binding.etEstimatedDate.setOnClickListener {
-//            datePicker {
-//                viewModel.onEstimatedReturnSelected(it)
-//            }
-//        }
+        binding.etEstimatedDate.setOnClickListener {
+            showDatePicker("Select Estimated Return Date"){localDate ->
 
-    }
-
-    private fun datePicker(onDateSelection : (LocalDate) -> Unit) {
-
-
-
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Set Promise Date")
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .build()
-
-        datePicker.addOnPositiveButtonClickListener { dateLong: Long ->
-            val instant = Instant.ofEpochMilli(dateLong)
-            val selectedDate = instant.atZone(ZoneId.systemDefault()).toLocalDate()
-            binding.etEstimatedDate.setText(selectedDate.toString())
-            onDateSelection(selectedDate)
+                binding.etEstimatedDate.setText(localDate.toFormattedDate())
+            }
         }
-        datePicker.show(parentFragmentManager, null)
-
 
     }
+
+
 
     private fun setupRecyclerview() {
         adapter = ToolSelectionListAdapter(object : ToolSelectionListAdapter.ToolSelectionListener {

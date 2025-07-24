@@ -6,9 +6,10 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.text.SimpleDateFormat
-import java.util.Locale
-
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 fun Fragment.showConfirmDialog(
@@ -41,7 +42,7 @@ fun Fragment.showToast(
 
 fun Fragment.showDatePicker(
     title: String,
-    onDateSelected: (String, Long) -> Unit
+    onDateSelected: (LocalDate) -> Unit
 ) {
 
 
@@ -49,10 +50,14 @@ fun Fragment.showDatePicker(
         .setTitleText(title)
         .build()
 
-    datePicker.addOnPositiveButtonClickListener { selectedDate ->
+    datePicker.addOnPositiveButtonClickListener { selectedLong ->
 
-        val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate)
-        onDateSelected(formattedDate, selectedDate)
+        val instant = Instant.ofEpochMilli(selectedLong)
+
+        val selectedDate = instant.atZone(ZoneId.systemDefault()).toLocalDate()
+
+        onDateSelected(selectedDate)
+
 
     }
     datePicker.show(parentFragmentManager, "DatePicker")
@@ -60,13 +65,14 @@ fun Fragment.showDatePicker(
 }
 
 
-fun Fragment.showBottomSheetDialog(
-    rootView: View
-): BottomSheetDialog {
-    val bottomSheetDialog = BottomSheetDialog(requireContext())
-    bottomSheetDialog.setContentView(rootView)
-    bottomSheetDialog.show()
-    return bottomSheetDialog
+fun formattedDate(
+    date: LocalDate,
+    format: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+): String = date.format(format)
+
+fun LocalDate.toFormattedDate(pattern: String = "dd-MM-yyyy"): String {
+    val mFormat = DateTimeFormatter.ofPattern(pattern)
+    return this.format(mFormat)
 }
 
 
