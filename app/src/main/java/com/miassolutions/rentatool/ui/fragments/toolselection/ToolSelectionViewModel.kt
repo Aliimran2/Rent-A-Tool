@@ -26,59 +26,67 @@ class ToolSelectionViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<ToolSelectionUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    fun setCustomer(id: Long, name: String) {
+    private var selectedTools = mutableMapOf<Long, Int>()
 
+    init {
+        loadTools()
     }
 
-    fun loadAvailableTools() {
+    fun loadTools(query: String = "") {
         viewModelScope.launch {
             toolRepository.getToolsWithAvailability().collect { tools ->
-                _uiState.update { state ->
-                    state.copy(
-                        tools = tools.map {
-                            ToolItemUiModel(
-                                toolId = it.tool.toolId,
-                                name = it.tool.name,
-                                availableQuantity = it.availableQuantity
-                            )
-                        }
-                    )
-                }
+                val filtered = if (query.isBlank()) tools
+                else tools.filter { it.tool.name.contains(query, ignoreCase = true) }
+
+                _uiState.value = _uiState.value.copy(
+                    tools = filtered,
+                    searchQuery = query,
+                    isLoading = false,
+                    errorMessage = null
+                )
             }
         }
     }
 
-    fun onEvent(event: ToolSelectionUiEvent) {
-        when (event) {
-            is ToolSelectionUiEvent.OnToolChecked -> toggleToolSelection(event.toolId, event.checked)
-            is ToolSelectionUiEvent.OnQuantityChanged -> updateQuantity(event.toolId, event.quantity)
-            is ToolSelectionUiEvent.OnEstimatedDateChanged -> _uiState.update { it.copy(estimatedReturnDate = event.date) }
-            is ToolSelectionUiEvent.OnSubmit -> submitRental()
+    fun onToolChecked(toolId: Long, isChecked: Boolean, quantity: Int = 1) {
+        if (isChecked) {
+            selectedTools[toolId] = quantity
+        } else {
+            selectedTools.remove(toolId)
+        }
+        _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toMap())
+    }
+
+    fun onQuantityChanged(toolId: Long, quantity: Int) {
+        if (toolId in selectedTools) {
+            selectedTools[toolId] = quantity
+            _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toMap())
         }
     }
 
-    private fun toggleToolSelection(toolId: Long, isChecked: Boolean) {
-        _uiState.update { state ->
-            state.copy(
-                tools = state.tools.map {
-                    if (it.toolId == toolId) it.copy(isSelected = isChecked) else it
-                }
-            )
+    fun onDateClicked() {
+        viewModelScope.launch {
+            _uiEvent.emit(ToolSelectionUiEvent.ShowDatePicker(_uiState.value.selectedDate))
         }
     }
 
-    private fun updateQuantity(toolId: Long, quantity: String) {
-        _uiState.update { state ->
-            state.copy(
-                tools = state.tools.map {
-                    if (it.toolId == toolId) it.copy(selectedQuantity = quantity) else it
-                }
-            )
+    fun onDateSelected(newDate: LocalDate) {
+        _uiState.value = _uiState.value.copy(selectedDate = newDate)
+    }
+
+    fun onSearchChanged(query: String) {
+        loadTools(query)
+    }
+
+    fun onSubmitClicked() {
+        if (selectedTools.isEmpty()) {
+            viewModelScope.launch {
+                _uiEvent.emit(ToolSelectionUiEvent.ShowToast("Select at least one tool"))
+            }
+        } else {
+            viewModelScope.launch {
+                _uiEvent.emit(ToolSelectionUiEvent.NavigateToConfirmation)
+            }
         }
     }
-
-    private fun submitRental() {
-        // You can hook this to RentalRepository logic
-    }
-
 }

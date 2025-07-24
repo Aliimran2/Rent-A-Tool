@@ -1,26 +1,23 @@
 package com.miassolutions.rentatool.ui.fragments.toolselection
 
 import com.miassolutions.rentatool.data.entities.ToolEntity
+import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import java.time.LocalDate
 
 data class ToolSelectionUiState(
-    val tools: List<ToolItemUiModel> = emptyList(),
-    val estimatedReturnDate: String = "",
-    val isSubmitting: Boolean = false,
+    val tools: List<ToolWithAvailability> = emptyList(),
+    val searchQuery: String = "",
+    val selectedTools: Map<Long, Int> = emptyMap(), // toolId to quantity
+    val selectedDate: LocalDate = LocalDate.now(),
+    val isLoading: Boolean = true,
     val errorMessage: String? = null
 )
 
-data class ToolItemUiModel(
-    val toolId: Long,
-    val name: String,
-    val availableQuantity: Int,
-    val isSelected: Boolean = false,
-    val selectedQuantity: String = ""
-)
+
+
 
 sealed class ToolSelectionUiEvent {
-    data class OnQuantityChanged(val toolId: Long, val quantity: String) : ToolSelectionUiEvent()
-    data class OnToolChecked(val toolId: Long, val checked: Boolean) : ToolSelectionUiEvent()
-    data class OnEstimatedDateChanged(val date: String) : ToolSelectionUiEvent()
-    object OnSubmit : ToolSelectionUiEvent()
+    data class ShowToast(val message: String) : ToolSelectionUiEvent()
+    data object NavigateToConfirmation : ToolSelectionUiEvent()
+    data class ShowDatePicker(val currentDate: LocalDate) : ToolSelectionUiEvent()
 }

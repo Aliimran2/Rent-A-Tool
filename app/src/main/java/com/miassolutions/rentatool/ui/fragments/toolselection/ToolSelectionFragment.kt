@@ -1,29 +1,18 @@
 package com.miassolutions.rentatool.ui.fragments.toolselection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.navigateUp
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.miassolutions.rentatool.R
-import com.miassolutions.rentatool.data.converter.LocalDateConverter
-import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.databinding.FragmentToolsSelectionBinding
-import com.miassolutions.rentatool.ui.adapters.ToolSelectionListAdapter
+import com.miassolutions.rentatool.ui.adapters.ToolListAdapterForRenting
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
-import com.miassolutions.rentatool.utils.extenstions.formattedDate
 import com.miassolutions.rentatool.utils.extenstions.showDatePicker
-import com.miassolutions.rentatool.utils.extenstions.showSnackbar
 import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.utils.extenstions.toFormattedDate
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.*
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
@@ -32,7 +21,7 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<ToolSelectionViewModel>()
-    private lateinit var adapter: ToolSelectionListAdapter
+    private lateinit var adapter: ToolListAdapterForRenting
 
     private val args by navArgs<ToolSelectionFragmentArgs>()
 
@@ -40,35 +29,38 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentToolsSelectionBinding.bind(view)
 
-        viewModel.setCustomer(args.customerId, args.customerName)
 
-        setupUiState()
         setupUiEvent()
         setupRecyclerview()
         setupListener()
-        viewModel.loadAvailableTools()
+        setupUiState()
 
     }
 
     private fun setupUiEvent() {
+        collectingFlow {
+            viewModel.uiEvent.collect{event ->
+                when(event){
+                    ToolSelectionUiEvent.NavigateToConfirmation -> {
+                        val action = ToolSelectionFragmentDirections.actionToolSelectionFragmentToRentalConfirmationFragment()
+
+                    }
+                    is ToolSelectionUiEvent.ShowDatePicker -> {
+
+                    }
+                    is ToolSelectionUiEvent.ShowToast -> {
+                        showToast(event.message)
+                    }
+                }
+
+            }
+        }
 
 
     }
 
 
     private fun setupListener() {
-
-        binding.etEstimatedDate.doAfterTextChanged {
-            viewModel.onEvent(ToolSelectionUiEvent.OnEstimatedDateChanged(it.toString()))
-        }
-
-        binding.submitBtn.setOnClickListener {
-            viewModel.onEvent(ToolSelectionUiEvent.OnSubmit)
-        }
-
-
-
-
 
         binding.etEstimatedDate.setOnClickListener {
             showDatePicker("Select Estimated Return Date") { localDate ->
@@ -81,12 +73,13 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
 
 
     private fun setupRecyclerview() {
-        adapter = ToolSelectionListAdapter(
-            onChecked = { toolId, checked ->
-                viewModel.onEvent(ToolSelectionUiEvent.OnToolChecked(toolId, checked))
+         adapter = ToolListAdapterForRenting(
+            onToolChecked = { toolId, isChecked, quantity ->
+                if (isChecked) viewModel.onToolChecked(toolId, true, quantity)
+                else viewModel.onToolChecked(toolId, false)
             },
-            onQuantityChanged = { toolId, qty ->
-                viewModel.onEvent(ToolSelectionUiEvent.OnQuantityChanged(toolId, qty))
+            onQuantityChanged = { toolId, quantity ->
+                viewModel.onQuantityChanged(toolId, quantity)
             }
         )
 
@@ -96,7 +89,6 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     private fun setupUiState() {
         collectingFlow {
             viewModel.uiState.collect { state ->
-//                Log.d("MiasSolutionTag", state.tools.toString())
                 adapter.submitList(state.tools)
 
             }
