@@ -16,6 +16,3 @@ data class RentalOrderWithRentedTools(
     val rentedTools: List<RentedToolEntity>
 )
 
-interface RentalOrderRepository {
-    fun getOrdersWithRentedTools(customerId: Long): Flow<List<RentalOrderWithRentedTools>>
-}

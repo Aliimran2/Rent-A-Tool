@@ -5,7 +5,6 @@ import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 
 data class RentalsUiState(
     val customerId: Long = -1L,
-    val customerName: String = "",
     val totalRent: Double = 0.0,
     val activeOrdersCount: Int = 0,
     val returnedOrderCount: Int = 0,

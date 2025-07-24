@@ -6,23 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
-import com.miassolutions.rentatool.databinding.ItemRentalBinding
+import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
+import com.miassolutions.rentatool.databinding.ItemRentalOrderBinding
 
 class RentalListAdapter(
-//    val onClickListener: (Long) -> Unit
-) : ListAdapter<RentalOrderEntity, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
+
+) : ListAdapter<RentalOrderWithRentedTools, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RentalOrderEntity>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RentalOrderWithRentedTools>() {
             override fun areItemsTheSame(
-                oldItem: RentalOrderEntity,
-                newItem: RentalOrderEntity
+                oldItem: RentalOrderWithRentedTools,
+                newItem: RentalOrderWithRentedTools
             ): Boolean {
-                return oldItem.orderId == newItem.orderId
+                return oldItem.rentalOrder.orderId == newItem.rentalOrder.orderId
             }
 
             override fun areContentsTheSame(
-                oldItem: RentalOrderEntity,
-                newItem: RentalOrderEntity
+                oldItem: RentalOrderWithRentedTools,
+                newItem: RentalOrderWithRentedTools
             ): Boolean {
                 return oldItem == newItem
             }
@@ -30,23 +31,28 @@ class RentalListAdapter(
         }
     }
 
-    inner class RentalVH(private val binding: ItemRentalBinding) :
+    inner class RentalVH(private val binding: ItemRentalOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: RentalOrderEntity) {
+        fun bind(item: RentalOrderWithRentedTools) {
             binding.apply {
-                tvRentalId.text = "Rental ID : ${item.orderId}"
-                tvRentalDate.text = "Rent Date : ${item.rentDate}"
-                tvPromiseDate.text = "Promise Date : ${item.estimatedReturnDate}"
+                tvOrderDate.text = item.rentalOrder.rentDate.toString()
+                tvRentAmount.text = item.rentalOrder.totalAmount.toString()
+                tvEstimatedReturn.text = item.rentalOrder.estimatedReturnDate.toString()
+                tvOrderStatus.text = if(item.rentalOrder.isClosed) "Active" else "Closed"
+
+                btnReturnTools.setOnClickListener {
+                    //TODO()
+                }
 
 
-//                root.setOnClickListener { onClickListener(rentalEntity.orderId) }
+
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RentalVH {
         return RentalVH(
-            ItemRentalBinding.inflate(
+            ItemRentalOrderBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

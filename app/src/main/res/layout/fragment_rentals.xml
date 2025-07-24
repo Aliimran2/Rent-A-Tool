@@ -4,58 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:paddingHorizontal="16dp">
 
-    <!-- Customer Name -->
-    <TextView
-        android:id="@+id/tv_customer_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Customer: Muhammad Asif"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Summary Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_summary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_name">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:columnCount="2"
+            android:padding="8dp"
+            android:rowCount="3"
+            android:useDefaultMargins="true">
 
             <TextView
-                android:id="@+id/tv_total_rent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total Rent: Rs. 0"
-                android:textSize="16sp"
+
+                android:text="@string/total_rent"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_total_rent"
+                android:textStyle="bold"
+                tools:text="Rs. 0.0" />
+
+            <TextView android:text="@string/active_orders" />
+
+            <TextView
                 android:id="@+id/tv_active_orders"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Active Orders: 0" />
+                tools:text="0" />
+
+            <TextView android:text="@string/returned_orders" />
 
             <TextView
                 android:id="@+id/tv_returned_orders"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Returned Orders: 0" />
-        </LinearLayout>
+                tools:text="0" />
+
+
+        </GridLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
 
     <!-- RecyclerView -->
@@ -65,12 +61,12 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="8dp"
-        tools:listitem="@layout/item_rental_order"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/btn_rent_tools"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_summary" />
+        app:layout_constraintTop_toBottomOf="@id/card_summary"
+        tools:listitem="@layout/item_rental_order" />
 
 
     <com.google.android.material.button.MaterialButton
@@ -84,6 +80,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/empty_state_layout"
+        layout="@layout/layout_empty_state"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

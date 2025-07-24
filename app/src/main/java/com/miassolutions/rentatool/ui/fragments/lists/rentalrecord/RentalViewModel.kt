@@ -30,13 +30,12 @@ class RentalsViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<RentalsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    fun loadData(customerId: Long, customerName: String) {
+    fun loadData(customerId: Long) {
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
                     isLoading = true,
                     customerId = customerId,
-                    customerName = customerName
                 )
             }
 

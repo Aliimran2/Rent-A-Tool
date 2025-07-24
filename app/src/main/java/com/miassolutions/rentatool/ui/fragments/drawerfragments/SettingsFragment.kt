@@ -27,7 +27,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.resetBtn.setOnClickListener {
             showConfirmDialog(
                 title = "Confirmation",
-                message = "Are you sure to reset database",
+                message = "Are you sure to reset database? This can't be undone.",
                 positiveText = "Yes, sure",
                 onConfirm = {
                     viewModel.resetAllDatabase()

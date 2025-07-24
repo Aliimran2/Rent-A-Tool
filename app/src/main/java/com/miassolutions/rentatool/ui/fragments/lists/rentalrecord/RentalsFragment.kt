@@ -13,6 +13,8 @@ import com.miassolutions.rentatool.ui.adapters.RentalListAdapter
 import com.miassolutions.rentatool.utils.Constants
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.showToast
+import com.miassolutions.rentatool.utils.helper.hide
+import com.miassolutions.rentatool.utils.helper.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -32,7 +34,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRentalsBinding.bind(view)
 
-
+        loadRentals()
         setupUiState()
         setupListeners()
         setupUiEvent()
@@ -41,13 +43,17 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     }
 
+    private fun loadRentals() {
+        viewModel.loadData(args.customerId)
+    }
+
     private fun setupRecyclerview() {
         binding.rvRentals.adapter = adapter
     }
 
     private fun setupUiEvent() {
         collectingFlow {
-            viewModel.uiEvent.collect{event ->
+            viewModel.uiEvent.collect { event ->
 
 
             }
@@ -62,8 +68,28 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     private fun setupUiState() {
         collectingFlow {
+            viewModel.uiState.collect { state ->
+                adapter.submitList(state.rentalOrders)
+
+                with(binding) {
+                    if (state.rentalOrders.isEmpty()) {
+                        emptyStateLayout.root.show()
+                        cardSummary.hide()
+
+                    } else {
+                        cardSummary.show()
+                        emptyStateLayout.root.hide()
+                        tvTotalRent.text = "Rs${state.totalRent}"
+                        tvActiveOrders.text = state.activeOrdersCount.toString()
+                        tvReturnedOrders.text = state.returnedOrderCount.toString()
+                    }
+
+
+                }
 
             }
+
+        }
 
     }
 
