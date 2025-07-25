@@ -69,18 +69,6 @@ class CustomerFormViewModel @Inject constructor(private val repository: Customer
                     }
                 }
             }
-//            when (result) {
-//                is CustomerFormResult.Failure -> {
-//                    _uiEvent.emit(CustomerUiEvent.DuplicateCNIC(Constants.DUPLICATE_CNIC))
-//                }
-//
-//                CustomerFormResult.Success -> {
-//                    _uiEvent.emit(CustomerUiEvent.CustomerAdded(1003))
-//                    if (isSaveAndExit){
-//                        _uiEvent.emit(CustomerUiEvent.NavigateBack)
-//                    }
-//                }
-//            }
 
         }
     }

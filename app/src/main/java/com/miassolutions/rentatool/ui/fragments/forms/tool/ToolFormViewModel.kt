@@ -45,20 +45,28 @@ class ToolFormViewModel @Inject constructor(private val toolRepository: ToolRepo
         validateForm()
     }
 
-    fun onSubmitClick() {
+
+    private var saveAndExitClick = false
+
+    fun onSubmitClick(isSaveAndExit: Boolean = false) {
+
+        saveAndExitClick = isSaveAndExit
+
         val state = _uiState.value
         if (state.toolName.isBlank() || state.totalQuantity.isBlank() || state.rentPricePerDay.isBlank()) {
             viewModelScope.launch {
                 _uiEvent.emit(ToolFormUiEvent.ShowToast("Please fill all the fields"))
             }
-
             return
         }
 
         viewModelScope.launch {
             toolRepository.insertTool(toToolEntity(state))
-            _uiEvent.emit(ToolFormUiEvent.ToolSaved)
+
             _uiEvent.emit(ToolFormUiEvent.ShowToast("Tool saved in database"))
+            if (isSaveAndExit) {
+                _uiEvent.emit(ToolFormUiEvent.NavigationBack)
+            }
         }
 
     }

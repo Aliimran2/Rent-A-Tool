@@ -12,6 +12,7 @@ import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.setTextIfChanged
 import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentToolFormBinding
+import com.miassolutions.rentatool.utils.helper.clearInputs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,13 +42,13 @@ class ToolFormFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupListeners() {
-        with(binding){
+        with(binding) {
             etToolName.doAfterTextChanged { viewModel.onToolNameChange(it.toString()) }
             etQuantity.doAfterTextChanged { viewModel.onQuantityChanged(it.toString()) }
             etRentPrice.doAfterTextChanged { viewModel.onRentChanged(it.toString()) }
             rgCondition.setOnCheckedChangeListener { _, checkedId ->
                 viewModel.onConditionChanged(
-                    when(checkedId){
+                    when (checkedId) {
                         R.id.rb_new -> ToolCondition.NEW
                         else -> ToolCondition.OLD
                     }
@@ -55,21 +56,40 @@ class ToolFormFragment : BottomSheetDialogFragment() {
             }
 
             btnSaveAndExit.setOnClickListener {
-                viewModel.onSubmitClick()
+                viewModel.onSubmitClick(isSaveAndExit = true)
+            }
+            btnSaveAndNew.setOnClickListener {
+                viewModel.onSubmitClick(isSaveAndExit = false)
+                clearAllFields()
             }
         }
     }
 
     private fun setupUiEvent() {
         collectingFlow {
-            viewModel.uiEvent.collect{event ->
-                when(event){
+            viewModel.uiEvent.collect { event ->
+                when (event) {
                     is ToolFormUiEvent.ShowToast -> showToast(event.message)
-                    ToolFormUiEvent.ToolSaved -> dismiss()
+                    ToolFormUiEvent.NavigationBack -> {
+                        dismiss()
+                    }
                 }
 
             }
         }
+    }
+
+    private fun clearAllFields() {
+        with(binding) {
+            clearInputs(
+                etToolName,
+                etQuantity,
+                etRentPrice
+            )
+            binding.etToolName.requestFocus()
+        }
+
+
     }
 
     private fun setupUiState() {
@@ -90,10 +110,6 @@ class ToolFormFragment : BottomSheetDialogFragment() {
             }
         }
     }
-
-
-
-
 
 
     override fun onDestroyView() {

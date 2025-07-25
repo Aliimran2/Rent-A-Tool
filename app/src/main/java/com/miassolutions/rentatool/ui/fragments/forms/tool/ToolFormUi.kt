@@ -15,5 +15,5 @@ enum class ToolCondition {
 
 sealed class ToolFormUiEvent {
     data class ShowToast(val message: String) : ToolFormUiEvent()
-    data object ToolSaved : ToolFormUiEvent()
+    data object NavigationBack : ToolFormUiEvent()
 }
