@@ -10,6 +10,6 @@ interface ToolRepository {
     suspend fun insertTool(tool: ToolEntity): Long
     suspend fun updateTool(tool: ToolEntity)
     suspend fun deleteTool(tool: ToolEntity)
-    fun searchTool(query: String): Flow<List<ToolEntity>>
+    fun searchTool(query: String): Flow<List<ToolWithAvailability>>
     fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>>
 }

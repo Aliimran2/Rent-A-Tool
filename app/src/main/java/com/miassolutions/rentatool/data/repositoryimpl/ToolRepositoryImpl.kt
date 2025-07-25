@@ -5,6 +5,7 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.data.repository.ToolRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ToolRepositoryImpl @Inject constructor(private val toolDao: ToolDao) : ToolRepository {
@@ -28,7 +29,7 @@ class ToolRepositoryImpl @Inject constructor(private val toolDao: ToolDao) : Too
         toolDao.delete(tool)
     }
 
-    override fun searchTool(query: String): Flow<List<ToolEntity>> {
+    override fun searchTool(query: String): Flow<List<ToolWithAvailability>> {
         return toolDao.searchTools(query)
     }
 

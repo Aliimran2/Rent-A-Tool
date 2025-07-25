@@ -37,9 +37,9 @@
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/toolCondition"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolCondition"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
             tools:text="Rs10/day" />
 
         <!-- Availability Label -->
@@ -69,13 +69,14 @@
 
         <!-- Condition Label -->
         <TextView
-            android:id="@+id/toolCondition"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/rent"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_availabl_count"
             app:layout_constraintEnd_toStartOf="@+id/tv_rent_per_day"
             app:layout_constraintTop_toTopOf="@id/availabilityLabel" />
 

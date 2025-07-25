@@ -49,6 +49,41 @@ interface ToolDao {
     @Query("SELECT * FROM tools WHERE LOWER(name) = LOWER(:toolName) LIMIT 1")
     suspend fun getToolByName(toolName: String): ToolEntity?
 
-    @Query("SELECT * FROM tools WHERE name LIKE '%' || :query || '%'")
-    fun searchTools(query: String): Flow<List<ToolEntity>>
+    @Query("""
+    SELECT t.*, 
+    IFNULL(t.totalQuantity - 
+        (SELECT SUM(rt.rentedQuantity - rt.remainingQuantity) 
+         FROM rented_tools rt 
+         WHERE rt.toolId = t.toolId), 
+    t.totalQuantity) AS availableQuantity
+    FROM tools t
+    WHERE LOWER(t.name) LIKE LOWER('%' || :query || '%')
+    ORDER BY t.name ASC
+""")
+    fun searchTools(query: String): Flow<List<ToolWithAvailability>>
+
+
+    @Query("""
+    SELECT t.*, 
+    IFNULL(t.totalQuantity - 
+        (SELECT SUM(rt.rentedQuantity - rt.remainingQuantity) 
+         FROM rented_tools rt 
+         WHERE rt.toolId = t.toolId), 
+    t.totalQuantity) AS availableQuantity
+    FROM tools t
+    WHERE (:name IS NULL OR LOWER(t.name) LIKE LOWER('%' || :name || '%'))
+      AND (:minAvailable IS NULL OR 
+           (t.totalQuantity - IFNULL((SELECT SUM(rt.rentedQuantity - rt.remainingQuantity) 
+                                      FROM rented_tools rt 
+                                      WHERE rt.toolId = t.toolId), 0)) >= :minAvailable)
+      AND (:minItems IS NULL OR t.totalQuantity >= :minItems)
+    ORDER BY t.name ASC
+""")
+    fun filterTools(
+        name: String?,
+        minAvailable: Int?,
+        minItems: Int?
+    ): Flow<List<ToolWithAvailability>>
+
+
 }
