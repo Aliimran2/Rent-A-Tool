@@ -110,4 +110,6 @@
     <string name="empty_state_icon_description">empty_state</string>
     <string name="empty_state_default_title">No Rentals Yet</string>
     <string name="empty_state_default_message">Please add new rental by clicking Rent Tools</string>
+    <string name="save_and_exit">Save and Exit</string>
+    <string name="save_and_new">Save and New</string>
 </resources>

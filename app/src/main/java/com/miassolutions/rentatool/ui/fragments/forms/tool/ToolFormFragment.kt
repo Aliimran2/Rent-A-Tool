@@ -54,7 +54,7 @@ class ToolFormFragment : BottomSheetDialogFragment() {
                 )
             }
 
-            btnSubmit.setOnClickListener {
+            btnSaveAndExit.setOnClickListener {
                 viewModel.onSubmitClick()
             }
         }

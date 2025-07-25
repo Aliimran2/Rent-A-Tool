@@ -1,156 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:background="?android:colorBackground"
+    android:paddingBottom="16dp">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="@string/add_new_tool"
-        android:textSize="30sp"
-        android:layout_marginTop="20dp"
-         />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:paddingHorizontal="16dp" />
 
+    <!-- Divider -->
     <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        />
+        android:layout_marginVertical="8dp"
+        android:background="?attr/colorOutline" />
 
+    <!-- Form Content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <!-- Tool Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tool_name_input_layout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="16dp">
+                app:boxStrokeColor="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_tool_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_tool_name"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:padding="12dp" />
+                    android:inputType="textCapCharacters"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Number of Items Field -->
+            <!-- Quantity -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="16dp">
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="12dp"
+                app:boxStrokeColor="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_number_of_items"
-                    android:textSize="14sp"
                     android:inputType="number"
-                    android:padding="12dp" />
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <!-- Condition Radio Group -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/condition"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="?android:textColorPrimary" />
+
+            <RadioGroup
+                android:id="@+id/rg_condition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/condition_label"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <RadioButton
+                    android:id="@+id/rb_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/condition"
-                    android:textSize="16sp"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"/>
+                    android:text="@string/new_condition"
+                    android:checked="true"
+                    android:textSize="14sp" />
 
-                <RadioGroup
-                    android:id="@+id/rg_condition"
+                <RadioButton
+                    android:id="@+id/rb_old"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="16dp">
+                    android:text="@string/old"
+                    android:layout_marginStart="24dp"
+                    android:textSize="14sp" />
+            </RadioGroup>
 
-                    <RadioButton
-                        android:id="@+id/rb_new"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/new_condition"
-                        android:checked="true"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/rb_old"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/old"
-                        android:textSize="14sp" />
-
-
-                </RadioGroup>
-
-
-            </LinearLayout>
-
-
-            <!-- Rent Price Field -->
+            <!-- Rent Price -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_rent_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="16dp">
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="12dp"
+                app:boxStrokeColor="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_rent_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_rent_price"
-                    android:textSize="14sp"
                     android:inputType="numberDecimal"
-                    android:padding="12dp" />
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_submit"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
-                app:cornerRadius="12dp"
-                android:layout_gravity="center"
-                android:paddingHorizontal="20dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/save_tool"
-                />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="32dp">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_and_exit"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/save_and_exit" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_and_new"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/save_and_new" />
+            </LinearLayout>
         </LinearLayout>
-
-
     </androidx.core.widget.NestedScrollView>
-
-
-
 </LinearLayout>
