@@ -38,7 +38,7 @@
     <string name="share_receipt">Share Receipt</string>
     <string name="receipt_generated">Receipt generated successfully</string>
     <string name="tools">Tools</string>
-    <string name="rentals">Rentals</string>
+    <string name="rentals">RENTALS</string>
     <string name="add_tool">Add Tool</string>
     <string name="tool_name">Tool Name</string>
     <string name="description">Description</string>
@@ -95,7 +95,7 @@
     <string name="english">English</string>
     <string name="urdu">اردو</string>
     <string name="select_app_language">Select App Language:</string>
-    <string name="rent_tools">Rent Tools</string>
+    <string name="rent_tools">RENT TOOLS</string>
     <string name="edit_the_customer">Edit the customer</string>
     <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>

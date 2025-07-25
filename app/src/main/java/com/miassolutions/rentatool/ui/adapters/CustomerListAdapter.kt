@@ -23,13 +23,7 @@ class CustomerListAdapter(
             binding.apply {
                 tvCustomerName.text = customer.customerName
 
-                if ((customer.customerId % 2).toInt() == 0) {
-                    tvStatus.setBackgroundResource(R.drawable.active_bg)
-                    tvStatus.text = "Active"
-                } else {
-                    tvStatus.setBackgroundResource(R.drawable.inactive_bg)
-                    tvStatus.text = "Inactive"
-                }
+
 
 
 

@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_customersListFragment_to_fragmentRentals"
             app:destination="@id/fragmentRentals" />
+        <action
+            android:id="@+id/action_customersListFragment_to_toolSelectionFragment"
+            app:destination="@id/toolSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRentals"
@@ -50,9 +53,6 @@
         <argument
             android:name="customerName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_fragmentRentals_to_toolSelectionFragment"
-            app:destination="@id/toolSelectionFragment" />
         <action
             android:id="@+id/action_fragmentRentals_to_returnToolsFragment"
             app:destination="@id/returnToolsFragment" />

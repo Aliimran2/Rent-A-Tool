@@ -58,12 +58,8 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
             viewModel.uiEvent.collect { event ->
                 when (event) {
                     is RentalsUiEvent.NavigationToRentTools -> {
-                        val action =
-                            RentalsFragmentDirections.actionFragmentRentalsToToolSelectionFragment(
-                                event.customerId,
-                                event.customerName
-                            )
-                        findNavController().navigate(action)
+
+
                     }
 
                     is RentalsUiEvent.NavigationToRentalDetail -> {
