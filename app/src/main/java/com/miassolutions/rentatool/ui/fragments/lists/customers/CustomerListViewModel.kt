@@ -8,7 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,8 +30,8 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
     private val _uiState = MutableStateFlow(CustomerListUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _uiEvent = Channel<CustomerListUiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _uiEvent = MutableSharedFlow<CustomerListUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     fun onSearchQueryChanged(query: String) {
         _uiState.update { it.copy(searchQuery = query) }
@@ -56,16 +59,22 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
         }
     }
 
-    fun onEditClick(customer: CustomerEntity) {
+    fun navToDetail(customer: CustomerEntity) {
         viewModelScope.launch {
-            _uiEvent.send(CustomerListUiEvent.NavToEditCustomer(customer))
+            _uiEvent.emit(CustomerListUiEvent.NavToCustomerDetail(customer))
 
+        }
+    }
+
+    fun navToRentTools(customerId: Long, customerName: String) {
+        viewModelScope.launch {
+            _uiEvent.emit(CustomerListUiEvent.NavToRentTools(customerId, customerName))
         }
     }
 
     fun navToRentals(customerId: Long, customerName: String) {
         viewModelScope.launch {
-            _uiEvent.send(CustomerListUiEvent.NavToCustomerRentals(customerId, customerName))
+            _uiEvent.emit(CustomerListUiEvent.NavToCustomerRentals(customerId, customerName))
         }
     }
 

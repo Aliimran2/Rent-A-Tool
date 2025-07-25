@@ -18,7 +18,6 @@ import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.showToast
 import com.miassolutions.rentatool.databinding.FragmentCustomersListBinding
 import com.miassolutions.rentatool.ui.adapters.CustomerListAdapter
-import com.miassolutions.rentatool.ui.fragments.forms.tool.ToolFormFragment
 import com.miassolutions.rentatool.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -53,9 +52,8 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             navToRentals = { customer ->
                 viewModel.navToRentals(customer.customerId, customer.customerName)
             },
-            navToDetails = { customer ->
-
-            }
+            navToDetails = { TODO() },
+            navToRentTools = {},
         )
         binding.rvCustomerList.adapter = adapter
 
@@ -92,7 +90,7 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                         )
                     }
 
-                    is CustomerListUiEvent.NavToEditCustomer -> {
+                    is CustomerListUiEvent.NavToCustomerDetail -> {
                         showToast("Navigation to edit customer")
                     }
 
@@ -100,8 +98,13 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                         showToast(event.message)
                     }
 
-                    is CustomerListUiEvent.NavToDetail -> {
-                        showToast("Navigation to details")
+                    is CustomerListUiEvent.NavToRentTools -> {
+                        val action = CustomersListFragmentDirections.actionCustomersListFragmentToToolSelectionFragment(
+                            event.customerId,
+                            event.customerName
+                        )
+
+                        findNavController().navigate(action)
                     }
                 }
             }

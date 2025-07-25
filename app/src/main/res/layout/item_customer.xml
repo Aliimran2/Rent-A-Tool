@@ -1,107 +1,154 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="12dp"
-
-    android:elevation="8dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        >
+        android:padding="8dp">
 
-
+        <!-- Profile Picture -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_customer"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/place_holder_image"
             app:civ_border_color="@color/civ_border"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_customer_name"
+            app:civ_border_width="1dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_customer_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-
+        <!-- Customer Name -->
         <TextView
             android:id="@+id/tv_customer_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:textAllCaps="true"
+            android:textColor="#212121"
+            app:layout_constraintStart_toEndOf="@id/iv_customer"
+            app:layout_constraintTop_toTopOf="@id/iv_customer"
+            app:layout_constraintBottom_toBottomOf="@id/iv_customer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_customer"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Muhammad Imran Ali Sajid" />
+            tools:text="IMRAN ALI SAJID" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/view"
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="2dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_customer_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_customer_name" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/customer_ledger_btn"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:text="@string/ledger"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/customer_rentals_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/customer_rentals_btn"
-            app:layout_constraintTop_toTopOf="@+id/customer_rentals_btn" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/customer_rentals_btn"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="2dp"
-            android:text="@string/rentals"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolSelectionBtn"
-            app:layout_constraintEnd_toStartOf="@+id/customer_ledger_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/toolSelectionBtn"
-            app:layout_constraintTop_toTopOf="@+id/toolSelectionBtn" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/toolSelectionBtn"
-            android:layout_width="0dp"
-
-            android:layout_height="40dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="2dp"
-            android:text="@string/rent_tools"
-            android:textSize="8sp"
-            app:layout_constraintEnd_toStartOf="@+id/customer_rentals_btn"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            android:background="@android:color/darker_gray"
+            android:alpha="0.15"
+            app:layout_constraintTop_toBottomOf="@id/iv_customer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!--        <com.google.android.material.divider.MaterialDivider-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="2dp"-->
-        <!--            android:layout_marginTop="4dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/customer_rentals_btn" />-->
+        <!-- Compact Actions -->
+        <LinearLayout
+            android:id="@+id/actions_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="3"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="4dp">
 
+            <!-- Tool Icon -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_rental"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rent_tools"
+                    android:textSize="10sp"
+                    android:textColor="#444"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Rentals Icon -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_add_tool"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rentals"
+                    android:textSize="10sp"
+                    android:textColor="#444"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Ledger Icon -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_ledger"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ledger"
+                    android:textSize="10sp"
+                    android:textColor="#444"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>

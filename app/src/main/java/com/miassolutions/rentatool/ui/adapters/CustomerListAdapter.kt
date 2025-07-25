@@ -11,7 +11,8 @@ import com.miassolutions.rentatool.ui.adapters.diffutil.CustomerDiffUtil
 
 class CustomerListAdapter(
     val navToRentals: (CustomerEntity) -> Unit,
-    val navToDetails: (CustomerEntity) -> Unit
+    val navToDetails: (CustomerEntity) -> Unit,
+    val navToRentTools: (CustomerEntity) -> Unit
 ) : ListAdapter<CustomerEntity, CustomerListAdapter.CustomerVH>(CustomerDiffUtil()) {
 
 
@@ -27,13 +28,13 @@ class CustomerListAdapter(
 
 
 
-                customerRentalsBtn.setOnClickListener {
-                    navToRentals(customer)
-                }
-
-                customerLedgerBtn.setOnClickListener {
-                    navToDetails(customer)
-                }
+//                customerRentalsBtn.setOnClickListener {
+//                    navToRentals(customer)
+//                }
+//
+//                customerLedgerBtn.setOnClickListener {
+//                    navToDetails(customer)
+//                }
 
             }
         }
