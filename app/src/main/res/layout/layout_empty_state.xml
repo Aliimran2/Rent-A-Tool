@@ -26,16 +26,5 @@
         android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/empty_state_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/empty_state_default_message"
-        android:textAppearance="?attr/textAppearanceBody2"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textAlignment="center" />
-
 
 </LinearLayout>

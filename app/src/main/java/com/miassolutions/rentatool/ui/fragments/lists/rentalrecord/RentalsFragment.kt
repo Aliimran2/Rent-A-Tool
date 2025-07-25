@@ -90,9 +90,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
     }
 
     private fun setupListeners() {
-        binding.btnRentTools.setOnClickListener {
-            viewModel.onRentToolsClick()
-        }
+
     }
 
     private fun setupUiState() {
