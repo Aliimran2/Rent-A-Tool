@@ -1,10 +1,11 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="6dp"
-    android:elevation="4dp"
+    android:elevation="8dp"
     app:cardCornerRadius="10dp"
     app:cardBackgroundColor="@android:color/white">
 
@@ -65,10 +66,11 @@
             app:layout_constraintTop_toBottomOf="@id/divider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="4dp">
+            >
 
             <!-- Tool Icon -->
             <LinearLayout
+                android:id="@+id/btn_select_tools"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -80,9 +82,9 @@
                 android:background="?attr/selectableItemBackgroundBorderless">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_rental"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_add_tool"
                     app:tint="?attr/colorPrimary" />
 
                 <TextView
@@ -96,6 +98,7 @@
 
             <!-- Rentals Icon -->
             <LinearLayout
+                android:id="@+id/btn_rentals"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -107,9 +110,9 @@
                 android:background="?attr/selectableItemBackgroundBorderless">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_add_tool"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_rental"
                     app:tint="?attr/colorPrimary" />
 
                 <TextView
@@ -123,6 +126,7 @@
 
             <!-- Ledger Icon -->
             <LinearLayout
+                android:id="@+id/btn_ledger"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -134,8 +138,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_ledger"
                     app:tint="?attr/colorPrimary" />
 

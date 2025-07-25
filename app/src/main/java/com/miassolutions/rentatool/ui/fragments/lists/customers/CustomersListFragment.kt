@@ -52,8 +52,15 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
             navToRentals = { customer ->
                 viewModel.navToRentals(customer.customerId, customer.customerName)
             },
-            navToDetails = { TODO() },
-            navToRentTools = {},
+            navToDetails = { customer ->
+                // to details for update or delete customer
+            },
+            navToRentTools = { customer ->
+                viewModel.navToRentTools(customer.customerId, customer.customerName)
+            },
+            navToLedger = {customer ->
+                // to ledger of customer
+            },
         )
         binding.rvCustomerList.adapter = adapter
 
@@ -99,10 +106,11 @@ class CustomersListFragment : Fragment(R.layout.fragment_customers_list) {
                     }
 
                     is CustomerListUiEvent.NavToRentTools -> {
-                        val action = CustomersListFragmentDirections.actionCustomersListFragmentToToolSelectionFragment(
-                            event.customerId,
-                            event.customerName
-                        )
+                        val action =
+                            CustomersListFragmentDirections.actionCustomersListFragmentToToolSelectionFragment(
+                                event.customerId,
+                                event.customerName
+                            )
 
                         findNavController().navigate(action)
                     }
