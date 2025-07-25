@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:hint="@string/search_customer"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomEnd="24dp"
+        app:boxCornerRadiusBottomStart="24dp"
+        app:boxCornerRadiusTopEnd="24dp"
+        app:boxCornerRadiusTopStart="24dp"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeOptions="actionSearch"
-            android:inputType="text" />
+            android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
