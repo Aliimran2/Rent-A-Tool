@@ -30,7 +30,7 @@ class RentalConfirmationFragment : Fragment(R.layout.fragment_rental_confirmatio
         selectedTools = gson.fromJson(args.selectedToolsJson,selectedToolsType)
 
         selectedTools.forEach {
-        Log.d(Constants.TAG, "${it.toolId} - ${it.toolName} - ${it.quantity}")
+        Log.d(Constants.TAG, "${it.toolId} - ${it.toolName} - ${it.quantity} - ${args.estReturnDate}")
 
         }
 

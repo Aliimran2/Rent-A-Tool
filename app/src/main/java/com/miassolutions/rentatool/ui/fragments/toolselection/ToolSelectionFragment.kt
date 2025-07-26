@@ -35,6 +35,8 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentToolsSelectionBinding.bind(view)
 
+        viewModel.clearSelection()
+
         customerId = args.customerId
         customerName = args.customerName
 
@@ -99,6 +101,8 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
     }
 
 
+
+
     private fun setupRecyclerview() {
         adapter = ToolListAdapterForRenting(
             onToolChecked = { toolId, isChecked, quantity ->
@@ -117,7 +121,14 @@ class ToolSelectionFragment : Fragment(R.layout.fragment_tools_selection) {
         collectingFlow {
             viewModel.uiState.collect { state ->
                 adapter.submitList(state.tools)
+
+                // Clear or show selected date
+                binding.etEstimatedDate.setText(
+                    state.selectedDate?.toFormattedDate() ?: ""
+                )
             }
+
+
 
 
         }

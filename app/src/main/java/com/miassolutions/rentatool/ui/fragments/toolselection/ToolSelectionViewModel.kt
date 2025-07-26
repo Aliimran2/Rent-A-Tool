@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -82,6 +83,14 @@ class ToolSelectionViewModel @Inject constructor(
 
     fun onSearchChanged(query: String) {
         loadTools(query)
+    }
+
+    fun clearSelection() {
+        selectedTools.clear()
+        _uiState.value = _uiState.value.copy(
+            selectedDate = null,
+            selectedTools = emptyList()
+        )
     }
 
     fun onSubmitClicked() {
