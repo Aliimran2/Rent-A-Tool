@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.miassolutions.rentatool.R
 import com.miassolutions.rentatool.databinding.FragmentToolsSelectionBinding
-import com.miassolutions.rentatool.ui.adapters.ToolListAdapterForRenting
 import com.miassolutions.rentatool.utils.extenstions.collectingFlow
 import com.miassolutions.rentatool.utils.extenstions.showDatePicker
 import com.miassolutions.rentatool.utils.extenstions.showToast

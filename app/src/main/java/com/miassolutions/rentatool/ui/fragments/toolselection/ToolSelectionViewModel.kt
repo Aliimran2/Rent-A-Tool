@@ -26,7 +26,7 @@ class ToolSelectionViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<ToolSelectionUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private var selectedTools = mutableMapOf<Long, Int>()
+    private val selectedTools = mutableListOf<SelectedTool>()
 
     init {
         loadTools()
@@ -50,17 +50,19 @@ class ToolSelectionViewModel @Inject constructor(
 
     fun onToolChecked(toolId: Long, isChecked: Boolean, quantity: Int = 1) {
         if (isChecked) {
-            selectedTools[toolId] = quantity
+            selectedTools.removeAll { it.toolId == toolId }
+            selectedTools.add(SelectedTool(toolId, quantity))
         } else {
-            selectedTools.remove(toolId)
+            selectedTools.removeAll { it.toolId == toolId }
         }
-        _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toMap())
+        _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
     }
 
     fun onQuantityChanged(toolId: Long, quantity: Int) {
-        if (toolId in selectedTools) {
-            selectedTools[toolId] = quantity
-            _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toMap())
+        val index = selectedTools.indexOfFirst { it.toolId == toolId }
+        if (index != -1) {
+            selectedTools[index] = SelectedTool(toolId, quantity)
+            _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
         }
     }
 
@@ -83,10 +85,16 @@ class ToolSelectionViewModel @Inject constructor(
             viewModelScope.launch {
                 _uiEvent.emit(ToolSelectionUiEvent.ShowToast("Select at least one tool"))
             }
-        } else {
+            return
+        }
+        if (_uiState.value.selectedDate == null) {
             viewModelScope.launch {
-                _uiEvent.emit(ToolSelectionUiEvent.NavigateToConfirmation)
+                _uiEvent.emit(ToolSelectionUiEvent.ShowToast("Please select a date"))
             }
+            return
+        }
+        viewModelScope.launch {
+            _uiEvent.emit(ToolSelectionUiEvent.NavigateToConfirmation)
         }
     }
 }
