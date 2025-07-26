@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -63,6 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation("com.google.code.gson:gson:2.13.1")
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.9.2")

@@ -2,6 +2,7 @@ package com.miassolutions.rentatool.di
 
 import android.content.Context
 import androidx.room.Room
+import com.google.gson.Gson
 import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.RentalOrderDao
 import com.miassolutions.rentatool.data.dao.RentalTransactionDao
@@ -55,6 +56,9 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun providesTransactionDao(db: AppDatabase): RentalTransactionDao = db.rentalTransactionDao()
+
+    @Provides
+    fun providesGson() : Gson = Gson()
 
 
 }

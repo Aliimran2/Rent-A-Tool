@@ -95,7 +95,19 @@
         android:id="@+id/rentalConfirmationFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.confirmation.RentalConfirmationFragment"
         android:label="RentalConfirmationFragment"
-        tools:layout="@layout/fragment_rental_confirmation" />
+        tools:layout="@layout/fragment_rental_confirmation" >
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+        <argument android:name="customerName"
+            app:argType="string" />
+        <argument
+            android:name="selectedToolsJson"
+            app:argType="string" />
+        <argument
+            android:name="estReturnDate"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/returnConfirmationFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.confirmation.ReturnConfirmationFragment"
