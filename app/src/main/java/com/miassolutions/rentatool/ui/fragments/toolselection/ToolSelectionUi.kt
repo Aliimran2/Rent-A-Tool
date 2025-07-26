@@ -7,6 +7,7 @@ import java.time.LocalDate
 data class SelectedTool(
     val toolId: Long,
     val toolName : String,
+    val rentPricePerDay : Double,
     val quantity: Int
 )
 

@@ -38,7 +38,7 @@ class ToolSelectionViewModel @Inject constructor(
         loadTools()
     }
 
-    fun loadTools(query: String = "") {
+    private fun loadTools(query: String = "") {
         viewModelScope.launch {
             toolRepository.getToolsWithAvailability().collect { tools ->
                 val filtered = if (query.isBlank()) tools
@@ -58,8 +58,10 @@ class ToolSelectionViewModel @Inject constructor(
         selectedTools.removeAll { it.toolId == toolId }
         val toolName =
             _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.name ?: "Unknown"
+
+        val rentPerDay = _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.rentPricePerDay ?: 0.0
         if (isChecked) {
-            selectedTools.add(SelectedTool(toolId, toolName, quantity))
+            selectedTools.add(SelectedTool(toolId, toolName, rentPerDay,quantity))
         }
         _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
     }
@@ -68,8 +70,10 @@ class ToolSelectionViewModel @Inject constructor(
         val index = selectedTools.indexOfFirst { it.toolId == toolId }
         val toolName =
             _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.name ?: "Unknown"
+
+        val rentPerDay = _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.rentPricePerDay ?: 0.0
         if (index != -1) {
-            selectedTools[index] = SelectedTool(toolId,toolName, quantity)
+            selectedTools[index] = SelectedTool(toolId,toolName,rentPerDay, quantity)
             _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
         }
     }

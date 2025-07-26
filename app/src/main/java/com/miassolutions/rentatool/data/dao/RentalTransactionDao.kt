@@ -7,6 +7,8 @@ import androidx.room.Transaction
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
+import com.miassolutions.rentatool.ui.fragments.toolselection.SelectedTool
+import java.time.LocalDate
 
 @Dao
 interface RentalTransactionDao {
@@ -23,23 +25,40 @@ interface RentalTransactionDao {
     @Query("UPDATE rented_tools SET remainingQuantity = remainingQuantity - :qty WHERE rentedToolId = :rentedToolId")
     suspend fun updateRemainingQty(rentedToolId: Long, qty: Int)
 
-    /**
-     * Save order and rented tools in a single transaction
-     */
+
     @Transaction
     suspend fun performRentalTransaction(
-        order: RentalOrderEntity,
-        tools: List<RentedToolEntity>
+        customerId: Long,
+        selectedTools: List<SelectedTool>
     ) {
-        val orderId = insertOrder(order)
-        val updatedTools = tools.map { it.copy(orderId = orderId) }
-        insertRentedTools(updatedTools)
-        // ToolEntity stock is no longer updated here, it's computed at runtime
+        if (selectedTools.isEmpty()) return
+
+        val totalAmount = selectedTools.sumOf { it.quantity * it.rentPricePerDay }
+
+        val rentalOrder = RentalOrderEntity(
+            orderId = 0L,
+            customerId = customerId,
+            rentDate = LocalDate.now(),
+            totalAmount = totalAmount,
+            isClosed = false
+        )
+
+        val orderId = insertOrder(rentalOrder)
+
+        val rentedTools = selectedTools.map {
+            RentedToolEntity(
+                rentedToolId = 0L,
+                orderId = orderId,
+                toolId = it.toolId,
+                rentedQuantity = it.quantity,
+                remainingQuantity = it.quantity,
+            )
+        }
+
+        insertRentedTools(rentedTools)
     }
 
-    /**
-     * Save returned tools and update remaining quantity
-     */
+
     @Transaction
     suspend fun performReturnTransaction(
         returnList: List<ReturnedToolEntity>

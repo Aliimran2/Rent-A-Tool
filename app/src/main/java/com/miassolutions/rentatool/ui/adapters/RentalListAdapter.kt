@@ -37,7 +37,6 @@ class RentalListAdapter(
             binding.apply {
                 tvOrderDate.text = item.rentalOrder.rentDate.toString()
                 tvRentAmount.text = item.rentalOrder.totalAmount.toString()
-                tvEstimatedReturn.text = item.rentalOrder.estimatedReturnDate.toString()
                 tvOrderStatus.text = if(item.rentalOrder.isClosed) "Active" else "Closed"
 
                 btnReturnTools.setOnClickListener {

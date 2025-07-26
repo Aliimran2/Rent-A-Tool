@@ -17,12 +17,4 @@ data class RentalWithTools(
     val rentedTools: List<RentedToolWithToolDetails>
 )
 
-data class RentedToolWithToolDetails(
-    @Embedded val rentedTool: RentedToolEntity,
 
-    @Relation(
-        parentColumn = "toolId",
-        entityColumn = "toolId"
-    )
-    val tool: ToolEntity
-)

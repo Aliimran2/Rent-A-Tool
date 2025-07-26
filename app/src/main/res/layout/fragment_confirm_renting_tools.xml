@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/confirmation_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Heading -->
+    <TextView
+        android:id="@+id/tv_confirmation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Rental"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Date info -->
+    <TextView
+        android:id="@+id/tv_selected_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return Date: 25 July 2025"
+        android:textSize="16sp"
+        android:paddingBottom="12dp" />
+
+    <!-- RecyclerView: selected tools -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_selected_tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        tools:listitem="@layout/item_selected_tool" />
+
+    <!-- Total Amount -->
+    <TextView
+        android:id="@+id/tv_total_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: Rs. 0.00"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="end"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp" />
+
+    <!-- Confirm Button -->
+    <Button
+        android:id="@+id/btn_confirm_rental"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Rental" />
+
+</LinearLayout>
