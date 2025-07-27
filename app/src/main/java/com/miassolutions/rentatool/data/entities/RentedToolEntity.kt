@@ -29,7 +29,7 @@ data class RentedToolEntity(
     val orderId: Long,
     val toolId: Long,
     val rentedQuantity: Int,
-    val rentPricePerDay: Double = 0.0,
+    val rentPricePerDay: Double ,
     val daysRented: Int = 0,
     val remainingQuantity: Int // To track partial returns
 )

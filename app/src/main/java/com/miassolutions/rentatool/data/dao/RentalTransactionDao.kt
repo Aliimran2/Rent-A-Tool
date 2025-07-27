@@ -7,7 +7,7 @@ import androidx.room.Transaction
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
-import com.miassolutions.rentatool.ui.fragments.toolselection.SelectedTool
+import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import java.time.LocalDate
 
 @Dao
@@ -52,6 +52,7 @@ interface RentalTransactionDao {
                 toolId = it.toolId,
                 rentedQuantity = it.quantity,
                 remainingQuantity = it.quantity,
+                rentPricePerDay = it.rentPricePerDay
             )
         }
 
@@ -66,7 +67,6 @@ interface RentalTransactionDao {
         insertReturnedTools(returnList)
         returnList.forEach {
             updateRemainingQty(it.rentedToolId, it.returnedQuantity)
-            // ToolEntity availableQuantity is not updated directly
         }
     }
 }

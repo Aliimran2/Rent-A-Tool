@@ -30,15 +30,15 @@ interface ToolDao {
     suspend fun getToolById(toolId: Long): ToolEntity?
 
     @Query("""
-        SELECT t.*, 
-        IFNULL(t.totalQuantity - 
-            (SELECT SUM(rt.rentedQuantity - rt.remainingQuantity) 
-             FROM rented_tools rt 
-             WHERE rt.toolId = t.toolId), 
-        t.totalQuantity) AS availableQuantity
-        FROM tools t
-        ORDER BY t.name ASC
-    """)
+    SELECT 
+        t.*,
+        IFNULL(SUM(rt.remainingQuantity), 0) AS rentedQuantity
+    FROM tools t
+    LEFT JOIN rented_tools rt ON t.toolId = rt.toolId
+    LEFT JOIN rental_orders ro ON rt.orderId = ro.orderId
+    WHERE ro.isClosed = 0 OR ro.isClosed IS NULL
+    GROUP BY t.toolId
+""")
     fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>>
 
 
