@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.miassolutions.rentatool.data.repository.ToolRepository
+import com.miassolutions.rentatool.data.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ToolSelectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val toolRepository: ToolRepository,
+    private val toolRepository: MainRepository,
     private val gson: Gson
 ) : ViewModel() {
 

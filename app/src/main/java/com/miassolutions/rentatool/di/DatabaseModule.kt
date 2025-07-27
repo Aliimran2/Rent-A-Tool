@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.RentalOrderDao
+import com.miassolutions.rentatool.data.dao.RentalRelationsDao
 import com.miassolutions.rentatool.data.dao.RentalTransactionDao
 import com.miassolutions.rentatool.data.dao.RentedToolDao
 import com.miassolutions.rentatool.data.dao.ReturnedToolDao
@@ -59,6 +60,12 @@ object DatabaseModule {
 
     @Provides
     fun providesGson() : Gson = Gson()
+
+    @Provides
+    @Singleton
+    fun provideRentalRelationsDao(appDatabase: AppDatabase): RentalRelationsDao {
+        return appDatabase.rentalRelationsDao() // Assuming your AppDatabase has a method like this
+    }
 
 
 }

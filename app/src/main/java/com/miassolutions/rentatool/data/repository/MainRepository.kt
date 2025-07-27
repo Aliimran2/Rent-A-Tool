@@ -101,6 +101,10 @@ class MainRepository @Inject constructor(
     suspend fun getRentalOrderWithRentedToolsById(orderId: Long): RentalOrderWithRentedTools? =
         rentalOrderDao.getRentalOrderWithRentedToolsById(orderId)
 
+    fun getOrdersWithRentedTools(customerId: Long): Flow<List<RentalOrderWithRentedTools>> {
+        return rentalOrderDao.getRentalOrdersWithRentedToolsByCustomer(customerId)
+    }
+
     fun getRentalOrdersWithRentedToolsByCustomer(customerId: Long): Flow<List<RentalOrderWithRentedTools>> =
         rentalOrderDao.getRentalOrdersWithRentedToolsByCustomer(customerId)
 

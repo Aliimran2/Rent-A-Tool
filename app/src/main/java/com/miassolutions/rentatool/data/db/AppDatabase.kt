@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.miassolutions.rentatool.data.converter.LocalDateConverter
 import com.miassolutions.rentatool.data.dao.CustomerDao
 import com.miassolutions.rentatool.data.dao.RentalOrderDao
+import com.miassolutions.rentatool.data.dao.RentalRelationsDao
 import com.miassolutions.rentatool.data.dao.RentalTransactionDao
 import com.miassolutions.rentatool.data.dao.RentedToolDao
 import com.miassolutions.rentatool.data.dao.ReturnedToolDao
@@ -38,6 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun rentedToolDao(): RentedToolDao
     abstract fun returnToolDao(): ReturnedToolDao
     abstract fun rentalTransactionDao() : RentalTransactionDao
+    abstract fun rentalRelationsDao() : RentalRelationsDao
 
 
     fun clearAllTablesAndReset() {

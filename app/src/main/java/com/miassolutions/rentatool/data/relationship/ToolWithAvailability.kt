@@ -6,8 +6,12 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 data class ToolWithAvailability(
     @Embedded val tool: ToolEntity,
     val rentedQuantity: Int
-){
-    val availableQuantity : Int
+) {
+    val availableQuantity: Int
         get() = tool.totalQuantity - rentedQuantity
+
+    val displayQuantity: String
+        get() = "$availableQuantity / ${tool.totalQuantity}"
 }
+
 

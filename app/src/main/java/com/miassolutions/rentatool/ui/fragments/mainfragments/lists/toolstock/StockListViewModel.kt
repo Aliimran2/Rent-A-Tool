@@ -2,7 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.lists.toolstock
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repositoryimpl.ToolRepositoryImpl
+import com.miassolutions.rentatool.data.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StockListViewModel @Inject constructor(private val repository: ToolRepositoryImpl) :
+class StockListViewModel @Inject constructor(private val repository: MainRepository) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(StockUiState())
@@ -60,7 +60,7 @@ class StockListViewModel @Inject constructor(private val repository: ToolReposit
                                 list.map { it.toUiModel() }
                             }
                     } else {
-                        repository.searchTool(query)
+                        repository.searchTools(query)
                             .map { list ->
                                 list.map { it.toUiModel() }
                             }
@@ -90,38 +90,5 @@ class StockListViewModel @Inject constructor(private val repository: ToolReposit
     }
 
 
-//    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-//    private fun observeStockList() {
-//        viewModelScope.launch {
-//
-//            _uiState.map { it.searchQuery }
-//
-//                .debounce(300L)
-//                .distinctUntilChanged()
-//                .flatMapLatest { query ->
-//                    _uiState.update { it.copy(isLoading = true, errorMessage = null) }
-//                    try {
-//
-//                        if (query.isBlank()) {
-//                            toolRepository.getToolsWithAvailability()
-//                        } else {
-//                            toolRepository.getToolsWithAvailability().
-//                        }
-//                    } catch (e: Exception) {
-//                        _uiState.update { it.copy(errorMessage = "Failed to load tools : ${e.message}") }
-//                        flowOf(emptyList())
-//                    }
-//
-//                }.collect { stockList ->
-//                    _uiState.update {
-//                        it.copy(
-//                            stockList = stockList,
-//                            isLoading = false,
-//                            errorMessage = null
-//                        )
-//                    }
-//                }
-//        }
-//    }
 
 }

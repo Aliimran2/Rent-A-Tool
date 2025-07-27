@@ -3,7 +3,7 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.lists.customers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miassolutions.rentatool.data.entities.CustomerEntity
-import com.miassolutions.rentatool.data.repositoryimpl.CustomerRepositoryImpl
+import com.miassolutions.rentatool.data.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-class CustomerListViewModel @Inject constructor(private val repository: CustomerRepositoryImpl) :
+class CustomerListViewModel @Inject constructor(private val repository: MainRepository) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(CustomerListUiState())

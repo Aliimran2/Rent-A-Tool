@@ -4,10 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.miassolutions.rentatool.data.repositoryimpl.RentalRepositoryImpl
+import com.miassolutions.rentatool.data.repository.MainRepository
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -15,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConfirmationViewModel @Inject constructor(
-    private val repository: RentalRepositoryImpl
+    private val repository: MainRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConfirmationUiState())

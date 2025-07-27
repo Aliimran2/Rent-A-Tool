@@ -5,7 +5,7 @@ import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 data class StockUiState(
     val isLoading: Boolean = false,
     val searchQuery : String = "",
-    val stockList: List<ToolWithAvailability> = emptyList(),
+    val stockList: List<ToolUiModel> = emptyList(),
     val errorMessage: String? = null,
     val isEmpty : Boolean = false
 )

@@ -3,7 +3,7 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.lists.rentalrecor
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miassolutions.rentatool.data.repository.RentalOrderRepository
+import com.miassolutions.rentatool.data.repository.MainRepository
 import com.miassolutions.rentatool.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RentalsViewModel @Inject constructor(
-    private val rentalOrderRepository: RentalOrderRepository
+    private val repository: MainRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RentalsUiState())
@@ -37,7 +37,7 @@ class RentalsViewModel @Inject constructor(
             }
 
             try {
-                rentalOrderRepository.getOrdersWithRentedTools(customerId).collect { orders ->
+                repository.getOrdersWithRentedTools(customerId).collect { orders ->
                     val totalRent = orders.sumOf { order ->
                         val rentDays = ChronoUnit.DAYS.between(order.rentalOrder.rentDate, LocalDate.now()).coerceAtLeast(1)
                         order.rentedTools.sumOf { tool ->

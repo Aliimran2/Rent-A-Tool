@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.databinding.ItemStockToolsBinding
 
-class ToolListAdapter : ListAdapter<ToolWithAvailability, ToolListAdapter.ToolVH>(StockDiff()) {
+class ToolListAdapter : ListAdapter<ToolUiModel, ToolListAdapter.ToolVH>(StockDiff()) {
 
 
     class ToolVH(private val binding: ItemStockToolsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ToolWithAvailability) {
+        fun bind(item: ToolUiModel) {
             binding.apply {
-                tvToolName.text = item.tool.name
-                tvAvailablCount.text = "${item.availableQuantity}/${item.tool.totalQuantity}"
-                tvRentPerDay.text = "${item.tool.rentPricePerDay.toInt()} Rs/day"
+                tvToolName.text = item.name
+                tvAvailablCount.text = "${item.availability}/${item.totalQuantity}"
+                tvRentPerDay.text = "${item.rentPerDay} Rs/day"
             }
         }
     }
@@ -37,19 +37,14 @@ class ToolListAdapter : ListAdapter<ToolWithAvailability, ToolListAdapter.ToolVH
 
 }
 
-class StockDiff : DiffUtil.ItemCallback<ToolWithAvailability>() {
-    override fun areItemsTheSame(
-        oldItem: ToolWithAvailability,
-        newItem: ToolWithAvailability
-    ): Boolean {
-        return oldItem.tool.toolId == newItem.tool.toolId
+class StockDiff : DiffUtil.ItemCallback<ToolUiModel>() {
+    override fun areItemsTheSame(oldItem: ToolUiModel, newItem: ToolUiModel): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(
-        oldItem: ToolWithAvailability,
-        newItem: ToolWithAvailability
-    ): Boolean {
+    override fun areContentsTheSame(oldItem: ToolUiModel, newItem: ToolUiModel): Boolean {
         return oldItem == newItem
     }
+
 
 }
