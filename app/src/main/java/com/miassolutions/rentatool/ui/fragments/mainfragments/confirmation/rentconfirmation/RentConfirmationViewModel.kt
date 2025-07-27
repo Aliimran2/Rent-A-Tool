@@ -39,7 +39,7 @@ class ConfirmationViewModel @Inject constructor(
         val days = ChronoUnit.DAYS.between(LocalDate.now(), estReturnDate)
             .toInt().coerceAtLeast(1)
 
-        val total = tools.sumOf { it.quantity * it.rentPricePerDay * days }
+        val total = tools.sumOf { it.rentedQuantity * it.rentPricePerDay * days }
 
         _uiState.update {
             it.copy(

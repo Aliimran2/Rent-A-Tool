@@ -8,7 +8,8 @@ data class SelectedTool(
     val toolId: Long,
     val toolName : String,
     val rentPricePerDay : Double,
-    val quantity: Int
+    val rentedQuantity: Int,
+    val remainingQuantity: Int
 )
 
 data class ToolSelectionUiState(

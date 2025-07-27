@@ -24,7 +24,7 @@ data class ToolUiModel(
     val id: Long,
     val name: String,
     val totalQuantity: Int,
-    val availability: Int,
+    val availability: String,
     val rentPerDay: Double
 )
 
@@ -33,7 +33,7 @@ fun ToolWithAvailability.toUiModel(): ToolUiModel {
         id = tool.toolId,
         name = tool.name,
         totalQuantity = tool.totalQuantity,
-        availability = availableQuantity,
+        availability = availableQuantity.toString(),
         rentPerDay = tool.rentPricePerDay
     )
 }

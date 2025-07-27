@@ -19,7 +19,9 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     private val args: RentalsFragmentArgs by navArgs()
     private val viewModel by viewModels<RentalsViewModel>()
-    private val adapter = RentalListAdapter()
+    private val adapter = RentalListAdapter{
+        viewModel.onRentalClick(it)
+    }
 
     private var _binding: FragmentRentalsBinding? = null
     private val binding get() = _binding!!
@@ -51,10 +53,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         collectingFlow {
             viewModel.uiEvent.collect { event ->
                 when (event) {
-                    is RentalsUiEvent.NavigationToRentTools -> {
 
-
-                    }
 
                     is RentalsUiEvent.NavigationToRentalDetail -> {
                         val action =

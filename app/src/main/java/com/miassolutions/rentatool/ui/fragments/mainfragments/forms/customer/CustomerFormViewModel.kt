@@ -54,8 +54,7 @@ class CustomerFormViewModel @Inject constructor(private val repository: MainRepo
             )
 
         viewModelScope.launch {
-            val result = repository.insertCustomer(customerEntity)
-            when (result) {
+            when (val result = repository.insertCustomer(customerEntity)) {
 
                 is CustomerResult.Failure -> {
                     _uiEvent.emit(CustomerUiEvent.ShowToast(result.message))

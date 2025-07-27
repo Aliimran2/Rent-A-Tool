@@ -33,7 +33,7 @@ interface RentalTransactionDao {
     ) {
         if (selectedTools.isEmpty()) return
 
-        val totalAmount = selectedTools.sumOf { it.quantity * it.rentPricePerDay }
+        val totalAmount = selectedTools.sumOf { it.rentedQuantity * it.rentPricePerDay }
 
         val rentalOrder = RentalOrderEntity(
             orderId = 0L,
@@ -50,8 +50,8 @@ interface RentalTransactionDao {
                 rentedToolId = 0L,
                 orderId = orderId,
                 toolId = it.toolId,
-                rentedQuantity = it.quantity,
-                remainingQuantity = it.quantity,
+                rentedQuantity = it.rentedQuantity,
+                remainingQuantity = it.remainingQuantity,
                 rentPricePerDay = it.rentPricePerDay
             )
         }

@@ -59,24 +59,27 @@ class ToolSelectionViewModel @Inject constructor(
 
     fun onToolChecked(toolId: Long, isChecked: Boolean, quantity: Int = 1) {
         selectedTools.removeAll { it.toolId == toolId }
-        val toolName =
-            _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.name ?: "Unknown"
+        val tool = _uiState.value.tools.find { it.tool.toolId == toolId }
+        val toolName = tool?.tool?.name ?: "Unknown"
+        val rentPerDay = tool?.tool?.rentPricePerDay ?: 0.0
+        val remaining = tool?.availableQuantity ?: 0
 
-        val rentPerDay = _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.rentPricePerDay ?: 0.0
         if (isChecked) {
-            selectedTools.add(SelectedTool(toolId, toolName, rentPerDay,quantity))
+            selectedTools.add(SelectedTool(toolId, toolName, rentPerDay,quantity, remaining))
         }
         _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
     }
 
     fun onQuantityChanged(toolId: Long, quantity: Int) {
         val index = selectedTools.indexOfFirst { it.toolId == toolId }
-        val toolName =
-            _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.name ?: "Unknown"
 
-        val rentPerDay = _uiState.value.tools.find { it.tool.toolId == toolId }?.tool?.rentPricePerDay ?: 0.0
+        val tool = _uiState.value.tools.find { it.tool.toolId == toolId }
+        val toolName = tool?.tool?.name ?: "Unknown"
+        val rentPerDay = tool?.tool?.rentPricePerDay ?: 0.0
+        val remaining = tool?.availableQuantity ?: 0
+
         if (index != -1) {
-            selectedTools[index] = SelectedTool(toolId,toolName,rentPerDay, quantity)
+            selectedTools[index] = SelectedTool(toolId,toolName,rentPerDay, quantity, remaining)
             _uiState.value = _uiState.value.copy(selectedTools = selectedTools.toList())
         }
     }

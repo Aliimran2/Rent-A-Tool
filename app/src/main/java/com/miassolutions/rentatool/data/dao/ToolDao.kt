@@ -29,7 +29,7 @@ interface ToolDao {
     @Query("""
         SELECT 
             t.*,
-            IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0) AS rentedQuantity
+            (t.totalQuantity - IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0)) AS availableQuantity
         FROM tools t
         LEFT JOIN rented_tools rt ON t.toolId = rt.toolId
         LEFT JOIN rental_orders ro ON rt.orderId = ro.orderId
@@ -42,7 +42,7 @@ interface ToolDao {
     @Query("""
         SELECT 
             t.*,
-            IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0) AS rentedQuantity
+            (t.totalQuantity - IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0)) AS availableQuantity
         FROM tools t
         LEFT JOIN rented_tools rt ON t.toolId = rt.toolId
         LEFT JOIN rental_orders ro ON rt.orderId = ro.orderId
@@ -56,7 +56,7 @@ interface ToolDao {
     @Query("""
         SELECT 
             t.*,
-            IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0) AS rentedQuantity
+            (t.totalQuantity - IFNULL(SUM(rt.rentedQuantity - rt.remainingQuantity), 0)) AS availableQuantity
         FROM tools t
         LEFT JOIN rented_tools rt ON t.toolId = rt.toolId
         LEFT JOIN rental_orders ro ON rt.orderId = ro.orderId
@@ -64,7 +64,7 @@ interface ToolDao {
           AND (:name IS NULL OR LOWER(t.name) LIKE LOWER('%' || :name || '%'))
         GROUP BY t.toolId
         HAVING 
-          (:minAvailable IS NULL OR (t.totalQuantity - rentedQuantity) >= :minAvailable)
+          (:minAvailable IS NULL OR availableQuantity >= :minAvailable)
           AND (:minItems IS NULL OR t.totalQuantity >= :minItems)
         ORDER BY t.name ASC
     """)
@@ -74,3 +74,4 @@ interface ToolDao {
         minItems: Int?
     ): Flow<List<ToolWithAvailability>>
 }
+

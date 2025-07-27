@@ -14,8 +14,6 @@ data class RentalsUiState(
 )
 
 sealed class RentalsUiEvent {
-    data class NavigationToRentTools(val customerId: Long, val customerName: String) :
-        RentalsUiEvent()
 
     data class NavigationToReturnTools(val orderId: Long, val customerName: String) :
         RentalsUiEvent()

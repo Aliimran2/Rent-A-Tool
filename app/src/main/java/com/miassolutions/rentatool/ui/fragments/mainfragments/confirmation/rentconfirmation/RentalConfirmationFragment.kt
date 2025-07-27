@@ -51,7 +51,7 @@ class RentalConfirmationFragment : Fragment(R.layout.fragment_confirm_renting_to
         selectedTools.forEach {
             Log.d(
                 Constants.TAG,
-                "${it.toolId} - ${it.toolName} - ${it.quantity} - ${args.estReturnDate}"
+                "${it.toolId} - ${it.toolName} - ${it.rentedQuantity} - ${it.rentPricePerDay} - ${args.estReturnDate}"
             )
 
         }

@@ -9,7 +9,7 @@ import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 import com.miassolutions.rentatool.databinding.ItemRentalOrderBinding
 
 class RentalListAdapter(
-
+        private val onItemClicked: (Long) ->Unit
 ) : ListAdapter<RentalOrderWithRentedTools, RentalListAdapter.RentalVH>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RentalOrderWithRentedTools>() {
@@ -39,7 +39,7 @@ class RentalListAdapter(
                 tvOrderStatus.text = if(item.rentalOrder.isClosed) "Active" else "Closed"
 
                 btnReturnTools.setOnClickListener {
-                    //TODO()
+                    onItemClicked(item.rentalOrder.orderId)
                 }
 
 

@@ -18,7 +18,7 @@ class SelectedToolAdapter : ListAdapter<SelectedTool, SelectedToolAdapter.ToolVi
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: SelectedTool) {
             binding.tvToolName.text = tool.toolName
-            binding.tvToolQuantity.text = "Qty: ${tool.quantity}"
+            binding.tvToolQuantity.text = "Qty: ${tool.rentedQuantity}"
             binding.tvToolRate.text = "Rs. ${tool.rentPricePerDay}/day"
         }
     }
