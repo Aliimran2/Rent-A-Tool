@@ -81,12 +81,12 @@
         android:name="com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolsFragment"
         android:label="fragment_return_tools"
         tools:layout="@layout/fragment_return_tools">
-        <argument
-            android:name="orderId"
-            app:argType="long" />
         <action
             android:id="@+id/action_returnToolsFragment_to_returnConfirmationFragment"
             app:destination="@id/returnConfirmationFragment" />
+        <argument
+            android:name="customerId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/rentalConfirmationFragment"
