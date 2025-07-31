@@ -18,4 +18,18 @@ interface RentedToolDao {
     @Query("SELECT * FROM rented_tools WHERE orderId = :orderId")
     suspend fun getRentedToolsForOrder(orderId: Long): List<RentedToolEntity>
 
+    @Query("""
+    SELECT * FROM rented_tools
+    WHERE toolId = :toolId AND orderId IN (
+        SELECT orderId FROM rental_orders
+        WHERE customerId = :customerId AND isClosed = 0
+    )
+    LIMIT 1
+""")
+    suspend fun getRentedToolByCustomerAndTool(customerId: Long, toolId: Int): RentedToolEntity?
+
+    @Query("SELECT COUNT(*) FROM rented_tools WHERE orderId = :rentalOrderId AND remainingQuantity > 0")
+    suspend fun countRemainingTools(rentalOrderId: Long): Int
+
+
 }

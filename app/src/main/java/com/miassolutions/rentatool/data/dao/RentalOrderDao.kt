@@ -27,4 +27,10 @@ interface RentalOrderDao {
 
     @Query("DELETE FROM rental_orders WHERE orderId = :orderId")
     suspend fun deleteRentalOrderById(orderId: Long)
+
+    @Query("SELECT * FROM rental_orders WHERE customerId = :customerId AND isClosed = 0")
+    suspend fun getRentalOrdersByCustomer(customerId: Long): List<RentalOrderEntity>
+
+    @Update
+    suspend fun updateRentalOrder(order: RentalOrderEntity)
 }

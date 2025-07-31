@@ -68,7 +68,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
                         val action =
                             RentalsFragmentDirections.actionFragmentRentalsToReturnToolsFragment(
                                 event.orderId,
-                                event.customerName
+
                             )
                         findNavController().navigate(action)
                     }

@@ -16,6 +16,10 @@ interface RentalRelationsDao {
     @Transaction
     @Query("SELECT * FROM rental_orders WHERE orderId = :orderId")
     suspend fun getRentalWithToolsByOrderId(orderId: Long): RentalWithTools
+
+    @Transaction
+    @Query("SELECT * FROM rental_orders WHERE customerId = :customerId AND isClosed = 0")
+    suspend fun getActiveRentalWithTools(customerId: Long): List<RentalWithTools>
 }
 
 

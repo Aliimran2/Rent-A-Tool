@@ -16,6 +16,7 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 import com.miassolutions.rentatool.data.relationship.RentalWithTools
 import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
+import com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolItem
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -81,17 +82,17 @@ class MainRepository @Inject constructor(
     suspend fun getToolByName(name: String): ToolEntity? =
         toolDao.getToolByName(name)
 
-    fun getAllTools(): Flow<List<ToolEntity>> =
-        toolDao.getAllTools()
+//    fun getAllTools(): Flow<List<ToolEntity>> =
+//        toolDao.getAllTools()
 
     fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>> =
         toolDao.getToolsWithAvailability()
 
     fun searchTools(query: String): Flow<List<ToolWithAvailability>> =
         toolDao.searchTools(query)
-
-    fun filterTools(name: String?, minAvailable: Int?, minItems: Int?): Flow<List<ToolWithAvailability>> =
-        toolDao.filterTools(name, minAvailable, minItems)
+//
+//    fun filterTools(name: String?, minAvailable: Int?, minItems: Int?): Flow<List<ToolWithAvailability>> =
+//        toolDao.filterTools(name, minAvailable, minItems)
 
     // ------------------- Rental Orders -------------------
 
@@ -112,6 +113,49 @@ class MainRepository @Inject constructor(
         rentalOrderDao.deleteRentalOrderById(orderId)
 
     // ------------------- Rental Transactions -------------------
+
+    suspend fun getActiveRentalWithTools(customerId: Long): List<RentalWithTools> {
+        return rentalRelationsDao.getActiveRentalWithTools(customerId)
+    }
+
+//    suspend fun returnTools(customerId: Long, tools: List<ReturnToolItem>) {
+//        rentalTransactionDao.runInTransaction {
+//            val now = java.time.LocalDate.now()
+//
+//            tools.forEach { item ->
+//                val rentedTool = rentedToolDao.getRentedToolByCustomerAndTool(customerId, item.toolId)
+//                    ?: throw IllegalStateException("No active rental found for tool ${item.toolId}")
+//
+//                // 1. Insert a return entry using rentedToolId
+//                returnedToolDao.insertReturnedTool(
+//                    ReturnedToolEntity(
+//                        rentedToolId = rentedTool.rentedToolId,
+//                        returnedQuantity = item.returnQuantity,
+//                        returnDate = now
+//                    )
+//                )
+//
+//                // 2. Update remaining quantity
+//                val newRemaining = (rentedTool.remainingQuantity - item.returnQuantity).coerceAtLeast(0)
+//                rentedToolDao.updateRentedTool(
+//                    rentedTool.copy(remainingQuantity = newRemaining)
+//                )
+//            }
+//
+//            // 3. Close rental orders if all tools returned
+//            val activeOrders = rentalOrderDao.getRentalOrdersByCustomer(customerId)
+//            activeOrders.forEach { order ->
+//                val remaining = rentedToolDao.countRemainingTools(order.rentalOrderId)
+//                if (remaining == 0) {
+//                    rentalOrderDao.updateRentalOrder(order.copy(isClosed = true))
+//                }
+//            }
+//        }
+//    }
+
+
+
+
 
     suspend fun performRentalTransaction(customerId: Long, tools: List<SelectedTool>) =
         rentalTransactionDao.performRentalTransaction(customerId, tools)
