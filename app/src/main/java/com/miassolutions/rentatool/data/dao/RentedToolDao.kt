@@ -28,8 +28,8 @@ interface RentedToolDao {
 """)
     suspend fun getRentedToolByCustomerAndTool(customerId: Long, toolId: Int): RentedToolEntity?
 
-    @Query("SELECT COUNT(*) FROM rented_tools WHERE orderId = :rentalOrderId AND remainingQuantity > 0")
-    suspend fun countRemainingTools(rentalOrderId: Long): Int
+//    @Query("SELECT COUNT(*) FROM rented_tools WHERE orderId = :rentalOrderId AND remainingQuantity > 0")
+//    suspend fun countRemainingTools(rentalOrderId: Long): Int
 
 
 }

@@ -31,7 +31,6 @@ data class RentedToolEntity(
     val rentedQuantity: Int,
     val rentPricePerDay: Double ,
     val daysRented: Int = 0,
-    val remainingQuantity: Int // To track partial returns
 )
 
 

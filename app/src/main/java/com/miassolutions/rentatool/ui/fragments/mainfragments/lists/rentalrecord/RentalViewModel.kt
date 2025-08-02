@@ -48,7 +48,7 @@ class RentalsViewModel @Inject constructor(
                     }
 
                     val activeCount =
-                        orders.count { it.rentedTools.any { tool -> tool.remainingQuantity > 0 } }
+                        orders.count { it.rentedTools.any { tool -> tool.rentedQuantity > 0 } } //todo
                     val returnedCount = orders.size - activeCount
 
                     _uiState.update {

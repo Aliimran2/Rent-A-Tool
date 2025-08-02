@@ -45,10 +45,18 @@ class CustomerListViewModel @Inject constructor(private val repository: MainRepo
                 .debounce(300)
                 .distinctUntilChanged()
                 .flatMapLatest { query ->
-                    if (query.isBlank())
-                        repository.getAllCustomers()
-                    else
-                        repository.searchCustomers(query)
+                    repository.getAllCustomers().map { customers ->
+                        if (query.isEmpty()) {
+                            customers
+                        } else {
+                            customers.filter {
+                                it.customerName.contains(query, ignoreCase = true) ||
+                                        it.customerPhone.contains(query)
+                            }
+                        }
+
+                    }
+
                 }.collect { customers ->
                     _uiState.update { it.copy(customerList = customers, isLoading = false) }
 

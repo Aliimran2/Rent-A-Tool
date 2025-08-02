@@ -37,12 +37,12 @@ class ReturnToolsViewModel @Inject constructor(
                 rental.rentedTools.map { rentedTool ->
                     val tool = rentedTool.tool
                     val rented = rentedTool.rentedTool.rentedQuantity
-                    val remaining = rentedTool.rentedTool.remainingQuantity
+//                    val remaining = rentedTool.rentedTool.remainingQuantity
                     ReturnToolItem(
                         toolId = tool.toolId,
                         toolName = tool.name,
                         rentedQuantity = rented,
-                        remainingQuantity = remaining,
+                        remainingQuantity = rented,
                         returnQuantity = 0,
                         isSelected = true
                     ).also { internalToolMap[it.toolId] = it }

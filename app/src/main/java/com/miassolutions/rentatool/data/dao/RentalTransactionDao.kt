@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
+import com.miassolutions.rentatool.data.entities.RentedToolWithReturnStatus
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import java.time.LocalDate
@@ -22,8 +23,8 @@ interface RentalTransactionDao {
     @Insert
     suspend fun insertReturnedTools(tools: List<ReturnedToolEntity>)
 
-    @Query("UPDATE rented_tools SET remainingQuantity = remainingQuantity - :qty WHERE rentedToolId = :rentedToolId")
-    suspend fun updateRemainingQty(rentedToolId: Long, qty: Int)
+//    @Query("UPDATE rented_tools SET remainingQuantity = remainingQuantity - :qty WHERE rentedToolId = :rentedToolId")
+//    suspend fun updateRemainingQty(rentedToolId: Long, qty: Int)
 
 
     @Transaction
@@ -51,7 +52,7 @@ interface RentalTransactionDao {
                 orderId = orderId,
                 toolId = it.toolId,
                 rentedQuantity = it.rentedQuantity,
-                remainingQuantity = it.remainingQuantity,
+//                remainingQuantity = it.remainingQuantity,
                 rentPricePerDay = it.rentPricePerDay
             )
         }
@@ -59,14 +60,31 @@ interface RentalTransactionDao {
         insertRentedTools(rentedTools)
     }
 
+    @Query("""
+    SELECT 
+        rt.rentedToolId,
+        rt.toolId,
+        t.name AS toolName,
+        rt.rentedQuantity,
+        IFNULL(SUM(rtd.returnedQuantity), 0) AS returnedQuantity,
+        (rt.rentedQuantity - IFNULL(SUM(rtd.returnedQuantity), 0)) AS remainingQuantity
+    FROM rented_tools rt
+    INNER JOIN tools t ON t.toolId = rt.toolId
+    LEFT JOIN returned_tools rtd ON rtd.rentedToolId = rt.rentedToolId
+    WHERE rt.orderId = :orderId
+    GROUP BY rt.rentedToolId, rt.toolId, t.name, rt.rentedQuantity
+""")
+    suspend fun getRentedToolsWithReturnStatus(orderId: Long): List<RentedToolWithReturnStatus>
+
+
 
     @Transaction
     suspend fun performReturnTransaction(
         returnList: List<ReturnedToolEntity>
     ) {
         insertReturnedTools(returnList)
-        returnList.forEach {
-            updateRemainingQty(it.rentedToolId, it.returnedQuantity)
-        }
+//        returnList.forEach {
+//            updateRemainingQty(it.rentedToolId, it.returnedQuantity)
+//        }
     }
 }

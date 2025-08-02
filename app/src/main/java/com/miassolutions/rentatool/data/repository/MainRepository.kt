@@ -62,8 +62,7 @@ class MainRepository @Inject constructor(
     fun getAllCustomers(): Flow<List<CustomerEntity>> =
         customerDao.getAllCustomers()
 
-    fun searchCustomers(query: String): Flow<List<CustomerEntity>> =
-        customerDao.searchCustomers(query)
+
 
     // ------------------- Tool -------------------
 

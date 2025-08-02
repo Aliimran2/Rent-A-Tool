@@ -6,8 +6,6 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 data class ToolWithAvailability(
     @Embedded val tool: ToolEntity,
     val availableQuantity: Int
-){
-
-}
+)
 
 

@@ -32,9 +32,5 @@ interface CustomerDao {
     @Query("SELECT * FROM customers ORDER BY customerName")
     fun getAllCustomers(): Flow<List<CustomerEntity>>
 
-    @Query("""
-        SELECT * FROM customers 
-        WHERE customerName LIKE '%' || :query || '%' 
-        OR customerPhone LIKE '%' || :query || '%'""")
-    fun searchCustomers(query: String): Flow<List<CustomerEntity>>
+
 }
