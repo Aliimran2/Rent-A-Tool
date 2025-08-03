@@ -54,13 +54,13 @@ class ToolListAdapterForRenting(
             }
 
             etQuantitySelected.doAfterTextChanged {
-                val qty = it.toString().toIntOrNull() ?: 1
+                val qty = it.toString().toIntOrNull() ?: 0
                 if (qty <= 0) {
-                    etQuantitySelected.error = "Min: 1"
+                    inputLayout.error = "Min: 1"
                     return@doAfterTextChanged
                 }
                 if (qty > item.availableQuantity) {
-                    etQuantitySelected.error = "Max: ${item.availableQuantity}"
+                    inputLayout.error = "Max: ${item.availableQuantity}"
                 } else {
                     etQuantitySelected.error = null
                     updateHelperText(item.availableQuantity, qty)
@@ -72,16 +72,28 @@ class ToolListAdapterForRenting(
 
         private fun updateHelperText(stock: Int, selected: Int) {
             val remaining = stock - selected
-            binding.inputLayout.helperText = "In Stock: $remaining"
+            if (remaining <= 0) {
+
+                binding.inputLayout.error = "Out of stock"
+            } else {
+
+                binding.inputLayout.helperText = "In Stock: $remaining"
+            }
         }
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ToolWithAvailability>() {
-        override fun areItemsTheSame(oldItem: ToolWithAvailability, newItem: ToolWithAvailability): Boolean {
+        override fun areItemsTheSame(
+            oldItem: ToolWithAvailability,
+            newItem: ToolWithAvailability
+        ): Boolean {
             return oldItem.tool.toolId == newItem.tool.toolId
         }
 
-        override fun areContentsTheSame(oldItem: ToolWithAvailability, newItem: ToolWithAvailability): Boolean {
+        override fun areContentsTheSame(
+            oldItem: ToolWithAvailability,
+            newItem: ToolWithAvailability
+        ): Boolean {
             return oldItem == newItem
         }
     }
