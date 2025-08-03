@@ -56,14 +56,13 @@ class StockListViewModel @Inject constructor(private val repository: MainReposit
                 .flatMapLatest { query ->
                     if (query.isBlank()) {
                         repository.getToolsWithAvailability()
-                            .map { list ->
-                                list.map { it.toUiModel() }
-                            }
+                            .map { list -> list.map { it.toUiModel() } }
+
                     } else {
-                        repository.searchTools(query)
-                            .map { list ->
-                                list.map { it.toUiModel() }
-                            }
+                        repository.getToolsWithAvailability().map { list ->
+                            list.filter { it.tool.name.contains(query, ignoreCase = true) }
+                                .map { it.toUiModel() }
+                        }
                     }
                 }.onStart {
                     _uiState.update {
@@ -74,21 +73,11 @@ class StockListViewModel @Inject constructor(private val repository: MainReposit
                         it.copy(isLoading = false, errorMessage = "Failed to load tools")
                     }
                     _uiEvent.emit(StockUiEvent.ShowSnackbar("Error loading tools"))
-                }.collect{toolList ->
+                }.collect { toolList ->
                     _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            stockList = toolList,
-                            isEmpty = toolList.isEmpty(),
-                            errorMessage = null
-                        )
+                        it.copy(isLoading = false, stockList = toolList, isEmpty = toolList.isEmpty(), errorMessage = null)
                     }
-
                 }
-
         }
     }
-
-
-
 }

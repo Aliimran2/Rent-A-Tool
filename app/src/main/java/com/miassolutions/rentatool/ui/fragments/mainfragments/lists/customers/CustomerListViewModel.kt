@@ -46,15 +46,14 @@ class CustomerListViewModel @Inject constructor(private val repository: MainRepo
                 .distinctUntilChanged()
                 .flatMapLatest { query ->
                     repository.getAllCustomers().map { customers ->
+
                         if (query.isEmpty()) {
                             customers
                         } else {
                             customers.filter {
-                                it.customerName.contains(query, ignoreCase = true) ||
-                                        it.customerPhone.contains(query)
+                                it.customerName.contains(query, ignoreCase = true) || it.customerPhone.contains(query)
                             }
                         }
-
                     }
 
                 }.collect { customers ->

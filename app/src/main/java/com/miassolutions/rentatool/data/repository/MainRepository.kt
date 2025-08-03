@@ -81,17 +81,12 @@ class MainRepository @Inject constructor(
     suspend fun getToolByName(name: String): ToolEntity? =
         toolDao.getToolByName(name)
 
-//    fun getAllTools(): Flow<List<ToolEntity>> =
-//        toolDao.getAllTools()
 
     fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>> =
         toolDao.getToolsWithAvailability()
 
-    fun searchTools(query: String): Flow<List<ToolWithAvailability>> =
-        toolDao.searchTools(query)
-//
-//    fun filterTools(name: String?, minAvailable: Int?, minItems: Int?): Flow<List<ToolWithAvailability>> =
-//        toolDao.filterTools(name, minAvailable, minItems)
+
+
 
     // ------------------- Rental Orders -------------------
 

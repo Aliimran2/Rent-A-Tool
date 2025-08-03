@@ -7,7 +7,7 @@
     android:layout_margin="6dp"
     android:elevation="8dp"
     app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@android:color/white">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +20,6 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/place_holder_image"
-            app:civ_border_color="@color/civ_border"
             app:civ_border_width="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +33,6 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:textColor="#212121"
             app:layout_constraintStart_toEndOf="@id/iv_customer"
             app:layout_constraintTop_toTopOf="@id/iv_customer"
             app:layout_constraintBottom_toBottomOf="@id/iv_customer"
@@ -92,7 +90,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/rent_tools"
                     android:textSize="10sp"
-                    android:textColor="#444"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
 
@@ -120,7 +117,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/rentals"
                     android:textSize="10sp"
-                    android:textColor="#444"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
 
@@ -148,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ledger"
                     android:textSize="10sp"
-                    android:textColor="#444"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </LinearLayout>
