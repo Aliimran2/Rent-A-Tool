@@ -1,4 +1,4 @@
-package com.miassolutions.rentatool.ui.fragments.mainfragments.lists.rentalrecord
+package com.miassolutions.rentatool.ui.fragments.mainfragments
 
 import androidx.fragment.app.Fragment
 import com.miassolutions.rentatool.R

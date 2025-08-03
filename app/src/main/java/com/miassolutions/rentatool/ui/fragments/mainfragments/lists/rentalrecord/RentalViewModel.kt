@@ -32,7 +32,6 @@ class RentalsViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     isLoading = true,
-                    customerId = customerId,
                 )
             }
 
@@ -77,9 +76,5 @@ class RentalsViewModel @Inject constructor(
         }
     }
 
-    fun onRentalClick(orderId: Long) {
-        viewModelScope.launch {
-            _uiEvent.emit(RentalsUiEvent.NavigationToReturnTools(orderId))
-        }
-    }
+
 }

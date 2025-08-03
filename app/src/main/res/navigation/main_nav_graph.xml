@@ -112,7 +112,7 @@
         tools:layout="@layout/fragment_return_confirmation" />
     <fragment
         android:id="@+id/rentalDetailFragment"
-        android:name="com.miassolutions.rentatool.ui.fragments.mainfragments.lists.rentalrecord.RentalDetailFragment"
+        android:name="com.miassolutions.rentatool.ui.fragments.mainfragments.RentalDetailFragment"
         android:label="RentalDetailFragment"
         tools:layout="@layout/fragment_rental_details" >
         <argument

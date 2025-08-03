@@ -19,9 +19,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
     private val args: RentalsFragmentArgs by navArgs()
     private val viewModel by viewModels<RentalsViewModel>()
-    private val adapter = RentalListAdapter{
-        viewModel.onRentalClick(it)
-    }
+    private val adapter = RentalListAdapter{ viewModel.onReturnClick(it) }
 
     private var _binding: FragmentRentalsBinding? = null
     private val binding get() = _binding!!

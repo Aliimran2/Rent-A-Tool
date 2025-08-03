@@ -3,8 +3,6 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.lists.rentalrecor
 import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 
 data class RentalsUiState(
-    val customerId: Long = -1L,
-    val customerName: String = "",
     val totalRent: Double = 0.0,
     val activeOrdersCount: Int = 0,
     val returnedOrderCount: Int = 0,
@@ -16,7 +14,6 @@ data class RentalsUiState(
 sealed class RentalsUiEvent {
 
     data class NavigationToReturnTools(val customerId: Long) : RentalsUiEvent()
-
     data class NavigationToRentalDetail(val orderId: Long) : RentalsUiEvent()
     data class ShowSnackbar(val message: String) : RentalsUiEvent()
 }
