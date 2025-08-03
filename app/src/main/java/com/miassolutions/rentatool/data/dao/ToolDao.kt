@@ -26,7 +26,7 @@ interface ToolDao {
     @Query("SELECT * FROM tools WHERE LOWER(name) = LOWER(:toolName) LIMIT 1")
     suspend fun getToolByName(toolName: String): ToolEntity?
 
-    // ✅ Updated: Get all tools with correct availableQuantity
+
     @Query(
         """
         SELECT 

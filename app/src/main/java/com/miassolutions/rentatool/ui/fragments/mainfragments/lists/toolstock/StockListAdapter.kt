@@ -17,7 +17,7 @@ class ToolListAdapter : ListAdapter<ToolUiModel, ToolListAdapter.ToolVH>(StockDi
         fun bind(item: ToolUiModel) {
             binding.apply {
                 tvToolName.text = item.name
-                tvAvailablCount.text = "${item.availability} "
+                tvAvailablCount.text = "${item.availability} /${item.totalQuantity} "
                 tvRentPerDay.text = "${item.rentPerDay} Rs/day"
             }
         }
