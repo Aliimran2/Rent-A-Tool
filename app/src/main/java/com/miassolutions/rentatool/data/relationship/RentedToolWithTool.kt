@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ToolEntity
 
-data class RentedToolWithToolDetails(
+data class RentedToolWithTool(
     @Embedded val rentedTool: RentedToolEntity,
 
     @Relation(

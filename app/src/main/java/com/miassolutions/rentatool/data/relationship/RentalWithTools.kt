@@ -14,7 +14,7 @@ data class RentalWithTools(
         entityColumn = "orderId",
         entity = RentedToolEntity::class
     )
-    val rentedTools: List<RentedToolWithToolDetails>
+    val rentedTools: List<RentedToolWithTool>
 )
 
 
