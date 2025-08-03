@@ -31,7 +31,6 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
 
         loadRentals()
         setupUiState()
-        setupListeners()
         setupUiEvent()
         setupRecyclerview()
 
@@ -52,7 +51,6 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
             viewModel.uiEvent.collect { event ->
                 when (event) {
 
-
                     is RentalsUiEvent.NavigationToRentalDetail -> {
                         val action =
                             RentalsFragmentDirections.actionFragmentRentalsToRentalDetailFragment(
@@ -65,7 +63,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
                     is RentalsUiEvent.NavigationToReturnTools -> {
                         val action =
                             RentalsFragmentDirections.actionFragmentRentalsToReturnToolsFragment(
-                                event.customerId,
+                                event.orderId,
 
                             )
                         findNavController().navigate(action)
@@ -80,9 +78,7 @@ class RentalsFragment : Fragment(R.layout.fragment_rentals) {
         }
     }
 
-    private fun setupListeners() {
 
-    }
 
     private fun setupUiState() {
         collectingFlow {

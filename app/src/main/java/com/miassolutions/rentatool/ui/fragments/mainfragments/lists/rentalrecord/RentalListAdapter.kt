@@ -42,7 +42,7 @@ class RentalListAdapter(
                 tvOrderStatus.text = if(item.rentalOrder.isClosed) "Active" else "Closed"
 
                 btnReturnTools.setOnClickListener {
-                    onItemClicked(item.rentalOrder.customerId)
+                    onItemClicked(item.rentalOrder.orderId)
                 }
 
 

@@ -13,7 +13,7 @@ data class RentalsUiState(
 
 sealed class RentalsUiEvent {
 
-    data class NavigationToReturnTools(val customerId: Long) : RentalsUiEvent()
+    data class NavigationToReturnTools(val orderId: Long) : RentalsUiEvent()
     data class NavigationToRentalDetail(val orderId: Long) : RentalsUiEvent()
     data class ShowSnackbar(val message: String) : RentalsUiEvent()
 }

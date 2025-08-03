@@ -69,10 +69,10 @@ class RentalsViewModel @Inject constructor(
 
 
 
-    fun onReturnClick(customerId: Long) {
+    fun onReturnClick(orderId: Long) {
         val state = _uiState.value
         viewModelScope.launch {
-            _uiEvent.emit(RentalsUiEvent.NavigationToReturnTools(customerId))
+            _uiEvent.emit(RentalsUiEvent.NavigationToReturnTools(orderId))
         }
     }
 
