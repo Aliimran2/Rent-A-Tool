@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 import com.miassolutions.rentatool.databinding.ItemRentalOrderBinding
 import com.miassolutions.rentatool.utils.extenstions.toFormattedDate
+import com.miassolutions.rentatool.utils.extenstions.toFourDigitString
 
 class RentalListAdapter(
         private val onItemClicked: (Long) ->Unit
@@ -35,10 +36,9 @@ class RentalListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RentalOrderWithRentedTools) {
             binding.apply {
-                tvOrderId.text = "Order Id: ${item.rentalOrder.orderId}"
-                tvOrderDate.text = "Rent Date: ${item.rentalOrder.rentDate.toFormattedDate()}"
-                tvEstimatedReturn.text = "Est. Return Date: ${item.rentalOrder.estimatedReturnDate.toFormattedDate()}"
-//                tvRentAmount.text = "Rent Amount: Rs. ${item.rentalOrder.totalAmount}"
+                tvOrderId.text = "${item.rentalOrder.orderId.toFourDigitString()}"
+                tvOrderDate.text = "${item.rentalOrder.rentDate.toFormattedDate()}"
+                tvEstimatedReturn.text = "${item.rentalOrder.estimatedReturnDate.toFormattedDate()}"
                 tvOrderStatus.text = if(item.rentalOrder.isClosed) "Closed" else "Active"
 
                 btnReturnTools.setOnClickListener {
