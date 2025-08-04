@@ -44,6 +44,7 @@ class ConfirmationViewModel @Inject constructor(
         _uiState.update {
             it.copy(
                 selectedTools = tools,
+                estimatedReturnDate = estReturnDate,
                 days = days,
                 totalAmount = total
             )
@@ -57,7 +58,11 @@ class ConfirmationViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true) }
 
             try {
-                repository.performRentalTransaction(customerId, state.selectedTools)
+                repository.performRentalTransaction(
+                    customerId,
+                    state.estimatedReturnDate,
+                    state.selectedTools
+                )
 
                 _uiEvent.emit(ConfirmationUiEvent.ShowToast("Rental confirmed!"))
                 _uiEvent.emit(ConfirmationUiEvent.NavigateBack)

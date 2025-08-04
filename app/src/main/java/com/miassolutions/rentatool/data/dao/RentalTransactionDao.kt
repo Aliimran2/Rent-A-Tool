@@ -30,6 +30,7 @@ interface RentalTransactionDao {
     @Transaction
     suspend fun performRentalTransaction(
         customerId: Long,
+        estimatedReturnDate : LocalDate,
         selectedTools: List<SelectedTool>
     ) {
         if (selectedTools.isEmpty()) return
@@ -41,6 +42,7 @@ interface RentalTransactionDao {
             customerId = customerId,
             rentDate = LocalDate.now(),
             totalAmount = totalAmount,
+            estimatedReturnDate = estimatedReturnDate,
             isClosed = false
         )
 

@@ -20,6 +20,7 @@ data class RentalOrderEntity(
     val orderId: Long = 0,
     val customerId: Long,
     val rentDate: LocalDate = LocalDate.now(),
+    val estimatedReturnDate : LocalDate,
     val totalAmount: Double = 0.0,
     val isClosed: Boolean = false
 )

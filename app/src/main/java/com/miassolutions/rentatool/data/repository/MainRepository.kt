@@ -19,6 +19,7 @@ import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolItem
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -63,7 +64,6 @@ class MainRepository @Inject constructor(
         customerDao.getAllCustomers()
 
 
-
     // ------------------- Tool -------------------
 
     suspend fun insertTool(tool: ToolEntity): Long =
@@ -84,8 +84,6 @@ class MainRepository @Inject constructor(
 
     fun getToolsWithAvailability(): Flow<List<ToolWithAvailability>> =
         toolDao.getToolsWithAvailability()
-
-
 
 
     // ------------------- Rental Orders -------------------
@@ -148,11 +146,12 @@ class MainRepository @Inject constructor(
 //    }
 
 
-
-
-
-    suspend fun performRentalTransaction(customerId: Long, tools: List<SelectedTool>) =
-        rentalTransactionDao.performRentalTransaction(customerId, tools)
+    suspend fun performRentalTransaction(
+        customerId: Long,
+        estimatedReturnDate: LocalDate,
+        tools: List<SelectedTool>
+    ) =
+        rentalTransactionDao.performRentalTransaction(customerId,estimatedReturnDate, tools)
 
     suspend fun performReturnTransaction(returns: List<ReturnedToolEntity>) =
         rentalTransactionDao.performReturnTransaction(returns)
