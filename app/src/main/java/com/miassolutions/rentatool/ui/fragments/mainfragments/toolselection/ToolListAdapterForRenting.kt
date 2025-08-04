@@ -14,7 +14,7 @@ class ToolListAdapterForRenting(
     private val onQuantityChanged: (toolId: Long, quantity: Int) -> Unit
 ) : ListAdapter<ToolWithAvailability, ToolListAdapterForRenting.ToolViewHolder>(DiffCallback()) {
 
-    private val selectedMap = mutableMapOf<Long, Int>()
+    private val selectedQuantities = mutableMapOf<Long, Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolViewHolder {
         val binding = ItemToolBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,71 +30,88 @@ class ToolListAdapterForRenting(
 
         fun bind(item: ToolWithAvailability) = with(binding) {
             val toolId = item.tool.toolId
-            val isSelected = selectedMap.containsKey(toolId)
-            val quantity = selectedMap[toolId] ?: 1
+            val availableQty = item.availableQuantity
+            val selectedQty = selectedQuantities[toolId]
+            val isChecked = selectedQty != null && selectedQty in 1..availableQty
 
             tvToolName.text = item.tool.name
-            etQuantitySelected.setText(quantity.toString())
-            etQuantitySelected.isEnabled = isSelected
-            cbTool.isChecked = isSelected
-            updateHelperText(item.availableQuantity, quantity)
 
             cbTool.setOnCheckedChangeListener(null)
-            cbTool.setOnCheckedChangeListener { _, isChecked ->
-                etQuantitySelected.isEnabled = isChecked
-                val qty = etQuantitySelected.text.toString().toIntOrNull() ?: 1
-                if (isChecked) {
-                    selectedMap[toolId] = qty
-                    onToolChecked(toolId, true, qty)
-                } else {
-                    selectedMap.remove(toolId)
-                    onToolChecked(toolId, false, qty)
-                }
-                updateHelperText(item.availableQuantity, qty)
+            cbTool.isEnabled = availableQty > 0
+            cbTool.isChecked = isChecked
+
+            etQuantitySelected.apply {
+                isEnabled = isChecked && availableQty > 0
+                setText(if (selectedQty != null && selectedQty > 0) selectedQty.toString() else "")
             }
 
-            etQuantitySelected.doAfterTextChanged {
-                val qty = it.toString().toIntOrNull() ?: 0
-                if (qty <= 0) {
-                    inputLayout.error = "Min: 1"
-                    return@doAfterTextChanged
-                }
-                if (qty > item.availableQuantity) {
-                    inputLayout.error = "Max: ${item.availableQuantity}"
+            inputLayout.error = if (availableQty == 0) "Out of stock" else null
+            inputLayout.helperText = if (availableQty > 0) "In Stock: $availableQty" else null
+
+            cbTool.setOnCheckedChangeListener { _, checked ->
+                etQuantitySelected.isEnabled = checked && availableQty > 0
+
+                val qty = etQuantitySelected.text.toString().toIntOrNull()
+
+                if (checked && qty != null && qty in 1..availableQty) {
+                    selectedQuantities[toolId] = qty
+                    onToolChecked(toolId, true, qty)
+                    updateHelperText(availableQty, qty)
                 } else {
-                    etQuantitySelected.error = null
-                    updateHelperText(item.availableQuantity, qty)
-                    selectedMap[toolId] = qty
-                    onQuantityChanged(toolId, qty)
+                    selectedQuantities.remove(toolId)
+                    onToolChecked(toolId, false, 0)
+                    etQuantitySelected.setText("")
+                    inputLayout.error = null
+                    inputLayout.helperText = "In Stock: $availableQty"
+                }
+            }
+
+            etQuantitySelected.doAfterTextChanged { text ->
+                if (!cbTool.isChecked) return@doAfterTextChanged
+
+                val qty = text.toString().toIntOrNull()
+
+                when {
+                    qty == null -> {
+                        inputLayout.error = "Enter a valid number"
+                        inputLayout.helperText = null
+                        selectedQuantities.remove(toolId)
+                        onToolChecked(toolId, false, 0)
+                    }
+                    qty < 1 -> {
+                        inputLayout.error = "Min: 1"
+                        inputLayout.helperText = null
+                        selectedQuantities.remove(toolId)
+                        onToolChecked(toolId, false, 0)
+                    }
+                    qty > availableQty -> {
+                        inputLayout.error = "Max: $availableQty"
+                        inputLayout.helperText = null
+                        selectedQuantities.remove(toolId)
+                        onToolChecked(toolId, false, 0)
+                    }
+                    else -> {
+                        inputLayout.error = null
+                        selectedQuantities[toolId] = qty
+                        onToolChecked(toolId, true, qty)
+                        onQuantityChanged(toolId, qty)
+                        updateHelperText(availableQty, qty)
+                    }
                 }
             }
         }
 
-        private fun updateHelperText(stock: Int, selected: Int) {
-            val remaining = stock - selected
-            if (remaining <= 0) {
-
-                binding.inputLayout.error = "Out of stock"
-            } else {
-
-                binding.inputLayout.helperText = "In Stock: $remaining"
-            }
+        private fun updateHelperText(available: Int, selected: Int) {
+            val remaining = available - selected
+            binding.inputLayout.helperText = if (remaining == 0) "Fully selected" else "In Stock: $remaining"
         }
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ToolWithAvailability>() {
-        override fun areItemsTheSame(
-            oldItem: ToolWithAvailability,
-            newItem: ToolWithAvailability
-        ): Boolean {
-            return oldItem.tool.toolId == newItem.tool.toolId
-        }
+        override fun areItemsTheSame(oldItem: ToolWithAvailability, newItem: ToolWithAvailability) =
+            oldItem.tool.toolId == newItem.tool.toolId
 
-        override fun areContentsTheSame(
-            oldItem: ToolWithAvailability,
-            newItem: ToolWithAvailability
-        ): Boolean {
-            return oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: ToolWithAvailability, newItem: ToolWithAvailability) =
+            oldItem == newItem
     }
 }
