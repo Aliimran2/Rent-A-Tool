@@ -22,8 +22,6 @@ interface RentalTransactionDao {
     @Insert
     suspend fun insertReturnedTools(tools: List<ReturnedToolEntity>)
 
-//    @Query("UPDATE rented_tools SET remainingQuantity = remainingQuantity - :qty WHERE rentedToolId = :rentedToolId")
-//    suspend fun updateRemainingQty(rentedToolId: Long, qty: Int)
 
 
     @Transaction

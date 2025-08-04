@@ -15,6 +15,7 @@ import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
 import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 import com.miassolutions.rentatool.data.relationship.RentalWithTools
+import com.miassolutions.rentatool.data.relationship.RentedToolWithTool
 import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolItem
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
@@ -109,6 +110,8 @@ class MainRepository @Inject constructor(
     suspend fun getActiveRentalWithTools(customerId: Long): List<RentalWithTools> {
         return rentalRelationsDao.getActiveRentalWithTools(customerId)
     }
+
+
 
 //    suspend fun returnTools(customerId: Long, tools: List<ReturnToolItem>) {
 //        rentalTransactionDao.runInTransaction {

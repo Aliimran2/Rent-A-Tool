@@ -40,7 +40,6 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
 
         binding.rvToolsToReturn.adapter = adapter
 
-        viewModel.loadCustomerAndTools(args.customerId)
 
 
         collectingFlow {

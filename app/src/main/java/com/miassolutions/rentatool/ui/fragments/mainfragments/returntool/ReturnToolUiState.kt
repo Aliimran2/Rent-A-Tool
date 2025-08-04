@@ -2,7 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.returntool
 
 data class ReturnToolsUiState(
     val tools: List<ReturnToolItem> = emptyList(),
-    val totalRent: Int = 0,
+
 )
 
 
