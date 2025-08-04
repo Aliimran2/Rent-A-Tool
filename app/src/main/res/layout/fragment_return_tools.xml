@@ -8,15 +8,6 @@
     android:padding="16dp">
 
 
-    <TextView
-        android:id="@+id/tv_total_rent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Rent: Rs. 5000"
-        android:textStyle="italic"
-        android:textSize="16sp"
-        android:paddingBottom="12dp" />
-
     <!-- Tools to Return -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tools_to_return"

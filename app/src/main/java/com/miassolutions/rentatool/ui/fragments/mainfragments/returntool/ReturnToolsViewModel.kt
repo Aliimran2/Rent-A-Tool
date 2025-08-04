@@ -53,8 +53,6 @@ class ReturnToolsViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         tools = toolItems,
-                        customerName = customer.customerName,
-                        customerCnic = customer.cnicNumber,
                         totalRent = rentalWithTools.sumOf { it.rentalOrder.totalAmount }.toInt()
                     )
                 }

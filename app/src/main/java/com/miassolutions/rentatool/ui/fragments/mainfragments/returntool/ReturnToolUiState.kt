@@ -2,10 +2,7 @@ package com.miassolutions.rentatool.ui.fragments.mainfragments.returntool
 
 data class ReturnToolsUiState(
     val tools: List<ReturnToolItem> = emptyList(),
-    val customerName: String = "",
-    val customerCnic: String = "",
     val totalRent: Int = 0,
-    val isReturnSuccessful: Boolean = false
 )
 
 

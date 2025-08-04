@@ -45,7 +45,6 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
 
         collectingFlow {
             viewModel.uiState.collect { state ->
-                binding.tvTotalRent.text = "Total Rent: Rs. ${state.totalRent}"
                 adapter.submitList(state.tools)
             }
         }
