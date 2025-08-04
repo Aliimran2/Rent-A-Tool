@@ -36,13 +36,13 @@
             android:text="Estimated Return: 2025-07-27"
             android:textSize="14sp" />
 
-        <!-- Total Rent -->
-        <TextView
-            android:id="@+id/tv_rent_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rent: Rs 2500"
-            android:textSize="14sp" />
+<!--        &lt;!&ndash; Total Rent &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_rent_amount"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Rent: Rs 2500"-->
+<!--            android:textSize="14sp" />-->
 
         <!-- Status -->
         <TextView

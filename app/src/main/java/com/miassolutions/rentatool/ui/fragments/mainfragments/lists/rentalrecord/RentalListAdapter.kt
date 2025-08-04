@@ -37,9 +37,9 @@ class RentalListAdapter(
             binding.apply {
                 tvOrderId.text = "Order Id: ${item.rentalOrder.orderId}"
                 tvOrderDate.text = "Rent Date: ${item.rentalOrder.rentDate.toFormattedDate()}"
-                tvEstimatedReturn.text = "Est. Return Date: ${item.rentalOrder.rentDate.toFormattedDate()}" //todo()
-                tvRentAmount.text = "Rent Amount: Rs. ${item.rentalOrder.totalAmount}"
-                tvOrderStatus.text = if(item.rentalOrder.isClosed) "Active" else "Closed"
+                tvEstimatedReturn.text = "Est. Return Date: ${item.rentalOrder.estimatedReturnDate.toFormattedDate()}"
+//                tvRentAmount.text = "Rent Amount: Rs. ${item.rentalOrder.totalAmount}"
+                tvOrderStatus.text = if(item.rentalOrder.isClosed) "Closed" else "Active"
 
                 btnReturnTools.setOnClickListener {
                     onItemClicked(item.rentalOrder.orderId)

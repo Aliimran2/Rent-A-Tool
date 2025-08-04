@@ -40,7 +40,7 @@ class RentalsViewModel @Inject constructor(
                     val totalRent = orders.sumOf { order ->
                         val rentDays = ChronoUnit.DAYS.between(order.rentalOrder.rentDate, LocalDate.now()).coerceAtLeast(1)
                         order.rentedTools.sumOf { tool ->
-                            Log.d(Constants.TAG, "${tool.rentPricePerDay} - ${tool.rentedQuantity}")
+                            Log.d(Constants.TAG, "${tool.rentPricePerDay} - ${tool.rentedQuantity} - $rentDays")
                             tool.rentPricePerDay * tool.rentedQuantity * rentDays
 
                         }
