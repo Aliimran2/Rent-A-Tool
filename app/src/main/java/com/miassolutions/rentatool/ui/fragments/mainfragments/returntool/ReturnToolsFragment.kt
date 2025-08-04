@@ -28,17 +28,13 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentReturnToolsBinding.bind(view)
 
-    adapter = ReturnToolsAdapter(
-        onReturnQuantityChanged = { id, qty ->
-//            viewModel.onReturnQuantityChanged(id, qty)
-                                  }
-        ,
-        onCheckboxChanged = { id, check ->
-//            viewModel.onCheckboxChanged(id, check)
+        adapter = ReturnToolsAdapter { id, isChecked, qty ->
+            viewModel.updateSelection(id, isChecked, qty)
         }
-    )
 
         binding.rvToolsToReturn.adapter = adapter
+
+        viewModel.loadRentedTools(args.orderId)
 
 
 
@@ -57,10 +53,6 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
                 }
             }
         }
-
-
-
-
 
 
     }

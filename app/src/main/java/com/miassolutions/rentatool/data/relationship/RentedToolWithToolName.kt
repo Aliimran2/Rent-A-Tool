@@ -8,7 +8,6 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 
 data class RentedToolWithToolName(
     @Embedded val rentedTool: RentedToolEntity,
-
     @Relation(
         parentColumn = "toolId",
         entityColumn = "toolId"
@@ -17,9 +16,9 @@ data class RentedToolWithToolName(
 
     @Relation(
         entity = ReturnedToolEntity::class,
-        parentColumn = "returnToolId",
-        entityColumn = "returnToolId"
+        parentColumn = "rentedToolId",
+        entityColumn = "rentedToolId"
     )
-
     val returns: List<ReturnedToolEntity>
 )
+

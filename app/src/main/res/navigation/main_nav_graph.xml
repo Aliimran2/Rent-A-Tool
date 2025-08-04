@@ -85,7 +85,7 @@
             android:id="@+id/action_returnToolsFragment_to_returnConfirmationFragment"
             app:destination="@id/returnConfirmationFragment" />
         <argument
-            android:name="customerId"
+            android:name="orderId"
             app:argType="long" />
     </fragment>
     <fragment
