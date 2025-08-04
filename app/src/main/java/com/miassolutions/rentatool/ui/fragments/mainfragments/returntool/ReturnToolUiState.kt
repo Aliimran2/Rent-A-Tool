@@ -12,10 +12,13 @@ sealed class ReturnToolsUiEvent {
 }
 
 data class ReturnToolItem(
+    val rentedToolId : Long,
     val toolId: Long,
     val toolName: String,
     val rentedQuantity: Int,
     val remainingQuantity: Int,
-    var returnQuantity: Int = 0,
-    var isSelected: Boolean = true // optional for checkbox
+    val rentPricePerDay : Double,
+    val returnQuantity : Int = 0,
+    val isSelected : Boolean = false
+
 )

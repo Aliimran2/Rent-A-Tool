@@ -16,6 +16,7 @@ import com.miassolutions.rentatool.data.entities.ToolEntity
 import com.miassolutions.rentatool.data.relationship.RentalOrderWithRentedTools
 import com.miassolutions.rentatool.data.relationship.RentalWithTools
 import com.miassolutions.rentatool.data.relationship.RentedToolWithTool
+import com.miassolutions.rentatool.data.relationship.RentedToolWithToolName
 import com.miassolutions.rentatool.data.relationship.ToolWithAvailability
 import com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolItem
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
@@ -95,6 +96,9 @@ class MainRepository @Inject constructor(
     suspend fun getRentalOrderWithRentedToolsById(orderId: Long): RentalOrderWithRentedTools? =
         rentalOrderDao.getRentalOrderWithRentedToolsById(orderId)
 
+    suspend fun getRentedToolsWithReturns(orderId: Long): List<RentedToolWithToolName> =
+        rentalTransactionDao.getRentedToolWithReturns(orderId)
+
     fun getOrdersWithRentedTools(customerId: Long): Flow<List<RentalOrderWithRentedTools>> {
         return rentalOrderDao.getRentalOrdersWithRentedToolsByCustomer(customerId)
     }
@@ -110,7 +114,6 @@ class MainRepository @Inject constructor(
     suspend fun getActiveRentalWithTools(customerId: Long): List<RentalWithTools> {
         return rentalRelationsDao.getActiveRentalWithTools(customerId)
     }
-
 
 
 //    suspend fun returnTools(customerId: Long, tools: List<ReturnToolItem>) {
@@ -154,7 +157,7 @@ class MainRepository @Inject constructor(
         estimatedReturnDate: LocalDate,
         tools: List<SelectedTool>
     ) =
-        rentalTransactionDao.performRentalTransaction(customerId,estimatedReturnDate, tools)
+        rentalTransactionDao.performRentalTransaction(customerId, estimatedReturnDate, tools)
 
     suspend fun performReturnTransaction(returns: List<ReturnedToolEntity>) =
         rentalTransactionDao.performReturnTransaction(returns)

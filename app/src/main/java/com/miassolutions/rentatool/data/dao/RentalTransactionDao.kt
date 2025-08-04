@@ -7,6 +7,7 @@ import androidx.room.Transaction
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
+import com.miassolutions.rentatool.data.relationship.RentedToolWithToolName
 import com.miassolutions.rentatool.ui.fragments.mainfragments.toolselection.SelectedTool
 import java.time.LocalDate
 
@@ -23,6 +24,9 @@ interface RentalTransactionDao {
     suspend fun insertReturnedTools(tools: List<ReturnedToolEntity>)
 
 
+    @Transaction
+    @Query("SELECT * FROM rented_tools WHERE orderId = :orderId")
+    suspend fun getRentedToolWithReturns(orderId : Long) : List<RentedToolWithToolName>
 
     @Transaction
     suspend fun performRentalTransaction(

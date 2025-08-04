@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.databinding.ItemReturnToolBinding
 
 class ReturnToolsAdapter(
-    private val onReturnQuantityChanged: (toolId: Long, quantity: Int) -> Unit,
-    private val onCheckboxChanged: (toolId: Long, isChecked: Boolean) -> Unit
+
+    private val onSelectionChanged: (id: Long, isChecked: Boolean, qty: Int) -> Unit
 ) : ListAdapter<ReturnToolItem, ReturnToolsAdapter.ReturnToolViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReturnToolViewHolder {
-        val binding = ItemReturnToolBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemReturnToolBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ReturnToolViewHolder(binding)
     }
 
@@ -31,20 +32,21 @@ class ReturnToolsAdapter(
             tvToolName.text = item.toolName
             tvRentedQuantity.text = "Rented: ${item.rentedQuantity}"
             tvRemainingQuantity.text = "Remaining: ${item.remainingQuantity}"
-            etReturnQuantity.setText(item.returnQuantity.takeIf { it > 0 }?.toString() ?: "")
             cbReturnSelected.isChecked = item.isSelected
-
-            // Return Quantity Input
-            etReturnQuantity.doAfterTextChanged { text ->
-                val newQty = text?.toString()?.toIntOrNull() ?: 0
-                onReturnQuantityChanged(item.toolId, newQty)
-            }
-
-            // Checkbox
+            etReturnQuantity.setText(if (item.returnQuantity > 0) item.returnQuantity.toString() else "")
             cbReturnSelected.setOnCheckedChangeListener { _, isChecked ->
-                onCheckboxChanged(item.toolId, isChecked)
+                val qty = etReturnQuantity.text.toString().toIntOrNull() ?: 0
+                onSelectionChanged(item.rentedToolId, isChecked, qty)
             }
+
+            etReturnQuantity.doAfterTextChanged {
+                val qty = it.toString().toIntOrNull() ?: 0
+                onSelectionChanged(item.rentedToolId, cbReturnSelected.isChecked, qty)
+            }
+
         }
+
+
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ReturnToolItem>() {
