@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.miassolutions.rentatool.data.entities.RentalOrderEntity
 import com.miassolutions.rentatool.data.entities.RentedToolEntity
 import com.miassolutions.rentatool.data.entities.ReturnedToolEntity
@@ -26,12 +27,12 @@ interface RentalTransactionDao {
 
     @Transaction
     @Query("SELECT * FROM rented_tools WHERE orderId = :orderId")
-    suspend fun getRentedToolWithReturns(orderId : Long) : List<RentedToolWithToolName>
+    suspend fun getRentedToolWithReturns(orderId: Long): List<RentedToolWithToolName>
 
     @Transaction
     suspend fun performRentalTransaction(
         customerId: Long,
-        estimatedReturnDate : LocalDate,
+        estimatedReturnDate: LocalDate,
         selectedTools: List<SelectedTool>
     ) {
         if (selectedTools.isEmpty()) return
@@ -63,31 +64,41 @@ interface RentalTransactionDao {
         insertRentedTools(rentedTools)
     }
 
-//    @Query("""
-//    SELECT
-//        rt.rentedToolId,
-//        rt.toolId,
-//        t.name AS toolName,
-//        rt.rentedQuantity,
-//        IFNULL(SUM(rtd.returnedQuantity), 0) AS returnedQuantity,
-//        (rt.rentedQuantity - IFNULL(SUM(rtd.returnedQuantity), 0)) AS remainingQuantity
-//    FROM rented_tools rt
-//    INNER JOIN tools t ON t.toolId = rt.toolId
-//    LEFT JOIN returned_tools rtd ON rtd.rentedToolId = rt.rentedToolId
-//    WHERE rt.orderId = :orderId
-//    GROUP BY rt.rentedToolId, rt.toolId, t.name, rt.rentedQuantity
-//""")
-//    suspend fun getRentedToolsWithReturnStatus(orderId: Long): List<RentedToolWithReturnStatus>
-
+    @Query("SELECT * FROM rented_tools WHERE rentedToolId = :id")
+    suspend fun getRentedToolById(id: Long): RentedToolEntity?
 
 
     @Transaction
     suspend fun performReturnTransaction(
-        returnList: List<ReturnedToolEntity>
+        orderId: Long,
+        returns: List<ReturnedToolEntity>
     ) {
-        insertReturnedTools(returnList)
-//        returnList.forEach {
-//            updateRemainingQty(it.rentedToolId, it.returnedQuantity)
-//        }
+        if (returns.isEmpty()) return
+
+        insertReturnedTools(returns)
+
+        returns.forEach { returned ->
+            val rentedTool = getRentedToolById(returned.rentedToolId) ?: return@forEach
+            val newQuantity = rentedTool.rentedQuantity - returned.returnedQuantity
+            updateRentedTool(rentedTool.copy(rentedQuantity = newQuantity))
+
+        }
+
+        val allReturned = getRentedToolWithReturns(orderId).all { rentedToolWithToolName ->
+            val totalReturned = rentedToolWithToolName.returns.sumOf { it.returnedQuantity }
+            totalReturned >= rentedToolWithToolName.rentedTool.rentedQuantity
+        }
+
+        if (allReturned) {
+            closeRentalOrder(orderId)
+        }
     }
+
+    @Update
+    suspend fun updateRentedTool(rentedTool: RentedToolEntity)
+
+    @Query("UPDATE rental_orders SET isClosed = 1 WHERE orderId = :orderId")
+    suspend fun closeRentalOrder(orderId: Long)
+
 }
+

@@ -113,6 +113,9 @@
         <argument
             android:name="selectedItemsWrapper"
             app:argType="com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolListWrapper" />
+        <argument
+            android:name="orderId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/rentalDetailFragment"

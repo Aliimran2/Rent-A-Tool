@@ -12,7 +12,8 @@ data class ReturnToolsUiState(
 sealed class ReturnToolsUiEvent {
     data class ShowMessage(val message: String) : ReturnToolsUiEvent()
     data object ReturnCompleted : ReturnToolsUiEvent()
-    data class NavToReturnConfirm(val selectedReturns : ReturnToolListWrapper) : ReturnToolsUiEvent()
+    data class NavToReturnConfirm(val orderId: Long, val selectedReturns: ReturnToolListWrapper) :
+        ReturnToolsUiEvent()
 }
 
 @Parcelize

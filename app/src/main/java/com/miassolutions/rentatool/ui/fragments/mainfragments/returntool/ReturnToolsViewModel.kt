@@ -24,6 +24,13 @@ class ReturnToolsViewModel @Inject constructor(
     private val _event = MutableSharedFlow<ReturnToolsUiEvent>()
     val event = _event.asSharedFlow()
 
+    private var orderId = 0L
+
+    fun updateOrderId(id: Long) {
+        orderId = id
+    }
+
+
     fun loadRentedTools(orderId: Long) {
         viewModelScope.launch {
             val rentedWithReturns = repository.getRentedToolsWithReturns(orderId)
@@ -62,7 +69,12 @@ class ReturnToolsViewModel @Inject constructor(
         val selectedItems = getSelectedItems()
         viewModelScope.launch {
 
-            _event.emit(ReturnToolsUiEvent.NavToReturnConfirm(ReturnToolListWrapper(selectedItems)))
+            _event.emit(
+                ReturnToolsUiEvent.NavToReturnConfirm(
+                    orderId,
+                    ReturnToolListWrapper(selectedItems)
+                )
+            )
         }
     }
 

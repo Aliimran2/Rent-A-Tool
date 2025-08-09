@@ -36,6 +36,8 @@ class ReturnConfirmationFragment : Fragment(R.layout.fragment_return_confirmatio
 
         val adapter = ReturnConfirmationListAdapter()
 
+        Log.d(Constants.TAG, args.orderId.toString())
+
 
         binding.rvReturnTools.adapter = adapter
 

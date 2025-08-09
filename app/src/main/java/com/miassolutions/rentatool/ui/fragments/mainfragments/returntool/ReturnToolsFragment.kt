@@ -38,6 +38,7 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
         binding.rvToolsToReturn.adapter = adapter
 
         viewModel.loadRentedTools(args.orderId)
+        viewModel.updateOrderId(args.orderId)
 
         binding.btnConfirmReturn.setOnClickListener {
             viewModel.onReturnButtonClick()
@@ -64,7 +65,8 @@ class ReturnToolsFragment : Fragment(R.layout.fragment_return_tools) {
                         val returnToolsList = viewModel.getSelectedItems()
                         val action =
                             ReturnToolsFragmentDirections.actionReturnToolsFragmentToReturnConfirmationFragment(
-                                ReturnToolListWrapper(returnToolsList)
+                                ReturnToolListWrapper(returnToolsList),
+                                event.orderId
                             )
                         findNavController().navigate(action)
                     }

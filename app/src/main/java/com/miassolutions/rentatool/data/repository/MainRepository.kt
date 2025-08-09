@@ -116,42 +116,6 @@ class MainRepository @Inject constructor(
     }
 
 
-//    suspend fun returnTools(customerId: Long, tools: List<ReturnToolItem>) {
-//        rentalTransactionDao.runInTransaction {
-//            val now = java.time.LocalDate.now()
-//
-//            tools.forEach { item ->
-//                val rentedTool = rentedToolDao.getRentedToolByCustomerAndTool(customerId, item.toolId)
-//                    ?: throw IllegalStateException("No active rental found for tool ${item.toolId}")
-//
-//                // 1. Insert a return entry using rentedToolId
-//                returnedToolDao.insertReturnedTool(
-//                    ReturnedToolEntity(
-//                        rentedToolId = rentedTool.rentedToolId,
-//                        returnedQuantity = item.returnQuantity,
-//                        returnDate = now
-//                    )
-//                )
-//
-//                // 2. Update remaining quantity
-//                val newRemaining = (rentedTool.remainingQuantity - item.returnQuantity).coerceAtLeast(0)
-//                rentedToolDao.updateRentedTool(
-//                    rentedTool.copy(remainingQuantity = newRemaining)
-//                )
-//            }
-//
-//            // 3. Close rental orders if all tools returned
-//            val activeOrders = rentalOrderDao.getRentalOrdersByCustomer(customerId)
-//            activeOrders.forEach { order ->
-//                val remaining = rentedToolDao.countRemainingTools(order.rentalOrderId)
-//                if (remaining == 0) {
-//                    rentalOrderDao.updateRentalOrder(order.copy(isClosed = true))
-//                }
-//            }
-//        }
-//    }
-
-
     suspend fun performRentalTransaction(
         customerId: Long,
         estimatedReturnDate: LocalDate,
@@ -159,8 +123,8 @@ class MainRepository @Inject constructor(
     ) =
         rentalTransactionDao.performRentalTransaction(customerId, estimatedReturnDate, tools)
 
-    suspend fun performReturnTransaction(returns: List<ReturnedToolEntity>) =
-        rentalTransactionDao.performReturnTransaction(returns)
+    suspend fun performReturnTransaction(orderId: Long, returns: List<ReturnedToolEntity>) =
+        rentalTransactionDao.performReturnTransaction(orderId, returns)
 
     // ------------------- Rental Relations -------------------
 
