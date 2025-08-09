@@ -47,15 +47,25 @@ class ReturnToolsViewModel @Inject constructor(
     fun updateSelection(id: Long, isChecked: Boolean, qty: Int) {
         _uiState.update { state ->
             val updated = state.tools.map {
-                if (it.rentedToolId == id) it.copy(
-                    isSelected = isChecked,
-                    rentedQuantity = qty
-                ) else it
+                if (it.rentedToolId == id) {
+                    it.copy(
+                        isSelected = isChecked,
+                        returnQuantity = if (isChecked) qty else 0
+                    )
+                } else it
             }
             state.copy(tools = updated)
         }
-
     }
+
+    fun onReturnButtonClick() {
+        val selectedItems = getSelectedItems()
+        viewModelScope.launch {
+
+            _event.emit(ReturnToolsUiEvent.NavToReturnConfirm(ReturnToolListWrapper(selectedItems)))
+        }
+    }
+
 
     fun getSelectedItems(): List<ReturnToolItem> =
         _uiState.value.tools.filter { it.isSelected && it.returnQuantity > 0 }

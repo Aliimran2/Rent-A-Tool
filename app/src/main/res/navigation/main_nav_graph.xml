@@ -109,7 +109,11 @@
         android:id="@+id/returnConfirmationFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.mainfragments.confirmation.returnconfirmation.ReturnConfirmationFragment"
         android:label="ReturnConfirmationFragment"
-        tools:layout="@layout/fragment_return_confirmation" />
+        tools:layout="@layout/fragment_return_confirmation" >
+        <argument
+            android:name="selectedItemsWrapper"
+            app:argType="com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolListWrapper" />
+    </fragment>
     <fragment
         android:id="@+id/rentalDetailFragment"
         android:name="com.miassolutions.rentatool.ui.fragments.mainfragments.RentalDetailFragment"

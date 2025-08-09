@@ -6,32 +6,45 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
-        <!-- Tool Name -->
-        <TextView
-            android:id="@+id/tv_tool_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hammer"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@android:color/black" />
-
-        <!-- Rented & Remaining Info -->
+        <!-- First Row: Tool Name and Checkbox -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp">
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_tool_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hammer"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <CheckBox
+                android:id="@+id/cb_return_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Return"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <!-- Second Row: Rented and Remaining -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="6dp">
 
             <TextView
                 android:id="@+id/tv_rented_quantity"
@@ -50,7 +63,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Return Quantity Input -->
+        <!-- Third Row: Return Quantity -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_return_quantity"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -65,15 +78,5 @@
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Optional: Selection Checkbox -->
-        <CheckBox
-            android:id="@+id/cb_return_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Mark for return"
-            android:textSize="14sp" />
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
