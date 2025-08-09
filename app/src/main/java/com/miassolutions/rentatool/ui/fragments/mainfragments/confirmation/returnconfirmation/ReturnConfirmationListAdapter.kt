@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miassolutions.rentatool.databinding.ItemConfirmReturnBinding
 import com.miassolutions.rentatool.ui.fragments.mainfragments.returntool.ReturnToolItem
 
-class ConfirmReturnListAdapter :
-    ListAdapter<ReturnToolItem, ConfirmReturnListAdapter.ReturnViewHolder>(ReturnDiffUtil()) {
+class ReturnConfirmationListAdapter :
+    ListAdapter<ReturnToolItem, ReturnConfirmationListAdapter.ReturnViewHolder>(ReturnDiffUtil()) {
 
     class ReturnViewHolder(private val binding: ItemConfirmReturnBinding) :
         RecyclerView.ViewHolder(binding.root) {
